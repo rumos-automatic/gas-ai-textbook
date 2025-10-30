@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatGPTで関数を作ってみよう（カンタンレベル） | 実践ウォーミングアップ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ドットインジケーター */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot.active {
+      background-color: #3b82f6;
+      transform: scale(1.5);
+    }
+
+    .dot:hover {
+      background-color: #60a5fa;
+      transform: scale(1.3);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 2rem;
+      white-space: nowrap;
+      background-color: #1f2937;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    /* モバイルでドットインジケーターを非表示 */
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+
+    /* 画像拡大モーダル */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #imageModal.active {
+      display: flex;
+    }
+
+    #modalImage {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #ef4444;
+    }
+
+    /* 画像のホバーエフェクト */
+    .zoomable-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .zoomable-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* コードブロック */
+    .code-block {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="../index.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+        ← トップページへ戻る
+      </a>
+      <div class="flex gap-4">
+        <a href="warmup-section-01.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+          ← 前へ
+        </a>
+        <a href="warmup-section-03.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+          次へ →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot active" data-target="intro">
+      <span class="dot-label">このセクションで学ぶこと</span>
+    </div>
+    <div class="dot" data-target="how-to">
+      <span class="dot-label">ChatGPTで関数を作る流れ</span>
+    </div>
+    <div class="dot" data-target="work1">
+      <span class="dot-label">ワーク1：ステータス自動付与</span>
+    </div>
+    <div class="dot" data-target="work2">
+      <span class="dot-label">ワーク2：発送予定日の自動計算</span>
+    </div>
+    <div class="dot" data-target="summary">
+      <span class="dot-label">まとめ</span>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-12 text-center">
+      <div class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-2 rounded-full text-base md:text-lg font-bold mb-4">
+        実践ウォーミングアップ - セクション 2
+      </div>
+      <div class="inline-block bg-green-100 text-green-800 px-4 py-1 rounded-full text-sm font-bold mb-4">
+        🟢 カンタンレベル
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        ChatGPTで関数を作ってみよう
+      </h1>
+      <p class="text-lg md:text-xl text-gray-700">
+        ChatGPTに"目的"を伝えるだけで、関数を自動作成してくれます。<br>
+        「毎回手作業だったことが、関数で一瞬で終わる」を体験しましょう。
+      </p>
+    </header>
+
+    <!-- 小セクション1: このセクションで学ぶこと -->
+    <section id="intro" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📚</span>
+        このセクションで学ぶこと
+      </h2>
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          このセクションでは、ChatGPTを使って関数を作成する実践ワークに取り組みます。
+        </p>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">ChatGPTへの質問方法</p>
+              <p class="text-base text-gray-700">どのように質問すれば、適切な関数を作ってもらえるかを学びます</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">ステータスの自動付与</p>
+              <p class="text-base text-gray-700">条件に応じて自動的にステータスを表示する関数を作ります</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">日付の自動計算</p>
+              <p class="text-base text-gray-700">注文日から発送予定日を自動で計算する関数を作ります</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ChatGPTで関数を作る流れ -->
+    <section id="how-to" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">🔄</span>
+        ChatGPTで関数を作る流れ
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          ChatGPTを使って関数を作る基本的な流れは、とてもシンプルです。
+        </p>
+
+        <!-- ステップ1 -->
+        <div class="mb-8">
+          <div class="flex items-center mb-4">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900">やりたいことを具体的に伝える</h3>
+          </div>
+          <p class="text-lg md:text-xl leading-relaxed ml-16 mb-4">
+            ChatGPTに、「何をしたいか」を具体的に説明します。
+          </p>
+          <div class="ml-16 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+            <p class="text-base text-blue-900 font-semibold mb-2">例：</p>
+            <p class="text-base text-blue-800">
+              「H列の金額が0より大きいとき"入金済み"、それ以外は"未入金"と表示する関数を作って」
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div class="mb-8">
+          <div class="flex items-center mb-4">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900">ChatGPTが関数を提案してくれる</h3>
+          </div>
+          <p class="text-lg md:text-xl leading-relaxed ml-16 mb-4">
+            ChatGPTが、あなたの要望に合った関数を自動で作成してくれます。
+          </p>
+          <div class="ml-16 code-block">
+=IF(H2>0,"入金済み","未入金")
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div class="mb-8">
+          <div class="flex items-center mb-4">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900">スプレッドシートにコピー＆ペーストする</h3>
+          </div>
+          <p class="text-lg md:text-xl leading-relaxed ml-16 mb-4">
+            ChatGPTが提案した関数を、スプレッドシートのセルにコピー＆ペーストします。
+          </p>
+        </div>
+
+        <!-- ステップ4 -->
+        <div>
+          <div class="flex items-center mb-4">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900">動作を確認する</h3>
+          </div>
+          <p class="text-lg md:text-xl leading-relaxed ml-16">
+            関数が正しく動作するか確認します。うまく動かない場合は、ChatGPTに「うまく動きません」と伝えて、修正してもらいましょう。
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-green-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          ポイント
+        </p>
+        <ul class="space-y-2 ml-6">
+          <li class="text-base md:text-lg text-green-800">できるだけ具体的に、「どの列」の「どんなデータ」を使いたいか伝えましょう</li>
+          <li class="text-base md:text-lg text-green-800">うまくいかなくても大丈夫。何度でも質問し直せます</li>
+          <li class="text-base md:text-lg text-green-800">関数の意味が分からなければ、「この関数の意味を教えて」と聞いてみましょう</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション3: ワーク1 -->
+    <section id="work1" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">✏️</span>
+        ワーク1：ステータスの自動付与
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          📝 やりたいこと
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          注文管理シートで、<strong>金額が入力されているかどうかで、自動的に「入金済み」「未入金」を表示</strong>したいと思います。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          毎回手動で「入金済み」と入力するのは面倒ですよね。これを関数で自動化してみましょう。
+        </p>
+
+        <div class="bg-blue-50 rounded-lg p-6 mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-3">想定シーン</h4>
+          <ul class="space-y-2 ml-6">
+            <li class="text-base md:text-lg text-blue-800">H列に「金額」が入力されている</li>
+            <li class="text-base md:text-lg text-blue-800">金額が0より大きければ「入金済み」、それ以外は「未入金」と表示したい</li>
+            <li class="text-base md:text-lg text-blue-800">I列に自動でステータスを表示させたい</li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          💬 ChatGPTに質問してみよう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          以下のように、ChatGPTに質問してみましょう。
+        </p>
+        <div class="bg-gray-100 border-l-4 border-gray-600 p-6 rounded-r-lg mb-6">
+          <p class="text-base md:text-lg text-gray-900 font-semibold mb-2">ChatGPTへの質問例：</p>
+          <p class="text-base md:text-lg text-gray-800">
+            「H列の金額が0より大きいとき"入金済み"、それ以外は"未入金"と表示する関数を作って」
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          🤖 ChatGPTの回答例
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          ChatGPTは、以下のような関数を提案してくれるはずです。
+        </p>
+        <div class="code-block mb-4">
+=IF(H2>0,"入金済み","未入金")
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          この関数は、「もしH2セルの値が0より大きければ"入金済み"、そうでなければ"未入金"」という意味です。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          📋 スプレッドシートに貼り付けてみよう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この関数を、I2セル（ステータス列の最初の行）にコピー＆ペーストしてみましょう。
+          すると、自動的に「入金済み」または「未入金」が表示されます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          さらに、I2セルの右下をドラッグして下にコピーすると、
+          全ての行に同じ関数が適用され、一気にステータスが自動表示されます。
+        </p>
+
+        <!-- スクリーンショットプレースホルダー -->
+        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
+          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
+          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-status-function.png</p>
+          <p class="text-gray-500 text-sm mt-2">内容: ステータス自動付与の関数が動作している様子</p>
+        </div>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          ポイント
+        </p>
+        <p class="text-base md:text-lg text-yellow-800">
+          関数を使えば、このような「条件に応じた自動表示」が簡単に実現できます。
+          これまで手作業で入力していた時間が、一瞬で終わるようになります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション4: ワーク2 -->
+    <section id="work2" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">✏️</span>
+        ワーク2：発送予定日の自動計算
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          📝 やりたいこと
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          次は、<strong>注文日から3日後の日付を自動で計算</strong>してみましょう。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          発送予定日をいちいち手動で計算するのは大変ですよね。これも関数で自動化できます。
+        </p>
+
+        <div class="bg-blue-50 rounded-lg p-6 mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-3">想定シーン</h4>
+          <ul class="space-y-2 ml-6">
+            <li class="text-base md:text-lg text-blue-800">B列に「注文日」が入力されている</li>
+            <li class="text-base md:text-lg text-blue-800">注文日から3日後の日付を自動で計算したい</li>
+            <li class="text-base md:text-lg text-blue-800">C列に「発送予定日」を自動表示させたい</li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          💬 ChatGPTに質問してみよう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          以下のように、ChatGPTに質問してみましょう。
+        </p>
+        <div class="bg-gray-100 border-l-4 border-gray-600 p-6 rounded-r-lg mb-6">
+          <p class="text-base md:text-lg text-gray-900 font-semibold mb-2">ChatGPTへの質問例：</p>
+          <p class="text-base md:text-lg text-gray-800">
+            「B列の注文日から3日後の日付を自動表示したい」
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          🤖 ChatGPTの回答例
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          ChatGPTは、以下のような関数を提案してくれるはずです。
+        </p>
+        <div class="code-block mb-4">
+=B2+3
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          この関数は、「B2セルの日付に3を足す（＝3日後の日付）」という意味です。<br>
+          スプレッドシートでは、日付に数値を足すと、自動的に「〇日後」が計算されます。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          📋 スプレッドシートに貼り付けてみよう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この関数を、C2セル（発送予定日列の最初の行）にコピー＆ペーストしてみましょう。
+          すると、自動的に注文日から3日後の日付が表示されます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          先ほどと同じように、C2セルの右下をドラッグして下にコピーすると、
+          全ての行に発送予定日が自動計算されます。
+        </p>
+
+        <!-- スクリーンショットプレースホルダー -->
+        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
+          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
+          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-date-calculation.png</p>
+          <p class="text-gray-500 text-sm mt-2">内容: 発送予定日が自動計算されている様子</p>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-green-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">🎉</span>
+          おめでとうございます！
+        </p>
+        <p class="text-base md:text-lg text-green-800">
+          これで、ChatGPTを使って2つの実用的な関数を作成できました。
+          「手作業で毎回やっていたこと」が、一瞬で自動化できることを実感できたのではないでしょうか？
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション5: まとめ -->
+    <section id="summary" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📝</span>
+        このセクションのまとめ
+      </h2>
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          皆さん、ChatGPTで関数を作成できましたでしょうか？
+        </p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">ChatGPTに具体的に伝えれば、関数を自動作成してくれる</p>
+              <p class="text-base text-gray-700">「どの列」の「どんなデータ」を使いたいか、明確に伝えましょう</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">関数を使えば、条件に応じた自動表示ができる</p>
+              <p class="text-base text-gray-700">ステータス自動付与など、手作業を大幅に削減できます</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">日付の計算も関数で簡単にできる</p>
+              <p class="text-base text-gray-700">発送予定日など、日付関連の自動化も可能です</p>
+            </div>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl leading-relaxed">
+          次のセクションでは、もう少し複雑な「条件付き集計」や「データ抽出」に挑戦してみましょう。
+          関数の可能性がさらに広がっていきますよ。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへのリンク -->
+    <div class="text-center mt-12">
+      <a href="warmup-section-03.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-lg md:text-xl py-4 px-10 rounded-lg transition shadow-lg hover:shadow-xl">
+        次のセクションへ進む →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="close-modal">&times;</span>
+    <img id="modalImage" src="" alt="拡大表示">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    // ドットインジケーター
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    // スクロール時にアクティブなドットを更新
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === current) {
+          dot.classList.add('active');
+        }
+      });
+    });
+
+    // ドットクリックでスムーススクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetId = dot.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 画像クリックでモーダル表示
+    document.querySelectorAll('.zoomable-image').forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImage.src = img.src;
+      });
+    });
+
+    // モーダルを閉じる
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>関数とGASの違いを理解する | 実践ウォーミングアップ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ドットインジケーター */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot.active {
+      background-color: #3b82f6;
+      transform: scale(1.5);
+    }
+
+    .dot:hover {
+      background-color: #60a5fa;
+      transform: scale(1.3);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 2rem;
+      white-space: nowrap;
+      background-color: #1f2937;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    /* モバイルでドットインジケーターを非表示 */
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+
+    /* 画像拡大モーダル */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #imageModal.active {
+      display: flex;
+    }
+
+    #modalImage {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #ef4444;
+    }
+
+    /* 画像のホバーエフェクト */
+    .zoomable-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .zoomable-image:hover {
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="../index.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+        ← トップページへ戻る
+      </a>
+      <div class="flex gap-4">
+        <span class="text-base md:text-lg text-gray-400">← 前へ</span>
+        <a href="warmup-section-02.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+          次へ →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot active" data-target="intro">
+      <span class="dot-label">このセクションで学ぶこと</span>
+    </div>
+    <div class="dot" data-target="what-is-function">
+      <span class="dot-label">関数とは？</span>
+    </div>
+    <div class="dot" data-target="difference">
+      <span class="dot-label">関数とGASの違い</span>
+    </div>
+    <div class="dot" data-target="summary">
+      <span class="dot-label">まとめ</span>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-12 text-center">
+      <div class="inline-block bg-gradient-to-r from-orange-400 to-red-500 text-white px-6 py-2 rounded-full text-base md:text-lg font-bold mb-4">
+        実践ウォーミングアップ - セクション 1
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        関数とGASの違いを理解する
+      </h1>
+      <p class="text-lg md:text-xl text-gray-700">
+        GASを学ぶ前に、まずはスプレッドシートの「関数」について理解を深めましょう。
+      </p>
+    </header>
+
+    <!-- 小セクション1: このセクションで学ぶこと -->
+    <section id="intro" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📚</span>
+        このセクションで学ぶこと
+      </h2>
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          このセクションでは、実践に入る前の基礎知識として、「関数」と「GAS」の違いを理解します。
+        </p>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">関数とは何か</p>
+              <p class="text-base text-gray-700">スプレッドシートでできる「ミニ自動化」の仕組みを学びます</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">関数とGASの違い</p>
+              <p class="text-base text-gray-700">それぞれの得意なこと、動く範囲の違いを理解します</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">どちらを使うべきか</p>
+              <p class="text-base text-gray-700">場面に応じた適切なツールの選び方を学びます</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 関数とは？ -->
+    <section id="what-is-function" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">🔢</span>
+        関数とは？
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          スプレッドシートの中でできる「ミニ自動化」
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          関数とは、<strong>スプレッドシートのセルの中で動く、小さな自動化プログラム</strong>です。
+          皆さんも「=SUM(A1:A10)」のような関数を使ったことがあるかもしれませんね。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          関数を使うと、以下のような作業を自動化できます：
+        </p>
+        <ul class="space-y-3 ml-6">
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📊</span>
+            <span><strong>計算する</strong>：合計、平均、割合などを自動で計算</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">🔍</span>
+            <span><strong>データを探す</strong>：特定の条件に合うデータを見つける</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">✨</span>
+            <span><strong>データを整える</strong>：文字列の結合、日付の変換など</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mb-8">
+        <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          関数の特徴
+        </p>
+        <ul class="space-y-2 ml-6">
+          <li class="text-base md:text-lg text-blue-800">セルに「=」で始まる式を書くだけで使える</li>
+          <li class="text-base md:text-lg text-blue-800">プログラミング知識がなくても使える</li>
+          <li class="text-base md:text-lg text-blue-800">単純な作業なら、すぐに自動化できる</li>
+        </ul>
+      </div>
+
+      <!-- スクリーンショットプレースホルダー -->
+      <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
+        <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
+        <p class="text-gray-500 text-base">ファイル名: screenshot-spreadsheet-function-example.png</p>
+        <p class="text-gray-500 text-sm mt-2">内容: スプレッドシートで関数を使っている例（SUM関数など）</p>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 関数とGASの違い -->
+    <section id="difference" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">⚡</span>
+        関数とGASの違い
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          「関数」と「GAS（Google Apps Script）」は、どちらも自動化ツールですが、
+          <strong>できる範囲と動く仕組みが大きく異なります</strong>。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          それぞれの違いを見ていきましょう。
+        </p>
+
+        <!-- 違い1: 動く範囲の違い -->
+        <div class="mb-10">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">1</span>
+            動く範囲の違い
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- 関数 -->
+            <div class="bg-blue-50 rounded-lg p-6 border-2 border-blue-200">
+              <p class="text-xl font-bold text-blue-900 mb-3">📊 関数</p>
+              <p class="text-lg text-blue-800 mb-3"><strong>「セルの中」で動く</strong></p>
+              <p class="text-base text-gray-700">
+                関数は、書かれたセルの中でのみ動作します。
+                他のセルのデータを参照することはできますが、
+                基本的には「そのセル内で完結する処理」です。
+              </p>
+            </div>
+            <!-- GAS -->
+            <div class="bg-green-50 rounded-lg p-6 border-2 border-green-200">
+              <p class="text-xl font-bold text-green-900 mb-3">⚙️ GAS</p>
+              <p class="text-lg text-green-800 mb-3"><strong>「Google全体」で動く</strong></p>
+              <p class="text-base text-gray-700">
+                GASは、スプレッドシートだけでなく、Gmail、Googleドライブ、
+                Googleカレンダーなど、Google全体のサービスを横断して操作できます。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 違い2: 自動化の深さの違い -->
+        <div class="mb-10">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">2</span>
+            自動化の深さの違い
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- 関数 -->
+            <div class="bg-blue-50 rounded-lg p-6 border-2 border-blue-200">
+              <p class="text-xl font-bold text-blue-900 mb-3">📊 関数</p>
+              <p class="text-lg text-blue-800 mb-3"><strong>「1セル」の処理</strong></p>
+              <p class="text-base text-gray-700">
+                関数は、基本的に「1つのセル」で1つの処理を行います。
+                複数のセルに同じ関数をコピーすることはできますが、
+                「複数の工程を順番に実行する」ことは難しいです。
+              </p>
+            </div>
+            <!-- GAS -->
+            <div class="bg-green-50 rounded-lg p-6 border-2 border-green-200">
+              <p class="text-xl font-bold text-green-900 mb-3">⚙️ GAS</p>
+              <p class="text-lg text-green-800 mb-3"><strong>「複数の工程」を連続実行</strong></p>
+              <p class="text-base text-gray-700">
+                GASは、「①データを取得 → ②加工する → ③メールを送る」のように、
+                複数の処理を順番に実行できます。
+                まるで「自分の代わりに作業をしてくれるロボット」のようなものです。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 違い3: 作り方の違い -->
+        <div class="mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+            <span class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">3</span>
+            作り方の違い
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- 関数 -->
+            <div class="bg-blue-50 rounded-lg p-6 border-2 border-blue-200">
+              <p class="text-xl font-bold text-blue-900 mb-3">📊 関数</p>
+              <p class="text-lg text-blue-800 mb-3"><strong>「セルに直接書く」</strong></p>
+              <p class="text-base text-gray-700">
+                関数は、セルに「=SUM(A1:A10)」のように直接書き込みます。
+                非常にシンプルで、すぐに使い始められます。
+              </p>
+            </div>
+            <!-- GAS -->
+            <div class="bg-green-50 rounded-lg p-6 border-2 border-green-200">
+              <p class="text-xl font-bold text-green-900 mb-3">⚙️ GAS</p>
+              <p class="text-lg text-green-800 mb-3"><strong>「コードで指示する」</strong></p>
+              <p class="text-base text-gray-700">
+                GASは、専用のエディタで「スクリプト（プログラム）」を書いて動かします。
+                プログラミング言語（JavaScript）を使いますが、
+                生成AIがサポートしてくれるので安心です。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 比較表 -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+          📋 関数とGASの比較まとめ
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-semibold">比較項目</th>
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-semibold bg-blue-50">📊 関数</th>
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-semibold bg-green-50">⚙️ GAS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-base font-semibold">動く範囲</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-blue-50">セルの中</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-green-50">Google全体</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-base font-semibold">自動化の深さ</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-blue-50">1セルの処理</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-green-50">複数の工程を連続実行</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-base font-semibold">作り方</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-blue-50">セルに直接書く</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-green-50">コードで指示する</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-base font-semibold">難易度</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-blue-50">簡単</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-green-50">中級（生成AIでサポート）</td>
+              </tr>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-base font-semibold">得意なこと</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-blue-50">簡単な計算・データ抽出</td>
+                <td class="border border-gray-300 px-4 py-3 text-base bg-green-50">複雑な自動化・外部連携</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          どちらを使うべき？
+        </p>
+        <p class="text-base md:text-lg text-yellow-800 mb-3">
+          <strong>簡単な作業なら「関数」、複雑な作業なら「GAS」</strong>という使い分けがおすすめです。
+        </p>
+        <ul class="space-y-2 ml-6">
+          <li class="text-base md:text-lg text-yellow-800">関数で解決できることは、まず関数を試してみましょう</li>
+          <li class="text-base md:text-lg text-yellow-800">関数では難しいと感じたら、GASに切り替える</li>
+          <li class="text-base md:text-lg text-yellow-800">このウォーミングアップで、関数の実力を体験してみましょう</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション4: まとめ -->
+    <section id="summary" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📝</span>
+        このセクションのまとめ
+      </h2>
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          皆さん、関数とGASの違いについて理解できましたでしょうか？
+        </p>
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">関数は「セルの中」で動くミニ自動化</p>
+              <p class="text-base text-gray-700">簡単な計算やデータ抽出に向いています</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">GASは「Google全体」で動く本格的な自動化ツール</p>
+              <p class="text-base text-gray-700">複数の工程を連続実行できる強力なツールです</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-1">まずは関数を試し、難しければGASへ</p>
+              <p class="text-base text-gray-700">状況に応じて使い分けることが大切です</p>
+            </div>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl leading-relaxed">
+          次のセクションでは、実際にChatGPTを使って関数を作成してみましょう。
+          「ちょっとした自動化なら関数で十分」ということを体験してみてくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへのリンク -->
+    <div class="text-center mt-12">
+      <a href="warmup-section-02.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-lg md:text-xl py-4 px-10 rounded-lg transition shadow-lg hover:shadow-xl">
+        次のセクションへ進む →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="close-modal">&times;</span>
+    <img id="modalImage" src="" alt="拡大表示">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    // ドットインジケーター
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    // スクロール時にアクティブなドットを更新
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === current) {
+          dot.classList.add('active');
+        }
+      });
+    });
+
+    // ドットクリックでスムーススクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetId = dot.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 画像クリックでモーダル表示
+    document.querySelectorAll('.zoomable-image').forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImage.src = img.src;
+      });
+    });
+
+    // モーダルを閉じる
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

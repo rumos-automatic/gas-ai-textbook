@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>複数シート連携（応用レベル） | 実践ウォーミングアップ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ドットインジケーター */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot.active {
+      background-color: #3b82f6;
+      transform: scale(1.5);
+    }
+
+    .dot:hover {
+      background-color: #60a5fa;
+      transform: scale(1.3);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 2rem;
+      white-space: nowrap;
+      background-color: #1f2937;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    /* モバイルでドットインジケーターを非表示 */
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+
+    /* 画像拡大モーダル */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #imageModal.active {
+      display: flex;
+    }
+
+    #modalImage {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 3rem;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #ef4444;
+    }
+
+    /* 画像のホバーエフェクト */
+    .zoomable-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .zoomable-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* コードブロック */
+    .code-block {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <a href="../index.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+        ← トップページへ戻る
+      </a>
+      <div class="flex gap-4">
+        <a href="warmup-section-03.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+          ← 前へ
+        </a>
+        <a href="practice-01-intro.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+          実践編①へ →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot active" data-target="intro">
+      <span class="dot-label">このセクションで学ぶこと</span>
+    </div>
+    <div class="dot" data-target="what-is">
+      <span class="dot-label">複数シート連携とは？</span>
+    </div>
+    <div class="dot" data-target="work">
+      <span class="dot-label">ワーク：別シートへの自動反映</span>
+    </div>
+    <div class="dot" data-target="advanced">
+      <span class="dot-label">応用：別スプシからのデータ取得</span>
+    </div>
+    <div class="dot" data-target="summary">
+      <span class="dot-label">まとめ</span>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-12 text-center">
+      <div class="inline-block bg-gradient-to-r from-red-400 to-pink-500 text-white px-6 py-2 rounded-full text-base md:text-lg font-bold mb-4">
+        実践ウォーミングアップ - セクション 4
+      </div>
+      <div class="inline-block bg-red-100 text-red-800 px-4 py-1 rounded-full text-sm font-bold mb-4">
+        🔴 応用レベル
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        複数シート連携
+      </h1>
+      <p class="text-lg md:text-xl text-gray-700">
+        別のシートやスプレッドシートからデータを自動で取得・反映させる方法を学びましょう。
+      </p>
+    </header>
+
+    <!-- 小セクション1: このセクションで学ぶこと -->
+    <section id="intro" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📚</span>
+        このセクションで学ぶこと
+      </h2>
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          このセクションでは、複数のシートやスプレッドシートを連携させる方法を学びます。
+        </p>
+        <ul class="space-y-4">
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">複数シート連携の基本</p>
+              <p class="text-base text-gray-700">別のシートからデータを参照・集計する方法を学びます</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">別シートへの自動反映</p>
+              <p class="text-base text-gray-700">注文管理シートのデータを月次売上シートに自動反映させます</p>
+            </div>
+          </li>
+          <li class="flex items-start">
+            <span class="text-2xl mr-3">✅</span>
+            <div>
+              <p class="text-lg md:text-xl font-semibold mb-2">別スプレッドシートからのデータ取得</p>
+              <p class="text-base text-gray-700">完全に別のファイルからデータを取得する方法を学びます</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 複数シート連携とは？ -->
+    <section id="what-is" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">🔗</span>
+        複数シート連携とは？
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          <strong>複数シート連携</strong>とは、あるシートのデータを別のシートに自動で取得・反映させることです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          例えば、「注文管理」シートで日々の売上データを入力し、
+          「月次売上」シートには自動的に月ごとの合計が表示される、といった使い方ができます。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          なぜ複数シート連携が必要？
+        </h3>
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-blue-50 rounded-lg p-6 border-2 border-blue-200">
+            <p class="text-lg font-bold text-blue-900 mb-3">📊 データの一元管理</p>
+            <p class="text-base text-blue-800">
+              データは1か所で入力し、複数のシートで自動集計・表示できます。
+              二重入力の手間がなくなり、入力ミスも防げます。
+            </p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-6 border-2 border-green-200">
+            <p class="text-lg font-bold text-green-900 mb-3">📈 レポート作成の効率化</p>
+            <p class="text-base text-green-800">
+              元データを更新すると、関連するレポートシートも自動で更新されます。
+              手作業でコピー&ペーストする必要がありません。
+            </p>
+          </div>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          実務でよくあるシーン
+        </h3>
+        <ul class="space-y-3 ml-6">
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>注文管理シート → 月次売上レポートシート</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>在庫管理シート → 発注必要商品リストシート</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>勤怠データシート → 給与計算シート</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>アンケート回答シート → 集計・分析シート</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          複数シート連携で使う代表的な関数
+        </p>
+        <ul class="space-y-2 ml-6">
+          <li class="text-base md:text-lg text-blue-800"><strong>SUMIF / SUMIFS</strong>：別シートの条件に合うデータを合計</li>
+          <li class="text-base md:text-lg text-blue-800"><strong>IMPORTRANGE</strong>：別のスプレッドシートからデータを取得</li>
+          <li class="text-base md:text-lg text-blue-800"><strong>QUERY</strong>：別シートからSQL風にデータを抽出・集計</li>
+        </ul>
+        <p class="text-base md:text-lg text-blue-800 mt-4">
+          これらの関数名を覚える必要はありません。ChatGPTに目的を伝えれば、適切な関数を提案してくれます。
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション3: ワーク -->
+    <section id="work" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">✏️</span>
+        ワーク：別シートへの自動反映
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          📝 やりたいこと
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          <strong>注文管理シートで入力された当日の売上が、「月ごとの売上管理」シートに自動で反映される</strong>ようにしてみましょう。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          毎日の売上を注文管理シートに入力するだけで、月次レポートシートが自動更新される仕組みを作ります。
+        </p>
+
+        <div class="bg-blue-50 rounded-lg p-6 mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-3">想定シーン</h4>
+          <ul class="space-y-2 ml-6">
+            <li class="text-base md:text-lg text-blue-800">「注文管理」シートに日々の売上データが入力されている</li>
+            <li class="text-base md:text-lg text-blue-800">「月次売上」シートには、月ごとの合計を自動表示したい</li>
+            <li class="text-base md:text-lg text-blue-800">注文管理シートのデータが更新されたら、月次売上シートも自動更新される</li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          💬 ChatGPTに質問してみよう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          以下のように、ChatGPTに質問してみましょう。
+        </p>
+        <div class="bg-gray-100 border-l-4 border-gray-600 p-6 rounded-r-lg mb-6">
+          <p class="text-base md:text-lg text-gray-900 font-semibold mb-2">ChatGPTへの質問例：</p>
+          <p class="text-base md:text-lg text-gray-800">
+            「注文管理シートで入力された当日の売上が、"月ごとの売上管理"シートに自動で反映される関数を作って」
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          🤖 ChatGPTの回答例
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          ChatGPTは、状況に応じていくつかの方法を提案してくれるはずです。ここでは代表的な方法を紹介します。
+        </p>
+
+        <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">方法1：SUMIF関数で月ごとに集計</h4>
+        <p class="text-base text-gray-700 mb-4">
+          注文管理シートのB列に「注文日」、H列に「金額」があるとします。<br>
+          月次売上シートで、特定の月（例：2025年1月）の合計を出す場合：
+        </p>
+        <div class="code-block mb-4">
+=SUMIFS(注文管理!H:H, 注文管理!B:B, ">=2025/1/1", 注文管理!B:B, "<2025/2/1")
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          この関数は、「注文管理シートのB列（注文日）が2025年1月1日以降、かつ2025年2月1日未満の行のH列（金額）を合計する」という意味です。
+        </p>
+
+        <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">方法2：QUERY関数で柔軟に集計</h4>
+        <p class="text-base text-gray-700 mb-4">
+          より柔軟に集計したい場合は、QUERY関数を使うこともできます：
+        </p>
+        <div class="code-block mb-4">
+=QUERY(注文管理!A:H, "SELECT MONTH(B), SUM(H) WHERE B >= date '2025-1-1' GROUP BY MONTH(B)")
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          この関数は、「注文管理シートから月ごとの売上合計を自動で集計する」という意味です。<br>
+          複雑に見えますが、ChatGPTが状況に応じて最適な関数を提案してくれるので、安心してください。
+        </p>
+
+        <!-- スクリーンショットプレースホルダー -->
+        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
+          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
+          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-multi-sheet.png</p>
+          <p class="text-gray-500 text-sm mt-2">内容: 注文管理シートから月次売上シートへデータが自動反映されている様子</p>
+        </div>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">💡</span>
+          ポイント
+        </p>
+        <ul class="space-y-2 ml-6">
+          <li class="text-base md:text-lg text-yellow-800">別シートを参照する場合は、「シート名!セル範囲」という形式で指定します</li>
+          <li class="text-base md:text-lg text-yellow-800">例：「注文管理!H:H」は、「注文管理シートのH列全体」を意味します</li>
+          <li class="text-base md:text-lg text-yellow-800">複雑そうに見えても、ChatGPTが丁寧に解説してくれるので安心です</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 小セクション4: 応用 -->
+    <section id="advanced" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">🚀</span>
+        さらに応用：別スプレッドシートからのデータ取得
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          同じスプレッドシート内の別シートだけでなく、<strong>完全に別のスプレッドシートファイルからデータを取得</strong>することもできます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          これを使えば、複数の人が管理している別々のスプレッドシートを1つにまとめることができます。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          IMPORTRANGE関数の使い方
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed mb-4">
+          別のスプレッドシートからデータを取得する場合は、<strong>IMPORTRANGE関数</strong>を使います。
+        </p>
+        <div class="code-block mb-4">
+=IMPORTRANGE("スプレッドシートのURL", "シート名!セル範囲")
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          例えば、以下のように使います：
+        </p>
+        <div class="code-block mb-6">
+=IMPORTRANGE("https://docs.google.com/spreadsheets/d/abc123...", "注文管理!A:H")
+        </div>
+        <p class="text-base text-gray-700 mb-6">
+          初回実行時には、「アクセス許可が必要」というメッセージが表示されるので、「アクセスを許可」をクリックしてください。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          実務での活用例
+        </h3>
+        <ul class="space-y-3 ml-6">
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>複数の支店の売上データを本部で一元管理</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>複数のプロジェクトの進捗を統合レポートにまとめる</span>
+          </li>
+          <li class="text-lg md:text-xl flex items-start">
+            <span class="mr-3">📌</span>
+            <span>外部パートナーが管理するデータを自動取得</span>
+          </li>
+        </ul>
+
+        <!-- スクリーンショットプレースホルダー -->
+        <div class="bg-gray-200 rounded-lg p-12 text-center mt-8">
+          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
+          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-importrange.png</p>
+          <p class="text-gray-500 text-sm mt-2">内容: IMPORTRANGE関数で別スプレッドシートからデータを取得している様子</p>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl font-semibold text-green-900 mb-3 flex items-center">
+          <span class="text-2xl mr-3">🎉</span>
+          おめでとうございます！
+        </p>
+        <p class="text-base md:text-lg text-green-800">
+          これで、複数シート連携の基本をマスターしました。
+          関数だけでも、かなり高度な自動化ができることを実感できたのではないでしょうか？
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション5: まとめ -->
+    <section id="summary" class="mb-16 scroll-mt-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 flex items-center">
+        <span class="text-4xl mr-3">📝</span>
+        実践ウォーミングアップ 全体まとめ
+      </h2>
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          お疲れ様でした！実践ウォーミングアップの全4セクションを完了しましたね。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          ここまで学んできた内容を振り返ってみましょう。
+        </p>
+
+        <div class="space-y-6 mb-8">
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center">
+              <span class="bg-gradient-to-r from-orange-400 to-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 text-lg flex-shrink-0">1</span>
+              関数とGASの違い
+            </h3>
+            <p class="text-base text-gray-700 ml-13">
+              関数は「セルの中」で動くミニ自動化、GASは「Google全体」で動く本格的な自動化ツール
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center">
+              <span class="bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 text-lg flex-shrink-0">2</span>
+              ChatGPTで関数を作成（カンタンレベル）
+            </h3>
+            <p class="text-base text-gray-700 ml-13">
+              ステータス自動付与、発送予定日の自動計算など、簡単な自動化を体験
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center">
+              <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 text-lg flex-shrink-0">3</span>
+              条件付き集計（普通レベル）
+            </h3>
+            <p class="text-base text-gray-700 ml-13">
+              SUMIF関数で「〇〇だけ」の合計を出すなど、実務で役立つ集計を習得
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 flex items-center">
+              <span class="bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center mr-3 text-lg flex-shrink-0">4</span>
+              複数シート連携（応用レベル）
+            </h3>
+            <p class="text-base text-gray-700 ml-13">
+              別シートや別スプレッドシートからデータを自動取得する高度な技術を学習
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-blue-100 rounded-lg p-6 mb-8">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3 flex items-center">
+            <span class="text-2xl mr-3">✨</span>
+            ここまでで実感できたこと
+          </p>
+          <ul class="space-y-2 ml-6">
+            <li class="text-base md:text-lg text-blue-800">ChatGPTに目的を伝えるだけで、関数を自動作成してくれる</li>
+            <li class="text-base md:text-lg text-blue-800">関数だけでも、かなり高度な自動化ができる</li>
+            <li class="text-base md:text-lg text-blue-800">手作業でやっていた時間が、一瞬で終わる</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg p-6">
+          <p class="text-lg md:text-xl font-semibold text-purple-900 mb-3 flex items-center">
+            <span class="text-2xl mr-3">🚀</span>
+            次のステップ：GASでさらに強力な自動化へ
+          </p>
+          <p class="text-base md:text-lg text-purple-800 mb-4">
+            ここまで学んだ関数でも十分便利ですが、
+            <strong>「もっと複雑な自動化がしたい」「Google全体を連携させたい」</strong>と思ったら、
+            それがGASの出番です。
+          </p>
+          <p class="text-base md:text-lg text-purple-800">
+            次の実践編では、実際にGASを使って、Gmail、Googleドライブ、Googleフォームなどを連携させた
+            本格的な自動化ツールを作っていきます。楽しみにしていてくださいね。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のセクションへのリンク -->
+    <div class="text-center mt-12">
+      <a href="practice-01-intro.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-lg md:text-xl py-4 px-10 rounded-lg transition shadow-lg hover:shadow-xl">
+        実践編①へ進む →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="close-modal">&times;</span>
+    <img id="modalImage" src="" alt="拡大表示">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    // ドットインジケーター
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    // スクロール時にアクティブなドットを更新
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === current) {
+          dot.classList.add('active');
+        }
+      });
+    });
+
+    // ドットクリックでスムーススクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetId = dot.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 画像クリックでモーダル表示
+    document.querySelectorAll('.zoomable-image').forEach(img => {
+      img.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalImage.src = img.src;
+      });
+    });
+
+    // モーダルを閉じる
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

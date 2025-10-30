@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生成AI×GAS 短期講座 | トップページ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* カードホバーエフェクト */
+    .section-card {
+      transition: all 0.3s ease;
+    }
+
+    .section-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 番号バッジ */
+    .number-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .number-badge {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+    }
+
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+
+  <!-- ヘッダー -->
+  <header class="bg-white shadow-md py-8 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        生成AI×GAS 短期講座
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        初心者から始める、生成AIとGoogle Apps Scriptの実践講座
+      </p>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-6xl mx-auto px-6 py-12">
+
+    <!-- ロードマップセクション -->
+    <section class="mb-16 text-center">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          📍 学習ロードマップ
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          この講座の全体像と学習の流れを確認しましょう。
+        </p>
+        <a href="roadmap.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-lg md:text-xl py-4 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
+          ロードマップを見る
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ1: 生成AI紹介 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🤖</span>
+        生成AI紹介
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        生成AIの基本概念から実践的な使い方まで、初心者でも分かりやすく学べます。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- セクション1 -->
+        <a href="生成AI/section-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                生成AIとは？
+              </h3>
+              <p class="text-base text-gray-600">
+                生成AIの基本概念、仕組み、得意なことを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション2 -->
+        <a href="生成AI/section-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTでできること
+              </h3>
+              <p class="text-base text-gray-600">
+                12種類の実用的な作業例を確認します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション3 -->
+        <a href="生成AI/section-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTにやらせてはいけないこと
+              </h3>
+              <p class="text-base text-gray-600">
+                注意すべき使い方と回避方法を理解します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="生成AI/section-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTの始め方
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTのアカウント作成から基本的な操作方法まで、ステップバイステップで学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="生成AI/section-05.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                AIにうまく指示する4つのコツ
+              </h3>
+              <p class="text-base text-gray-600">
+                より良い回答を引き出すためのプロンプトテクニックを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ6 -->
+        <a href="生成AI/section-06.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white">
+              6
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTの便利機能
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTをさらに効率的に使うための便利機能を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ2: GAS紹介 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">⚙️</span>
+        GAS紹介
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        Google Apps Scriptの基礎から実践まで、ツール開発に必要な知識を習得します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- ステップ1 -->
+        <a href="GAS/section-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASとは？
+              </h3>
+              <p class="text-base text-gray-600">
+                Google Apps Script（GAS）とは何か、どんなことができるのかを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="GAS/section-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASの始め方
+              </h3>
+              <p class="text-base text-gray-600">
+                GASを使うために必要な準備と、実際の始め方を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="GAS/section-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASでできること
+              </h3>
+              <p class="text-base text-gray-600">
+                GASが得意な連携先と、実際にどんなことができるのかを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="GAS/section-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASの得意なこと／苦手なこと
+              </h3>
+              <p class="text-base text-gray-600">
+                GASが得意なことと苦手なことを理解し、効果的に活用しましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="GAS/section-05.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASの知っておくべき制限
+              </h3>
+              <p class="text-base text-gray-600">
+                GASを使う上で知っておくべき制限事項を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ6 -->
+        <a href="GAS/section-06.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              6
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASが動くまでの流れ
+              </h3>
+              <p class="text-base text-gray-600">
+                GASがどこにあり、どのように動作するのかをイメージできるようにしましょう
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ3: 基本的な考え方 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">💡</span>
+        基本的な考え方
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        AIツールを作る前に知っておくべき、効果的なAI活用の心構えとテクニックを学びます。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- セクション1: 棚卸作業 -->
+        <a href="基本的な考え方/section-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                棚卸作業
+              </h3>
+              <p class="text-base text-gray-600">
+                現状の作業を具体的に書き出す方法を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション2: ツールは1発で完成しない -->
+        <a href="基本的な考え方/section-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ツールは1発で完成しない
+              </h3>
+              <p class="text-base text-gray-600">
+                トライ&エラーを繰り返す開発フローを理解します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション3: 修正依頼は「1回に1個」 -->
+        <a href="基本的な考え方/section-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                修正依頼は「1回に1個」
+              </h3>
+              <p class="text-base text-gray-600">
+                AIとの効果的なコミュニケーション方法を習得します
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ4: 実践ウォーミングアップ -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🔧</span>
+        実践ウォーミングアップ
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        GASに入る前に、スプレッドシート関数を使った自動化を体験します。ChatGPTを使えば、関数も簡単に作れることを実感しましょう。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- セクション1 -->
+        <a href="実践編/warmup-section-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-500 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                関数とGASの違いを理解する
+              </h3>
+              <p class="text-base text-gray-600">
+                関数とGASの違い、それぞれの得意なことを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション2 -->
+        <a href="実践編/warmup-section-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTで関数を作ってみよう
+              </h3>
+              <p class="text-base text-gray-600">
+                🟢 カンタンレベル：ステータス自動付与、発送予定日の自動計算
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション3 -->
+        <a href="実践編/warmup-section-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-orange-500 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                条件付き集計と自動抽出
+              </h3>
+              <p class="text-base text-gray-600">
+                🟡 普通レベル：「〇〇だけ」の合計を出すなど、実務で役立つ集計
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション4 -->
+        <a href="実践編/warmup-section-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-pink-500 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                複数シート連携
+              </h3>
+              <p class="text-base text-gray-600">
+                🔴 応用レベル：別シートや別スプレッドシートとの自動連携
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ5: 実践編① メール内容をスプシに自動転記 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編① メール内容をスプシに自動転記
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- イントロダクション -->
+        <a href="実践編/practice-01-intro.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              📘
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ1 -->
+        <a href="実践編/practice-01-step1.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                作業の棚卸
+              </h3>
+              <p class="text-base text-gray-600">
+                まず、現在の作業を具体的に書き出しましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-01-step2.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTにプロンプトを送る
+              </h3>
+              <p class="text-base text-gray-600">
+                作業の棚卸ができたら、ChatGPTにツール作成を依頼しましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-01-step3.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                コードをGASエディタに貼り付け
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTが生成したコードを、GASエディタに貼り付けましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-01-step4.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                初回承認
+              </h3>
+              <p class="text-base text-gray-600">
+                GASを初めて実行する際は、Googleアカウントへの承認が必要です
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="実践編/practice-01-step5.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                動作確認
+              </h3>
+              <p class="text-base text-gray-600">
+                承認が完了したら、実際にツールが正しく動作するか確認しましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ6 -->
+        <a href="実践編/practice-01-step6.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              6
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                トリガー設定で自動実行
+              </h3>
+              <p class="text-base text-gray-600">
+                ツールが正しく動作することを確認したら、最後にトリガー設定を行いましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- まとめ -->
+        <a href="実践編/practice-01-summary.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white">
+              ✅
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                まとめ
+              </h3>
+              <p class="text-base text-gray-600">
+                おめでとうございます！実践編①のすべてのステップを完了しました
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ5: 実践編② CSVファイルをスプシに自動転記 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編② CSVファイルをスプシに自動転記
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        Googleドライブ内のCSVファイルをスプレッドシートに自動転記するツールを作成します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- イントロダクション -->
+        <a href="実践編/practice-02-section-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              📘
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                Googleドライブのファイルを自動的にスプレッドシートに取り込むツールを作成します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ1 -->
+        <a href="実践編/practice-02-section-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                作業の棚卸
+              </h3>
+              <p class="text-base text-gray-600">
+                現在の手作業を具体的に書き出しましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-02-section-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTにプロンプトを送る
+              </h3>
+              <p class="text-base text-gray-600">
+                作業内容を整理して、AIにツール作成を依頼します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-02-section-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                コードをGASエディタに貼り付け
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTが生成したコードを実装します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-02-section-05.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                動作確認
+              </h3>
+              <p class="text-base text-gray-600">
+                ツールが正しく動作するかチェックしましょう
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="実践編/practice-02-section-06.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                カスタムメニュー設定で使いやすくする
+              </h3>
+              <p class="text-base text-gray-600">
+                ボタンクリックでツールを実行できるようにします
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- まとめ -->
+        <a href="実践編/practice-02-section-07.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              ✅
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                お疲れ様でした！
+              </h3>
+              <p class="text-base text-gray-600">
+                実践編②: CSVファイル自動転記ツールが完成しました
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ6: 実践編③ Googleフォーム自動返信ボット -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編③ Googleフォーム自動返信ボット
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        Googleフォームに回答があったら、自動的にお礼メールを送信するボットを作成します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- ステップ1 -->
+        <a href="実践編/practice-form-bot-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                Googleフォームに回答があったら、自動的にお礼メールを送信するボットを作成します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-form-bot-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                準備と設計
+              </h3>
+              <p class="text-base text-gray-600">
+                フォームを作成し、自動返信の仕組みを設計します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-form-bot-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                実装と動作確認
+              </h3>
+              <p class="text-base text-gray-600">
+                コードを実装して、テスト送信で動作を確認します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-form-bot-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                応用と注意点
+              </h3>
+              <p class="text-base text-gray-600">
+                条件分岐による応用と、運用時の注意点を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ7: トラブルシューティング -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🔧</span>
+        トラブルシューティング
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        エラーが出たときの対処法を学び、問題を解決する力を身につけます。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- セクション1: エラーやうまく動かない時の指示の出し方 -->
+        <a href="トラブルシューティング/troubleshooting-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-orange-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                エラーやうまく動かない時の指示の出し方
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTに的確にエラーを伝える方法を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション2: 同じエラーが3回以上出る時の対処法 -->
+        <a href="トラブルシューティング/troubleshooting-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-orange-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                同じエラーが3回以上出る時の対処法
+              </h3>
+              <p class="text-base text-gray-600">
+                エラーが続く場合の3つの対処法を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション3: エラー修正の心構え -->
+        <a href="トラブルシューティング/troubleshooting-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-red-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                エラー修正の心構え
+              </h3>
+              <p class="text-base text-gray-600">
+                エラーを前向きに捉え、諦めずに改善を続ける心構えを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ8: 実践編④ オリジナルツールを製作 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編④ オリジナルツールを製作
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        これまでの知識を活かして、自分だけの自動化ツールを作ります。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- イントロダクション -->
+        <a href="実践編/practice-04-intro.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              📘
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                これまでの学習を活かして、あなた自身のオリジナルツールを作成しましょう！
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ1 -->
+        <a href="実践編/practice-04-step1.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                棚卸しから始めましょう！
+              </h3>
+              <p class="text-base text-gray-600">
+                自動化したい作業を具体的に書き出すことで、ツールの設計がスムーズに進みます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-04-step2.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                参考にする実践編を選ぶ
+              </h3>
+              <p class="text-base text-gray-600">
+                あなたが作りたいツールは、どの実践編に近いでしょうか？参考にする実践を選んで、コードの設計をスムーズに進めます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-04-step3.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                トリガーとカスタムメニューの使い分け
+              </h3>
+              <p class="text-base text-gray-600">
+                あなたのツールは、トリガー設定とカスタムメニューのどちらが適しているでしょうか？実行方法を選んで最適な自動化を実現します。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-04-step4.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                ChatGPTにプロンプトを送る
+              </h3>
+              <p class="text-base text-gray-600">
+                棚卸しが完了したら、ChatGPTにプロンプトを送ってコードを生成してもらいましょう。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="実践編/practice-04-step5.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                トライ&エラーを繰り返す
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPTがコードを生成したら、実際に実行してみましょう。エラーが出ても大丈夫です。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ6 -->
+        <a href="実践編/practice-04-step6.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              6
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                完成したら動作確認
+              </h3>
+              <p class="text-base text-gray-600">
+                ツールが完成したら、以下のチェックリストを使って動作確認を行いましょう。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- まとめ -->
+        <a href="実践編/practice-04-summary.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white">
+              ✅
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                まとめ
+              </h3>
+              <p class="text-base text-gray-600">
+                実践編④で学んだことを振り返りましょう。自分で考えてツールを設計する力が身につきました。
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ9: 上級編 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🔥</span>
+        上級編
+      </h2>
+
+      <!-- 上級者向け警告表示 -->
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-8 shadow-md">
+        <p class="text-lg md:text-xl text-yellow-800 font-semibold flex items-center">
+          <span class="text-3xl mr-3">⚠️</span>
+          この章はロードマップ外の上級者向けコンテンツです。基礎編を修了してから取り組んでください。
+        </p>
+      </div>
+
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        API連携の基礎知識を学び、外部サービスとGASを連携させる方法を習得します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- セクション1: APIとは？ -->
+        <a href="上級編/api-introduction.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-red-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                APIとは？
+              </h3>
+              <p class="text-base text-gray-600">
+                API（Application Programming Interface）の基本概念を理解します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション2: API連携のメリット -->
+        <a href="上級編/api-benefits.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-orange-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                API連携のメリット
+              </h3>
+              <p class="text-base text-gray-600">
+                GASでAPI連携を行うことで得られる3つの大きなメリットを学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション3: GASでAPI連携を行う方法 -->
+        <a href="上級編/api-methods.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-yellow-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASでAPI連携を行う方法
+              </h3>
+              <p class="text-base text-gray-600">
+                GASで外部APIを呼び出す基本的な手順を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション4: 代表的なAPI連携の例 -->
+        <a href="上級編/api-examples.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                代表的なAPI連携の例
+              </h3>
+              <p class="text-base text-gray-600">
+                ChatGPT、Gemini、Slackなど、実際のAPI連携例を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- セクション5: API連携の注意点 -->
+        <a href="上級編/api-precautions.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-red-500 to-red-700 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                API連携の注意点
+              </h3>
+              <p class="text-base text-gray-600">
+                API連携を安全に行うための重要な注意点を学びます
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ10: 実践編⑤ GAS×チャットワークAPI連携 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編⑤ GAS×チャットワークAPI連携
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        GASとチャットワークAPIを連携させて、業務を効率化するツールを作ります。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- ステップ1 -->
+        <a href="実践編/practice-chatwork-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                GASとチャットワークAPIを連携させて、業務を効率化するツールを作ります
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-chatwork-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                チャットワークAPIとは？
+              </h3>
+              <p class="text-base text-gray-600">
+                チャットワークAPIの基本と、できることを学びましょう。メッセージ送信、タスク作成などが自動化できます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-chatwork-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                APIトークンの取得
+              </h3>
+              <p class="text-base text-gray-600">
+                チャットワークAPIを使うために必要なAPIトークンを取得しましょう。サービス連携から簡単に取得できます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-chatwork-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASからメッセージ送信
+              </h3>
+              <p class="text-base text-gray-600">
+                取得したAPIトークンを使って、実際にメッセージを送信してみましょう。3つのステップで実装できます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="実践編/practice-chatwork-05.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                実用的な活用例
+              </h3>
+              <p class="text-base text-gray-600">
+                実際の業務で使える3つの活用例を紹介します。フォーム通知、在庫アラート、売上レポートなど。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ6 -->
+        <a href="実践編/practice-chatwork-06.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white">
+              6
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                注意点とまとめ
+              </h3>
+              <p class="text-base text-gray-600">
+                チャットワークAPI連携を使う際の重要なポイントを確認しましょう。セキュリティとAPI制限に注意が必要です。
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ11: 実践編⑥ GAS×Gemini API連携 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編⑥ GAS×Gemini API連携
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        GASとGemini APIを連携させて、AI機能を組み込んだツールを作成します。
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- ステップ1 -->
+        <a href="実践編/practice-gemini-01.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              1
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                イントロダクション
+              </h3>
+              <p class="text-base text-gray-600">
+                GASとGemini APIを連携させて、AI機能を組み込んだツールを作成します
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ2 -->
+        <a href="実践編/practice-gemini-02.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              2
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                Gemini APIキーの取得
+              </h3>
+              <p class="text-base text-gray-600">
+                Gemini APIを使用するために必要なAPIキーを取得します。Google AI Studioから6つのステップで取得できます。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ3 -->
+        <a href="実践編/practice-gemini-03.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              3
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                GASとの連携
+              </h3>
+              <p class="text-base text-gray-600">
+                取得したAPIキーを使って、実際にテキスト生成を試してみましょう。プロパティサービスで安全に管理します。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ4 -->
+        <a href="実践編/practice-gemini-04.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              4
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                実用的な活用例
+              </h3>
+              <p class="text-base text-gray-600">
+                実際のビジネスシーンで使える、Gemini API活用例を紹介します。商品説明文生成、問い合わせ分類、フィードバック要約など。
+              </p>
+            </div>
+          </div>
+        </a>
+
+        <!-- ステップ5 -->
+        <a href="実践編/practice-gemini-05.html" class="section-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl">
+          <div class="flex items-start mb-4">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white">
+              5
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                注意点とまとめ
+              </h3>
+              <p class="text-base text-gray-600">
+                Gemini API連携を安全に、効率的に活用するための知識を学びます。ChatGPT APIとの違いも比較します。
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white shadow-md py-6 px-6 mt-12">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-base text-gray-600">
+        © 2025 生成AI×GAS 短期講座 | すべての資料は学習目的で提供されています
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
