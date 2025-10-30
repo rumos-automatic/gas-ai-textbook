@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション1: APIとは？ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #ef4444;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #dc2626;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-red-600 hover:text-red-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="api-benefits.html" class="text-base md:text-lg font-semibold text-red-600 hover:text-red-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">APIの基本概念</span>
+      </div>
+      <div class="dot" data-section="example">
+        <span class="dot-label">レストランの例で理解する</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- 上級者向け警告バナー -->
+    <div class="mb-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-md">
+      <p class="text-lg md:text-xl text-yellow-800 font-semibold flex items-center">
+        <span class="text-3xl mr-3">⚠️</span>
+        この章はロードマップ外の上級者向けコンテンツです。基礎編を修了してから取り組んでください。
+      </p>
+    </div>
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🔌 APIとは？
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        API（Application Programming Interface）の基本概念を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: APIの基本概念 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔌 API（Application Programming Interface）の基本
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          API（Application Programming Interface）とは、<strong class="text-red-600">異なるソフトウェア同士がやり取りするための仕組み</strong>のことです。
+          あなたも普段、知らず知らずのうちにAPIを使っているかもしれません。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、ウェブサイトで「Googleアカウントでログイン」というボタンを見たことはありませんか？
+          これは、そのウェブサイトがGoogleのAPIを使って、あなたのアカウント情報を取得しているのです。
+          APIを使うことで、別々のサービス同士が連携して、便利な機能を提供できるようになります。
+        </p>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-red-900 mb-2">💡 簡単に言うと</p>
+          <p class="text-lg md:text-xl text-red-800">
+            APIは、<strong>別のサービスの機能を借りて使う窓口</strong>のようなものです。
+            これにより、あなたのGASプログラムから、ChatGPTやGemini、Slackなど、外部サービスの機能を呼び出して使うことができるようになります。
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-2 border-red-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">🌐 APIの具体例</h3>
+          <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span><strong>ChatGPT API</strong>：GASからChatGPTに質問を送り、回答を受け取る</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span><strong>Gemini API</strong>：GASからGeminiに画像を送り、画像の説明を受け取る</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span><strong>Slack API</strong>：GASからSlackにメッセージを送信する</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span><strong>Twitter API</strong>：GASからTwitterに自動投稿する</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: レストランの例で理解する -->
+    <section id="example" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🏪 レストランの例で理解する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          APIの仕組みを、レストランに例えて理解してみましょう。
+          この例を使うと、APIがどのように動いているのか、イメージしやすくなると思います。
+        </p>
+
+        <!-- レストランの役割説明 -->
+        <div class="grid md:grid-cols-3 gap-6 my-8">
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">👤</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              あなた（GAS）
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              お客さん
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🔌</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              API
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              ウェイター
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🤖</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              外部サービス
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              キッチン（ChatGPT APIなど）
+            </p>
+          </div>
+        </div>
+
+        <!-- 流れの説明 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-red-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">📋 APIの流れ</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">注文を伝える</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  あなた（GAS）がウェイター（API）に注文を伝えます。<br>
+                  <span class="text-base text-gray-600">例：「ChatGPTさん、このメール文章を校正してください」</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">キッチンに伝える</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  ウェイター（API）がキッチン（外部サービス）に注文を伝えます。<br>
+                  <span class="text-base text-gray-600">APIがリクエストを外部サービスに送信します</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">料理を作る</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  キッチン（外部サービス）が料理を作ります。<br>
+                  <span class="text-base text-gray-600">ChatGPTがメール文章を校正します</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                4
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">料理を届ける</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  ウェイター（API）が料理をあなた（GAS）に届けます。<br>
+                  <span class="text-base text-gray-600">APIが校正後のメール文章を返します</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">🎯 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            このように、APIは<strong>あなたと外部サービスの間を取り持つ役割</strong>を果たします。
+            あなたは直接キッチン（外部サービス）に行く必要はなく、ウェイター（API）に頼むだけで済むのです。
+          </p>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          APIを使えば、GASから簡単に外部サービスの機能を呼び出せるようになります。
+          これにより、GASの可能性が大きく広がり、より高度な自動化が実現できるようになるでしょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、APIの基本的な概念について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>APIは、異なるソフトウェア同士がやり取りするための仕組みです</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>APIは「別のサービスの機能を借りて使う窓口」のようなものです</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>レストランの例では、APIはウェイターの役割を果たしています</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>GASからAPIを使えば、ChatGPT、Gemini、Slackなどの外部サービスと連携できます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、GASでAPI連携を行うメリットについて詳しく学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="api-benefits.html" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：API連携のメリット →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

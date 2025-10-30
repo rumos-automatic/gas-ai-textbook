@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション5: AIにうまく指示する4つのコツ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="section-06.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">指示力の重要性</span>
+      </div>
+      <div class="dot" data-section="role">
+        <span class="dot-label">役割を与える</span>
+      </div>
+      <div class="dot" data-section="context">
+        <span class="dot-label">事前情報を提供</span>
+      </div>
+      <div class="dot" data-section="screenshot">
+        <span class="dot-label">スクショを活用</span>
+      </div>
+      <div class="dot" data-section="work1">
+        <span class="dot-label">ワーク1</span>
+      </div>
+      <div class="dot" data-section="work2">
+        <span class="dot-label">ワーク2</span>
+      </div>
+      <div class="dot" data-section="work3">
+        <span class="dot-label">ワーク3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🎯 AIにうまく指示する4つのコツ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        より良い回答を引き出すためのプロンプトテクニックを学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 指示力の重要性 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💬 AIは使う人の指示力で結果が変わる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTの回答の質は、あなたの指示がどれだけ具体的で明確かによって大きく変わります。
+          <strong class="text-indigo-600">AIはあなたの指示が全てです。</strong>
+          あなたの指示がどれだけ具体的かによって回答結果が変わります。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          同じ質問でも、指示の出し方によって、返ってくる回答の質が大きく異なります。
+          たとえば、「メールを書いてください」という曖昧な指示よりも、
+          「お客様への謝罪メールを、丁寧で誠実なトーンで書いてください」という具体的な指示の方が、
+          より良い回答が得られます。
+        </p>
+
+        <div class="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-500 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-6 flex items-center gap-3">
+            <span class="text-3xl">❌</span>
+            悪い例 vs
+            <span class="text-3xl">✅</span>
+            良い例
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 例1 -->
+            <div class="bg-white p-5 rounded-lg shadow-md">
+              <div class="mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">❌</span>
+                  <h4 class="font-bold text-gray-900">悪い例：</h4>
+                </div>
+                <div class="bg-gray-100 p-3 rounded text-gray-700">
+                  メールを書いてください。
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">✅</span>
+                  <h4 class="font-bold text-gray-900">良い例：</h4>
+                </div>
+                <div class="bg-green-50 p-3 rounded text-gray-800 border-l-4 border-green-500">
+                  お客様への謝罪メールを、丁寧で誠実なトーンで書いてください。
+                  商品の発送が遅れたことをお詫びし、今後の対応を明確に伝える内容にしてください。
+                </div>
+              </div>
+            </div>
+
+            <!-- 例2 -->
+            <div class="bg-white p-5 rounded-lg shadow-md">
+              <div class="mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">❌</span>
+                  <h4 class="font-bold text-gray-900">悪い例：</h4>
+                </div>
+                <div class="bg-gray-100 p-3 rounded text-gray-700">
+                  コードを生成してください。
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">✅</span>
+                  <h4 class="font-bold text-gray-900">良い例：</h4>
+                </div>
+                <div class="bg-green-50 p-3 rounded text-gray-800 border-l-4 border-green-500">
+                  Google Apps Scriptで、Gmailから特定の件名のメールを取得して、
+                  スプレッドシートに転記するコードを生成してください。
+                  メールの件名、送信者、本文、受信日時を記録するようにしてください。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            指示は「5W1H」（誰が、何を、いつ、どこで、なぜ、どのように）を意識して具体的に伝えましょう。
+            目的、トーン、形式、制約条件などを明確に指定することで、より精度の高い回答が得られます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 役割を与える -->
+    <section id="role" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🎓 専門的な内容を出したい時は「あなたは○○の専門家です。」
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTに専門的な内容を出力させたい場合は、<strong class="text-indigo-600">役割を与える</strong>ことが効果的です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「あなたはマーケティングの専門家です」と最初に伝えることで、
+          ChatGPTはマーケティングに関する専門的な知識を活用して回答してくれます。
+          役割を与えることで、回答の質と専門性が大幅に向上します。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            役割設定の例
+          </h3>
+
+          <div class="space-y-4">
+            <!-- マーケティング専門家 -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border-l-4 border-blue-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">マーケティングの専門家</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはマーケティングの専門家です。新商品のプロモーション戦略を提案してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → マーケティング用語を使い、専門的な戦略を提案してくれます
+              </p>
+            </div>
+
+            <!-- プログラミング専門家 -->
+            <div class="bg-gradient-to-r from-green-50 to-teal-50 p-5 rounded-lg border-l-4 border-green-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">プログラミングの専門家</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはプログラミングの専門家です。このコードのエラーを修正してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → エラーの原因を詳しく説明し、修正方法を提示してくれます
+              </p>
+            </div>
+
+            <!-- ビジネスコンサルタント -->
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-5 rounded-lg border-l-4 border-purple-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">ビジネスコンサルタント</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはビジネスコンサルタントです。私の事業の課題を分析し、解決策を提案してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → ビジネス的な視点から、戦略的な提案をしてくれます
+              </p>
+            </div>
+
+            <!-- カスタマーサポート担当者 -->
+            <div class="bg-gradient-to-r from-orange-50 to-red-50 p-5 rounded-lg border-l-4 border-orange-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">カスタマーサポート担当者</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはカスタマーサポート担当者です。お客様からのクレームに対する返信を作成してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → 顧客対応に適した丁寧で共感的な文章を作成してくれます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">✨ 活用のコツ</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            役割設定は、プロンプトの最初に記載するのが効果的です。
+            また、「10年以上の経験を持つ」「実績豊富な」などの修飾語を加えると、
+            さらに専門性の高い回答が得られることがあります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 事前情報を提供 -->
+    <section id="context" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📚 事前情報を読み込んでおくともっと正確な情報を得れる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTに事前情報を与えることで、より正確で具体的な回答を得ることができます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「売上を伸ばす方法を教えてください」という一般的な質問よりも、
+          「以下は私の会社の商品リストです。[商品リスト貼り付け] この中で売上を伸ばすべき商品を3つ選んでください」
+          と具体的な情報を提供した方が、より実用的な回答が得られます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            事前情報提供の例
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 例1: 商品リスト -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">📦</span>
+                商品リストを提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下は私が扱っている商品リストです。<br>
+                  <br>
+                  1. 商品A：価格3,000円、月間販売数50個<br>
+                  2. 商品B：価格5,000円、月間販売数30個<br>
+                  3. 商品C：価格10,000円、月間販売数10個<br>
+                  <br>
+                  この中で売上を伸ばすべき商品を3つ選び、その理由を教えてください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → 具体的なデータをもとに、実用的な提案をしてくれます
+              </p>
+            </div>
+
+            <!-- 例2: お客様のフィードバック -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">💬</span>
+                お客様のフィードバックを提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下はお客様からのフィードバックです。<br>
+                  <br>
+                  「商品は良いが、発送が遅い」<br>
+                  「梱包が丁寧で良かった」<br>
+                  「商品説明がわかりにくい」<br>
+                  <br>
+                  これらのフィードバックから改善点をまとめてください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → 実際のフィードバックをもとに、具体的な改善策を提案してくれます
+              </p>
+            </div>
+
+            <!-- 例3: 会社情報 -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">🏢</span>
+                会社情報を提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下は私の会社の情報です。<br>
+                  <br>
+                  業種：オンラインショップ<br>
+                  取扱商品：ハンドメイドアクセサリー<br>
+                  ターゲット：20-30代女性<br>
+                  課題：新規顧客の獲得<br>
+                  <br>
+                  売上を上げるための施策を3つ提案してください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → あなたの会社に特化した、実践的な施策を提案してくれます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-green-800 mb-3">
+            事前情報は、できるだけ具体的に提供しましょう。数値データ、固有名詞、状況の詳細など、
+            具体的な情報が多いほど、より実用的な回答が得られます。
+          </p>
+          <p class="text-base md:text-lg text-green-700">
+            ただし、個人情報や機密情報は含めないように注意してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: スクショを活用 -->
+    <section id="screenshot" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📸 文章で説明しづらい時はスクショを使って状況を送る
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          複雑な状況や視覚的な情報は、スクリーンショットを使って伝えると効果的です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、Webサイトのデザインについて質問したい場合、
+          「このサイトのヘッダーデザインを改善してください」と文章で伝えるよりも、
+          実際のサイトのスクリーンショットを添付した方が、より的確なアドバイスが得られます。
+          また、エラー画面やデータの表なども、スクリーンショットで共有することで、
+          問題を正確に把握してもらえます。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Windows -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
+              <span class="text-2xl">🪟</span>
+              Windowsでのスクショ方法
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法1: Snipping Tool</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Windowsキー + Shift + S</strong> を押す</li>
+                  <li>2. 画面の一部を選択してキャプチャ</li>
+                  <li>3. クリップボードにコピーされる</li>
+                  <li>4. ChatGPTに貼り付け</li>
+                </ol>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法2: Print Screen</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Print Screen</strong> キーを押す</li>
+                  <li>2. 全画面がクリップボードにコピー</li>
+                  <li>3. 画像編集ソフトで必要部分を切り取り</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mac -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
+              <span class="text-2xl">🍎</span>
+              Macでのスクショ方法
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法1: 選択範囲</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Command + Shift + 4</strong> を押す</li>
+                  <li>2. 画面の一部を選択してキャプチャ</li>
+                  <li>3. デスクトップに保存される</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法2: 全画面</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Command + Shift + 3</strong> を押す</li>
+                  <li>2. 全画面がデスクトップに保存</li>
+                  <li>3. 必要に応じて画像を編集</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            スクリーンショットの活用例
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+              <span class="text-2xl">🌐</span>
+              <div>
+                <p class="font-bold text-gray-900">Webサイトのデザイン改善</p>
+                <p class="text-sm text-gray-600">サイトのスクショを送り、デザインの改善点を提案してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+              <span class="text-2xl">🐛</span>
+              <div>
+                <p class="font-bold text-gray-900">エラー画面の分析</p>
+                <p class="text-sm text-gray-600">エラーメッセージのスクショを送り、原因と解決策を教えてもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+              <span class="text-2xl">📊</span>
+              <div>
+                <p class="font-bold text-gray-900">データ表の分析</p>
+                <p class="text-sm text-gray-600">スプレッドシートのデータをスクショで送り、分析してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-lg">
+              <span class="text-2xl">🎨</span>
+              <div>
+                <p class="font-bold text-gray-900">レイアウトの相談</p>
+                <p class="text-sm text-gray-600">資料やチラシのレイアウトをスクショで送り、改善案をもらう</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-image-upload.png')">
+          <p class="text-lg font-semibold mb-2">📸 ChatGPTへの画像アップロード画面</p>
+          <p class="text-sm">screenshot-chatgpt-image-upload.png</p>
+          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク1 -->
+    <section id="work1" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク1
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに「あなたは○○の専門家です。」のプロンプトを入れてる時と入れなかった時の回答を比較してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          同じ質問を、プロンプトあり・なしで試してみましょう。回答の質の違いを実感してください。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- プロンプトなし -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">❌</span>
+              <h4 class="text-lg font-bold text-gray-900">プロンプトなし</h4>
+            </div>
+            <div class="bg-gray-100 p-4 rounded font-mono text-sm text-gray-800">
+              売上を上げるための施策を3つ教えてください。
+            </div>
+          </div>
+
+          <!-- プロンプトあり -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">✅</span>
+              <h4 class="text-lg font-bold text-gray-900">プロンプトあり</h4>
+            </div>
+            <div class="bg-green-50 p-4 rounded font-mono text-sm text-gray-800 border-l-4 border-green-500">
+              あなたはマーケティングの専門家です。<br>
+              売上を上げるための施策を3つ教えてください。
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>回答の専門性、具体性、実用性の違いに注目してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク2 -->
+    <section id="work2" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-6 flex items-center">
+          ✅ ワーク2
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに事前情報を読み込ませてからの回答と読み込ませる前の回答を比較してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          事前情報あり・なしで回答の質を比較してみましょう。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 事前情報なし -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">❌</span>
+              <h4 class="text-lg font-bold text-gray-900">事前情報なし</h4>
+            </div>
+            <div class="bg-gray-100 p-4 rounded font-mono text-sm text-gray-800">
+              おすすめの商品を教えてください。
+            </div>
+          </div>
+
+          <!-- 事前情報あり -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">✅</span>
+              <h4 class="text-lg font-bold text-gray-900">事前情報あり</h4>
+            </div>
+            <div class="bg-green-50 p-4 rounded font-mono text-sm text-gray-800 border-l-4 border-green-500">
+              以下は私が扱っている商品リストです。<br>
+              <br>
+              1. 商品A：3,000円、月間50個販売<br>
+              2. 商品B：5,000円、月間30個販売<br>
+              3. 商品C：10,000円、月間10個販売<br>
+              <br>
+              この中でおすすめの商品を教えてください。
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>回答の具体性、実用性、あなたの状況への適合性の違いに注目してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク3 -->
+    <section id="work3" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-6 flex items-center">
+          ✅ ワーク3
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTにスクショを使って状況を送ってみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          あなたの業務画面やエラー画面のスクリーンショットを撮影し、ChatGPTに送ってみましょう。
+          どのような回答が返ってくるか確認してください。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">試してみる内容の例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-600">
+            <li>• Webサイトのデザインをスクショして、改善点を聞く</li>
+            <li>• エラー画面をスクショして、原因と解決策を聞く</li>
+            <li>• スプレッドシートのデータをスクショして、分析してもらう</li>
+            <li>• 資料のレイアウトをスクショして、改善案をもらう</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-yellow-800">
+            <strong>注意：</strong>個人情報や機密情報が写り込まないように注意してください。
+            スクリーンショットを送る前に、必ず内容を確認しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、AIにうまく指示するコツについて理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>ChatGPTの回答の質は、指示の具体性によって大きく変わります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>「あなたは○○の専門家です」と役割を与えることで、専門性の高い回答が得られます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>事前情報を提供することで、より実用的で具体的な回答が得られます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>複雑な状況はスクリーンショットで伝えると効果的です</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、ChatGPTの便利機能について学んでいきましょう。
+          プロジェクト管理、メモリ機能、カスタムGPTなど、さらに効率的な使い方を身につけましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-06.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：ChatGPTの便利機能 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

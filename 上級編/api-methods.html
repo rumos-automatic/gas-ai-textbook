@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション3: GASでAPI連携を行う方法 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #ef4444;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #dc2626;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    pre code {
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      pre code {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-red-600 hover:text-red-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="api-benefits.html" class="text-base md:text-lg font-semibold text-red-600 hover:text-red-800 transition">
+            ← 前へ
+          </a>
+          <a href="api-examples.html" class="text-base md:text-lg font-semibold text-red-600 hover:text-red-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">API連携の流れ</span>
+      </div>
+      <div class="dot" data-section="step1">
+        <span class="dot-label">APIキーを取得する</span>
+      </div>
+      <div class="dot" data-section="step2">
+        <span class="dot-label">API呼び出しコードを書く</span>
+      </div>
+      <div class="dot" data-section="step3">
+        <span class="dot-label">レスポンスを処理する</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- 上級者向け警告バナー -->
+    <div class="mb-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-md">
+      <p class="text-lg md:text-xl text-yellow-800 font-semibold flex items-center">
+        <span class="text-3xl mr-3">⚠️</span>
+        この章はロードマップ外の上級者向けコンテンツです。基礎編を修了してから取り組んでください。
+      </p>
+    </div>
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ⚙️ GASでAPI連携を行う方法
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        GASで外部APIを呼び出す基本的な手順を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: API連携の流れ -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📋 GASでAPI連携を行う基本的な流れ
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASでAPI連携を行う基本的な流れは、以下の3つのステップに分かれます。
+          これらのステップをマスターすれば、どんなAPIでも連携できるようになるでしょう。
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">1</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              APIキーを取得
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              外部サービスからAPIキーを発行してもらう
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">2</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              コードを書く
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              GASでAPI呼び出しコードを実装する
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">3</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              レスポンスを処理
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              APIから返ってきたデータを活用する
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-red-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-red-800">
+            この3つのステップは、どのAPIでも共通です。
+            一度覚えてしまえば、ChatGPT API、Gemini API、Slack APIなど、どんなAPIでも応用できるようになります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ステップ1 - APIキーを取得する -->
+    <section id="step1" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔑 ステップ1：APIキーを取得する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          外部サービスのAPIを使用するには、<strong class="text-red-600">APIキー</strong>が必要です。
+          APIキーとは、あなたがそのサービスを使う権限を持っていることを証明するパスワードのようなものです。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-2 border-blue-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">🌐 主要なAPI取得先</h3>
+
+          <div class="space-y-4">
+            <!-- ChatGPT API -->
+            <div class="border-l-4 border-green-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">ChatGPT API</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-2">
+                <strong>取得先：</strong>OpenAI公式サイト（<span class="text-blue-600">https://platform.openai.com/</span>）
+              </p>
+              <p class="text-base text-gray-600">
+                OpenAIアカウントを作成し、API Keysページからキーを発行します。
+              </p>
+            </div>
+
+            <!-- Gemini API -->
+            <div class="border-l-4 border-purple-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Gemini API</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-2">
+                <strong>取得先：</strong>Google AI Studio（<span class="text-blue-600">https://aistudio.google.com/</span>）
+              </p>
+              <p class="text-base text-gray-600">
+                Googleアカウントでログインし、「Get API Key」からキーを発行します。
+              </p>
+            </div>
+
+            <!-- Slack API -->
+            <div class="border-l-4 border-orange-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Slack API</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-2">
+                <strong>取得先：</strong>Slack App管理画面（<span class="text-blue-600">https://api.slack.com/apps</span>）
+              </p>
+              <p class="text-base text-gray-600">
+                Slack Appを作成し、OAuth & Permissionsページからトークンを取得します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">⚠️ 重要な注意点</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            APIキーは<strong>絶対に他人に見せてはいけません</strong>。
+            もしAPIキーが漏洩すると、不正利用される可能性があります。
+            GitHubなどにコードを公開する際は、APIキーを削除してから公開しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: ステップ2 - GASでAPI呼び出しコードを書く -->
+    <section id="step2" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💻 ステップ2：GASでAPI呼び出しコードを書く
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASには、<strong class="text-red-600">UrlFetchApp</strong>というHTTPリクエストを送信する機能があります。
+          これを使ってAPIを呼び出すことができます。
+        </p>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">📌 UrlFetchAppとは？</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            UrlFetchAppは、GASから外部のウェブサービスにHTTPリクエストを送るための機能です。
+            これを使えば、APIと通信してデータをやり取りできるようになります。
+          </p>
+        </div>
+
+        <!-- 基本構文 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-red-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">📝 基本構文</h3>
+          <p class="text-lg md:text-xl text-gray-700 mb-4">
+            以下は、APIを呼び出す基本的なコードの構造です。
+            この構造を理解すれば、どんなAPIでも呼び出せるようになります。
+          </p>
+
+          <pre class="overflow-x-auto"><code class="language-javascript">function callAPI() {
+  // APIのエンドポイントURL
+  const url = "https://api.example.com/endpoint";
+
+  // APIキー（実際には自分のキーを入れる）
+  const apiKey = "YOUR_API_KEY_HERE";
+
+  // リクエストオプション
+  const options = {
+    "method": "POST",              // HTTPメソッド（GET, POST, PUT, DELETEなど）
+    "headers": {
+      "Authorization": "Bearer " + apiKey,  // 認証ヘッダー
+      "Content-Type": "application/json"    // データ形式
+    },
+    "payload": JSON.stringify({    // 送信するデータ
+      "message": "Hello, API!"
+    })
+  };
+
+  // API呼び出し
+  const response = UrlFetchApp.fetch(url, options);
+
+  // レスポンスを解析
+  const result = JSON.parse(response.getContentText());
+
+  // 結果をログに出力
+  Logger.log(result);
+}</code></pre>
+        </div>
+
+        <!-- コードの詳細説明 -->
+        <div class="space-y-4">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900">🔍 コードの詳細説明</h3>
+
+          <!-- url -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+            <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-2">① url（エンドポイントURL）</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              APIにアクセスするためのURLです。各APIの公式ドキュメントに記載されています。
+            </p>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">const url = "https://api.example.com/endpoint";</code></pre>
+          </div>
+
+          <!-- method -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+            <h4 class="text-lg md:text-xl font-bold text-green-900 mb-2">② method（HTTPメソッド）</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              APIに対して行う操作の種類を指定します。
+            </p>
+            <ul class="list-disc pl-6 text-base md:text-lg text-gray-600 space-y-1">
+              <li><strong>GET</strong>：データを取得する</li>
+              <li><strong>POST</strong>：データを送信する</li>
+              <li><strong>PUT</strong>：データを更新する</li>
+              <li><strong>DELETE</strong>：データを削除する</li>
+            </ul>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">"method": "POST"</code></pre>
+          </div>
+
+          <!-- headers -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-500">
+            <h4 class="text-lg md:text-xl font-bold text-purple-900 mb-2">③ headers（ヘッダー）</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              APIにリクエストを送る際の追加情報です。認証情報やデータ形式を指定します。
+            </p>
+            <ul class="list-disc pl-6 text-base md:text-lg text-gray-600 space-y-1">
+              <li><strong>Authorization</strong>：APIキーを含む認証情報</li>
+              <li><strong>Content-Type</strong>：送信するデータの形式（通常はapplication/json）</li>
+            </ul>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">"headers": {
+  "Authorization": "Bearer " + apiKey,
+  "Content-Type": "application/json"
+}</code></pre>
+          </div>
+
+          <!-- payload -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-orange-500">
+            <h4 class="text-lg md:text-xl font-bold text-orange-900 mb-2">④ payload（送信データ）</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              APIに送信するデータです。JSON形式で記述し、<code class="bg-gray-200 px-2 py-1 rounded">JSON.stringify()</code>で文字列に変換します。
+            </p>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">"payload": JSON.stringify({
+  "message": "Hello, API!"
+})</code></pre>
+          </div>
+
+          <!-- UrlFetchApp.fetch -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
+            <h4 class="text-lg md:text-xl font-bold text-red-900 mb-2">⑤ UrlFetchApp.fetch()（API呼び出し）</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              実際にAPIにリクエストを送信します。
+            </p>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">const response = UrlFetchApp.fetch(url, options);</code></pre>
+          </div>
+
+          <!-- レスポンス解析 -->
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-indigo-500">
+            <h4 class="text-lg md:text-xl font-bold text-indigo-900 mb-2">⑥ レスポンスを解析</h4>
+            <p class="text-base md:text-lg text-gray-700 mb-2">
+              APIから返ってきたデータをJSON形式に変換して使えるようにします。
+            </p>
+            <pre class="overflow-x-auto mt-2"><code class="language-javascript">const result = JSON.parse(response.getContentText());</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: ステップ3 - レスポンスを処理する -->
+    <section id="step3" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📊 ステップ3：レスポンスを処理する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          APIから返ってきたデータ（レスポンス）を処理して、実際に活用します。
+          レスポンスのデータは通常、JSON形式で返ってくるため、必要な情報を取り出して使います。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-purple-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">📝 レスポンス処理の例</h3>
+
+          <div class="space-y-6">
+            <!-- 例1: スプレッドシートに書き込む -->
+            <div class="border-l-4 border-blue-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例1：スプレッドシートに書き込む</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                APIから取得したデータをスプレッドシートに記録します。
+              </p>
+              <pre class="overflow-x-auto"><code class="language-javascript">function writeToSheet() {
+  // API呼び出し（省略）
+  const result = JSON.parse(response.getContentText());
+
+  // スプレッドシートを取得
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  // データを書き込む
+  sheet.appendRow([result.data, result.timestamp]);
+}</code></pre>
+            </div>
+
+            <!-- 例2: Gmailでメールを送信する -->
+            <div class="border-l-4 border-green-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例2：Gmailでメールを送信する</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                APIから取得したデータをメールで送信します。
+              </p>
+              <pre class="overflow-x-auto"><code class="language-javascript">function sendEmail() {
+  // API呼び出し（省略）
+  const result = JSON.parse(response.getContentText());
+
+  // メールを送信
+  GmailApp.sendEmail(
+    "example@example.com",           // 送信先
+    "APIからのレポート",              // 件名
+    "結果：" + result.message         // 本文
+  );
+}</code></pre>
+            </div>
+
+            <!-- 例3: Slackに通知を送る -->
+            <div class="border-l-4 border-orange-500 pl-4">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例3：Slackに通知を送る</h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                APIから取得したデータをSlackに通知します。
+              </p>
+              <pre class="overflow-x-auto"><code class="language-javascript">function sendToSlack() {
+  // API呼び出し（省略）
+  const result = JSON.parse(response.getContentText());
+
+  // Slack Webhook URLを使って通知
+  const slackUrl = "YOUR_SLACK_WEBHOOK_URL";
+  const slackPayload = {
+    "text": "APIから通知：" + result.message
+  };
+
+  UrlFetchApp.fetch(slackUrl, {
+    "method": "POST",
+    "payload": JSON.stringify(slackPayload)
+  });
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            レスポンスの処理方法は、あなたの目的に応じて自由にカスタマイズできます。
+            スプレッドシートへの記録、メール送信、Slack通知など、用途に合わせて選びましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、GASでAPI連携を行う方法について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>API連携は3つのステップで実現できます：APIキー取得、コード記述、レスポンス処理</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>UrlFetchAppを使えば、GASから簡単にAPIを呼び出せます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>APIキーは絶対に他人に見せてはいけません</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>レスポンスは目的に応じて自由に処理できます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、具体的なAPI連携の例（ChatGPT、Gemini、Slackなど）を見ていきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="api-examples.html" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：代表的なAPI連携の例 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // シンタックスハイライトを初期化
+    hljs.highlightAll();
+
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

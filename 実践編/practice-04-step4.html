@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ4：ChatGPTにプロンプトを送る | 実践編④ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #ec4899 0%, #ec4899 62.5%, #e5e7eb 62.5%, #e5e7eb 100%);
+    }
+    pre {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-04-step3.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ4</span>
+          <a href="practice-04-step5.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ステップ4：ChatGPTにプロンプトを送る
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        棚卸しが完了したら、ChatGPTにプロンプトを送ってコードを生成してもらいましょう。
+      </p>
+    </header>
+
+    <!-- イントロ -->
+    <section id="intro" class="mb-20">
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          棚卸しが完了し、参考にする実践編を選んだら、いよいよChatGPTにプロンプトを送ります。
+          プロンプトとは、生成AIに送る指示文のことです。
+        </p>
+
+        <div class="bg-pink-50 border-l-4 border-pink-500 rounded-lg p-6 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📝 プロンプトを送る準備</h3>
+          <ul class="text-lg leading-relaxed text-gray-700 space-y-3">
+            <li>• ステップ1で記入した「自動化ワークシート」を開いておく</li>
+            <li>• 参考にする実践編のコードを開いておく（必要に応じて）</li>
+            <li>• ChatGPTを開いておく（<a href="https://chat.openai.com" target="_blank" class="text-pink-600 underline">https://chat.openai.com</a>）</li>
+          </ul>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          下のプロンプトテンプレートを使って、自動化ワークシートの内容をそのまま貼り付けるだけでOKです。
+          難しく考える必要はありません。
+        </p>
+      </div>
+    </section>
+
+    <!-- プロンプトのテンプレート -->
+    <section id="template" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📋 プロンプトのテンプレート</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          以下のテンプレートをコピーして、ChatGPTに送ってください。
+          [ ] で囲まれた部分は、あなたの自動化ワークシートの内容に置き換えてください。
+        </p>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-6 mb-6">
+          <p class="text-base leading-relaxed text-gray-700">
+            💡 <strong>ヒント：</strong> プロンプトをコピーしたら、[ ] で囲まれた部分を、ワークシートの内容で置き換えてください。
+            [ ] は削除して、実際の内容だけを残します。
+          </p>
+        </div>
+
+        <pre><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+[ワークシートの「やりたいこと」をここに貼り付け]
+
+【現在の手順】
+[ワークシートの「現在の手順」をここに貼り付け]
+1. 〜
+2. 〜
+3. 〜
+
+【扱うデータ】
+[ワークシートの「どんなデータを扱う？」をここに貼り付け]
+
+【保存先】
+[ワークシートの「どこに保存する？」をここに貼り付け]
+
+【その他の要望】
+[ワークシートの「その他の要望」をここに貼り付け]</code></pre>
+      </div>
+
+      <!-- プロンプトの記入例 -->
+      <div class="mt-12">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">記入例</h3>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            実際にプロンプトを送る際の例を示します。
+            この例を参考に、あなたのワークシートの内容を当てはめてみてください。
+          </p>
+
+          <pre><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+注文メールをスプレッドシートに自動転記したい
+
+【現在の手順】
+1. Gmailを開く
+2. 件名に「注文」を含むメールを検索する
+3. メールの件名、差出人、受信日、本文をコピーする
+4. Googleスプレッドシート「注文管理」を開く
+5. 新しい行に、日付、件名、差出人、本文を貼り付ける
+6. 毎日この作業を繰り返す
+
+【扱うデータ】
+- 受信日
+- 件名
+- 差出人
+- 本文（合計金額の部分のみ）
+
+【保存先】
+Googleスプレッドシート「注文管理」
+- A列：受信日
+- B列：件名
+- C列：差出人
+- D列：合計金額
+
+【その他の要望】
+- 毎日朝9時に自動実行したい
+- 同じメールが重複して転記されないようにしたい
+- エラーが出た場合は、自分にメール通知してほしい</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトを送った後の流れ -->
+    <section id="next" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📤 プロンプトを送った後の流れ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">ChatGPTがコードを生成してくれます</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                プロンプトを送ると、ChatGPTがGoogle Apps Scriptのコードを生成してくれます。
+                生成されたコードをコピーしてください。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">GASエディタに貼り付けて実行</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                Googleスプレッドシートを開き、「拡張機能」→「Apps Script」からエディタを開きます。
+                生成されたコードを貼り付けて、実行してみましょう。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">エラーが出たら修正を依頼</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                エラーが出ることは珍しくありません。エラーメッセージをChatGPTに送って、修正してもらいましょう。
+                詳しくはステップ5で説明します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 補足情報 -->
+    <section id="tips" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">💡 プロンプトを送る際のコツ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <div class="space-y-6">
+          <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">できるだけ具体的に書く</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              「メールを転記したい」だけではなく、「件名に『注文』を含むメールを、A列に日付、B列に件名で転記したい」のように、
+              できるだけ具体的に書くと、より正確なコードが生成されます。
+            </p>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">参考にする実践編を伝える</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              「実践①のメール転記と似たツールを作りたい」と伝えると、ChatGPTがより適切なコードを生成しやすくなります。
+            </p>
+          </div>
+
+          <div class="bg-purple-50 border-l-4 border-purple-500 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">完璧を求めすぎない</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              最初から完璧なコードを求める必要はありません。
+              まずは基本的な機能を実装してもらい、後から追加や修正を依頼していくのがおすすめです。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">プロンプトを送りましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          次は、生成されたコードを実行して、トライ&エラーを繰り返していきます。
+          エラーが出ても大丈夫です。一つずつ解決していきましょう。
+        </p>
+        <a href="practice-04-step5.html" class="inline-block bg-white text-pink-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ5へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

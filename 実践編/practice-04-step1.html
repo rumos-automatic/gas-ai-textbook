@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ1：棚卸しから始めましょう | 実践編④ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #ec4899 0%, #ec4899 25%, #e5e7eb 25%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-04-intro.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ1</span>
+          <a href="practice-04-step2.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ステップ1：棚卸しから始めましょう！
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        自動化したい作業を具体的に書き出すことで、ツールの設計がスムーズに進みます。
+      </p>
+    </header>
+
+    <!-- 棚卸しの重要性 -->
+    <section id="importance" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📝 なぜ棚卸しが重要なのか</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          まず、「AIでツールを製作するときの基本的な考え方」で学んだ**棚卸作業**から始めましょう。
+          棚卸しとは、現在の作業を具体的に書き出すことです。
+        </p>
+
+        <div class="bg-pink-50 border-l-4 border-pink-500 rounded-lg p-6 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">棚卸しをすると何が良いのか？</h3>
+          <ul class="text-lg leading-relaxed text-gray-700 space-y-3">
+            <li>• 作業の無駄が見えてきます</li>
+            <li>• 生成AIに明確な指示を出せるようになります</li>
+            <li>• どこから自動化すべきかが明確になります</li>
+            <li>• 完成イメージを具体的に持てるようになります</li>
+          </ul>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          「なんとなく自動化したい」という状態から、「この手順をこう自動化したい」という明確な状態に変えることができます。
+          これが、ツール作成成功の第一歩になります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 棚卸作業のポイント -->
+    <section id="points" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🎯 棚卸作業のポイント</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          棚卸しをする際は、以下の3つのポイントを意識してください。
+        </p>
+
+        <div class="space-y-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">自動化したい作業を1つ選ぶ</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-3">
+                まずは、自動化したい作業を1つだけ選びましょう。
+                欲張っていくつも選ぶと、複雑になって完成しづらくなります。
+              </p>
+              <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-base font-semibold text-gray-900 mb-2">選ぶ基準の例：</p>
+                <ul class="text-base leading-relaxed text-gray-700 space-y-2">
+                  <li>• 毎日繰り返している作業</li>
+                  <li>• 時間がかかっている作業</li>
+                  <li>• ミスが発生しやすい作業</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">現在の手順を具体的に書き出す</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-3">
+                次に、その作業を「ステップ1、ステップ2、ステップ3...」という形で整理します。
+                できるだけ具体的に書くことが重要です。
+              </p>
+              <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-base font-semibold text-gray-900 mb-2">具体的に書くコツ：</p>
+                <ul class="text-base leading-relaxed text-gray-700 space-y-2">
+                  <li>• 固有名詞を具体的に書く（「メール」ではなく「注文メール」）</li>
+                  <li>• データの配置場所を明確にする（「A列に○○、B列に△△」）</li>
+                  <li>• 「誰が見ても分かる」レベルまで詳しく書く</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ワークシートを活用する</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-3">
+                自動化ワークシートを使うと、整理がスムーズに進みます。
+                以下のリンクからダウンロードして、記入してみましょう。
+              </p>
+              <a href="https://drive.google.com/file/d/1NtyS-WoRwLPsSn4XWdLgUmZrP2ZAhZrw/view?usp=sharing" target="_blank" class="inline-block bg-pink-600 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-pink-700 transition shadow-md">
+                📥 自動化ワークシートをダウンロード
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク課題 -->
+    <section id="work" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">✅ 【ワーク】棚卸作業を完了させよう</h2>
+
+      <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg shadow-md p-8 mb-8 border-2 border-pink-200">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="bg-pink-600 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold">
+            ✍️
+          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900">ワーク課題</h3>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          自動化ワークシートを使って、以下の5つの項目を記入してください。
+        </p>
+
+        <div class="bg-white rounded-lg p-6 space-y-4">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h4 class="text-xl font-bold text-gray-900 mb-1">やりたいこと（一言で）</h4>
+              <p class="text-base text-gray-600">例：「注文メールをスプレッドシートに自動転記したい」</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h4 class="text-xl font-bold text-gray-900 mb-1">現在の手順（ステップで書き出す）</h4>
+              <p class="text-base text-gray-600">例：「ステップ1: Gmailを開く → ステップ2: 注文メールを検索 → ステップ3: 内容をコピー → ...」</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h4 class="text-xl font-bold text-gray-900 mb-1">どんなデータを扱う？</h4>
+              <p class="text-base text-gray-600">例：「件名、差出人、受信日、本文の一部（合計金額）」</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              4
+            </div>
+            <div class="flex-1">
+              <h4 class="text-xl font-bold text-gray-900 mb-1">どこに保存する？</h4>
+              <p class="text-base text-gray-600">例：「スプレッドシート『注文管理』のA列に日付、B列に件名、C列に金額...」</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              5
+            </div>
+            <div class="flex-1">
+              <h4 class="text-xl font-bold text-gray-900 mb-1">その他の要望</h4>
+              <p class="text-base text-gray-600">例：「毎日朝9時に自動実行したい」「重複チェックを付けたい」</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
+          <p class="text-base leading-relaxed text-gray-700">
+            💡 <strong>ヒント：</strong> 最初は完璧でなくても大丈夫です。まずは思いつくことを書き出してみましょう。
+            作業を進める中で、修正や追加をしていけば問題ありません。
+          </p>
+        </div>
+      </div>
+
+      <!-- スクリーンショットプレースホルダー -->
+      <div class="mt-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">ワークシートの記入例</h3>
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-automation-worksheet.png')">
+          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+          <p class="text-lg">自動化ワークシートの記入例</p>
+          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-automation-worksheet.png</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">棚卸しは完了しましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          棚卸しが完了したら、次は参考にする実践編を選びましょう。
+          あなたが作りたいツールは、実践①②③のどれに近いでしょうか？
+        </p>
+        <a href="practice-04-step2.html" class="inline-block bg-white text-pink-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ2へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

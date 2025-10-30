@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編②-3: ステップ2 ChatGPTにプロンプトを送る | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-02-section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-02-section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
+        <span class="font-bold">ステップ 2 / 5</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        ChatGPTにプロンプトを送る
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+        作業内容を整理して、AIにツール作成を依頼します
+      </p>
+    </header>
+
+    <!-- プロンプトの重要性 -->
+    <section class="mb-16">
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
+          💡 良いプロンプトが良いツールを作る
+        </h2>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed mb-4">
+          ステップ1で書き出した作業内容を、ChatGPTに分かりやすく伝えることが大切です。プロンプトが具体的であればあるほど、AIは正確なコードを生成してくれます。
+        </p>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
+          逆に、曖昧な指示だと、AIが意図しない動作をするツールを作ってしまう可能性があります。ここでしっかり時間をかけて、プロンプトを作り込みましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- プロンプトの基本構成 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📝 プロンプトの基本構成
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        効果的なプロンプトには、以下の3つの要素が含まれていることが重要です。この構成に従って書くことで、AIが理解しやすいプロンプトになります。
+      </p>
+
+      <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            1
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【やりたいこと】を明確に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              まず、「何を実現したいのか」を一言で表現します。例えば、「GoogleドライブのCSVファイルをスプレッドシートに転記する」というように、目的を簡潔に伝えましょう。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            2
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【現在の手順】を具体的に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              ステップ1で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            3
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【その他の要望】を追加する
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              重複チェックや、エラー処理、ログ出力など、特別な機能が必要な場合はここに書きます。最初から完璧を求める必要はありませんが、必須の機能は最初から伝えておくとスムーズです。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプト例 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        💬 プロンプト例
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
+      </p>
+
+      <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto">
+        <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+<strong class="text-green-400">【やりたいこと】</strong>
+Googleドライブの特定フォルダにあるCSVファイルを、Googleスプレッドシートに自動転記する
+
+<strong class="text-blue-400">【現在の手順】</strong>
+1. Googleドライブを開く
+2. フォルダID「XXXXXXXXXXXXX」のフォルダを開く
+3. 最新のCSVファイルを取得
+4. CSVファイルの内容を解析
+5. Googleスプレッドシートの「データ」シートに転記
+   - A列：注文番号
+   - B列：顧客名
+   - C列：商品名
+   - D列：数量
+   - E列：金額
+6. 既存データに追記する形で転記
+
+<strong class="text-yellow-400">【その他の要望】</strong>
+- CSVファイルの1行目はヘッダー行なのでスキップする
+- 重複チェック機能を付けて、同じ注文番号は転記しないようにする
+- 処理が完了したら、処理件数をログに出力する</code></pre>
+      </div>
+
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          📌 プロンプトのカスタマイズポイント
+        </h3>
+        <ul class="list-disc pl-6 space-y-3 text-lg md:text-xl text-blue-900">
+          <li><strong>フォルダID</strong>は、実際のGoogleドライブのフォルダIDに置き換えてください（後ほど説明します）</li>
+          <li><strong>シート名</strong>や<strong>列の配置</strong>は、あなたのスプレッドシートの構成に合わせて変更してください</li>
+          <li><strong>データ項目</strong>（注文番号、顧客名など）は、あなたのCSVファイルの内容に合わせて書き換えてください</li>
+          <li><strong>その他の要望</strong>は、必要に応じて追加・削除してOKです</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- フォルダIDの取得方法 -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🔍 GoogleドライブのフォルダIDを取得する方法
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        プロンプトに「フォルダID」を含める必要があります。フォルダIDは、Googleドライブで対象のフォルダを開いたときのURLから取得できます。
+      </p>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          取得手順
+        </h3>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+              1
+            </div>
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleドライブで対象のフォルダを開く
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                CSVファイルが保存されているフォルダを開きます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+              2
+            </div>
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                ブラウザのアドレスバーを確認
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                URLは以下のような形式になっています。
+              </p>
+              <div class="bg-gray-100 p-4 rounded font-mono text-sm break-all">
+                https://drive.google.com/drive/folders/<strong class="text-red-600">1AbCdEfGhIjKlMnOpQrStUvWxYz</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+              3
+            </div>
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                「folders/」の後ろの文字列をコピー
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                この赤字部分が<strong>フォルダID</strong>です。これをコピーして、プロンプトの「XXXXXXXXXXXXX」の部分に貼り付けましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ChatGPTにプロンプトを送る -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🚀 ChatGPTにプロンプトを送信
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        プロンプトの準備ができたら、ChatGPTに送信しましょう。ChatGPTが、プロンプトに基づいてGoogle Apps Scriptのコードを生成してくれます。
+      </p>
+
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          送信後の流れ
+        </h3>
+
+        <div class="space-y-4 text-lg md:text-xl text-gray-700">
+          <p class="leading-relaxed">
+            <strong>1. ChatGPTがコードを生成</strong><br>
+            数秒〜数十秒で、GASのコードが表示されます。コード全体をコピーできるように、コードブロックで表示されることが多いです。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>2. コードの説明を確認</strong><br>
+            ChatGPTは、コードと一緒に「このコードの使い方」や「各関数の説明」も提示してくれることがあります。後で見返せるように、メモしておくと便利です。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>3. 次のステップへ</strong><br>
+            生成されたコードを、GASエディタに貼り付けて実装します。次のセクションで詳しく説明しますので、コードをコピーした状態で進みましょう。
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">
+          ✨ ワンポイントアドバイス
+        </h3>
+        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
+          もし生成されたコードが思っていたものと違っていても、焦らずにChatGPTに追加で指示を出せばOKです。「○○の部分を△△に変更してください」と伝えれば、修正してくれます。何度でもやり取りできるので、理想のツールになるまで調整しましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次へのリンク -->
+    <section class="mt-16 text-center">
+      <div class="bg-indigo-50 rounded-lg p-8">
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          ChatGPTがコードを生成してくれたら、次はGASエディタに貼り付けて実装しましょう。
+        </p>
+        <a href="practice-02-section-04.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ3へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p class="text-center text-gray-600">
+        © 2025 生成AI×GAS 短期講座
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

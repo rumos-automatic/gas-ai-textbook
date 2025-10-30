@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編②-2: ステップ1 作業の棚卸 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-02-section-01.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-02-section-03.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
+        <span class="font-bold">ステップ 1 / 5</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        作業の棚卸
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+        現在の手作業を具体的に書き出しましょう
+      </p>
+    </header>
+
+    <!-- なぜ棚卸が必要か -->
+    <section class="mb-16">
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
+          💡 なぜ作業の棚卸が必要なのか？
+        </h2>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
+          自動化ツールを作る前に、まず「現在どんな手順で作業しているか」を明確にすることが大切です。これをしっかり書き出しておくことで、生成AIに正確な指示を出すことができ、ツールの作成がスムーズに進みます。逆に、作業の流れが曖昧なまま依頼すると、AIが意図しない動きをするツールを作ってしまう可能性があります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 現在の手作業の流れ -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📝 現在の手作業の流れ
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        例として、以下のような作業を毎日繰り返しているとしましょう。この作業フローを具体的に書き出すことで、どの部分を自動化すればいいかが明確になります。
+      </p>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          注文データ取り込み作業（例）
+        </h3>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleドライブを開く
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ブラウザでGoogleドライブにアクセスします。毎回ログインしたり、ブックマークから開いたりする手間がかかります。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                「注文データ」フォルダを開く
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                マイドライブの中から目的のフォルダを探して開きます。フォルダが多い場合、探すだけでも時間がかかってしまいます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                CSVファイルをダウンロード
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                フォルダ内のCSVファイルを右クリックして、「ダウンロード」を選択します。ダウンロードフォルダに保存されるので、後で探す必要があります。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleスプレッドシートを開く
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                転記先のスプレッドシートを開きます。別のタブで開いたり、ブックマークから探したりする手間がかかります。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              5
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                「ファイル」→「インポート」→「アップロード」
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                スプレッドシートのメニューから<strong>「ファイル」</strong>をクリックし、<strong>「インポート」</strong>を選び、さらに<strong>「アップロード」</strong>タブを選択します。この操作だけでも複数のクリックが必要です。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              6
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                CSVファイルを選択してインポート
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ダウンロードフォルダからCSVファイルを探して選択し、インポート設定を確認してから実行します。設定を間違えると、データが正しく取り込まれないこともあります。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              7
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                データの形式を確認・調整
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                インポートしたデータが正しく表示されているかを確認します。列がずれていたり、文字化けしていたりする場合は、手動で修正する必要があります。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              8
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                必要に応じてデータをクリーニング
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                重複データを削除したり、空白セルを埋めたりするなど、データの整形作業を行います。この作業も毎回必要になるため、時間がかかります。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">
+          ✨ 自動化するとどうなる？
+        </h3>
+        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
+          この作業を毎日繰り返している場合、GASで自動化することで<strong>大幅に時間を節約</strong>できます。ボタン1つクリックするだけで、ステップ1〜8がすべて自動で実行されるようになります。手作業だと5〜10分かかる作業が、わずか数秒で完了するようになるのです。
+        </p>
+      </div>
+    </section>
+
+    <!-- ワークシート -->
+    <section class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📝 あなたの作業を書き出してみましょう
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        上記の例を参考に、あなたが自動化したい作業を具体的に書き出してみましょう。メモ帳やスプレッドシートなどに、以下のフォーマットで書いていくと分かりやすいです。
+      </p>
+
+      <div class="bg-gray-100 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          作業フロー記入テンプレート
+        </h3>
+
+        <div class="bg-white rounded-lg p-6 space-y-4 font-mono text-sm md:text-base">
+          <p><strong>【作業名】</strong></p>
+          <p class="text-gray-600">例：注文データ取り込み作業</p>
+
+          <p class="mt-6"><strong>【現在の手順】</strong></p>
+          <p class="text-gray-600">1. ○○を開く</p>
+          <p class="text-gray-600">2. ○○フォルダにアクセスする</p>
+          <p class="text-gray-600">3. ○○ファイルをダウンロードする</p>
+          <p class="text-gray-600">4. ...</p>
+
+          <p class="mt-6"><strong>【自動化したい範囲】</strong></p>
+          <p class="text-gray-600">例：ステップ1〜8をすべて自動化</p>
+
+          <p class="mt-6"><strong>【重要なポイント】</strong></p>
+          <p class="text-gray-600">例：重複データは転記しないようにする</p>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          💡 ポイント
+        </h3>
+        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-blue-900">
+          <li>できるだけ具体的に書きましょう（「ファイルを開く」より「○○.csvファイルを開く」の方が良い）</li>
+          <li>ボタン名やメニュー名も正確に書きましょう</li>
+          <li>どのフォルダか、どのシートかなど、場所も明記しましょう</li>
+          <li>特別なルール（重複チェックなど）があれば必ず書きましょう</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 次へのリンク -->
+    <section class="mt-16 text-center">
+      <div class="bg-indigo-50 rounded-lg p-8">
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          作業の棚卸ができたら、次はChatGPTにツール作成を依頼しましょう。
+        </p>
+        <a href="practice-02-section-03.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ2へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- フッター -->
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p class="text-center text-gray-600">
+        © 2025 生成AI×GAS 短期講座
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // 画像拡大モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', function() {
+        const imgSrc = this.querySelector('img')?.src;
+        if (imgSrc) {
+          modalImage.src = imgSrc;
+          modal.classList.add('active');
+        }
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>

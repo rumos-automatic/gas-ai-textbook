@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編④ イントロダクション | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #ec4899 0%, #ec4899 12.5%, #e5e7eb 12.5%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-form-bot-04.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">イントロ</span>
+          <a href="practice-04-step1.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        実践編④ オリジナルツールを製作
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        これまでの学習を活かして、あなた自身のオリジナルツールを作成しましょう！
+      </p>
+      <div class="mt-6 inline-block bg-pink-100 text-pink-800 px-6 py-2 rounded-full">
+        <span class="text-lg font-semibold">🎯 あなた自身で考えて作るチャレンジ</span>
+      </div>
+    </header>
+
+    <!-- この実践の目的 -->
+    <section id="purpose" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🎯 この実践の目的</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          実践①②③で学んだ知識を総動員して、あなたの業務に合わせたオリジナルのGASツールを作成します。
+        </p>
+
+        <div class="bg-pink-50 border-l-4 border-pink-500 rounded-lg p-6 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">重要なポイント</h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            この実践では、具体的な手順は示しません。あなた自身で考えて、ツールを作り上げることが目的です。
+            これまで学んできた知識を活用して、自分の力で課題を解決してみましょう。
+          </p>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          「手順がないと不安」と感じるかもしれませんが、大丈夫です。
+          実践①②③で学んだ内容を参考にしながら、一つずつ進めていけば必ず完成します。
+          トライ&エラーを繰り返しながら、自分だけのツールを作り上げていきましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- これまでの実践の振り返り -->
+    <section id="review" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📚 これまでの実践で学んだこと</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          まず、これまでの実践で何を学んできたか、振り返ってみましょう。
+          これらの知識を組み合わせることで、あなただけのツールを作ることができます。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+          <div class="bg-indigo-50 rounded-lg p-6 border-l-4 border-indigo-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📧 実践① メール転記</h3>
+            <p class="text-lg leading-relaxed text-gray-700 mb-4">
+              Gmailから特定のメールを検索して、スプレッドシートに自動転記する方法を学びました。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 space-y-2">
+              <li>• Gmail検索の使い方</li>
+              <li>• メール内容の抽出</li>
+              <li>• トリガー設定での自動実行</li>
+            </ul>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📦 実践② CSV転記</h3>
+            <p class="text-lg leading-relaxed text-gray-700 mb-4">
+              GoogleドライブのCSVファイルをスプレッドシートに自動転記する方法を学びました。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 space-y-2">
+              <li>• Googleドライブの操作</li>
+              <li>• CSVファイルの解析</li>
+              <li>• カスタムメニューの作成</li>
+            </ul>
+          </div>
+
+          <div class="bg-orange-50 rounded-lg p-6 border-l-4 border-orange-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📝 実践③ フォーム返信</h3>
+            <p class="text-lg leading-relaxed text-gray-700 mb-4">
+              Googleフォームの回答に応じて、自動返信メールを送る方法を学びました。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 space-y-2">
+              <li>• フォーム送信時トリガー</li>
+              <li>• 回答内容の分岐処理</li>
+              <li>• 自動メール送信</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- どんなツールを作るか -->
+    <section id="thinking" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">💡 どんなツールを作りますか？</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          あなたの業務で、こんな作業はありませんか？
+        </p>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              毎日同じような作業を繰り返している
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              コピー&ペーストの作業に時間がかかっている
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              データの転記ミスが発生することがある
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              決まった時間に定期的に実行したい処理がある
+            </p>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          こうした作業こそ、GASで自動化するのに最適です。
+          次のステップから、実際にあなたのツールを設計していきましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">準備はいいですか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          それでは、まずは「棚卸し」から始めましょう。
+          自動化したい作業を具体的に書き出すことで、ツールの設計がスムーズに進みます。
+        </p>
+        <a href="practice-04-step1.html" class="inline-block bg-white text-pink-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ1へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

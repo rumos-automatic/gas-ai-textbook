@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション3: エラー修正の心構え | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f97316;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ea580c;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-orange-600 hover:text-orange-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="troubleshooting-02.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-base md:text-lg text-gray-400">次へ</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">エラー修正の心構え</span>
+      </div>
+      <div class="dot" data-section="growth">
+        <span class="dot-label">🌱 エラーは成長の機会</span>
+      </div>
+      <div class="dot" data-section="trial-error">
+        <span class="dot-label">🔄 トライ&エラー</span>
+      </div>
+      <div class="dot" data-section="history">
+        <span class="dot-label">📝 修正履歴を記録</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💪 エラー修正の心構え
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        エラーを前向きに捉え、諦めずに改善を続ける心構えを学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: エラー修正の心構え -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🎯 エラー修正で最も大切なこと
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          エラー修正で最も大切なのは、<strong class="text-orange-600">諦めないこと</strong>です。
+          エラーが出ても、それは失敗ではありません。
+          むしろ、ツールを改善するための貴重な機会なのです。
+        </p>
+
+        <div class="bg-gradient-to-br from-blue-500 to-purple-600 p-10 rounded-xl shadow-2xl text-white">
+          <h3 class="text-3xl md:text-4xl font-bold mb-6 text-center">
+            エラーは成長への近道
+          </h3>
+          <p class="text-lg md:text-xl leading-relaxed text-center mb-6">
+            エラーと向き合うことで、GASへの理解が深まり、
+            より良いツールを作れるようになります。
+          </p>
+          <p class="text-xl md:text-2xl font-bold text-center">
+            エラーを恐れず、1つずつ解決していきましょう。
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🌱</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              成長の機会
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              エラーから学ぶことが成長につながる
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🔄</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              トライ&エラー
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              繰り返すことで精度が上がる
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">📝</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              記録を残す
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              改善の過程を振り返れる
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 🌱 エラーは成長の機会 -->
+    <section id="growth" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🌱 エラーは成長の機会
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          エラーが出ることは、<strong class="text-green-600">失敗ではありません</strong>。
+          むしろ、ツールを改善するための機会です。
+          エラーと向き合うことで、GASやプログラミングへの理解が深まります。
+        </p>
+
+        <!-- エラーとの向き合い方 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">✅ エラーとの向き合い方</h3>
+
+          <div class="space-y-6">
+            <div class="bg-green-50 p-6 rounded-lg">
+              <h4 class="text-lg md:text-xl font-bold text-green-900 mb-3 flex items-center">
+                <span class="text-2xl mr-3">✓</span>
+                エラーが出ても落ち込まない
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                エラーは誰にでも起こります。プロのエンジニアでも毎日エラーと向き合っています。
+                エラーが出たからといって、自分を責める必要はありません。
+              </p>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-lg">
+              <h4 class="text-lg md:text-xl font-bold text-blue-900 mb-3 flex items-center">
+                <span class="text-2xl mr-3">✓</span>
+                1つずつ問題を解決していく
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                複数のエラーが出ても、焦る必要はありません。
+                1つずつ順番に解決していけば、必ずゴールにたどり着けます。
+              </p>
+            </div>
+
+            <div class="bg-purple-50 p-6 rounded-lg">
+              <h4 class="text-lg md:text-xl font-bold text-purple-900 mb-3 flex items-center">
+                <span class="text-2xl mr-3">✓</span>
+                修正依頼は「1回に1個」
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                一度に複数の修正を依頼すると、どの修正が効果的だったか分かりにくくなります。
+                1つずつ修正を試して、結果を確認しましょう。
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-6 rounded-lg">
+              <h4 class="text-lg md:text-xl font-bold text-orange-900 mb-3 flex items-center">
+                <span class="text-2xl mr-3">✓</span>
+                根気よく改善を重ねる
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                完璧なツールを一発で作れる人はいません。
+                何度も修正を重ねることで、より良いツールが完成します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- エラーから学べること -->
+        <div class="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-lg border-2 border-green-500">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📚 エラーから学べること</h3>
+
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">💡 GASの仕組みへの理解</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                エラーを解決する過程で、GASがどのように動いているのか理解が深まります。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">🔍 問題解決能力の向上</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                エラーの原因を特定し、解決する能力が身につきます。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg font-bold text-gray-900 mb-2">🤖 ChatGPTとの対話スキル</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                的確に問題を伝え、解決策を引き出すコミュニケーションスキルが向上します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 🔄 トライ&エラーを繰り返す -->
+    <section id="trial-error" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔄 トライ&エラーを繰り返す
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          AIツール作成は、<strong class="text-blue-600">トライ&エラーの繰り返し</strong>です。
+          1回や2回の失敗で諦めず、粘り強くChatGPTと対話を続けましょう。
+        </p>
+
+        <!-- トライ&エラーのサイクル -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">🔄 トライ&エラーのサイクル</h3>
+
+          <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
+            <div class="flex flex-col items-center">
+              <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                <div class="text-center">
+                  <div class="text-3xl mb-1">💡</div>
+                  <div class="text-sm font-bold">1. 試す</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-4xl text-gray-400 hidden md:block">→</div>
+
+            <div class="flex flex-col items-center">
+              <div class="w-32 h-32 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                <div class="text-center">
+                  <div class="text-3xl mb-1">⚠️</div>
+                  <div class="text-sm font-bold">2. エラー発生</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-4xl text-gray-400 hidden md:block">→</div>
+
+            <div class="flex flex-col items-center">
+              <div class="w-32 h-32 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                <div class="text-center">
+                  <div class="text-3xl mb-1">🔍</div>
+                  <div class="text-sm font-bold">3. 分析</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-4xl text-gray-400 hidden md:block">→</div>
+
+            <div class="flex flex-col items-center">
+              <div class="w-32 h-32 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white shadow-lg">
+                <div class="text-center">
+                  <div class="text-3xl mb-1">🔧</div>
+                  <div class="text-sm font-bold">4. 修正</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl text-center text-gray-700">
+            このサイクルを繰り返すことで、徐々にツールが改善されていきます。
+          </p>
+        </div>
+
+        <!-- 諦めないための心構え -->
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-lg border-2 border-purple-500">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">💪 諦めないための心構え</h3>
+
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-lg md:text-xl text-gray-800">
+                <strong class="text-purple-600">「今はまだできない」</strong>と考える<br>
+                <span class="text-base text-gray-600">「できない」ではなく「今はまだできない」と考えることで、前向きに取り組めます。</span>
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-lg md:text-xl text-gray-800">
+                <strong class="text-purple-600">小さな成功を積み重ねる</strong><br>
+                <span class="text-base text-gray-600">大きな目標ではなく、小さな改善を1つずつ達成していきましょう。</span>
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-lg md:text-xl text-gray-800">
+                <strong class="text-purple-600">休憩を取る</strong><br>
+                <span class="text-base text-gray-600">行き詰まったら、一度離れて休憩しましょう。新鮮な頭で戻ると、解決策が見つかることがあります。</span>
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-lg md:text-xl text-gray-800">
+                <strong class="text-purple-600">完成したツールを想像する</strong><br>
+                <span class="text-base text-gray-600">完成後の便利さを想像することで、モチベーションが維持できます。</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: 📝 修正履歴を記録する -->
+    <section id="history" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 修正履歴を記録する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          何度も修正を繰り返す場合は、<strong class="text-orange-600">修正履歴を記録しておく</strong>と便利です。
+          後で見返したときに、どのような改善を行ったか分かりやすくなります。
+        </p>
+
+        <!-- 修正履歴の例 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-orange-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📋 修正履歴の記録例</h3>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
+              <div class="flex-1 bg-orange-50 p-4 rounded-lg">
+                <p class="text-lg font-bold text-gray-900">日付フォーマットを修正</p>
+                <p class="text-base text-gray-600 mt-1">
+                  日付が「2024/1/1」形式で表示されていたのを「2024年1月1日」形式に変更
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
+              <div class="flex-1 bg-orange-50 p-4 rounded-lg">
+                <p class="text-lg font-bold text-gray-900">重複チェック機能を追加</p>
+                <p class="text-base text-gray-600 mt-1">
+                  同じデータが複数回登録されないように重複チェック機能を実装
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                3
+              </div>
+              <div class="flex-1 bg-orange-50 p-4 rounded-lg">
+                <p class="text-lg font-bold text-gray-900">エラーハンドリングを追加</p>
+                <p class="text-base text-gray-600 mt-1">
+                  エラーが発生した場合にメールで通知する機能を追加
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                4
+              </div>
+              <div class="flex-1 bg-orange-50 p-4 rounded-lg">
+                <p class="text-lg font-bold text-gray-900">メール送信機能を追加</p>
+                <p class="text-base text-gray-600 mt-1">
+                  データ登録完了後に自動でメール通知が送信されるように改善
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 記録のメリット -->
+        <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-8 rounded-lg border-2 border-yellow-500">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">✅ 修正履歴を記録するメリット</h3>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">💡</span>
+              <div class="flex-1">
+                <h4 class="text-lg font-bold text-gray-900 mb-1">改善の過程が見える</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  どのような改善を行ったか振り返ることができます
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🔍</span>
+              <div class="flex-1">
+                <h4 class="text-lg font-bold text-gray-900 mb-1">原因特定に役立つ</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  新たな問題が発生した場合、過去の修正履歴から原因を推測できます
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">📚</span>
+              <div class="flex-1">
+                <h4 class="text-lg font-bold text-gray-900 mb-1">知識の蓄積</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  次のツール作成時に、過去の経験を活かすことができます
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🎯</span>
+              <div class="flex-1">
+                <h4 class="text-lg font-bold text-gray-900 mb-1">達成感が得られる</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  積み重ねた改善を見ることで、モチベーションが上がります
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 記録方法 -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3">💡 記録方法のヒント</p>
+          <ul class="space-y-2 text-lg md:text-xl text-blue-800">
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>Googleドキュメントやメモアプリに記録する</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>日付と修正内容を簡潔に書く</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>修正前と修正後の違いを明確にする</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>スクリーンショットも一緒に保存する</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 全体のまとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-orange-50 to-yellow-50 p-10 rounded-xl shadow-2xl border-2 border-orange-500">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+        📝 エラー修正の仕方 全体のまとめ
+      </h2>
+
+      <div class="space-y-8">
+        <!-- セクション1のまとめ -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl md:text-2xl font-bold text-orange-600 mb-4">💬 セクション1：エラーやうまく動かない時の指示の出し方</h3>
+          <ul class="space-y-2 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>「何が」「どう」違うかを具体的に伝える</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>成功時の結果を先に伝える</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>エラーメッセージは全文をコピーして送る</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- セクション2のまとめ -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl md:text-2xl font-bold text-orange-600 mb-4">🔄 セクション2：同じエラーが3回以上出る時の対処法</h3>
+          <ul class="space-y-2 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>実行ログからエラー箇所を的確に指定する</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>「別の原因を探させる」依頼に切り替える</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>チャットを切り替えて記憶リセット</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- セクション3のまとめ -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-xl md:text-2xl font-bold text-orange-600 mb-4">💪 セクション3：エラー修正の心構え</h3>
+          <ul class="space-y-2 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>エラーは成長の機会である</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>トライ&エラーを繰り返すことで改善していく</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-orange-600 font-bold">✓</span>
+              <span>修正履歴を記録して振り返る</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 最終メッセージ -->
+        <div class="bg-gradient-to-br from-green-500 to-blue-600 p-8 rounded-lg text-white">
+          <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center">
+            🎉 エラーを恐れず、前進しましょう！
+          </h3>
+          <p class="text-lg md:text-xl leading-relaxed text-center mb-4">
+            エラーに遭遇したら、この章を参考にして、1つずつ問題を解決していきましょう。
+          </p>
+          <p class="text-xl md:text-2xl font-bold text-center">
+            諦めずに続けることが、ツール完成への近道です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- トップページへ戻る -->
+    <div class="text-center">
+      <a href="../index.html" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        ← トップページに戻る
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

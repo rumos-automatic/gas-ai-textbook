@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1. 棚卸作業 | 基本的な考え方 | GAS短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ドットインジケーターのスタイル */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot:hover {
+      background-color: #9ca3af;
+      transform: scale(1.3);
+    }
+
+    .dot.active {
+      background-color: #3b82f6;
+      transform: scale(1.4);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    /* 画像拡大モーダル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    /* プレースホルダー画像のスタイル */
+    .placeholder-image {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      min-height: 300px;
+      border-radius: 0.5rem;
+    }
+
+    /* 比較レイアウト */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dot-indicator {
+        display: none;
+      }
+    }
+
+    /* ワーク課題のスタイル */
+    .work-section {
+      background-color: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .work-textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 1rem;
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+    }
+
+    .work-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    /* ポイントボックス */
+    .point-box {
+      background-color: #e0f2fe;
+      border-left: 4px solid #0ea5e9;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* 悪い例のボックス */
+    .bad-example {
+      background-color: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* 良い例のボックス */
+    .good-example {
+      background-color: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* ステップカード */
+    .step-card {
+      background-color: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="../index.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
+        ← トップページへ
+      </a>
+      <div class="text-base md:text-lg text-gray-600">
+        1. 棚卸作業
+      </div>
+      <a href="section-02.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
+        次へ →
+      </a>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot active" data-target="intro">
+      <div class="dot-label">イントロダクション</div>
+    </div>
+    <div class="dot" data-target="section1-intro">
+      <div class="dot-label">棚卸作業</div>
+    </div>
+    <div class="dot" data-target="section1-1">
+      <div class="dot-label">見える化が大事</div>
+    </div>
+    <div class="dot" data-target="section1-2">
+      <div class="dot-label">AIの限界</div>
+    </div>
+    <div class="dot" data-target="section1-3">
+      <div class="dot-label">悪い例vs良い例</div>
+    </div>
+    <div class="dot" data-target="section1-4">
+      <div class="dot-label">棚卸のポイント</div>
+    </div>
+    <div class="dot" data-target="section1-5">
+      <div class="dot-label">ワーク</div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- イントロダクション -->
+    <section id="intro" class="mb-16">
+      <div class="mb-4">
+        <span class="text-lg md:text-xl text-blue-600 font-semibold">基本的な考え方 - セクション 1/3</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        1. 棚卸作業
+      </h1>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+        AIツールを作る際、まず最初にやるべきことは<strong>「棚卸作業」</strong>です。
+      </p>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+        現状の作業を具体的に書き出すことで、AIに正確な指示を出せるようになります。
+        このセクションでは、効果的な棚卸作業の方法を学んでいきましょう。
+      </p>
+    </section>
+
+    <hr class="my-12 border-gray-300">
+
+    <!-- セクション1: 棚卸作業 -->
+    <section id="section1-intro" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        1. 棚卸作業
+      </h2>
+
+      <!-- 小セクション1-1 -->
+      <div id="section1-1" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">📋</span>
+          現状の作業を見える化することが大事
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          AIツールを作る際、まず最初にやるべきことは<strong>「棚卸作業」</strong>です。
+          これは、現在行っている作業を細かく書き出すことを指します。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          まずは現状の作業を見える化することが大事だと思います。
+          <strong>ここで洗い出した内容が、後でAIに伝える【指示文（プロンプト）】の材料になります。</strong>
+        </p>
+        <div class="point-box">
+          <p class="text-lg md:text-xl leading-relaxed text-gray-900 font-semibold">
+            💡 細かければ細かいほど、AIが正確に動けるようになります。
+          </p>
+        </div>
+      </div>
+
+      <!-- 小セクション1-2 -->
+      <div id="section1-2" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">🤖</span>
+          AIが全部を自動で作ってくれるわけではない
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          多くの人が誤解しがちですが、<strong>AIが全部を自動で作ってくれるわけではありません。</strong>
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          人間が「どんな作業を、どんな手順でやってほしいか」を具体的に伝えることが必要です。
+          AIは、あなたの指示に基づいてツールを作成してくれます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          つまり、AIはあなたの「アシスタント」であり、あなたの考えを実現するためのパートナーだと考えるとよいでしょう。
+        </p>
+      </div>
+
+      <!-- 小セクション1-3 -->
+      <div id="section1-3" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          棚卸作業の悪い例と良い例
+        </h3>
+
+        <div class="comparison-grid mb-6">
+          <!-- 悪い例 -->
+          <div class="bad-example">
+            <h4 class="text-xl font-bold text-red-700 mb-3 flex items-center">
+              <span class="text-2xl mr-2">❌</span>
+              悪い例
+            </h4>
+            <div class="bg-white p-4 rounded">
+              <p class="text-lg text-gray-800 italic">
+                「Gmailからスプレッドシートに転記」
+              </p>
+            </div>
+            <p class="text-base leading-relaxed text-gray-700 mt-4">
+              このような抽象的な指示では、AIは何をどう転記すればいいのか分かりません。
+              具体性に欠けるため、AIは正確なツールを作成できないでしょう。
+            </p>
+          </div>
+
+          <!-- 良い例 -->
+          <div class="good-example">
+            <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+              <span class="text-2xl mr-2">✅</span>
+              良い例
+            </h4>
+            <div class="bg-white p-4 rounded">
+              <ol class="text-lg text-gray-800 space-y-2 list-decimal list-inside">
+                <li>Gmailで注文メール確認</li>
+                <li>「注文番号」「氏名」「住所」「商品名」「合計金額」を選択してコピー</li>
+                <li>注文管理のスプレッドシートに貼り付け
+                  <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                    <li>A列に注文番号</li>
+                    <li>B列に氏名</li>
+                    <li>C列に住所</li>
+                    <li>D列に商品名</li>
+                    <li>E列に金額</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+            <p class="text-base leading-relaxed text-gray-700 mt-4">
+              このように、<strong>具体的な手順とデータの配置場所</strong>を明確にすることで、
+              AIは正確にツールを作成できます。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小セクション1-4 -->
+      <div id="section1-4" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">💡</span>
+          棚卸作業のポイント
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
+          棚卸作業をする際は、以下のポイントを意識してみましょう。
+        </p>
+
+        <div class="space-y-4">
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              1. 手順を番号付きで書き出す
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              ステップ1、ステップ2、ステップ3...という形で整理します。
+              順序立てて書くことで、AIが処理の流れを理解しやすくなります。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              2. 固有名詞を具体的に書く
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700 mb-2">
+              抽象的な言葉ではなく、具体的な固有名詞を使います。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 list-disc list-inside ml-4 space-y-1">
+              <li>「メール」ではなく「注文メール」</li>
+              <li>「データ」ではなく「注文番号、氏名、住所」</li>
+            </ul>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              3. データの配置場所を明確にする
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              スプレッドシートの「A列に○○、B列に△△」など、
+              どこに何を配置するかを具体的に指定します。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              4. 条件があれば明記する
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              「件名に"注文"を含むメールのみ」など、
+              特定の条件がある場合は必ず記載します。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小セクション1-5: ワーク課題 -->
+      <div id="section1-5" class="mb-12">
+        <div class="work-section">
+          <h3 class="text-xl md:text-2xl font-bold text-amber-900 mb-4 flex items-center">
+            <span class="text-3xl mr-3">✅</span>
+            【ワーク】あなたの業務の棚卸をしてみよう
+          </h3>
+          <p class="text-lg leading-relaxed text-gray-800 mb-4">
+            あなたが自動化したい業務を1つ選び、棚卸作業をしてみましょう。
+          </p>
+
+          <div class="bg-white p-4 rounded mb-4">
+            <p class="text-base font-semibold text-gray-900 mb-2">記入例：</p>
+            <ul class="text-base leading-relaxed text-gray-700 list-disc list-inside space-y-1">
+              <li>ステップ1：Gmailで「請求書」を含むメールを検索</li>
+              <li>ステップ2：件名、差出人、受信日を確認</li>
+              <li>ステップ3：スプレッドシートに転記（A列：件名、B列：差出人、C列：受信日）</li>
+              <li>ステップ4：「未対応」ステータスを付ける</li>
+            </ul>
+          </div>
+
+          <textarea
+            class="work-textarea"
+            placeholder="こちらに棚卸作業を書いてみましょう...&#10;&#10;例：&#10;ステップ1：...&#10;ステップ2：...&#10;ステップ3：..."
+          ></textarea>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-12 border-gray-300">
+
+    <!-- 次のセクションへ -->
+    <section class="mb-16 text-center">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-lg p-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          次のセクションへ
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          棚卸作業の方法を理解できましたでしょうか？<br>
+          次は、ツール開発の現実について学んでいきましょう。
+        </p>
+        <a href="section-02.html" class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-lg md:text-xl py-4 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
+          2. ツールは1発で完成しない →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターの機能
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section, section > div[id]');
+
+    // ドットクリックでスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetId = dot.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // スクロール時にアクティブなドットを更新
+    function updateActiveDot() {
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === currentSection) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveDot);
+
+    // 画像拡大モーダルの機能
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 画像をクリックしたときにモーダルを開く
+    document.querySelectorAll('img:not(#modalImage)').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function() {
+        modal.classList.add('active');
+        modalImg.src = this.src;
+      });
+    });
+
+    // モーダルを閉じる
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

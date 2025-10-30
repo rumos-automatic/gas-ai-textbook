@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GASからメッセージ送信 | 実践編⑤ GAS×チャットワークAPI連携</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f472b6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ec4899;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+      border: 2px dashed #ec4899;
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      background: linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%);
+      transform: scale(1.02);
+    }
+    .screenshot-placeholder p {
+      color: #9d174d;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-chatwork-03.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-chatwork-05.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="save-token">
+        <span class="dot-label">APIトークンを保存</span>
+      </div>
+      <div class="dot" data-section="room-id">
+        <span class="dot-label">ルームIDを取得</span>
+      </div>
+      <div class="dot" data-section="send-message">
+        <span class="dot-label">メッセージ送信コード</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💻 GASからメッセージ送信
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        取得したAPIトークンを使って、実際にメッセージを送信してみましょう
+      </p>
+    </header>
+
+    <!-- 小セクション1: APIトークンをGASに保存 -->
+    <section id="save-token" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💾 ステップ1：APIトークンをGASに保存
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          まず、前のセクションで取得した<strong class="text-pink-600">APIトークン</strong>をGASの
+          <strong class="text-pink-600">プロパティサービス</strong>に保存します。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          プロパティサービスは、GAS専用の「安全な保管庫」のようなものです。
+          ここにAPIトークンを保存することで、コードに直接書かなくても済むため、セキュリティが向上しますよ。
+        </p>
+
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">💡</div>
+            <div>
+              <p class="text-lg md:text-xl font-semibold text-gray-900 mb-2">
+                なぜプロパティサービスを使うのか？
+              </p>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                APIトークンをコード内に直接書いてしまうと、そのコードを他の人に見せた時に、
+                トークンが漏洩してしまう危険があります。
+                プロパティサービスを使えば、トークンはコードとは別の場所に安全に保存されるため、
+                コードを共有しても安心ですよ。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          📝 APIトークンを保存するコード
+        </h3>
+
+        <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto shadow-lg">
+          <pre><code class="language-javascript">function setChatworkApiToken() {
+  // プロパティサービスを取得
+  const scriptProperties = PropertiesService.getScriptProperties();
+
+  // APIトークンを保存
+  scriptProperties.setProperty('CHATWORK_API_TOKEN', 'YOUR_API_TOKEN_HERE');
+
+  Logger.log('APIトークンを保存しました');
+}</code></pre>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">
+            🔧 実行手順
+          </h4>
+          <ol class="space-y-3 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">1.</span>
+              <span>上記のコードをGASエディタに貼り付けます</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">2.</span>
+              <span><code class="bg-gray-100 px-2 py-1 rounded text-base">YOUR_API_TOKEN_HERE</code>の部分を、実際に取得したAPIトークンに置き換えます</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">3.</span>
+              <span>関数を実行します（初回のみ実行すればOKです）</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">4.</span>
+              <span>実行後は、このコードは削除しても構いません（トークンは保存されています）</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="screenshot-placeholder" data-img="screenshot-gas-properties-service.png">
+          <p>📸 スクリーンショット：GASエディタでプロパティサービスのコードを実行</p>
+          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-gas-properties-service.png</p>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mt-6">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">⚠️ セキュリティ上の注意</p>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            トークンをプロパティサービスに保存した後は、コード内からトークンの文字列を削除しておきましょう。
+            また、GASプロジェクトを他の人と共有する場合でも、プロパティサービスの内容は共有されないため、
+            トークンが漏洩する心配はありませんよ。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ルームIDを取得 -->
+    <section id="room-id" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🆔 ステップ2：ルームIDを取得
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          チャットワークでメッセージを送信するには、<strong class="text-pink-600">ルームID</strong>が必要です。
+          ルームIDは、送信先のグループチャットを特定するための番号です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          ルームIDの確認方法は非常に簡単です。
+          チャットワークのURLから取得できますよ。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            📋 ルームIDの確認方法
+          </h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  チャットワークで送信先のルームを開く
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  メッセージを送信したいグループチャットやダイレクトメッセージを開きます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  URLを確認
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                  ブラウザのアドレスバーに表示されているURLを確認します。
+                  URLは以下のような形式になっています：
+                </p>
+                <div class="bg-gray-100 p-4 rounded-lg border-2 border-pink-300">
+                  <code class="text-base md:text-lg text-gray-800">
+                    https://www.chatwork.com/#!rid<span class="text-pink-600 font-bold">12345678</span>
+                  </code>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  「rid」の後の数字がルームID
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  URLの<code class="bg-gray-100 px-2 py-1 rounded">rid</code>の後に続く数字が、
+                  そのルームの<strong class="text-pink-600">ルームID</strong>です。
+                  上の例では、<strong class="text-pink-600">12345678</strong>がルームIDになります。
+                  この数字をメモしておきましょう。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-placeholder" data-img="screenshot-chatwork-room-url.png">
+          <p>📸 スクリーンショット：チャットワークのURLからルームIDを確認</p>
+          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-room-url.png</p>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ヒント</p>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            ルームIDは、送信先ごとに異なります。
+            複数のルームに送信したい場合は、それぞれのルームIDを確認して使い分けましょう。
+            また、自分専用のテストルームを作って、そこでメッセージ送信のテストをするのがおすすめですよ。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: メッセージ送信コードを作成 -->
+    <section id="send-message" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📤 ステップ3：メッセージ送信コードを作成
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          それでは、いよいよチャットワークにメッセージを送信するコードを作成しましょう。
+          以下のコードで、GASからチャットワークに自動的にメッセージを送信できますよ。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          📝 完全なメッセージ送信コード
+        </h3>
+
+        <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto shadow-lg">
+          <pre><code class="language-javascript">function sendChatworkMessage() {
+  // プロパティサービスからAPIトークンを取得
+  const scriptProperties = PropertiesService.getScriptProperties();
+  const apiToken = scriptProperties.getProperty('CHATWORK_API_TOKEN');
+
+  // ルームID（送信先のルーム）
+  const roomId = '12345678'; // ここに実際のルームIDを入力
+
+  // 送信するメッセージ
+  const message = 'GASからの自動送信テストです！';
+
+  // APIエンドポイント
+  const url = `https://api.chatwork.com/v2/rooms/${roomId}/messages`;
+
+  // リクエストオプション
+  const options = {
+    'method': 'POST',
+    'headers': {
+      'X-ChatWorkToken': apiToken
+    },
+    'payload': {
+      'body': message
+    }
+  };
+
+  // API呼び出し
+  try {
+    const response = UrlFetchApp.fetch(url, options);
+    Logger.log('メッセージ送信成功: ' + response.getContentText());
+  } catch (error) {
+    Logger.log('エラー: ' + error.message);
+  }
+}</code></pre>
+        </div>
+
+        <div class="bg-gradient-to-br from-pink-50 to-red-50 p-8 rounded-xl shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            🔍 コードの詳しい解説
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 解説1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                1. APIトークンの取得
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">const apiToken = scriptProperties.getProperty('CHATWORK_API_TOKEN');</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ステップ1で保存したAPIトークンを、プロパティサービスから取得しています。
+                これにより、コード内にトークンを直接書かなくても済みます。
+              </p>
+            </div>
+
+            <!-- 解説2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                2. ルームIDの指定
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">const roomId = '12345678';</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ステップ2で確認したルームIDを指定します。
+                この例では<code class="bg-gray-100 px-2 py-1 rounded">12345678</code>となっていますが、
+                実際にはあなたのルームIDに置き換えてくださいね。
+              </p>
+            </div>
+
+            <!-- 解説3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                3. メッセージの内容
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">const message = 'GASからの自動送信テストです！';</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                送信したいメッセージの内容を指定します。
+                この部分を変更することで、好きなメッセージを送信できます。
+              </p>
+            </div>
+
+            <!-- 解説4 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                4. APIエンドポイントの指定
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">const url = `https://api.chatwork.com/v2/rooms/${roomId}/messages`;</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                チャットワークAPIのメッセージ送信用エンドポイントを指定しています。
+                <code class="bg-gray-100 px-2 py-1 rounded">${roomId}</code>の部分に、先ほど指定したルームIDが埋め込まれます。
+              </p>
+            </div>
+
+            <!-- 解説5 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                5. リクエストオプションの設定
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">const options = { ... }</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                APIを呼び出すための設定です。
+                <code class="bg-gray-100 px-2 py-1 rounded">method: 'POST'</code>でPOSTリクエストを指定し、
+                <code class="bg-gray-100 px-2 py-1 rounded">headers</code>にAPIトークンを含めています。
+                <code class="bg-gray-100 px-2 py-1 rounded">payload</code>には送信するメッセージ本文を指定しています。
+              </p>
+            </div>
+
+            <!-- 解説6 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-lg md:text-xl font-bold text-pink-600 mb-3">
+                6. エラーハンドリング
+              </h4>
+              <div class="bg-gray-100 p-3 rounded mb-3 overflow-x-auto">
+                <code class="text-sm">try { ... } catch (error) { ... }</code>
+              </div>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                APIの呼び出しが失敗した場合のエラー処理を行っています。
+                エラーが発生した場合は、ログにエラーメッセージが記録されるため、
+                問題の原因を特定しやすくなりますよ。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mt-8">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">
+            🚀 コードの実行手順
+          </h4>
+          <ol class="space-y-3 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">1.</span>
+              <span>上記のコードをGASエディタに貼り付けます</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">2.</span>
+              <span><code class="bg-gray-100 px-2 py-1 rounded text-base">roomId</code>を、実際のルームIDに置き換えます</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">3.</span>
+              <span><code class="bg-gray-100 px-2 py-1 rounded text-base">message</code>を、送信したい内容に変更します</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">4.</span>
+              <span>関数を実行します</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-pink-600 font-bold flex-shrink-0">5.</span>
+              <span>チャットワークで、メッセージが届いているか確認します！</span>
+            </li>
+          </ol>
+        </div>
+
+        <div class="screenshot-placeholder" data-img="screenshot-gas-chatwork-function.png">
+          <p>📸 スクリーンショット：GASエディタでメッセージ送信コードを実行</p>
+          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-gas-chatwork-function.png</p>
+        </div>
+
+        <div class="screenshot-placeholder mt-6" data-img="screenshot-chatwork-message-received.png">
+          <p>📸 スクリーンショット：チャットワークで受信したメッセージ</p>
+          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-message-received.png</p>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">🎉 成功した場合</p>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            コードの実行が成功すると、指定したチャットワークのルームにメッセージが届きます。
+            ログには「メッセージ送信成功」と表示されますよ。
+            もし届かない場合は、ルームIDやAPIトークンが正しいか確認してみてくださいね。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-pink-50 to-red-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、GASからチャットワークにメッセージを送信する方法について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>APIトークンはプロパティサービスに保存することで、セキュアに管理できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>ルームIDは、チャットワークのURLから確認できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>UrlFetchApp.fetchを使ってチャットワークAPIを呼び出します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>エラーハンドリングを入れることで、問題が発生した時も安心です</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、実際の業務で使える活用例を3つ紹介します。
+          Googleフォームやスプレッドシートと組み合わせた実用的なツールを見ていきましょう！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-chatwork-05.html" class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：実用的な活用例 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // スクリーンショットプレースホルダーのクリック
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        const imgName = placeholder.getAttribute('data-img');
+        alert(`このスクリーンショットを追加予定:\n${imgName}\n\n実際の画像を撮影して、assets/images/screenshots/ フォルダに配置してください。`);
+      });
+    });
+  </script>
+
+</body>
+</html>

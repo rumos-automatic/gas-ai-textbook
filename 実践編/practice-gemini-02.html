@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編⑥-2：Gemini APIキーの取得 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b5cf6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #7c3aed;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .image-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .image-placeholder:hover {
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-purple-600 hover:text-purple-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-gemini-01.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-gemini-03.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="steps">
+        <span class="dot-label">APIキー取得手順</span>
+      </div>
+      <div class="dot" data-section="caution">
+        <span class="dot-label">APIキー管理の注意点</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🎟️ Gemini APIキーの取得
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        Gemini APIを使用するために必要なAPIキーを取得します
+      </p>
+    </header>
+
+    <!-- 小セクション1: APIキー取得手順 -->
+    <section id="steps" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📋 APIキー取得の手順
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          Gemini APIを使用するには、まず<strong>APIキー</strong>を取得する必要があります。
+          APIキーは、あなたがAPIを使用する権限を持っていることを証明するための「鍵」のようなものです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          取得手順は非常に簡単で、数分で完了します。
+          以下の手順に従って、一緒にAPIキーを取得してみましょう。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg mt-8">
+          <!-- ステップ1 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  Google AI Studio にアクセス
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  まず、以下のURLにアクセスしてください。
+                  Google AI Studioは、Gemini APIを管理するための公式サイトです。
+                </p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                  <p class="text-base md:text-lg font-mono text-purple-700">
+                    https://aistudio.google.com/
+                  </p>
+                </div>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  このサイトでは、APIキーの発行や管理、使用量の確認などができます。
+                  ブラウザで新しいタブを開いて、上記のURLにアクセスしてみましょう。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-top.png</p>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  Googleアカウントでログイン
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  Google AI Studioにアクセスしたら、<strong>「Sign in」</strong>ボタンをクリックして、
+                  Googleアカウントでログインします。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  普段使っているGoogleアカウント（Gmailなど）でログインできますよ。
+                  もし、ビジネス用とプライベート用のアカウントを持っている場合は、
+                  用途に応じて選択してくださいね。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-signin.png</p>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  「Get API Key」をクリック
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  ログインすると、画面左側のメニューに<strong>「Get API Key」</strong>という項目が表示されます。
+                  このボタンをクリックして、APIキーの発行画面に進みましょう。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  このボタンは、画面の左サイドバーの中央あたりに配置されていることが多いです。
+                  もし見つからない場合は、画面上部のメニューバーを確認してみてくださいね。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-get-api-key.png</p>
+            </div>
+          </div>
+
+          <!-- ステップ4 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                4
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  「Create API Key」をクリック
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  APIキー管理画面に移動したら、<strong>「Create API Key」</strong>ボタンをクリックします。
+                  これで、新しいAPIキーの発行プロセスが始まります。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  もし既にAPIキーを持っている場合は、この画面に既存のAPIキーのリストが表示されます。
+                  新しいプロジェクト用に別のAPIキーを作りたい場合も、このボタンから追加できますよ。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-create-api-key.png</p>
+            </div>
+          </div>
+
+          <!-- ステップ5 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                5
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  プロジェクトを選択または新規作成
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  APIキーは、Google Cloudプロジェクトに紐付けられます。
+                  既存のプロジェクトを選択するか、<strong>「Create a new project」</strong>を選んで新規作成しましょう。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  初めての方は、新しいプロジェクトを作成することをお勧めします。
+                  プロジェクト名は、「My Gemini Project」や「GAS Automation」など、
+                  わかりやすい名前にしておくと良いですよ。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-select-project.png</p>
+            </div>
+          </div>
+
+          <!-- ステップ6 -->
+          <div class="mb-8">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                6
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  APIキーが表示されたら、コピーして安全に保存
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
+                  プロジェクトを選択すると、すぐにAPIキーが表示されます。
+                  この長い文字列が、あなた専用のAPIキーです。
+                  <strong>「Copy」</strong>ボタンをクリックして、APIキーをコピーしましょう。
+                </p>
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-3">
+                  <p class="text-base md:text-lg font-semibold text-yellow-900 mb-2">
+                    ⚠️ 重要：APIキーは絶対に他人に見せないでください！
+                  </p>
+                  <p class="text-base md:text-lg text-yellow-800">
+                    APIキーは、あなたのGoogleアカウントに紐付いた重要な情報です。
+                    他人に知られると、不正に利用されて料金が発生する可能性があります。
+                  </p>
+                </div>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  コピーしたAPIキーは、メモ帳やパスワード管理ツールに保存しておくと良いですよ。
+                  この後のセクションで、GASに安全に保存する方法を学びます。
+                </p>
+              </div>
+            </div>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="image-placeholder rounded-lg h-64 mt-4">
+              <p class="text-lg">📸 screenshot-google-ai-studio-api-key-displayed.png</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">
+            ✅ APIキー取得完了！
+          </p>
+          <p class="text-lg md:text-xl text-green-800">
+            おめでとうございます！これで、Gemini APIを使う準備が整いました。
+            次のセクションでは、このAPIキーをGASに保存して、実際にテキスト生成を試してみましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: APIキー管理の注意点 -->
+    <section id="caution" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔐 APIキー管理の注意点
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          APIキーは、あなたのGoogleアカウントに紐付いた非常に重要な情報です。
+          不正に使用されないよう、適切に管理する必要があります。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          以下の注意点を必ず守って、安全にAPIキーを使用しましょう。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+          <!-- 注意点1 -->
+          <div class="bg-red-50 border-2 border-red-300 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-3 flex items-center gap-2">
+              <span>❌</span>
+              <span>絶対にしてはいけないこと</span>
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-red-800">
+              <li class="flex items-start gap-2">
+                <span class="font-bold">×</span>
+                <span>GitHubなどの公開リポジトリにアップロードする</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">×</span>
+                <span>メールやチャットで他人に送信する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">×</span>
+                <span>スクリーンショットをSNSに投稿する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">×</span>
+                <span>コード内にハードコーディングする</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 注意点2 -->
+          <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-green-900 mb-3 flex items-center gap-2">
+              <span>✅</span>
+              <span>推奨される保存方法</span>
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-green-800">
+              <li class="flex items-start gap-2">
+                <span class="font-bold">◯</span>
+                <span>GASのプロパティサービスに保存（後述）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">◯</span>
+                <span>パスワード管理ツールに保存</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">◯</span>
+                <span>環境変数として設定</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">◯</span>
+                <span>定期的にAPIキーをローテーション</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3">
+            💡 APIキーが漏洩した場合の対処法
+          </p>
+          <p class="text-lg md:text-xl text-blue-800 mb-3">
+            もし、APIキーを誤って公開してしまった場合は、すぐに以下の対応を行いましょう：
+          </p>
+          <ol class="space-y-2 text-base md:text-lg text-blue-800 list-decimal pl-6">
+            <li>Google AI Studioにアクセスして、該当のAPIキーを削除する</li>
+            <li>新しいAPIキーを発行する</li>
+            <li>GASのコードを新しいAPIキーに更新する</li>
+            <li>使用量が異常に増えていないか確認する</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、Gemini APIキーの取得方法について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>Google AI Studioから、簡単にAPIキーを取得できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>取得手順は6ステップで、数分で完了します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>APIキーは絶対に他人に見せてはいけません</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>安全な保存方法は、GASのプロパティサービスがお勧めです</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、取得したAPIキーをGASに保存して、実際にテキスト生成を試してみましょう。
+          いよいよ、Gemini APIを使ったプログラミングに挑戦しますよ！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-gemini-03.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：GASとの連携 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

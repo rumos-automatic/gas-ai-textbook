@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>まとめ | 実践編④ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #ec4899 0%, #ec4899 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-04-step6.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">まとめ</span>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        このセクションのまとめ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        実践編④で学んだことを振り返りましょう。
+      </p>
+    </header>
+
+    <!-- お疲れ様でした -->
+    <section id="celebration" class="mb-20">
+      <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg shadow-lg p-12 mb-8 text-center border-2 border-pink-200">
+        <div class="text-6xl mb-6">🎉</div>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">おめでとうございます！</h2>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          実践編④「オリジナルツールを製作」を完了しました。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          あなた自身の力で、業務に合わせたオリジナルツールを作り上げることができましたね。
+          これは大きな一歩です。本当によく頑張りました！
+        </p>
+      </div>
+    </section>
+
+    <!-- この実践で学んだこと -->
+    <section id="learned" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📚 この実践で学んだこと</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          この実践では、以下の重要なスキルを身につけました。
+          これらは、今後どんなツールを作る場合でも役立つ基本的な考え方です。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📝 棚卸作業の重要性</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              現在の作業を具体的に書き出すことで、自動化の設計がスムーズになることを学びました。
+              棚卸しは、ツール作成の成功の鍵です。
+            </p>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔍 実践①②③のどれを参考にするかの判断</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              作りたいツールに応じて、参考にする実践編を選ぶ方法を学びました。
+              Gmail連携、ドライブ連携、フォーム連携など、目的に合わせた選択ができるようになりました。
+            </p>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⏰ トリガーとカスタムメニューの使い分け</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              自動実行と手動実行の違いを理解し、目的に応じて適切な実行方法を選べるようになりました。
+              両方を組み合わせることもできることを学びました。
+            </p>
+          </div>
+
+          <div class="bg-orange-50 rounded-lg p-6 border-l-4 border-orange-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔄 トライ&エラーを繰り返す重要性</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              ツールは1発で完成しないこと、エラーを恐れずに修正を重ねることの大切さを学びました。
+              根気よく改善を続けることが、成功への近道です。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- あなたが手に入れたもの -->
+    <section id="gained" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🎁 あなたが手に入れたもの</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この実践を通して、あなたは単なる「知識」だけでなく、実際に「使えるスキル」を手に入れました。
+        </p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-2xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">自分で考えてツールを設計する力</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                手順書がなくても、自分で考えてツールを作り上げる力が身につきました。
+                これは、今後どんな業務改善にも応用できる強力なスキルです。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-2xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">生成AIを使いこなす力</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                ChatGPTに適切な指示を出し、エラーを修正してもらいながらツールを完成させる力が身につきました。
+                これからは、どんな作業でも生成AIをパートナーにして効率化できます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-2xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">問題解決能力</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                エラーが出ても諦めず、一つずつ解決していく力が身につきました。
+                この「トライ&エラー」の姿勢は、プログラミングだけでなく、すべての仕事に通じる重要なスキルです。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップ -->
+    <section id="next" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🚀 次のステップ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          実践編④を完了したあなたは、もう初心者ではありません。
+          これからは、さらに高度なツールに挑戦していくことができます。
+        </p>
+
+        <div class="bg-gradient-to-br from-pink-50 to-rose-50 border-l-4 border-pink-500 rounded-lg p-6 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 おすすめの次のステップ</h3>
+          <ul class="text-lg leading-relaxed text-gray-700 space-y-3">
+            <li>• 作ったツールを実際の業務で使ってみる</li>
+            <li>• ツールに新しい機能を追加してみる</li>
+            <li>• 別の業務でも自動化ツールを作ってみる</li>
+            <li>• API連携などの上級編に挑戦してみる（今後公開予定）</li>
+            <li>• 同僚にツールを共有して、使ってもらう</li>
+          </ul>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          あなたには、もう十分な知識とスキルがあります。
+          自信を持って、次のチャレンジに進んでいきましょう！
+        </p>
+      </div>
+    </section>
+
+    <!-- 最終メッセージ -->
+    <section id="final" class="mb-20">
+      <div class="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg shadow-lg p-12 text-white text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">本当にお疲れ様でした！</h2>
+        <p class="text-lg md:text-xl mb-6">
+          実践編④を完了したあなたは、生成AI×GASで自動化ツールを作る基礎を完全にマスターしました。
+        </p>
+        <p class="text-lg md:text-xl mb-8">
+          これからも、学んだことを活かして、どんどん新しいツールを作っていってください。
+          あなたの挑戦を応援しています！
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="../index.html" class="inline-block bg-white text-pink-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+            トップページへ戻る
+          </a>
+          <a href="practice-04-intro.html" class="inline-block bg-pink-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-pink-800 transition shadow-md border-2 border-white">
+            もう一度復習する
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

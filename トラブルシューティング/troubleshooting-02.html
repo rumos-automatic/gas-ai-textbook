@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション2: 同じエラーが3回以上出る時の対処法 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f97316;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ea580c;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    pre code {
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+    }
+    @media (min-width: 768px) {
+      pre code {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-orange-600 hover:text-orange-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="troubleshooting-01.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            ← 前へ
+          </a>
+          <a href="troubleshooting-03.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">同じエラーが続く時の対処</span>
+      </div>
+      <div class="dot" data-section="execution-log">
+        <span class="dot-label">① 実行ログを活用</span>
+      </div>
+      <div class="dot" data-section="different-cause">
+        <span class="dot-label">② 別の原因を探させる</span>
+      </div>
+      <div class="dot" data-section="chat-reset">
+        <span class="dot-label">③ チャット切り替え</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🔄 同じエラーが3回以上出る時の対処法
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        エラーが続く場合の3つの対処法を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 同じエラーが続く時の対処 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🚨 同じエラーが続く場合の基本的な考え方
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          同じエラーが3回以上続くときは、<strong class="text-orange-600">"同じ質問を繰り返す"のではなく、角度を変えて伝える</strong>のがポイントです。
+          同じ聞き方を繰り返しても、ChatGPTは同じような回答しか出せません。
+        </p>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-4">⚠️ こんな状況になっていませんか？</p>
+          <ul class="space-y-2 text-lg md:text-xl text-yellow-800">
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>同じエラーが何度も出る</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>ChatGPTの修正案を試しても改善しない</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="font-bold">•</span>
+              <span>どうしたら良いか分からなくなってきた</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">1</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              実行ログを活用
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              エラー箇所を的確に指定する
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">2</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              別の原因を探させる
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              発想をリセットして依頼
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center font-bold">3</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              チャット切り替え
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              記憶をリセットして再挑戦
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-orange-900 mb-2">💡 重要なポイント</p>
+          <p class="text-lg md:text-xl text-orange-800">
+            この3つの方法を順番に試していくことで、行き詰まった状況を打開できます。
+            諦めずに、ひとつずつ試してみましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ① Apps Scriptエディタの「実行ログ」を活用 -->
+    <section id="execution-log" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ① Apps Scriptエディタの「実行ログ」からエラー箇所を的確に指定する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASエディタには、<strong class="text-blue-600">「実行ログ」</strong>という機能があります。
+          ここには、スクリプトの実行履歴やエラーメッセージが記録されています。
+          この情報を使って、エラー箇所をより具体的にChatGPTに伝えることができます。
+        </p>
+
+        <!-- 実行ログの確認方法 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📋 実行ログの確認方法</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">GASエディタを開く</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  Googleスプレッドシートやドキュメントから、拡張機能 → Apps Script を選択します。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">左サイドバーの「実行数」アイコンをクリック</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  時計のアイコンが「実行数」です。ここをクリックすると実行履歴が表示されます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">実行履歴が表示される</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  各実行の日時、ステータス（成功/失敗）、実行時間が一覧で表示されます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                4
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">赤い文字のエラーメッセージ（TypeError...）を確認</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  失敗した実行をクリックすると、詳細なエラーメッセージが表示されます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                5
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">エラーメッセージの前後をスクリーンショット</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  エラーメッセージと、その前後の情報をスクリーンショットで撮影し、ChatGPTに送ります。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Point -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3">💡 Point</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            エラー内容に加えて、<strong>「どんな処理をしようとしていたか」</strong>を伝えると、
+            AIがより正確に修正できます。
+          </p>
+        </div>
+
+        <!-- いい例 -->
+        <div class="bg-green-50 border-2 border-green-500 p-8 rounded-lg shadow-lg">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-4xl">💮</span>
+            <h3 class="text-xl md:text-2xl font-bold text-green-900">いい例</h3>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-green-300">
+            <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+              注文メールをスプレッドシートに転記しようとしたら、このエラーが出ました。修正してください。
+            </p>
+            <p class="text-base text-gray-600 mb-3">
+              [スクショを添付]
+            </p>
+            <div class="bg-gray-900 text-white p-4 rounded font-mono text-sm">
+              TypeError: Cannot read property 'getRange' of null at transferEmailsToSheet(コード:25)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: ② "別の原因を探させる"依頼に切り替える -->
+    <section id="different-cause" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ② "別の原因を探させる"依頼に切り替える
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          同じ修正が空振りしたら、<strong class="text-purple-600">発想のリセット</strong>を頼みます。
+          ChatGPTに、これまでとは違う角度から問題を見てもらうことで、新しい解決策が見つかることがあります。
+        </p>
+
+        <!-- プロンプト例 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-purple-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📝 プロンプト例</h3>
+
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-md border-2 border-purple-300">
+              <p class="text-lg md:text-xl text-gray-800 leading-relaxed">
+                エラーが改善しません。別の原因がないか、前提や設計を水平思考で見直してください。
+              </p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900">このように依頼することで：</h4>
+            <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span>ChatGPTは別の角度から問題を分析します</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span>これまでと違うアプローチで解決策を提示します</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span>コードの構造自体に問題がないか見直してくれます</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 他のプロンプト例 -->
+        <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-8 rounded-lg border-2 border-purple-500">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📌 他のプロンプト例</h3>
+
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-base md:text-lg text-gray-800">
+                「同じエラーが続いています。コードの根本的な設計に問題がある可能性はありますか？」
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-base md:text-lg text-gray-800">
+                「このエラーが出る原因として、他に考えられる可能性をすべて列挙してください。」
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <p class="text-base md:text-lg text-gray-800">
+                「これまでの修正とは異なるアプローチで、問題を解決する方法を提案してください。」
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-purple-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-purple-800">
+            「水平思考」「別の角度」「根本的な設計」などのキーワードを使うことで、
+            ChatGPTに新しい視点で問題を分析してもらえます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: ③ チャットを切り替えて"記憶リセット" -->
+    <section id="chat-reset" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ③ チャットを切り替えて"記憶リセット"
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          同じチャットで何度も修正を繰り返すと、ChatGPTが過去の指示を引きずることがあり、
+          それが悪さしている可能性があります。
+        </p>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">🔄 切り替える理由</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            同じチャットだと<strong>過去の指示を引きずる</strong>ことがあるので、
+            一回リセットするためにチャットを切り替えます。
+            これにより、ChatGPTがクリーンな状態で問題を見直すことができます。
+          </p>
+        </div>
+
+        <!-- パターン1: コードを修正する場合 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            🔵 パターン1：コードを修正する場合
+          </h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">現状を説明してもらう</h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  現在のチャットでChatGPTに依頼します。
+                </p>
+                <div class="bg-gray-100 p-4 rounded border border-gray-300">
+                  <p class="text-base text-gray-800">
+                    「エラーが起きている現状を説明してください。」
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">別のチャットを開く</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  新しいチャットを開始します。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">コード全文とエラーの現状説明を貼り付け</h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  前のチャットで出てきた情報を貼り付けます。
+                </p>
+                <ul class="list-disc pl-6 text-base text-gray-600 space-y-1">
+                  <li>前のチャットで出てきたコード全文</li>
+                  <li>エラーの現状説明</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                4
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">「修正してください」と依頼</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  新しいチャットで修正を依頼します。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 例 -->
+          <div class="mt-6 bg-blue-50 p-6 rounded-lg">
+            <h4 class="text-lg font-bold text-gray-900 mb-3">📝 依頼例</h4>
+            <div class="bg-white p-6 rounded border border-blue-300">
+              <p class="text-base md:text-lg text-gray-800 mb-4">
+                以下のコードでエラーが発生しています。
+              </p>
+              <p class="text-base md:text-lg text-gray-800 mb-4">
+                【コード】<br>
+                <span class="text-gray-600">[コード全文を貼り付け]</span>
+              </p>
+              <p class="text-base md:text-lg text-gray-800 mb-4">
+                【エラーの現状】<br>
+                <span class="text-gray-600">[現状説明を貼り付け]</span>
+              </p>
+              <p class="text-base md:text-lg text-gray-800">
+                修正してください。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- パターン2: コードの作り直し -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            🟢 パターン2：コードの作り直し
+          </h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">ツールの全体像を書き出してもらう</h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  現在のチャットでChatGPTに依頼します。
+                </p>
+                <div class="bg-gray-100 p-4 rounded border border-gray-300">
+                  <p class="text-base text-gray-800">
+                    「このツールでやりたいことの全体像を詳細に書き出してください。」
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">別のチャットを開く</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  新しいチャットを開始します。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">全体像を貼り付け</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  書き出してもらった全体像の詳細を貼り付けます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                4
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">「この要件を満たすGASを作ってください」と依頼</h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  新しいチャットでゼロから作り直してもらいます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 例 -->
+          <div class="mt-6 bg-green-50 p-6 rounded-lg">
+            <h4 class="text-lg font-bold text-gray-900 mb-3">📝 依頼例</h4>
+            <div class="bg-white p-6 rounded border border-green-300">
+              <p class="text-base md:text-lg text-gray-800 mb-4">
+                以下の要件を満たすGoogle Apps Scriptを作成してください。
+              </p>
+              <p class="text-base md:text-lg text-gray-800 mb-4">
+                【要件】<br>
+                <span class="text-gray-600">[全体像の詳細を貼り付け]</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-orange-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-orange-800">
+            この方法で、ChatGPTは過去の指示に引きずられることなく、
+            クリーンな状態でツールを見直したり、作り直したりしてくれます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、同じエラーが3回以上出る時の対処法について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>実行ログを活用して、エラー箇所を具体的に伝えましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>「別の原因を探させる」依頼に切り替えて、発想をリセットしましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>チャットを切り替えることで、ChatGPTの記憶をリセットできます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>同じ質問を繰り返すのではなく、角度を変えて伝えることが重要です</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、エラー修正の心構えについて学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="troubleshooting-03.html" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：エラー修正の心構え →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // シンタックスハイライトを初期化
+    if (typeof hljs !== 'undefined') {
+      hljs.highlightAll();
+    }
+
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

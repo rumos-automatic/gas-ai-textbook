@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ3：トリガーとカスタムメニューの使い分け | 実践編④ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #ec4899 0%, #ec4899 50%, #e5e7eb 50%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-04-step2.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ3</span>
+          <a href="practice-04-step4.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ステップ3：トリガーとカスタムメニューの使い分け
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        あなたのツールは、トリガー設定とカスタムメニューのどちらが適しているでしょうか？
+      </p>
+    </header>
+
+    <!-- イントロ -->
+    <section id="intro" class="mb-20">
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          GASツールの実行方法には、大きく分けて2つの方法があります。
+          あなたが作りたいツールに合った方法を選ぶことで、より使いやすいツールになります。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⏰ トリガー設定</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              決まった時間や条件で自動実行する方法です。
+              一度設定すれば、人の手を介さず自動で動きます。
+            </p>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📋 カスタムメニュー</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              スプレッドシートのメニューにボタンを追加して、クリックで実行する方法です。
+              実行タイミングを自分で決められます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- トリガー設定が向いているツール -->
+    <section id="trigger" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">⏰ トリガー設定が向いているツール</h2>
+
+      <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg shadow-md p-8 mb-8 border-2 border-blue-200">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">こんな場合に最適</h3>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>完全自動化したい</strong> - 人の手を介さずに処理を実行したい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>定期的に実行したい</strong> - 毎日、毎週、毎月など、決まったタイミングで実行したい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>フォーム送信時に自動実行したい</strong> - Googleフォームの回答があったら即座に処理したい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>人の手を介さず放置したい</strong> - 設定したら忘れていても勝手に動いてほしい
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6">
+          <h4 class="text-xl font-bold text-gray-900 mb-3">実行例</h4>
+          <ul class="text-lg leading-relaxed text-gray-700 space-y-2">
+            <li>• 毎朝9時に注文メールを自動転記</li>
+            <li>• フォーム回答時に自動返信メールを送信</li>
+            <li>• 毎週月曜日に週報を自動作成</li>
+            <li>• 1時間おきに在庫状況をチェック</li>
+          </ul>
+        </div>
+
+        <a href="practice-01-step6.html" class="inline-block bg-blue-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-blue-700 transition shadow-md">
+          実践① トリガーの設定方法を確認 →
+        </a>
+      </div>
+    </section>
+
+    <!-- カスタムメニューが向いているツール -->
+    <section id="menu" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📋 カスタムメニューが向いているツール</h2>
+
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-md p-8 mb-8 border-2 border-purple-200">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">こんな場合に最適</h3>
+
+        <div class="space-y-4 mb-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>手動で実行したい</strong> - 自分で実行タイミングをコントロールしたい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>実行するタイミングを自分で決めたい</strong> - 必要な時だけ実行したい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>複数の機能を1つのメニューにまとめたい</strong> - いくつかの処理をメニューから選びたい
+            </p>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+              ✓
+            </div>
+            <p class="text-lg leading-relaxed text-gray-700">
+              <strong>初心者でも簡単に使えるようにしたい</strong> - ボタンをクリックするだけで実行できる
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg p-6 mb-6">
+          <h4 class="text-xl font-bold text-gray-900 mb-3">実行例</h4>
+          <ul class="text-lg leading-relaxed text-gray-700 space-y-2">
+            <li>• 「注文データを取り込む」ボタンをクリックして実行</li>
+            <li>• 「レポートを作成」ボタンをクリックして実行</li>
+            <li>• 「メール一斉送信」ボタンをクリックして実行</li>
+            <li>• 「データをクリア」ボタンをクリックして実行</li>
+          </ul>
+        </div>
+
+        <a href="practice-02-section-05.html" class="inline-block bg-purple-600 text-white font-bold text-lg px-8 py-4 rounded-lg hover:bg-purple-700 transition shadow-md">
+          実践② カスタムメニューの設定方法を確認 →
+        </a>
+      </div>
+    </section>
+
+    <!-- 組み合わせも可能 -->
+    <section id="combination" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🔄 組み合わせも可能</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          トリガーとカスタムメニューは、**両方使うこともできます**。
+          どちらか一方だけを選ぶ必要はありません。
+        </p>
+
+        <div class="bg-gradient-to-br from-pink-50 to-rose-50 border-l-4 border-pink-500 rounded-lg p-6 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 組み合わせの例</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+                1
+              </div>
+              <p class="text-lg leading-relaxed text-gray-700">
+                <strong>カスタムメニューで手動実行もできる</strong><br>
+                通常は手動で実行したいけど、緊急時にすぐ実行できるようにメニューも用意しておく
+              </p>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+                2
+              </div>
+              <p class="text-lg leading-relaxed text-gray-700">
+                <strong>トリガーで毎日自動実行もできる</strong><br>
+                普段はトリガーで自動実行しつつ、必要に応じて手動でも実行できるようにする
+              </p>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-pink-600 text-white rounded-full flex items-center justify-center text-base font-bold">
+                3
+              </div>
+              <p class="text-lg leading-relaxed text-gray-700">
+                <strong>両方の良いとこ取り！</strong><br>
+                「自動実行＋手動実行」の両方ができる、便利なツールになります
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          まずはどちらか一方から始めて、後から追加することもできます。
+          最初から完璧を目指さず、段階的に機能を追加していくのがおすすめです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">実行方法は決まりましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          次は、実際にChatGPTにプロンプトを送って、コードを生成してもらいましょう。
+          棚卸しした内容をそのままプロンプトに貼り付けるだけです。
+        </p>
+        <a href="practice-04-step4.html" class="inline-block bg-white text-pink-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ4へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

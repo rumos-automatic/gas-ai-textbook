@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ5: 動作確認 | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 75%, #e5e7eb 75%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-01-step4.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ 5 / 6</span>
+          <a href="practice-01-step6.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16">
+      <div class="text-center mb-8">
+        <span class="inline-block bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-base font-semibold mb-4">
+          ステップ 5 / 6
+        </span>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          動作確認
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-6">
+          承認が完了したら、実際にツールが正しく動作するか確認しましょう
+        </p>
+      </div>
+    </header>
+
+    <!-- イントロ -->
+    <section class="mb-20">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          初回承認が完了したら、次は実際にツールが正しく動作するか確認します。
+          この動作確認では、メールが正しく検索されているか、スプレッドシートに正しく転記されているか、
+          重複チェックが機能しているかなどをチェックしていきます。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          もしエラーが出た場合でも、落ち着いてエラーメッセージを確認しましょう。
+          エラーメッセージをChatGPTに送れば、修正方法を教えてくれます。
+        </p>
+      </div>
+    </section>
+
+    <!-- 確認ポイント -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">確認ポイント</h2>
+
+      <div class="space-y-8">
+        <!-- ポイント1 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールが正しく検索されているか</h3>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            まず、ツールが意図したメールを正しく検索できているか確認しましょう。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 確認方法</h4>
+            <p class="text-lg leading-relaxed text-gray-700 mb-3">
+              スクリプトエディタの画面下部にある「実行ログ」を確認します。
+              ログには、以下のような情報が表示されているはずです：
+            </p>
+            <div class="bg-white p-4 rounded border border-blue-200 font-mono text-sm">
+              <p class="text-gray-700">検索条件: subject:注文</p>
+              <p class="text-gray-700">検索結果: 5件のメールが見つかりました</p>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ メールが検索されない場合</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              もし「0件のメールが見つかりました」と表示される場合は、以下を確認してください：
+            </p>
+            <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+              <li>検索キーワード（例：「注文」）が正しいか</li>
+              <li>実際にそのキーワードを含むメールがGmailに存在するか</li>
+              <li>検索条件が厳しすぎないか（例：日付範囲が狭すぎるなど）</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ポイント2 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">スプレッドシートに正しく転記されているか</h3>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            次に、Googleスプレッドシートを開いて、メールの内容が正しく転記されているか確認します。
+          </p>
+
+          <div class="bg-gray-100 border-2 border-gray-300 rounded-lg p-6 mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">✅ チェック項目</h4>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">A列：受信日</p>
+                  <p class="text-base text-gray-700">日付が「YYYY/MM/DD」形式で入力されているか</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">B列：件名</p>
+                  <p class="text-base text-gray-700">メールの件名が正しく入力されているか</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">C列：差出人</p>
+                  <p class="text-base text-gray-700">差出人のメールアドレスが入力されているか</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">D列：本文</p>
+                  <p class="text-base text-gray-700">本文の冒頭200文字程度が入力されているか</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">E列：ステータス</p>
+                  <p class="text-base text-gray-700">「未対応」と入力されているか</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-result-correct.png')">
+            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+            <p class="text-lg">正しく転記されたスプレッドシートの例</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-result-correct.png</p>
+          </div>
+        </div>
+
+        <!-- ポイント3 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">重複チェックが機能しているか</h3>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            同じメールが重複して転記されないように、重複チェック機能が正しく動作しているか確認します。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ テスト方法</h4>
+            <p class="text-lg leading-relaxed text-gray-700 mb-3">
+              もう一度、同じ関数を実行してみましょう。
+              重複チェックが機能していれば、以下のようになるはずです：
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+              <li>2回目の実行では、新しいメールだけが追加される</li>
+              <li>すでに転記されたメールは、再度転記されない</li>
+              <li>ログに「重複をスキップしました」といったメッセージが表示される</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ポイント4 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ステータスが正しく付いているか</h3>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            最後に、E列のステータス欄に「未対応」と正しく入力されているか確認します。
+          </p>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ステータスの活用方法</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              ステータス欄を使えば、メールの対応状況を管理できます。
+              例えば、対応が完了したら「対応済み」に手動で変更することで、
+              まだ対応していないメールを一目で確認できるようになります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- エラーが出た場合 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">もしエラーが出たら</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          エラーが出た場合でも、慌てる必要はありません。
+          エラーメッセージを確認して、ChatGPTに送れば、修正方法を教えてくれます。
+        </p>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🚨 よくあるエラー例</h3>
+          <ul class="space-y-4">
+            <li class="text-lg text-gray-700">
+              <strong>「Exception: Service invoked too many times」</strong>
+              <p class="text-base mt-1">→ GASの実行回数制限に達しました。少し時間を置いてから再実行してください。</p>
+            </li>
+            <li class="text-lg text-gray-700">
+              <strong>「ReferenceError: シート名 is not defined」</strong>
+              <p class="text-base mt-1">→ スプレッドシートのシート名がコードと一致していません。シート名を確認してください。</p>
+            </li>
+            <li class="text-lg text-gray-700">
+              <strong>「TypeError: Cannot read property」</strong>
+              <p class="text-base mt-1">→ コードの一部に誤りがある可能性があります。エラーメッセージをChatGPTに送って修正を依頼しましょう。</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💬 ChatGPTへの質問例</h3>
+          <div class="bg-white p-4 rounded border border-blue-200 font-mono text-sm">
+            <p class="text-gray-700 mb-2">以下のエラーが出ました。修正してください。</p>
+            <p class="text-red-600">[エラーメッセージをここに貼り付け]</p>
+          </div>
+          <p class="text-lg leading-relaxed text-gray-700 mt-4">
+            エラーメッセージをコピーして、このようにChatGPTに送ると、
+            原因と修正方法を教えてくれます。
+          </p>
+        </div>
+      </div>
+
+      <!-- スクリーンショット -->
+      <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-error-example.png')">
+        <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+        <p class="text-lg">エラーが表示された例</p>
+        <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-error-example.png</p>
+      </div>
+    </section>
+
+    <!-- トラブルシューティング -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">トラブルシューティング</h2>
+
+      <div class="space-y-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❓ データが転記されない</h3>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li>検索キーワードが正しいか確認</li>
+            <li>Gmailに該当するメールが存在するか確認</li>
+            <li>スプレッドシートのシート名が正しいか確認</li>
+            <li>実行ログにエラーメッセージが表示されていないか確認</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❓ 日付フォーマットがおかしい</h3>
+          <p class="text-lg text-gray-700 mb-3">
+            日付が期待通りの形式（YYYY/MM/DD）で表示されない場合、
+            スプレッドシートの列を選択して、表示形式を変更してみてください。
+          </p>
+          <p class="text-lg text-gray-700">
+            <strong>変更方法：</strong>列を選択 → 表示形式 → 数字 → 日付
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❓ 本文が文字化けする</h3>
+          <p class="text-lg text-gray-700">
+            メール本文にHTMLタグが含まれている場合、文字化けして表示されることがあります。
+            この場合は、ChatGPTに「HTML タグを除去して本文を取得する方法を教えてください」と質問しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">ツールは正しく動作しましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          動作確認ができたら、最後にトリガー設定で自動実行できるようにしましょう。
+          これで、毎日決まった時間に自動でメールが転記されるようになります！
+        </p>
+        <a href="practice-01-step6.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ6へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

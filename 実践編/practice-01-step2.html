@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ2: ChatGPTにプロンプトを送る | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 37.5%, #e5e7eb 37.5%, #e5e7eb 100%);
+    }
+    .code-block {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-01-step1.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ 2 / 6</span>
+          <a href="practice-01-step3.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16">
+      <div class="text-center mb-8">
+        <span class="inline-block bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-base font-semibold mb-4">
+          ステップ 2 / 6
+        </span>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          ChatGPTにプロンプトを送る
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-6">
+          作業の棚卸ができたら、ChatGPTにツール作成を依頼しましょう
+        </p>
+      </div>
+    </header>
+
+    <!-- プロンプトとは -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトとは？</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          <strong>プロンプト</strong>とは、生成AIに対して送る「指示文」のことです。
+          プロンプトの書き方次第で、生成AIが作るコードの品質が大きく変わります。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          良いプロンプトの条件は、<strong>具体的であること</strong>です。
+          ステップ1で作業を詳しく棚卸したおかげで、具体的なプロンプトを書く材料が揃っています。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-red-800 mb-3">❌ 悪いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-red-200">
+              <p class="text-lg text-gray-700">
+                「メールをスプレッドシートに転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700 mt-3">
+              これでは曖昧すぎて、生成AIは何をどうすればいいのかわかりません。
+            </p>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">✅ 良いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-green-200">
+              <p class="text-lg text-gray-700">
+                「件名に『注文』を含むGmailを検索し、受信日・件名・差出人・本文をスプレッドシートのA〜D列に転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700 mt-3">
+              具体的な条件と出力先が明記されているので、生成AIは正確なコードを作れます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトの構成 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">効果的なプロンプトの構成</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          効果的なプロンプトは、以下の3つの要素で構成されます。
+          この構成を意識するだけで、生成AIからより良い回答を引き出せるようになります。
+        </p>
+
+        <div class="space-y-6">
+          <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">1️⃣ やりたいこと（目的）</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              何を実現したいのかを明確に書きます。
+              例：「Gmailで特定のメールを検索し、内容をGoogleスプレッドシートに自動転記する」
+            </p>
+          </div>
+
+          <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">2️⃣ 現在の手順（詳細）</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              ステップ1で棚卸した手作業の流れを、できるだけ具体的に書きます。
+              どのメールを検索するのか、どの列に何を転記するのかを明記します。
+            </p>
+          </div>
+
+          <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">3️⃣ その他の要望（オプション）</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              重複チェック機能、エラーハンドリング、ログ出力など、追加で実装してほしい機能を書きます。
+              これがあると、より実用的なツールになります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 実際のプロンプト例 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">実際のプロンプト例</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          それでは、実際にChatGPTに送るプロンプトの例を見てみましょう。
+          以下のプロンプトをコピーして、自分の用途に合わせてカスタマイズして使ってください。
+        </p>
+
+        <div class="bg-gray-100 p-4 rounded-lg mb-6">
+          <p class="text-base text-gray-700 mb-2">
+            <strong>💡 ヒント：</strong>このプロンプトをコピーする際は、以下の部分を自分の状況に合わせて変更してください：
+          </p>
+          <ul class="list-disc pl-6 text-base text-gray-700 space-y-1">
+            <li>検索キーワード（「注文」の部分）</li>
+            <li>転記する列と内容（A列〜E列の部分）</li>
+            <li>本文の文字数（200文字の部分）</li>
+          </ul>
+        </div>
+
+        <div class="code-block">
+<pre>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+Gmailで特定のメールを検索し、内容をGoogleスプレッドシートに自動転記する
+
+【現在の手順】
+1. Gmailを開く
+2. 件名に「注文」を含むメールを検索
+3. メールの内容を確認
+   - 件名
+   - 差出人
+   - 受信日
+   - 本文
+4. Googleスプレッドシートに転記
+   - A列：受信日（YYYY/MM/DD形式）
+   - B列：件名
+   - C列：差出人メールアドレス
+   - D列：本文の冒頭200文字
+5. E列に「未対応」ステータスを付ける
+
+【その他の要望】
+- 重複チェック機能を付けて、同じメールは転記しないようにする
+- 処理が完了したら、処理件数をログに出力する</pre>
+        </div>
+
+        <div class="mt-6 flex gap-4">
+          <button onclick="copyPrompt()" class="bg-indigo-600 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-indigo-700 transition shadow-md">
+            📋 プロンプトをコピー
+          </button>
+          <span id="copyMessage" class="text-green-600 font-semibold self-center hidden">✅ コピーしました！</span>
+        </div>
+      </div>
+
+      <!-- スクリーンショットプレースホルダー -->
+      <div class="mt-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">ChatGPTにプロンプトを送る画面</h3>
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-chatgpt-prompt.png')">
+          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+          <p class="text-lg">ChatGPTにプロンプトを入力して送信する様子</p>
+          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-chatgpt-prompt.png</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトを送った後 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトを送った後は？</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          プロンプトを送ると、ChatGPTがこのプロンプトに基づいてGASコードを生成してくれます。
+          通常、数秒から数十秒でコードが表示されます。
+        </p>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 生成されるコードの例</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-3">
+            ChatGPTは、以下のような関数を含むGASコードを生成します：
+          </p>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li><code class="bg-gray-200 px-2 py-1 rounded">GmailApp.search()</code> - Gmailからメールを検索</li>
+            <li><code class="bg-gray-200 px-2 py-1 rounded">SpreadsheetApp.getActiveSheet()</code> - スプレッドシートを取得</li>
+            <li><code class="bg-gray-200 px-2 py-1 rounded">sheet.appendRow()</code> - データを追記</li>
+            <li>重複チェックのロジック</li>
+            <li>ログ出力機能</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 注意点</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-3">
+            生成されたコードは、<strong>そのまま完璧に動くとは限りません</strong>。
+            以下の点を確認してください：
+          </p>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li>スプレッドシートのシート名が正しいか</li>
+            <li>検索キーワードが意図通りか</li>
+            <li>列の配置が正しいか</li>
+          </ul>
+          <p class="text-lg leading-relaxed text-gray-700 mt-3">
+            もしエラーが出たり、期待通りに動かない場合は、
+            エラーメッセージをChatGPTに送って修正を依頼しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">コードが生成されましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          ChatGPTがコードを生成してくれたら、次はそのコードをGASエディタに貼り付けていきましょう。
+        </p>
+        <a href="practice-01-step3.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ3へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // プロンプトをコピーする機能
+    function copyPrompt() {
+      const promptText = `Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+Gmailで特定のメールを検索し、内容をGoogleスプレッドシートに自動転記する
+
+【現在の手順】
+1. Gmailを開く
+2. 件名に「注文」を含むメールを検索
+3. メールの内容を確認
+   - 件名
+   - 差出人
+   - 受信日
+   - 本文
+4. Googleスプレッドシートに転記
+   - A列：受信日（YYYY/MM/DD形式）
+   - B列：件名
+   - C列：差出人メールアドレス
+   - D列：本文の冒頭200文字
+5. E列に「未対応」ステータスを付ける
+
+【その他の要望】
+- 重複チェック機能を付けて、同じメールは転記しないようにする
+- 処理が完了したら、処理件数をログに出力する`;
+
+      navigator.clipboard.writeText(promptText).then(() => {
+        const message = document.getElementById('copyMessage');
+        message.classList.remove('hidden');
+        setTimeout(() => {
+          message.classList.add('hidden');
+        }, 3000);
+      });
+    }
+  </script>
+
+</body>
+</html>

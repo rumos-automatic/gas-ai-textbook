@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実装と動作確認 | Googleフォーム自動返信ボット | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f97316;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ea580c;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-orange-600 hover:text-orange-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-form-bot-02.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-form-bot-04.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="step4">
+        <span class="dot-label">コードの貼り付け</span>
+      </div>
+      <div class="dot" data-section="step5">
+        <span class="dot-label">トリガー設定</span>
+      </div>
+      <div class="dot" data-section="step6">
+        <span class="dot-label">動作確認</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ⚙️ 実装と動作確認
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        コードを貼り付けて、トリガーを設定し、動作を確認します
+      </p>
+    </header>
+
+    <!-- 小セクション1: ステップ4 コードの貼り付け -->
+    <section id="step4" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💻 ステップ4：コードをGASエディタに貼り付け
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTが生成したコードを、Google Apps Scriptエディタに貼り付けましょう。
+          GASエディタは、スプレッドシートから簡単に開くことができますよ。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          📝 手順
+        </h3>
+
+        <!-- 手順1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              スプレッドシート（フォームの回答シート）を開く
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              ステップ2で作成した、フォームの回答が記録されているスプレッドシートを開いてください。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              通常、「フォームの回答 1」という名前のシートが作成されているはずです。
+              このスプレッドシートから、GASエディタを開くことができます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              メニューから「拡張機能」→「Apps Script」をクリック
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              スプレッドシートの上部メニューから、<strong class="text-orange-600">「拡張機能」</strong>をクリックします。
+              次に、ドロップダウンメニューから<strong class="text-orange-600">「Apps Script」</strong>を選択してください。
+            </p>
+            <p class="text-base md:text-lg text-gray-600 mb-4">
+              これで、Google Apps Scriptエディタが新しいタブで開きます。
+              初めて開く場合は、「コード.gs」という名前のファイルが自動的に作成されていますよ。
+            </p>
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="screenshot-placeholder" onclick="alert('実際のスクリーンショットが表示されます')">
+              <p class="text-xl md:text-2xl font-bold mb-2">📸 スクリーンショット</p>
+              <p class="text-base md:text-lg">gas-editor-open.png</p>
+              <p class="text-sm mt-2 opacity-80">拡張機能メニューからApps Scriptを開く手順</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 手順3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              スクリプトエディタが開く
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              GASエディタが開くと、デフォルトで以下のようなコードが表示されています。
+            </p>
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
+              <pre class="text-sm md:text-base"><code>function myFunction() {
+
+}</code></pre>
+            </div>
+            <p class="text-base md:text-lg text-gray-600 mt-3">
+              このデフォルトのコードは、すべて削除してください。
+              ChatGPTが生成したコードで置き換えます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順4 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              ChatGPTが生成したコードをすべて選択してコピー
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              ChatGPTが生成したコードを、すべて選択してコピーしてください。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              コードブロックの右上にある「コピー」ボタンを使うと便利です。
+              コード全体をもれなくコピーすることが大切ですよ。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順5 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              5
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              エディタに貼り付け
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              GASエディタのコード欄に、コピーしたコードを貼り付けます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              Ctrl + V（Windows）または Cmd + V（Mac）で貼り付けられます。
+              コード全体が正しく貼り付けられているか、確認してくださいね。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順6 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              6
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              「保存」ボタンをクリック
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              エディタ上部の<strong class="text-orange-600">「💾 保存」</strong>ボタンをクリックします。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              キーボードショートカット（Ctrl + S または Cmd + S）でも保存できます。
+              保存が完了すると、エディタ上部に「すべての変更が保存されました」と表示されます。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">✅ コードの貼り付け完了</p>
+          <p class="text-lg md:text-xl text-green-800">
+            これで、ChatGPTが生成したコードがGASエディタに保存されました。
+            次は、このコードが自動的に実行されるように、トリガーを設定していきましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ステップ5 トリガー設定 -->
+    <section id="step5" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⏰ ステップ5：フォーム送信時トリガーを設定
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          このツールは、<strong class="text-orange-600">フォームが送信されたときに自動的に実行される</strong>必要があります。
+          そのため、<strong class="text-orange-600">フォーム送信時トリガー</strong>を設定します。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          トリガーとは、特定のイベント（この場合はフォーム送信）が発生したときに、
+          自動的にGASのコードを実行する仕組みです。
+          これを設定することで、人間が手動で実行する必要がなくなりますよ。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          ⚙️ トリガー設定の手順
+        </h3>
+
+        <!-- 手順1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              GASエディタの左サイドバーにある「⏰ トリガー」アイコンをクリック
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              GASエディタの左側にあるサイドバーから、<strong class="text-orange-600">時計のアイコン（⏰）</strong>をクリックします。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              これで、トリガー設定画面が開きます。初めて設定する場合は、「トリガーが設定されていません」と表示されているはずです。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              右下の「+ トリガーを追加」ボタンをクリック
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              画面右下にある<strong class="text-orange-600">「+ トリガーを追加」</strong>ボタンをクリックしてください。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              トリガー設定のダイアログが表示されます。
+              ここで、どの関数を、どのタイミングで実行するかを設定します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 手順3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              トリガー設定画面で項目を入力
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-4">
+              トリガー設定画面で、以下のように設定してください。
+            </p>
+
+            <!-- 設定表 -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+              <table class="w-full">
+                <thead class="bg-orange-500 text-white">
+                  <tr>
+                    <th class="px-4 py-3 text-left text-base md:text-lg font-bold">項目</th>
+                    <th class="px-4 py-3 text-left text-base md:text-lg font-bold">設定内容</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 text-base md:text-lg font-semibold text-gray-900">実行する関数を選択</td>
+                    <td class="px-4 py-3 text-base md:text-lg text-gray-700">
+                      <code class="bg-gray-100 px-2 py-1 rounded text-orange-600">sendAutoReply</code>
+                      <br><span class="text-sm text-gray-600">※ または、ChatGPTが指定した関数名</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 text-base md:text-lg font-semibold text-gray-900">イベントのソースを選択</td>
+                    <td class="px-4 py-3 text-base md:text-lg text-gray-700">スプレッドシートから</td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 text-base md:text-lg font-semibold text-gray-900">イベントの種類を選択</td>
+                    <td class="px-4 py-3 text-base md:text-lg text-orange-600 font-bold">フォーム送信時</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- スクリーンショットプレースホルダー -->
+            <div class="screenshot-placeholder mt-6" onclick="alert('実際のスクリーンショットが表示されます')">
+              <p class="text-xl md:text-2xl font-bold mb-2">📸 スクリーンショット</p>
+              <p class="text-base md:text-lg">trigger-form-submit.png</p>
+              <p class="text-sm mt-2 opacity-80">トリガー設定画面での「フォーム送信時」選択</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 手順4 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mt-1">
+              「保存」ボタンをクリック
+            </h4>
+          </div>
+          <div class="ml-14">
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              設定が完了したら、<strong class="text-orange-600">「保存」</strong>ボタンをクリックします。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              初めてトリガーを設定する場合、Googleアカウントへのアクセス許可を求められることがあります。
+              「許可」をクリックして、GASがスプレッドシートとGmailにアクセスできるようにしてください。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-500 p-6 rounded-xl">
+          <p class="text-lg md:text-xl font-bold text-green-900 mb-3">
+            🎉 トリガー設定完了！
+          </p>
+          <p class="text-lg md:text-xl text-gray-800">
+            これで、フォームが送信されるたびに、自動的に返信メールが送信されるようになりました。
+            次は、実際にフォームに回答して、動作を確認してみましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: ステップ6 動作確認 -->
+    <section id="step6" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✅ ステップ6：動作確認
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          トリガー設定が完了したら、実際にフォームに回答して、動作を確認しましょう。
+          すべてが正しく設定されていれば、フォーム送信後、数秒から数十秒で返信メールが届くはずです。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          🧪 確認ポイント
+        </h3>
+
+        <!-- 確認ポイント1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-3">
+            <div class="flex-shrink-0 text-3xl">📝</div>
+            <div>
+              <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                1. フォームに回答してみる
+              </h4>
+              <p class="text-lg md:text-xl text-gray-700 mb-2">
+                テスト用のメールアドレスで、フォームに回答してみてください。
+              </p>
+              <p class="text-base md:text-lg text-gray-600">
+                自分のメールアドレスを使うと、返信メールが届いたかすぐに確認できますよ。
+                フォームの各質問項目に、テスト用の内容を入力して送信しましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 確認ポイント2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-3">
+            <div class="flex-shrink-0 text-3xl">📊</div>
+            <div>
+              <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                2. スプレッドシートに記録されているか
+              </h4>
+              <p class="text-lg md:text-xl text-gray-700 mb-2">
+                フォームの回答がスプレッドシートに正しく記録されているか確認します。
+              </p>
+              <p class="text-base md:text-lg text-gray-600">
+                スプレッドシートを開いて、最新の行に回答データが追加されているか確認してください。
+                タイムスタンプ、メールアドレス、名前、お問い合わせ内容が正しく記録されているはずです。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 確認ポイント3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-3">
+            <div class="flex-shrink-0 text-3xl">✉️</div>
+            <div>
+              <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                3. 返信メールが届いているか
+              </h4>
+              <p class="text-lg md:text-xl text-gray-700 mb-2">
+                回答したメールアドレスに、返信メールが届いているか確認します。
+              </p>
+              <div class="space-y-2 text-base md:text-lg text-gray-600">
+                <p><strong class="text-orange-600">確認項目：</strong></p>
+                <ul class="list-disc list-inside space-y-1 ml-4">
+                  <li>件名が正しいか（例：お問い合わせありがとうございます）</li>
+                  <li>本文が正しいか</li>
+                  <li>回答者の名前が正しく挿入されているか</li>
+                  <li>お問い合わせ内容が正しく挿入されているか</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 確認ポイント4 -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <div class="flex items-start gap-4 mb-3">
+            <div class="flex-shrink-0 text-3xl">📋</div>
+            <div>
+              <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                4. ログを確認
+              </h4>
+              <p class="text-lg md:text-xl text-gray-700 mb-2">
+                GASエディタの「実行ログ」で、エラーが出ていないか確認します。
+              </p>
+              <p class="text-base md:text-lg text-gray-600">
+                GASエディタの上部メニューから「表示」→「ログ」を選択すると、実行ログが表示されます。
+                エラーメッセージが表示されている場合は、コードに問題がある可能性があります。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">✅ すべて確認できましたか？</p>
+          <p class="text-lg md:text-xl text-green-800">
+            フォーム送信から返信メール受信まで、すべてが自動化されていることを確認できましたね。
+            これで、お問い合わせ対応の工数を大幅に削減できますよ！
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          🛠️ もしエラーが出たら
+        </h3>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          エラーが出た場合は、エラーメッセージをコピーして、ChatGPTに送りましょう。
+          ChatGPTがエラーの原因を特定し、修正方法を教えてくれます。
+        </p>
+
+        <div class="bg-gray-900 text-gray-100 p-6 rounded-lg shadow-lg">
+          <p class="text-lg md:text-xl font-bold mb-3">ChatGPTへの質問例：</p>
+          <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>以下のエラーが出ました。修正してください。
+
+[エラーメッセージをここに貼り付け]</code></pre>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mt-6">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">💡 よくあるエラー</p>
+          <div class="space-y-2 text-base md:text-lg text-yellow-800">
+            <p><strong>• 権限エラー：</strong> GASがGmailにアクセスする権限がない場合、権限の付与を求められます</p>
+            <p><strong>• 列の番号が違う：</strong> スプレッドシートの列構成が、コード内の列番号と一致していない可能性があります</p>
+            <p><strong>• 関数名の間違い：</strong> トリガー設定で指定した関数名と、コード内の関数名が一致していない可能性があります</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、実装と動作確認の手順について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>ChatGPTが生成したコードをGASエディタに貼り付けて保存します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>フォーム送信時トリガーを設定することで、自動実行が可能になります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>実際にフォームに回答して、返信メールが届くか確認しましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>エラーが出た場合は、エラーメッセージをChatGPTに送って修正します</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、回答内容に応じて処理を分岐する応用編と、注意点について学んでいきましょう。
+          もうすぐ完成ですよ！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-form-bot-04.html" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：応用と注意点 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // スクリーンショットプレースホルダーのクリックイベント
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        alert('ここに実際のスクリーンショットが表示されます');
+      });
+    });
+  </script>
+
+</body>
+</html>

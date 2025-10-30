@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APIトークンの取得 | 実践編⑤ GAS×チャットワークAPI連携</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f472b6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ec4899;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+      border: 2px dashed #ec4899;
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      background: linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 100%);
+      transform: scale(1.02);
+    }
+    .screenshot-placeholder p {
+      color: #9d174d;
+      font-weight: 600;
+      font-size: 1.125rem;
+    }
+    /* 画像モーダル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-chatwork-02.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-chatwork-04.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="token-intro">
+        <span class="dot-label">APIトークンとは</span>
+      </div>
+      <div class="dot" data-section="token-steps">
+        <span class="dot-label">取得手順</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🔑 APIトークンの取得
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        チャットワークAPIを使うために必要なAPIトークンを取得しましょう
+      </p>
+    </header>
+
+    <!-- 小セクション1: APIトークンとは -->
+    <section id="token-intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔐 APIトークンとは？
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          チャットワークAPIを使用するには、<strong class="text-pink-600">APIトークン</strong>が必要です。
+          APIトークンは、あなたのアカウントを認証するための重要な鍵のようなものだと考えてください。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          イメージとしては、あなたのチャットワークアカウントにアクセスするための「合言葉」のようなものです。
+          このトークンを使うことで、プログラムがあなたの代わりにチャットワークを操作できるようになります。
+        </p>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-md">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">⚠️</div>
+            <div>
+              <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">
+                セキュリティに関する重要な注意
+              </p>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                APIトークンは、<strong>絶対に他人に見せてはいけません</strong>。
+                トークンが漏洩すると、第三者があなたのアカウントを使ってメッセージを送信したり、
+                情報を取得したりできてしまいます。
+                パスワードと同じように、慎重に管理する必要がありますよ。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 取得手順 -->
+    <section id="token-steps" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📋 APIトークンの取得手順
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          それでは、実際にチャットワークのAPIトークンを取得してみましょう。
+          以下の7つのステップで簡単に取得できますよ。
+        </p>
+
+        <div class="space-y-8 mt-8">
+          <!-- ステップ1 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  チャットワークにログイン
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  まず、ブラウザでチャットワーク（<a href="https://www.chatwork.com/" target="_blank" class="text-pink-600 hover:text-pink-800 underline">https://www.chatwork.com/</a>）を開き、
+                  あなたのアカウントでログインしてください。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  APIトークンの発行には、チャットワークのアカウントが必要です。
+                  まだアカウントを持っていない方は、先に無料登録を済ませておきましょう。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  右上のアイコン → 「サービス連携」をクリック
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  ログイン後、画面右上にある<strong class="text-pink-600">あなたのアイコン</strong>をクリックします。
+                  表示されるメニューから、<strong class="text-pink-600">「サービス連携」</strong>を選択してください。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                  「サービス連携」は、チャットワークと外部サービス（GASなど）を連携させるための設定画面です。
+                  ここでAPIトークンを発行・管理できます。
+                </p>
+                <div class="screenshot-placeholder" data-img="screenshot-chatwork-service-integration.png">
+                  <p>📸 スクリーンショット：サービス連携メニューの場所</p>
+                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-service-integration.png</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  「API Token」タブを選択
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  サービス連携の画面が開いたら、上部にあるタブから<strong class="text-pink-600">「API Token」</strong>をクリックします。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                  このタブでは、あなたのアカウントに紐付いたAPIトークンを管理できます。
+                  複数のトークンを発行して、用途ごとに使い分けることも可能ですよ。
+                </p>
+                <div class="screenshot-placeholder" data-img="screenshot-chatwork-api-token-tab.png">
+                  <p>📸 スクリーンショット：API Tokenタブ</p>
+                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-api-token-tab.png</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ4 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                4
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  「新しいトークンを発行」をクリック
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  API Tokenタブの画面で、<strong class="text-pink-600">「新しいトークンを発行」</strong>ボタンをクリックします。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                  このボタンを押すと、新しいAPIトークンを作成するための入力フォームが表示されます。
+                </p>
+                <div class="screenshot-placeholder" data-img="screenshot-chatwork-create-token.png">
+                  <p>📸 スクリーンショット：新しいトークンを発行ボタン</p>
+                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-create-token.png</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ5 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                5
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  トークン名を入力（例：「GAS連携用」）
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  トークン名の入力欄に、わかりやすい名前を入力します。
+                  例えば、<strong class="text-pink-600">「GAS連携用」</strong>や<strong class="text-pink-600">「スプレッドシート通知用」</strong>など、
+                  用途がわかる名前を付けると良いでしょう。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  トークン名は後から見たときに、「これは何のために発行したトークンか？」がわかるようにするためのものです。
+                  複数のトークンを管理する場合に便利ですよ。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ6 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                6
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  「作成」をクリック
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  トークン名を入力したら、<strong class="text-pink-600">「作成」</strong>ボタンをクリックします。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                  これで、あなた専用のAPIトークンが発行されます。
+                  次のステップでトークンが表示されるので、必ずコピーして保存してくださいね。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ7 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                7
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  表示されたAPIトークンをコピーして安全に保存
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                  トークンが作成されると、画面に<strong class="text-pink-600">APIトークンの文字列</strong>が表示されます。
+                  この文字列を<strong>必ずコピー</strong>して、安全な場所に保存してください。
+                </p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                  コピーしたトークンは、後でGASのコードで使用します。
+                  メモ帳やパスワード管理ツールなど、安全な場所に保存しておきましょう。
+                </p>
+                <div class="screenshot-placeholder" data-img="screenshot-chatwork-token-display.png">
+                  <p>📸 スクリーンショット：発行されたAPIトークン（トークン部分はぼかし）</p>
+                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-token-display.png</p>
+                </div>
+
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mt-6">
+                  <p class="text-lg md:text-xl font-semibold text-red-900 mb-2">
+                    ⚠️ 超重要：APIトークンは一度しか表示されません
+                  </p>
+                  <p class="text-base md:text-lg text-red-800 leading-relaxed">
+                    APIトークンは、この画面で<strong>一度しか表示されません</strong>。
+                    画面を閉じてしまうと二度と確認できないので、必ずコピーして保存してください。
+                    もし保存し忘れてしまった場合は、新しいトークンを再発行する必要があります。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-pink-50 to-red-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、APIトークンの取得方法について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>APIトークンは、あなたのアカウントを認証するための重要な鍵です</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>チャットワークの「サービス連携」→「API Token」から取得できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>トークンは一度しか表示されないので、必ずコピーして安全に保存しましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>トークンは絶対に他人に見せてはいけません（パスワードと同じです）</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、取得したAPIトークンを使って、実際にGASからチャットワークにメッセージを送信する方法を学びましょう。
+          いよいよ実装に入りますので、楽しみにしていてくださいね！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-chatwork-04.html" class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：GASからメッセージ送信 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像モーダル -->
+  <div id="imageModal" class="modal">
+    <span class="absolute top-8 right-12 text-white text-5xl font-bold cursor-pointer hover:text-gray-300" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // スクリーンショットプレースホルダーのクリック
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        const imgName = placeholder.getAttribute('data-img');
+        alert(`このスクリーンショットを追加予定:\n${imgName}\n\n実際の画像を撮影して、assets/images/screenshots/ フォルダに配置してください。`);
+      });
+    });
+
+    // 画像モーダル
+    function openModal(imgSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = imgSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // ESCキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

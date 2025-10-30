@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編① イントロダクション | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 12.5%, #e5e7eb 12.5%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <span class="text-sm md:text-base text-gray-500">イントロ</span>
+          <a href="practice-01-step1.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        実践編① メール内容をスプシに自動転記
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mt-6">
+        Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
+      </p>
+      <div class="mt-6 inline-block bg-indigo-100 text-indigo-800 px-6 py-2 rounded-full">
+        <span class="text-lg font-semibold">📅 推奨学習日数：3日間</span>
+      </div>
+    </header>
+
+    <!-- この実践で学ぶこと -->
+    <section id="learning" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📋 この実践で学ぶこと</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この実践では、生成AIとGASを組み合わせて、実際に業務で使えるツールを作成します。
+          メールの内容を手動でスプレッドシートに転記する作業は、毎日繰り返すと大変な時間がかかりますよね。
+          この実践を通して、その作業を完全に自動化する方法を学んでいきましょう。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-indigo-50 rounded-lg p-6 border-l-4 border-indigo-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📧 Gmailからメールを検索する方法</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              GASを使って、Gmailから特定の条件に合うメールを自動で検索する方法を学びます。
+              件名や差出人で絞り込むことができるようになります。
+            </p>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📊 スプレッドシートに転記する方法</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              検索したメールの内容を、指定した列に自動で転記する方法を学びます。
+              受信日、件名、差出人、本文などを整理して記録できます。
+            </p>
+          </div>
+
+          <div class="bg-yellow-50 rounded-lg p-6 border-l-4 border-yellow-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔐 初回承認の手順</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              GASがGmailやスプレッドシートにアクセスする際に必要な、初回承認の手順を学びます。
+              安全にツールを動かすために必要なステップです。
+            </p>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-6 border-l-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⏰ トリガー設定で自動実行する方法</h3>
+            <p class="text-lg leading-relaxed text-gray-700">
+              一度設定すれば、毎日決まった時間に自動でツールが動くようになる「トリガー」の設定方法を学びます。
+              これで完全に手作業から解放されます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作業の概要 -->
+    <section id="overview" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🎯 作業の概要</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この実践では、以下のような自動化ツールを作成していきます。
+          最初は少し難しく感じるかもしれませんが、ステップごとに丁寧に説明していきますので、
+          一緒に進めていきましょう。
+        </p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">Gmailで特定の件名を含むメールを検索</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                まず、「注文」や「請求書」といったキーワードを含むメールを自動で検索します。
+                検索条件は自由にカスタマイズできますので、あなたの業務に合わせて設定できます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">メールの内容を抽出</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                検索したメールから、件名、差出人、受信日、本文などの情報を取り出します。
+                必要な情報だけを取り出すことができるので、効率的にデータを管理できます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">Googleスプレッドシートに自動転記</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                抽出した情報を、指定したスプレッドシートの列に自動で書き込みます。
+                重複チェック機能も付けるので、同じメールが何度も転記されることはありません。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">トリガー設定で毎日自動実行</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                最後に、毎日決まった時間に自動でツールが動くように設定します。
+                これで、あなたが何もしなくても、毎朝自動的にメールがスプレッドシートに転記されるようになります。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 完成イメージのプレースホルダー -->
+      <div class="mt-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">完成イメージ</h3>
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-overview.png')">
+          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+          <p class="text-lg">完成したツールの動作イメージ</p>
+          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-overview.png</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">準備はいいですか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          それでは、実際にツールを作成していきましょう！
+          まずは、現在の作業を具体的に書き出す「作業の棚卸」から始めます。
+        </p>
+        <a href="practice-01-step1.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ1へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

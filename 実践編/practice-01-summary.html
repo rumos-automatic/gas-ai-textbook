@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>まとめ | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      animation: confetti-fall 3s linear infinite;
+    }
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-01-step6.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-green-600 font-bold">完了！</span>
+        </div>
+      </div>
+      <!-- 進捗バー（100%） -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <div class="mb-8">
+        <span class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-base font-semibold mb-4">
+          🎉 完了！
+        </span>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          実践編① まとめ
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-6">
+          おめでとうございます！実践編①のすべてのステップを完了しました
+        </p>
+      </div>
+    </header>
+
+    <!-- 達成したこと -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">あなたが達成したこと</h2>
+
+      <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-lg p-8 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="text-4xl mb-4 text-center">🎯</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 text-center">作業の自動化</h3>
+            <p class="text-lg leading-relaxed text-gray-700 text-center">
+              毎日10〜15分かかっていた手作業を、完全に自動化することができました。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="text-4xl mb-4 text-center">🤖</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 text-center">生成AIの活用</h3>
+            <p class="text-lg leading-relaxed text-gray-700 text-center">
+              ChatGPTを使って、GASコードを自動生成する方法を習得しました。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="text-4xl mb-4 text-center">⚙️</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 text-center">GASの基礎</h3>
+            <p class="text-lg leading-relaxed text-gray-700 text-center">
+              GASのスクリプトエディタの使い方、承認プロセス、実行方法を学びました。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow-md">
+            <div class="text-4xl mb-4 text-center">⏰</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 text-center">トリガー設定</h3>
+            <p class="text-lg leading-relaxed text-gray-700 text-center">
+              毎日決まった時間に自動実行するトリガーの設定方法をマスターしました。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 学んだことの振り返り -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">この実践で学んだこと</h2>
+
+      <div class="space-y-6">
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">作業の棚卸の重要性</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                生成AIにツールを作ってもらう前に、現在の作業を具体的に書き出すことの重要性を学びました。
+                棚卸をすることで、生成AIに対して明確な指示を出せるようになり、
+                より正確なコードを生成してもらえることがわかりました。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">効果的なプロンプトの書き方</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                生成AIに送るプロンプトは、「やりたいこと」「現在の手順」「その他の要望」の
+                3つの要素で構成すると効果的であることを学びました。
+                具体的に書くほど、良い結果が得られることも実感できました。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">GASの基本操作</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                スクリプトエディタの開き方、コードの貼り付け方、保存方法など、
+                GASの基本的な操作を習得しました。
+                また、初回承認のプロセスや、エラーが出た時の対処方法も理解できました。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">トリガーによる完全自動化</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                トリガーを設定することで、毎日決まった時間に自動でツールが実行されることを学びました。
+                また、実行頻度の設定や、GASの実行時間制限についても理解できました。
+                これで、完全に手作業から解放されることができました。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップ -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">次のステップへ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6 text-center">
+          実践編①を完了した皆さん、本当にお疲れ様でした。
+          ここまで学んだ知識を活かして、次の実践編にも挑戦してみましょう。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed text-center">
+          次の<strong>実践編②</strong>では、CSVファイルをスプレッドシートに自動転記する方法を学びます。
+          実践編①で学んだ基礎をベースに、さらに応用的なツールを作っていきます。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-md p-8 hover:shadow-lg transition">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📊 実践編②</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-4">
+            CSVファイルをスプレッドシートに自動転記
+          </p>
+          <p class="text-base text-gray-600 mb-6">
+            Googleドライブに保存されたCSVファイルを自動で読み込み、スプレッドシートに転記するツールを作成します。
+          </p>
+          <a href="#" class="inline-block bg-indigo-600 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-indigo-700 transition">
+            実践編②へ →
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-md p-8 hover:shadow-lg transition">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📝 実践編③</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-4">
+            Googleフォーム自動返信ボット
+          </p>
+          <p class="text-base text-gray-600 mb-6">
+            Googleフォームに回答があったら、自動でお礼メールを送信するボットを作成します。
+          </p>
+          <a href="#" class="inline-block bg-purple-600 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-purple-700 transition">
+            実践編③へ →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 励ましのメッセージ -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-12 text-white text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">🎉 本当にお疲れ様でした！</h2>
+        <p class="text-lg md:text-xl mb-4">
+          実践編①を完了した皆さん、自信を持ってください。
+        </p>
+        <p class="text-lg md:text-xl mb-4">
+          ここまで学んだ知識とスキルは、他の業務の自動化にも応用できます。
+        </p>
+        <p class="text-lg md:text-xl mb-6">
+          わからないことがあれば、何度でもこの資料を読み返してくださいね。
+        </p>
+        <div class="text-5xl mb-6">🚀✨</div>
+        <p class="text-2xl font-bold">次の実践編でもお会いしましょう！</p>
+      </div>
+    </section>
+
+    <!-- 困ったときは -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">困ったときは</h2>
+
+      <div class="space-y-6">
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💬 ChatGPTに質問する</h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            エラーが出たり、うまく動かない場合は、エラーメッセージをChatGPTに送ってみましょう。
+            ほとんどの問題は、ChatGPTに質問することで解決できます。
+          </p>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">📚 資料を読み返す</h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            各ステップの資料には、詳しい説明とトラブルシューティングが含まれています。
+            わからないことがあれば、該当するステップの資料を読み返してみてください。
+          </p>
+        </div>
+
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔍 Google検索を活用する</h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            GASの公式ドキュメントや、他の人の事例を検索することで、
+            より深い理解を得ることができます。
+            「GAS Gmail 検索」「GAS トリガー 設定」などのキーワードで検索してみましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- トップページへ戻るボタン -->
+    <section class="text-center">
+      <a href="../index.html" class="inline-block bg-indigo-600 text-white font-bold text-lg md:text-xl px-10 py-5 rounded-full hover:bg-indigo-700 transition shadow-lg">
+        ← トップページへ戻る
+      </a>
+    </section>
+
+  </main>
+
+  <!-- スクリプト -->
+  <script>
+    // ページロード時に簡単な祝福演出
+    window.addEventListener('load', function() {
+      console.log('🎉 実践編①完了おめでとうございます！');
+    });
+  </script>
+
+</body>
+</html>

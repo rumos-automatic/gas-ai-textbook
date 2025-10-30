@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/c/**)",
+      "Read(//c/CLAUDE_CODE/01_RUMOS_Project/GAS短期講座 V2.0/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

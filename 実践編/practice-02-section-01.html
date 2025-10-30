@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編②-1: イントロダクション | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="practice-02-section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        実践編② CSVファイルをスプシに自動転記
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+        Googleドライブのファイルを自動的にスプレッドシートに取り込むツールを作成します
+      </p>
+      <div class="mt-6 inline-block bg-indigo-100 text-indigo-800 px-6 py-2 rounded-full">
+        <span class="font-semibold">推奨学習日数: 3日間</span>
+      </div>
+    </header>
+
+    <!-- この実践で学ぶこと -->
+    <section id="learning" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📋 この実践で学ぶこと
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 space-y-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+            1
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              Googleドライブからファイルを取得する方法
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              Google Apps Scriptを使うと、Googleドライブに保存されているファイルに簡単にアクセスできます。特定のフォルダから最新のCSVファイルを自動で取得する方法を学びます。これができるようになると、毎回手動でファイルを探してダウンロードする手間が不要になります。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+            2
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              CSVファイルを解析してスプレッドシートに転記する方法
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              CSVファイルは、データがカンマで区切られた形式で保存されています。GASを使えば、このCSVファイルを自動的に解析して、スプレッドシートの適切な列に転記することができます。手動でコピー＆ペーストする必要がなくなり、データの取り込みミスも防げます。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+            3
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              カスタムメニューで簡単に実行できるようにする方法
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              作成したツールを、スプレッドシートのメニューバーから簡単に実行できるようにします。ボタンをクリックするだけでツールが起動するので、プログラミングの知識がない人でも使えるようになります。業務の効率化につながる重要なスキルです。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 作業の概要 -->
+    <section id="overview" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🎯 作業の概要
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        この実践では、以下のような自動化ツールを作成していきます。毎日繰り返している手作業を、ボタン1つで実行できるようにすることが目標です。
+      </p>
+
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          ツールの機能フロー
+        </h3>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleドライブの特定フォルダからCSVファイルを取得
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                まず、指定したフォルダIDのフォルダにアクセスして、最新のCSVファイルを取得します。フォルダIDを設定しておけば、毎回同じフォルダから自動的にファイルを取り出せます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                CSVファイルの内容を解析
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                取得したCSVファイルのデータを1行ずつ読み込み、カンマで区切られた各項目を正しく分割します。ヘッダー行（1行目）はスキップして、実際のデータだけを処理します。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleスプレッドシートに自動転記
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                解析したデータを、スプレッドシートの指定したシートに転記します。既存のデータに追記する形で書き込むので、過去のデータはそのまま保持されます。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                カスタムメニューを追加して、ボタンクリックで実行
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                スプレッドシートのメニューバーにオリジナルのメニューを追加します。これにより、スクリプトエディタを開かなくても、メニューから直接ツールを実行できるようになります。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次へのリンク -->
+    <section class="mt-16 text-center">
+      <div class="bg-indigo-50 rounded-lg p-8">
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          それでは、まず最初のステップとして、現在の作業を具体的に書き出していきましょう。
+        </p>
+        <a href="practice-02-section-02.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ1へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p class="text-center text-gray-600">
+        © 2025 生成AI×GAS 短期講座
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

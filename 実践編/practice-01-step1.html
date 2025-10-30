@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ1: 作業の棚卸 | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 25%, #e5e7eb 25%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-01-intro.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ 1 / 6</span>
+          <a href="practice-01-step2.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16">
+      <div class="text-center mb-8">
+        <span class="inline-block bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-base font-semibold mb-4">
+          ステップ 1 / 6
+        </span>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          作業の棚卸
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-6">
+          まず、現在の作業を具体的に書き出しましょう
+        </p>
+      </div>
+    </header>
+
+    <!-- 棚卸の重要性 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">なぜ作業の棚卸が必要なのか？</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          生成AIにツールを作ってもらう前に、まず現在の作業を具体的に書き出すことが大切です。
+          なぜなら、生成AIは「あなたが何をしたいのか」を具体的に伝えないと、正確なコードを作ることができないからです。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          例えば、「メールをスプレッドシートに転記するツールを作って」とだけ伝えても、
+          生成AIは「どのメールを？」「どの列に？」「どんな形式で？」といった細かい部分がわかりません。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed">
+          そのため、最初に現在の手作業の流れを詳しく書き出すことで、
+          生成AIに対して明確な指示を出せるようになります。
+          これが「作業の棚卸」というステップです。
+        </p>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 ポイント</h3>
+        <p class="text-lg leading-relaxed text-gray-700">
+          作業を具体的に書き出すことで、「どこを自動化すべきか」が明確になります。
+          また、生成AIへのプロンプト（指示文）を作る際の材料にもなるため、
+          この棚卸作業は決して飛ばさないようにしましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 現在の手作業の流れ -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">現在の手作業の流れ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          それでは、実際にメール転記作業を例に、手作業の流れを見ていきましょう。
+          この例では、「注文」や「請求書」といったキーワードを含むメールを、
+          毎日スプレッドシートに手動で転記している作業を想定しています。
+        </p>
+
+        <div class="space-y-6">
+          <!-- ステップ1 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Gmailを開く</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                まず、ブラウザでGmailにアクセスします。
+                この時点では、まだどのメールを転記するかは決まっていません。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">検索ボックスでキーワード検索</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-3">
+                Gmailの検索ボックスに「注文」「請求書」などのキーワードを入力して、
+                対象のメールを絞り込みます。
+              </p>
+              <p class="text-lg leading-relaxed text-gray-700">
+                例えば、「subject:注文」と検索すると、件名に「注文」を含むメールだけが表示されます。
+                この検索条件を明確にすることが、自動化の第一歩になります。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールを1つずつ開く</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                検索結果に表示されたメールを、1つずつクリックして開きます。
+                この作業は、メールの件数が多いと非常に時間がかかりますよね。
+                自動化すれば、この手間を完全に省くことができます。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ4 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールの内容を確認</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                開いたメールから、必要な情報を確認します。主に以下の項目をチェックすることが多いと思います：
+              </p>
+              <ul class="list-disc pl-6 space-y-2">
+                <li class="text-lg text-gray-700"><strong>件名</strong>：メールのタイトル</li>
+                <li class="text-lg text-gray-700"><strong>差出人</strong>：送信元のメールアドレスまたは名前</li>
+                <li class="text-lg text-gray-700"><strong>受信日</strong>：メールを受け取った日時</li>
+                <li class="text-lg text-gray-700"><strong>本文</strong>：メールの内容（全文または一部）</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- ステップ5 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              5
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleスプレッドシートに手動で転記</h3>
+              <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                確認した情報を、別タブで開いたGoogleスプレッドシートに手動で入力していきます。
+                列の配置は以下のようになっていることが多いでしょう：
+              </p>
+              <div class="bg-white border-2 border-gray-300 rounded-lg p-4">
+                <ul class="space-y-2">
+                  <li class="text-lg text-gray-700"><strong>A列：受信日</strong>（例：2025/10/30）</li>
+                  <li class="text-lg text-gray-700"><strong>B列：件名</strong>（例：【注文完了】ご注文ありがとうございます）</li>
+                  <li class="text-lg text-gray-700"><strong>C列：差出人</strong>（例：example@company.com）</li>
+                  <li class="text-lg text-gray-700"><strong>D列：本文</strong>（または本文の一部）</li>
+                </ul>
+              </div>
+              <p class="text-lg leading-relaxed text-gray-700 mt-4">
+                この手動入力作業が、一番時間のかかる部分です。
+                毎日10件のメールを転記するだけでも、10分以上かかることがあります。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ6 -->
+          <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-lg">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              6
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ステータス列に「未対応」と入力</h3>
+              <p class="text-lg leading-relaxed text-gray-700">
+                最後に、E列に「未対応」というステータスを入力して、
+                まだ処理していないメールであることを管理します。
+                後で対応が完了したら「対応済み」に変更する、という使い方ができますね。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- スクリーンショットプレースホルダー -->
+      <div class="mt-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">手作業の様子</h3>
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-manual-work.png')">
+          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+          <p class="text-lg">Gmailからスプレッドシートへの手動転記の様子</p>
+          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-manual-work.png</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- この作業を自動化する価値 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">この作業を自動化する価値</h2>
+
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この作業を毎日繰り返している場合、GASで自動化することで大幅に時間を節約できます。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="text-xl md:text-2xl font-bold text-red-600 mb-3">❌ 手動の場合</h3>
+            <ul class="space-y-2">
+              <li class="text-lg text-gray-700">⏱ 毎日10〜15分の作業</li>
+              <li class="text-lg text-gray-700">📅 1ヶ月で約5時間</li>
+              <li class="text-lg text-gray-700">😰 ヒューマンエラーのリスク</li>
+              <li class="text-lg text-gray-700">💤 退屈な繰り返し作業</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg p-6 shadow">
+            <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-3">✅ 自動化した場合</h3>
+            <ul class="space-y-2">
+              <li class="text-lg text-gray-700">⏱ 作業時間ゼロ</li>
+              <li class="text-lg text-gray-700">📅 1ヶ月で5時間の節約</li>
+              <li class="text-lg text-gray-700">🎯 正確な転記</li>
+              <li class="text-lg text-gray-700">😊 他の仕事に集中できる</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed mt-6">
+          このように、一度自動化してしまえば、毎日の作業時間をゼロにできます。
+          浮いた時間を、もっと創造的な仕事や重要な業務に使えるようになりますね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">作業の棚卸ができましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          現在の手作業の流れを理解できたら、次はChatGPTにプロンプトを送って、
+          実際にGASコードを生成してもらいましょう。
+        </p>
+        <a href="practice-01-step2.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ2へ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

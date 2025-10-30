@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編⑤：GAS×チャットワークAPI連携 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f472b6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ec4899;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="practice-chatwork-02.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">上級者向けコンテンツ</span>
+      </div>
+      <div class="dot" data-section="learn">
+        <span class="dot-label">この実践で学ぶこと</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💬 GAS×チャットワークAPI連携
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-4">
+        GASからチャットワークAPIを使って、通知を送信するツールを作成します
+      </p>
+      <div class="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-base md:text-lg font-semibold">
+        上級者向けコンテンツ
+      </div>
+    </header>
+
+    <!-- 小セクション1: 上級者向けコンテンツの注意 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-md">
+        <div class="flex items-start gap-4">
+          <div class="text-4xl">⚠️</div>
+          <div>
+            <p class="text-xl md:text-2xl font-bold text-yellow-900 mb-3">
+              注意：この章はロードマップ外の上級者向けコンテンツです
+            </p>
+            <p class="text-lg md:text-xl text-gray-800 mb-2">
+              この実践編は、基本的なGASの知識を習得した方向けの発展的な内容となっています。
+            </p>
+            <p class="text-lg md:text-xl text-gray-700">
+              まだGASの基礎を学んでいない方は、まず基本的な実践編から始めることをお勧めします。
+              基礎をしっかり理解してから取り組むことで、より深く理解できると思いますよ。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: この実践で学ぶこと -->
+    <section id="learn" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📋 この実践で学ぶこと
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          この実践では、Google Apps ScriptからチャットワークAPIを呼び出して、自動的にメッセージを送信する方法を学びます。
+          チャットワークは、ビジネスチャットツールとして多くの企業で使われているサービスですので、業務の自動化に非常に役立ちます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          特に、Googleフォームの回答通知や、スプレッドシートの値が変更された時のアラートなど、
+          実際の業務で使える実用的な例も紹介していきますので、ぜひ最後までご覧くださいね。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+          <!-- 学習項目1 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-pink-600 mb-3">
+              🔌 チャットワークAPIの基本
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              チャットワークAPIとは何か、どのような機能があるのかを理解します。
+              メッセージ送信、タスク作成、ファイルアップロードなど、さまざまな機能を学びますよ。
+            </p>
+          </div>
+
+          <!-- 学習項目2 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-pink-600 mb-3">
+              🔑 APIトークンの取得方法
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              チャットワークAPIを使用するために必要なAPIトークンの取得方法を、ステップバイステップで学びます。
+              セキュリティに配慮した安全な保存方法についても理解しましょう。
+            </p>
+          </div>
+
+          <!-- 学習項目3 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-pink-600 mb-3">
+              💻 GASからチャットワークに通知を送信
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              Google Apps Scriptからチャットワーク APIを呼び出して、メッセージを自動送信する方法を学びます。
+              実際のコード例を見ながら、API連携の基礎を習得します。
+            </p>
+          </div>
+
+          <!-- 学習項目4 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-pink-600 mb-3">
+              🚀 実用的な活用例
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              Googleフォーム回答時の通知、スプレッドシートの在庫アラート、定期的な売上レポートなど、
+              実際の業務で使える活用例を紹介します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-pink-50 to-red-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、チャットワークAPI連携で学ぶ内容について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>この章は、GASの基礎を習得した上級者向けコンテンツです</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>チャットワークAPIを使うことで、ビジネスチャットへの自動通知が可能になります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>APIトークン取得、GAS連携、実用例を順番に学んでいきます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-pink-600 font-bold">✓</span>
+            <span>実際の業務で使える活用例も多数紹介します</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、チャットワークAPIの詳細と、どのようなことができるのかを見ていきましょう。
+          一緒に頑張りましょうね！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-chatwork-02.html" class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：チャットワークAPIとは？ →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

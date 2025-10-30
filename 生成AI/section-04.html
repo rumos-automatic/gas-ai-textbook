@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション4: ChatGPTの始め方 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-03.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="section-05.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="signup">
+        <span class="dot-label">登録方法</span>
+      </div>
+      <div class="dot" data-section="plans">
+        <span class="dot-label">プラン比較</span>
+      </div>
+      <div class="dot" data-section="interface">
+        <span class="dot-label">インターフェース</span>
+      </div>
+      <div class="dot" data-section="models">
+        <span class="dot-label">モデルの選び方</span>
+      </div>
+      <div class="dot" data-section="save">
+        <span class="dot-label">チャット保存</span>
+      </div>
+      <div class="dot" data-section="work1">
+        <span class="dot-label">ワーク1</span>
+      </div>
+      <div class="dot" data-section="work2">
+        <span class="dot-label">ワーク2</span>
+      </div>
+      <div class="dot" data-section="work3">
+        <span class="dot-label">ワーク3</span>
+      </div>
+      <div class="dot" data-section="work4">
+        <span class="dot-label">ワーク4</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🚀 ChatGPTの始め方
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        ChatGPTのアカウント作成から基本的な操作方法まで、ステップバイステップで学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: ChatGPTの登録方法 -->
+    <section id="signup" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📧 ChatGPTの登録方法（メールアドレス・Google連携）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTを使うには、まずアカウントを作成する必要があります。
+          登録は無料で、メールアドレスまたはGoogleアカウントで簡単に始められます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            登録手順
+          </h3>
+
+          <!-- ステップ1 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">1</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                ChatGPT公式サイトにアクセス
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                ブラウザで「<a href="https://chat.openai.com/" target="_blank" class="text-indigo-600 hover:underline font-semibold">https://chat.openai.com/</a>」にアクセスします。
+                ChatGPTのトップページが表示されます。
+              </p>
+              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-homepage.png')">
+                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
+                <p class="text-sm">screenshot-chatgpt-homepage.png</p>
+                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">2</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                「Sign up」ボタンをクリック
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                画面右上にある<strong class="text-indigo-600">「Sign up」</strong>ボタンをクリックします。
+                新規アカウント作成画面に移動します。
+              </p>
+              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-signup-button.png')">
+                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
+                <p class="text-sm">screenshot-chatgpt-signup-button.png</p>
+                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">3</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                メールアドレスを入力、またはGoogleアカウントで連携
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                以下のいずれかの方法でアカウントを作成できます：
+              </p>
+              <div class="grid md:grid-cols-2 gap-4 mb-3">
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                  <h5 class="font-semibold text-gray-900 mb-2">メールアドレスで登録</h5>
+                  <p class="text-sm text-gray-700">
+                    メールアドレスとパスワードを入力して登録します。
+                    確認メールが届くので、リンクをクリックして認証してください。
+                  </p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                  <h5 class="font-semibold text-gray-900 mb-2">Googleアカウントで連携</h5>
+                  <p class="text-sm text-gray-700">
+                    「Continue with Google」ボタンをクリックし、Googleアカウントでログインします。
+                    メール認証の手間が省けて便利です。
+                  </p>
+                </div>
+              </div>
+              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-signup-options.png')">
+                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
+                <p class="text-sm">screenshot-chatgpt-signup-options.png</p>
+                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ4 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">4</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                確認メールが届くので、リンクをクリックして認証
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                メールアドレスで登録した場合、OpenAI社から確認メールが届きます。
+                メール内の「Verify email address」ボタンをクリックして、メールアドレスを認証してください。
+              </p>
+              <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                <p class="text-base text-yellow-800">
+                  <strong>注意：</strong>確認メールが届かない場合は、迷惑メールフォルダを確認してください。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ5 -->
+          <div class="flex items-start gap-4">
+            <span class="step-number">5</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                プロフィール情報を入力して完了
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                名前や生年月日などの基本情報を入力します。
+                すべて入力が完了すると、ChatGPTのチャット画面が表示され、すぐに使い始めることができます。
+              </p>
+              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-profile-setup.png')">
+                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
+                <p class="text-sm">screenshot-chatgpt-profile-setup.png</p>
+                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">✅ 登録完了！</p>
+          <p class="text-lg md:text-xl text-green-800">
+            これでChatGPTが使えるようになりました。
+            まずは無料プランで試してみて、必要に応じて有料プランにアップグレードするのがおすすめです。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 無料プランと有料プランの違い -->
+    <section id="plans" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💰 無料プランと有料プランの違い
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTには、無料プラン（Free）と有料プラン（Plus、Team、Enterprise）があります。
+          用途に応じて、適切なプランを選びましょう。
+        </p>
+
+        <!-- プラン比較表 -->
+        <div class="overflow-x-auto">
+          <table class="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+            <thead class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+              <tr>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">プラン</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">料金</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">特徴</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Free</td>
+                <td class="px-6 py-4 text-base md:text-lg text-green-600 font-bold">無料</td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  GPT-4o miniが使える。基本的な機能は利用可能。
+                  <br>
+                  <span class="text-sm text-gray-500">※ 応答速度は有料プランより遅い</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition bg-blue-50">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-indigo-600">Plus ⭐</td>
+                <td class="px-6 py-4 text-base md:text-lg font-bold">$20/月</td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  GPT-4が使える。優先アクセス、応答速度が速い。
+                  <br>
+                  <span class="text-sm font-semibold text-indigo-600">※ ツール作成にはPlusプラン以上を推奨</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Team</td>
+                <td class="px-6 py-4 text-base md:text-lg font-bold">$25/月<br><span class="text-sm text-gray-500">（ユーザーあたり）</span></td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  チームでの共同作業に最適。管理者機能あり。
+                </td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Enterprise</td>
+                <td class="px-6 py-4 text-base md:text-lg font-bold">要相談</td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  企業向けの高度なセキュリティと管理機能。
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bg-indigo-50 border-2 border-indigo-500 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">🎯</span>
+            ツールを作るならPlusプラン以上を推奨します
+          </h3>
+          <p class="text-lg md:text-xl text-indigo-800 mb-3">
+            理由は、GPT-4の方がコード生成の精度が高く、複雑な指示にも対応できるためです。
+          </p>
+          <ul class="text-base md:text-lg text-indigo-700 space-y-2">
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>コード生成の精度が高い</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>複雑な指示にも対応できる</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>応答速度が速く、ストレスなく作業できる</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>長文のコードも正確に生成できる</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: インターフェースの説明 -->
+    <section id="interface" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🖥️ インターフェースの説明（左メニュー・設定・新規チャット）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTの画面構成を理解しておきましょう。
+          シンプルな構成なので、すぐに使いこなせるようになります。
+        </p>
+
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-interface.png')">
+          <p class="text-lg font-semibold mb-2">📸 ChatGPTのインターフェース全体像</p>
+          <p class="text-sm">screenshot-chatgpt-interface.png</p>
+          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- 左メニュー -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">📁</span>
+              左メニュー
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>過去のチャット履歴</strong>：過去の会話を確認できます</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>プロジェクト</strong>：チャットをプロジェクト単位で整理</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>設定</strong>：アカウント設定やカスタマイズ</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 中央（チャット画面） -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">💬</span>
+              中央（チャット画面）
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>メッセージ入力欄</strong>：質問や指示を入力</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>会話履歴</strong>：ChatGPTとのやりとりが表示</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>送信ボタン</strong>：メッセージを送信</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 新規チャット -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">➕</span>
+              新規チャット
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>「+」ボタン</strong>：左上の「+」ボタンで新しいチャットを開始</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="font-bold">•</span>
+                <span><strong>話題を切り替える</strong>：別の話題に移る場合は新規チャットを立てましょう</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            同じチャット内で複数の話題を混ぜると、ChatGPTが混乱することがあります。
+            別の話題に移る場合は、新規チャットを立てることをおすすめします。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: モデルの選び方 -->
+    <section id="models" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🧠 モデルの選び方
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTには複数のモデルがあります。用途に応じて使い分けましょう。
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- GPT-4o -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              GPT-4o
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              最新の高性能モデル。複雑なタスクに最適。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <ul class="text-sm space-y-1">
+                <li>• コード生成</li>
+                <li>• 複雑な文章作成</li>
+                <li>• データ分析</li>
+                <li>• 高度な推論</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- GPT-4o mini -->
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              GPT-4o mini
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              軽量で高速。シンプルなタスク向け。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <ul class="text-sm space-y-1">
+                <li>• 簡単な質問応答</li>
+                <li>• 短文の作成</li>
+                <li>• 要約・翻訳</li>
+                <li>• カジュアルな会話</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- o1 -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              o1
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              推論に特化したモデル。複雑な問題解決に最適。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <ul class="text-sm space-y-1">
+                <li>• 論理的な推論</li>
+                <li>• 複雑な計算</li>
+                <li>• 戦略立案</li>
+                <li>• 高度な分析</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">🎯 ツール作成にはGPT-4o以上を推奨します</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            コード生成の精度が高く、複雑な指示にも対応できるため、ツール作成にはGPT-4o以上のモデルを使用することをおすすめします。
+          </p>
+        </div>
+
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-model-selector.png')">
+          <p class="text-lg font-semibold mb-2">📸 モデル選択画面</p>
+          <p class="text-sm">screenshot-chatgpt-model-selector.png</p>
+          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション5: チャットの保存とタイトル変更 -->
+    <section id="save" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💾 チャットの保存とタイトル変更の方法
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          チャットは自動的に保存されます。タイトルを変更しておくと、後で見返すときに便利です。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            タイトル変更方法
+          </h3>
+
+          <!-- ステップ1 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">1</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                左メニューからチャットを選択
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                左メニューの過去のチャット履歴から、タイトルを変更したいチャットを選択します。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="mb-6 flex items-start gap-4">
+            <span class="step-number">2</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                チャットタイトルにカーソルを合わせる
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                チャットタイトル部分にマウスカーソルを合わせると、鉛筆アイコンが表示されます。
+              </p>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="flex items-start gap-4">
+            <span class="step-number">3</span>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                鉛筆アイコンをクリックしてタイトルを編集
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 mb-3">
+                鉛筆アイコンをクリックすると、タイトルを編集できるようになります。
+                わかりやすいタイトルに変更して、Enterキーを押すと保存されます。
+              </p>
+              <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+                <p class="text-base font-semibold text-green-900 mb-2">タイトルの付け方のコツ：</p>
+                <ul class="text-base text-green-800 space-y-1">
+                  <li>• 「メール文章作成_2024年1月」のように、内容と日付を含める</li>
+                  <li>• 「GASコード生成_Gmail転記」のように、目的を明確にする</li>
+                  <li>• 「顧客対応_商品A問い合わせ」のように、案件名を含める</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-title-edit.png')">
+          <p class="text-lg font-semibold mb-2">📸 タイトル編集画面</p>
+          <p class="text-sm">screenshot-chatgpt-title-edit.png</p>
+          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク1 -->
+    <section id="work1" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク1
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに「今週の東京の天気は？」と話しかけてみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          実際にChatGPTに質問してみましょう。どのような回答が返ってくるか確認してください。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">質問例：</p>
+          <div class="bg-gray-100 p-4 rounded-lg font-mono text-gray-800">
+            今週の東京の天気は？
+          </div>
+        </div>
+        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-yellow-800">
+            <strong>注意：</strong>ChatGPTは学習データの範囲内でしか回答できないため、
+            リアルタイムの天気情報は取得できません。「最新の情報は天気予報サイトで確認してください」という回答が返ってくるはずです。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク2 -->
+    <section id="work2" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-6 flex items-center">
+          ✅ ワーク2
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに文章をリライトしてもらいましょう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          次のキャッチコピーを、①ワクワク系（感情訴求）②信頼系（実績訴求）③ベネフィット系（価値訴求）の3パターンでリライトしてください。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">キャッチコピー原文：</p>
+          <div class="bg-gray-100 p-4 rounded-lg text-gray-800 text-lg">
+            あなたのビジネスをAIが加速させます。
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">プロンプト例：</p>
+          <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm text-gray-800">
+            以下のキャッチコピーを、3パターンでリライトしてください。<br>
+            ①ワクワク系（感情訴求）<br>
+            ②信頼系（実績訴求）<br>
+            ③ベネフィット系（価値訴求）<br>
+            <br>
+            キャッチコピー：あなたのビジネスをAIが加速させます。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク3 -->
+    <section id="work3" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-6 flex items-center">
+          ✅ ワーク3
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTでお客様への謝罪メッセージを作成してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          以下のシチュエーションで、お客様への謝罪メールをChatGPTに作成してもらいましょう。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">シチュエーション：</p>
+          <div class="bg-red-50 p-4 rounded-lg text-gray-800">
+            商品の発送が遅れてしまい、お客様にご迷惑をおかけしました。
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">プロンプト例：</p>
+          <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm text-gray-800">
+            以下のシチュエーションで、お客様への謝罪メールを作成してください。<br>
+            丁寧で誠実な文章でお願いします。<br>
+            <br>
+            シチュエーション：商品の発送が遅れてしまい、お客様にご迷惑をおかけしました。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク4 -->
+    <section id="work4" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-orange-900 mb-6 flex items-center">
+          ✅ ワーク4
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに自分の事業を説明して売上を上げる戦略を考えてもらおう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          あなたの事業内容をChatGPTに説明し、売上を上げるための戦略を提案してもらいましょう。
+          できるだけ具体的に事業内容を伝えることがポイントです。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">プロンプト例：</p>
+          <div class="bg-gray-100 p-4 rounded-lg font-mono text-sm text-gray-800">
+            私は[事業内容]を運営しています。<br>
+            現在の課題は[課題内容]です。<br>
+            売上を上げるための戦略を3つ提案してください。<br>
+            <br>
+            例：<br>
+            私はオンラインでハンドメイドアクセサリーを販売しています。<br>
+            現在の課題は、商品の認知度が低く、新規顧客の獲得が難しいことです。<br>
+            売上を上げるための戦略を3つ提案してください。
+          </div>
+        </div>
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-base md:text-lg text-blue-800">
+            事業内容を具体的に伝えるほど、より実践的な戦略を提案してもらえます。
+            「誰に」「何を」「どのように」提供しているかを明確にしましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、ChatGPTの始め方について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>ChatGPTはメールアドレスまたはGoogleアカウントで簡単に登録できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>ツール作成にはPlusプラン以上を推奨します（GPT-4が使える）</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>左メニュー、チャット画面、新規チャットボタンの3つの主要エリアがあります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>用途に応じてGPT-4o、GPT-4o mini、o1のモデルを使い分けましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>チャットのタイトルを変更しておくと、後で見返すときに便利です</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、AIにうまく指示するための4つのコツを学んでいきましょう。
+          より良い回答を引き出すテクニックを身につけましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-05.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：AIにうまく指示する4つのコツ →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ステップ6: トリガー設定で自動実行 | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 87.5%, #e5e7eb 87.5%, #e5e7eb 100%);
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4 items-center">
+          <a href="practice-01-step5.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-sm md:text-base text-gray-500">ステップ 6 / 6</span>
+          <a href="practice-01-summary.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16">
+      <div class="text-center mb-8">
+        <span class="inline-block bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-base font-semibold mb-4">
+          ステップ 6 / 6 - 最終ステップ！
+        </span>
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          トリガー設定で自動実行
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mt-6">
+          ツールが正しく動作することを確認したら、最後にトリガー設定を行いましょう
+        </p>
+      </div>
+    </header>
+
+    <!-- トリガーとは -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">⏰ トリガーとは？</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          <strong>トリガー</strong>とは、指定した時間にGASを<strong>自動実行</strong>する機能です。
+          トリガーを設定することで、毎日決まった時間に自動的にメール転記が実行されるようになります。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          例えば、毎朝9時にトリガーを設定すれば、
+          あなたが何もしなくても、毎朝9時に自動でGmailからメールを取得してスプレッドシートに転記してくれます。
+        </p>
+
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8 mb-6">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">トリガーの例</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg p-6 shadow text-center">
+              <p class="text-4xl mb-3">🌅</p>
+              <p class="text-lg font-semibold text-gray-900 mb-2">毎日午前9時に実行</p>
+              <p class="text-base text-gray-600">朝の始業前に自動実行</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow text-center">
+              <p class="text-4xl mb-3">📅</p>
+              <p class="text-lg font-semibold text-gray-900 mb-2">毎週月曜日に実行</p>
+              <p class="text-base text-gray-600">週次レポート作成に便利</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow text-center">
+              <p class="text-4xl mb-3">📆</p>
+              <p class="text-lg font-semibold text-gray-900 mb-2">毎月1日に実行</p>
+              <p class="text-base text-gray-600">月次集計の自動化</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎉 一度設定すれば、完全放置でOK！</h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            トリガーを設定すれば、<strong>パソコンの電源が入っていなくても</strong>、
+            <strong>スプレッドシートを閉じていても</strong>、GASは自動で動き続けます。
+            完全に手作業から解放されます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- トリガー設定の手順 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">トリガー設定の手順</h2>
+
+      <div class="space-y-8">
+        <!-- ステップ1 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">1️⃣ GASエディタでトリガー画面を開く</h3>
+
+          <div class="space-y-6">
+            <div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4">
+                スクリプトエディタの左サイドバーにある<strong>「⏰ トリガー」</strong>アイコンをクリックします。
+              </p>
+              <p class="text-lg md:text-xl leading-relaxed">
+                トリガー画面が開いたら、右下の<strong>「+ トリガーを追加」</strong>ボタンをクリックしましょう。
+              </p>
+            </div>
+
+            <!-- スクリーンショット -->
+            <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-open.png')">
+              <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+              <p class="text-lg">トリガー画面の開き方と「+ トリガーを追加」ボタン</p>
+              <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-open.png</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">2️⃣ トリガー設定画面で項目を入力</h3>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            「トリガーを追加」画面が開きます。以下の項目を設定しましょう。
+          </p>
+
+          <!-- 設定項目テーブル -->
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full border-collapse border border-gray-300">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">項目</th>
+                  <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">設定内容</th>
+                  <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">実行する関数を選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700"><code class="bg-gray-200 px-2 py-1 rounded">transferEmailsToSheet</code></td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">実行したい関数名を選択</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">イベントのソースを選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">時間主導型</td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">時間で自動実行する場合は「時間主導型」</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">時間ベースのトリガーのタイプを選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">日付ベースのタイマー</td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">毎日実行する場合は「日付ベースのタイマー」</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">時刻を選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">午前9時〜10時</td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">実行したい時間帯を選択</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 時刻の選択について</h4>
+            <p class="text-lg leading-relaxed text-gray-700 mb-3">
+              時刻は「9時〜10時」のように<strong>1時間の幅</strong>で選択します。
+              これは、Googleのサーバーの負荷分散のため、正確な時刻ではなく、
+              指定した時間帯の中のランダムな時刻に実行されます。
+            </p>
+            <p class="text-lg leading-relaxed text-gray-700">
+              例えば、「午前9時〜10時」を選択すると、9時5分や9時42分など、
+              その時間帯のどこかで実行されます。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-settings.png')">
+            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+            <p class="text-lg">トリガー設定画面の入力例</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-settings.png</p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">3️⃣ 保存をクリック</h3>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            設定が完了したら、<strong>「保存」</strong>ボタンをクリックします。
+          </p>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">🎉 トリガー設定完了！</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              トリガー一覧に、設定したトリガーが表示されます。
+              これで、毎日午前9時〜10時の間に、自動的にメール転記が実行されるようになりました。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="mt-6 screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-complete.png')">
+            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+            <p class="text-lg">トリガー設定が完了した画面</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-complete.png</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 実践①を自動実行する設定例 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">実践①を自動実行する設定例</h2>
+
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          実践①（メール転記ツール）を毎朝自動実行する場合の推奨設定をまとめました。
+        </p>
+
+        <div class="bg-white rounded-lg p-6 shadow-md">
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-indigo-600 text-xl font-bold">●</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">イベントのソース：</p>
+                <p class="text-lg text-gray-700">時間主導型</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-indigo-600 text-xl font-bold">●</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">タイプ：</p>
+                <p class="text-lg text-gray-700">日付ベースのタイマー</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-indigo-600 text-xl font-bold">●</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-900">時刻：</p>
+                <p class="text-lg text-gray-700">午前9時〜10時</p>
+              </div>
+            </li>
+          </ul>
+          <div class="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
+            <p class="text-lg text-gray-700">
+              <strong>これで、毎朝9時に注文メールを自動転記できます！</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- やりすぎ注意 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">⚠️ やりすぎ注意！実行時間制限</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          トリガーを設定する際は、<strong>実行頻度</strong>に注意しましょう。
+          GASには実行時間の制限があり、制限を超えるとエラーが発生します。
+        </p>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❌ 分ベースのタイマーは要注意</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-4">
+            <strong>分ベースのタイマー</strong>（例：5分おき、10分おき）は、
+            実行回数が多すぎて制限に引っかかる可能性があります。
+          </p>
+          <div class="bg-white p-4 rounded border border-red-200">
+            <p class="text-lg text-gray-700 mb-2"><strong>例：</strong></p>
+            <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+              <li>5分おき = 1日288回実行</li>
+              <li>無料枠は<strong>1日90分</strong>の実行時間制限</li>
+              <li>→ 制限オーバーでエラーになる可能性あり！</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">✅ 推奨設定</h3>
+            <ul class="space-y-2 text-lg text-gray-700">
+              <li>✓ <strong>日付ベースのタイマー</strong>（毎日1回）</li>
+              <li>✓ <strong>時間ベースのタイマー</strong>（1時間以上の間隔）</li>
+            </ul>
+          </div>
+
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-red-800 mb-3">❌ 避けるべき設定</h3>
+            <ul class="space-y-2 text-lg text-gray-700">
+              <li>✗ 5分おき、10分おきなどの短い間隔</li>
+              <li>✗ 複数のトリガーを同時に大量に設定</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- GASの実行時間制限 -->
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">GASの実行時間制限</h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse border border-gray-300">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">アカウントタイプ</th>
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">1回の実行時間上限</th>
+                <th class="border border-gray-300 px-4 py-3 text-left text-lg font-bold text-gray-900">1日の実行時間上限</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-900">無料（Googleアカウント）</td>
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">約6分</td>
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700 font-bold">90分</td>
+              </tr>
+              <tr class="bg-gray-50">
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-900">有料（Google Workspace）</td>
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">約6分</td>
+                <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700 font-bold">6時間</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ポイント</h4>
+          <p class="text-lg leading-relaxed text-gray-700">
+            無料アカウントの場合、1日90分の制限があります。
+            例えば、1回の実行が1分かかる場合、1日最大90回まで実行できます。
+            この制限を超えないように、実行頻度を調整しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへの誘導 -->
+    <section class="mb-20">
+      <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">🎉 おめでとうございます！</h2>
+        <p class="text-lg md:text-xl mb-6">
+          トリガー設定が完了しました。これで、実践編①のすべてのステップが完了です。
+          最後に、学んだことをまとめて振り返りましょう。
+        </p>
+        <a href="practice-01-summary.html" class="inline-block bg-white text-green-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          まとめへ進む →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- スクリプト -->
+  <script>
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

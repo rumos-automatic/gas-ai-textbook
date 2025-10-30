@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>応用と注意点 | Googleフォーム自動返信ボット | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f97316;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ea580c;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-orange-600 hover:text-orange-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-form-bot-03.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-04-intro.html" class="text-base md:text-lg font-semibold text-orange-600 hover:text-orange-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="advanced">
+        <span class="dot-label">応用編：条件分岐</span>
+      </div>
+      <div class="dot" data-section="notes">
+        <span class="dot-label">注意点</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🚀 応用と注意点
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        より高度な機能と、使用上の注意点を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 応用編 -->
+    <section id="advanced" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔀 応用編：回答内容に応じて処理を分岐する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          基本的な自動返信ができるようになったら、次は回答内容に応じて異なるメールを送信してみましょう。
+          例えば、お問い合わせの種類によって、担当部署を変えたり、CCで通知する相手を変えたりすることができますよ。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          この機能を使えば、より細やかな対応が可能になり、お客様の満足度も向上するでしょう。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          📝 例：お問い合わせ種類に応じて異なるメールを送信
+        </h3>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">シナリオ</h4>
+          <p class="text-base md:text-lg text-gray-700 mb-4">
+            フォームに「お問い合わせ種類」という質問項目があり、以下の2つの選択肢があるとします：
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-base md:text-lg text-gray-700 ml-4">
+            <li><strong class="text-orange-600">商品について</strong>：商品担当者のメールアドレスもCCに追加</li>
+            <li><strong class="text-orange-600">技術サポート</strong>：技術サポート担当者のメールアドレスもCCに追加</li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          🤖 ChatGPTへの依頼例
+        </h3>
+
+        <div class="bg-gray-900 text-gray-100 p-6 rounded-lg shadow-lg overflow-x-auto">
+          <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、フォーム回答の内容に応じて異なる返信メールを送信するように修正してください。
+
+【条件分岐】
+- 「お問い合わせ種類」が「商品について」の場合
+  → 商品担当者のメールアドレス（product@example.com）もCCに追加
+- 「お問い合わせ種類」が「技術サポート」の場合
+  → 技術サポート担当者のメールアドレス（support@example.com）もCCに追加
+
+【データ構造】
+- A列：タイムスタンプ
+- B列：メールアドレス
+- C列：お名前
+- D列：お問い合わせ種類（「商品について」または「技術サポート」）
+- E列：お問い合わせ内容</code></pre>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            ChatGPTに依頼するときは、「どの列に何のデータが入っているか」を正確に伝えましょう。
+            また、条件分岐のルールも具体的に記載することが大切です。
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          ✨ 他の応用例
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 応用例1 -->
+          <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-md">
+            <h4 class="text-lg md:text-xl font-bold text-purple-900 mb-3">
+              📅 日時指定の自動確認
+            </h4>
+            <p class="text-base md:text-lg text-gray-700">
+              セミナーの申し込みフォームで、日時を選択した場合、その日時を含めた確認メールを送信します。
+            </p>
+          </div>
+
+          <!-- 応用例2 -->
+          <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg shadow-md">
+            <h4 class="text-lg md:text-xl font-bold text-green-900 mb-3">
+              🎁 特典コードの自動送信
+            </h4>
+            <p class="text-base md:text-lg text-gray-700">
+              アンケート回答者に、自動的にクーポンコードや特典情報を含めたメールを送信します。
+            </p>
+          </div>
+
+          <!-- 応用例3 -->
+          <div class="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-md">
+            <h4 class="text-lg md:text-xl font-bold text-orange-900 mb-3">
+              🔔 社内通知の自動化
+            </h4>
+            <p class="text-base md:text-lg text-gray-700">
+              お問い合わせがあった際、回答者だけでなく、社内の管理者にも通知メールを送信します。
+            </p>
+          </div>
+
+          <!-- 応用例4 -->
+          <div class="bg-gradient-to-br from-yellow-50 to-amber-50 p-6 rounded-lg shadow-md">
+            <h4 class="text-lg md:text-xl font-bold text-yellow-900 mb-3">
+              📊 条件付きメール送信
+            </h4>
+            <p class="text-base md:text-lg text-gray-700">
+              特定の条件（例：予算100万円以上）を満たした場合のみ、メールを送信します。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-500 p-6 rounded-xl mt-8">
+          <p class="text-lg md:text-xl font-bold text-green-900 mb-3">
+            🎉 応用の可能性は無限大
+          </p>
+          <p class="text-lg md:text-xl text-gray-800">
+            ChatGPTに具体的な要望を伝えることで、より高度な自動化ツールを作成できます。
+            「こんなことできないかな？」と思ったら、ぜひChatGPTに聞いてみてください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 注意点 -->
+    <section id="notes" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚠️ 注意点
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          Googleフォーム自動返信ボットを使う際は、以下の注意点を必ず確認してください。
+          これらを理解しておくことで、トラブルを未然に防ぐことができますよ。
+        </p>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          📧 メール送信の上限に注意
+        </h3>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-red-900 mb-3">
+            Google Apps Scriptには、1日に送信できるメール数に制限があります
+          </p>
+          <div class="space-y-2 text-base md:text-lg text-red-800">
+            <p><strong>• 無料アカウント：</strong> 100通/日</p>
+            <p><strong>• Google Workspace：</strong> 1,500通/日</p>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mt-4">
+          大量のフォーム回答がある場合は、この制限に注意してください。
+          例えば、無料アカウントで1日に100件以上の回答があると、100件目以降は自動返信メールが送信されなくなります。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">対策：</h4>
+          <ul class="list-disc list-inside space-y-2 text-base md:text-lg text-gray-700 ml-4">
+            <li>大規模なキャンペーンを実施する場合は、Google Workspaceの利用を検討しましょう</li>
+            <li>メール送信数を管理するために、送信ログをスプレッドシートに記録するのも良い方法です</li>
+            <li>制限に達した場合は、翌日に再実行されるようにエラーハンドリングを追加することもできます</li>
+          </ul>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          🔒 個人情報の取り扱いに注意
+        </h3>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">
+            フォームで収集したメールアドレスや個人情報は、適切に管理してください
+          </p>
+          <div class="space-y-2 text-base md:text-lg text-yellow-800">
+            <p><strong>• プライバシーポリシーの明示：</strong> フォームに、個人情報の取り扱いについて記載しましょう</p>
+            <p><strong>• 不要なメールを送信しない：</strong> 回答者の同意なく、マーケティングメールを送信しないようにしましょう</p>
+            <p><strong>• データの保管期間：</strong> 不要になった個人情報は、適切に削除しましょう</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          🧪 テストを必ず実施
+        </h3>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3">
+            本番運用前に、必ずテストを実施してください
+          </p>
+          <div class="space-y-2 text-base md:text-lg text-blue-800">
+            <p><strong>• 自分のメールアドレスで確認：</strong> テスト回答を送信して、メールが正しく届くか確認しましょう</p>
+            <p><strong>• 複数パターンでテスト：</strong> 条件分岐がある場合は、すべてのパターンをテストしましょう</p>
+            <p><strong>• 本番データで確認：</strong> 可能であれば、実際のお客様データに近い内容でテストしましょう</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          📊 定期的な動作確認
+        </h3>
+
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-purple-900 mb-3">
+            運用開始後も、定期的に動作を確認しましょう
+          </p>
+          <div class="space-y-2 text-base md:text-lg text-purple-800">
+            <p><strong>• 週次チェック：</strong> 週に1回、フォームに回答して動作を確認しましょう</p>
+            <p><strong>• ログの確認：</strong> GASの実行ログを定期的に確認して、エラーが出ていないかチェックしましょう</p>
+            <p><strong>• スプレッドシートの容量：</strong> 回答数が増えると、スプレッドシートの容量が不足することがあります</p>
+          </div>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-12 mb-4">
+          🛡️ セキュリティ対策
+        </h3>
+
+        <div class="bg-gray-100 border-l-4 border-gray-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-gray-900 mb-3">
+            セキュリティにも配慮しましょう
+          </p>
+          <div class="space-y-2 text-base md:text-lg text-gray-700">
+            <p><strong>• スパム対策：</strong> reCAPTCHAを有効にして、スパム回答を防ぎましょう</p>
+            <p><strong>• スプレッドシートの共有設定：</strong> 不要な人がアクセスできないように、共有設定を確認しましょう</p>
+            <p><strong>• トリガーの管理：</strong> 不要になったトリガーは、削除しておきましょう</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: まとめ -->
+    <section id="summary" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-orange-500 to-red-500 text-white p-10 rounded-xl shadow-2xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center">
+          ✅ この実践のまとめ
+        </h2>
+        <div class="space-y-6">
+          <p class="text-lg md:text-xl leading-relaxed">
+            お疲れ様でした！皆さん、Googleフォーム自動返信ボットの作成について、すべて理解できましたでしょうか？
+          </p>
+
+          <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold mb-4">📚 学んだこと</h3>
+            <ul class="space-y-3 text-base md:text-lg">
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>Googleフォームとスプレッドシートの連携方法</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>ChatGPTを使ったGASコードの生成方法</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>フォーム送信時トリガーの設定方法</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>自動返信メールの送信方法</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>回答内容に応じた処理の分岐方法</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>メール送信の上限や個人情報の取り扱いなどの注意点</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white bg-opacity-20 backdrop-blur-sm p-6 rounded-lg">
+            <h3 class="text-xl md:text-2xl font-bold mb-4">🎯 できるようになったこと</h3>
+            <ul class="space-y-3 text-base md:text-lg">
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>お問い合わせフォームの自動返信機能の実装</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>セミナー申し込みフォームの確認メール送信</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>アンケート回答者への特典コード送信</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="font-bold">✓</span>
+                <span>条件に応じた異なるメールの送信</span>
+              </li>
+            </ul>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed">
+            この実践で学んだスキルは、さまざまな業務に応用できます。
+            お問い合わせ対応、セミナー運営、顧客管理など、フォームを使う場面は多いと思います。
+            ぜひ、あなたのビジネスに合わせてカスタマイズしてみてくださいね。
+          </p>
+
+          <div class="text-center mt-8">
+            <p class="text-2xl md:text-3xl font-bold mb-4">
+              🎉 これで実践編③は完了です！
+            </p>
+            <p class="text-lg md:text-xl">
+              次は、これまでの学習を活かして、あなた自身のオリジナルツールを作成してみましょう。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最終メッセージ -->
+    <section class="mb-20 bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
+        💬 最後に
+      </h2>
+      <div class="space-y-4 text-center">
+        <p class="text-lg md:text-xl text-gray-800">
+          生成AIとGoogle Apps Scriptを組み合わせることで、
+          プログラミング初心者でも強力な自動化ツールを作成できることを実感していただけたでしょうか？
+        </p>
+        <p class="text-lg md:text-xl text-gray-700">
+          この講座で学んだことを活かして、あなたの業務をどんどん自動化していってください。
+          わからないことがあれば、何度でもこの資料を読み返してくださいね。
+        </p>
+        <p class="text-xl md:text-2xl font-bold text-orange-600 mt-6">
+          応援しています！頑張ってください！ 🚀
+        </p>
+      </div>
+    </section>
+
+    <!-- トップページへ戻る -->
+    <div class="text-center">
+      <a href="../index.html" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        トップページへ戻る
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

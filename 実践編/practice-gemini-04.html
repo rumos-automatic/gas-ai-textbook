@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編⑥-4：実用的な活用例 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b5cf6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #7c3aed;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .prompt-block {
+      background-color: #f1f5f9;
+      border-left: 4px solid #8b5cf6;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-purple-600 hover:text-purple-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-gemini-03.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-gemini-05.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="example1">
+        <span class="dot-label">例1: 商品説明文生成</span>
+      </div>
+      <div class="dot" data-section="example2">
+        <span class="dot-label">例2: 問い合わせ分類</span>
+      </div>
+      <div class="dot" data-section="example3">
+        <span class="dot-label">例3: フィードバック要約</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🚀 実用的な活用例
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        実際のビジネスシーンで使える、Gemini API活用例を紹介します
+      </p>
+    </header>
+
+    <!-- 導入 -->
+    <section class="mb-16">
+      <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-8 rounded-xl shadow-lg">
+        <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+          ここでは、Gemini APIを使った実用的な活用例を3つ紹介します。
+          これらの例は、実際の業務でよくあるタスクを自動化するものです。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          各例では、<strong>ChatGPTに送るプロンプト</strong>を掲載しています。
+          このプロンプトをChatGPTに送ることで、必要なGASコードを自動生成できますよ。
+          生成されたコードを、自分のプロジェクトに合わせてカスタマイズしてくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション1: 例1 商品説明文の自動生成 -->
+    <section id="example1" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📦 例1：商品説明文の自動生成
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          EC事業者やマーケティング担当者にとって、商品説明文の作成は時間のかかる作業です。
+          Gemini APIを使えば、商品名と特徴を基に、魅力的な説明文を自動生成できます。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            📋 やりたいこと
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            スプレッドシートに記録された商品情報（商品名、特徴）を基に、
+            Gemini APIで商品説明文を自動生成して、スプレッドシートに書き込みます。
+          </p>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-6">
+            🎯 自動化の流れ
+          </h3>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <ol class="space-y-3 text-base md:text-lg text-gray-700 list-decimal pl-6">
+              <li>スプレッドシートのA列に商品名、B列に特徴を入力</li>
+              <li>カスタムメニューから「商品説明文を生成」を実行</li>
+              <li>各行の商品情報をGemini APIに送信</li>
+              <li>生成された説明文をC列に自動入力</li>
+            </ol>
+          </div>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-8">
+            💬 ChatGPTに送るプロンプト例
+          </h3>
+          <p class="text-base md:text-lg text-gray-600 mb-3">
+            以下のプロンプトをChatGPTに送ることで、必要なGASコードが自動生成されます。
+          </p>
+          <div class="prompt-block">Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+スプレッドシートの商品情報を基に、Gemini APIで商品説明文を自動生成する
+
+【現在の手順】
+1. スプレッドシートのA列に商品名、B列に特徴を入力
+2. C列に、Gemini APIで生成した商品説明文を自動入力
+
+【プロンプト例】
+「以下の商品の説明文を100文字程度で作成してください。
+商品名：{商品名}
+特徴：{特徴}」
+
+【その他の要望】
+- Gemini APIキーは、プロパティサービスから取得する
+- カスタムメニューから実行できるようにする
+- 2行目から最終行まで、すべての商品に対して説明文を生成する
+- 生成中はローディング表示を出す</div>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
+            <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 活用のポイント</p>
+            <ul class="space-y-2 text-base md:text-lg text-blue-800 list-disc pl-6">
+              <li>生成された説明文は、そのまま使うのではなく、レビューしてから公開しましょう</li>
+              <li>プロンプトに「若者向け」「フォーマル」などのトーンを指定すると、ターゲットに合った文章が生成されます</li>
+              <li>複数の商品を一度に処理する場合は、API制限（15リクエスト/分）に注意しましょう</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 例2 問い合わせ内容の自動分類 -->
+    <section id="example2" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📨 例2：問い合わせ内容の自動分類
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          カスタマーサポート担当者にとって、大量の問い合わせを分類する作業は非常に時間がかかります。
+          Gemini APIを使えば、問い合わせ内容を自動的にカテゴリ分類できます。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            📋 やりたいこと
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            Googleフォームで受け付けた問い合わせ内容を、Gemini APIで自動的にカテゴリ分類して、
+            スプレッドシートに記録します。
+          </p>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-6">
+            🎯 自動化の流れ
+          </h3>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <ol class="space-y-3 text-base md:text-lg text-gray-700 list-decimal pl-6">
+              <li>Googleフォームで問い合わせを受け付ける</li>
+              <li>フォーム送信時に、GASが自動実行される（トリガー設定）</li>
+              <li>問い合わせ内容をGemini APIに送信し、カテゴリを判定</li>
+              <li>判定されたカテゴリを、スプレッドシートの「カテゴリ」列に自動入力</li>
+            </ol>
+          </div>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-8">
+            💬 ChatGPTに送るプロンプト例
+          </h3>
+          <p class="text-base md:text-lg text-gray-600 mb-3">
+            以下のプロンプトをChatGPTに送ることで、必要なGASコードが自動生成されます。
+          </p>
+          <div class="prompt-block">Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+Googleフォームで受け付けた問い合わせ内容を、Gemini APIで自動分類する
+
+【現在の手順】
+1. Googleフォームで問い合わせを受け付ける
+2. 問い合わせ内容をGemini APIに送信し、カテゴリを判定
+   - カテゴリ：「商品について」「配送について」「返品・交換」「その他」
+3. スプレッドシートの「カテゴリ」列に自動入力
+
+【プロンプト例】
+「以下の問い合わせ内容を、『商品について』『配送について』『返品・交換』『その他』のいずれかに分類してください。分類名のみを回答してください。
+問い合わせ内容：{問い合わせ内容}」
+
+【その他の要望】
+- Gemini APIキーは、プロパティサービスから取得する
+- フォーム送信時に自動実行されるようにする（トリガー設定）
+- カテゴリ列は、D列に設定する</div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-6">
+            <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">✨ この自動化のメリット</p>
+            <ul class="space-y-2 text-base md:text-lg text-green-800 list-disc pl-6">
+              <li>担当者が手動で分類する手間が省ける</li>
+              <li>カテゴリごとに担当者を割り振ることで、対応速度が向上する</li>
+              <li>分類の精度が一定に保たれる（人によるばらつきがない）</li>
+              <li>24時間365日、自動で分類が行われる</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 例3 大量のテキストデータの要約 -->
+    <section id="example3" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📊 例3：大量のテキストデータの要約
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          顧客からのフィードバックやアンケート結果など、大量のテキストデータを読んで要約するのは大変な作業です。
+          Gemini APIを使えば、大量のテキストを自動的に要約して、主要なポイントを抽出できます。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            📋 やりたいこと
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            スプレッドシートに記録された大量の顧客フィードバックを、Gemini APIで要約して、
+            主要なポイントを別シートに書き込みます。
+          </p>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-6">
+            🎯 自動化の流れ
+          </h3>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <ol class="space-y-3 text-base md:text-lg text-gray-700 list-decimal pl-6">
+              <li>スプレッドシートのA列に顧客フィードバックが記録されている</li>
+              <li>カスタムメニューから「フィードバックを要約」を実行</li>
+              <li>すべてのフィードバックを結合してGemini APIに送信</li>
+              <li>Gemini APIで要約を生成（主要ポイント3つ）</li>
+              <li>要約を「要約」シートに書き込む</li>
+            </ol>
+          </div>
+
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 mt-8">
+            💬 ChatGPTに送るプロンプト例
+          </h3>
+          <p class="text-base md:text-lg text-gray-600 mb-3">
+            以下のプロンプトをChatGPTに送ることで、必要なGASコードが自動生成されます。
+          </p>
+          <div class="prompt-block">Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+スプレッドシートに記録された顧客フィードバックを、Gemini APIで要約する
+
+【現在の手順】
+1. スプレッドシートのA列に顧客フィードバックが記録されている
+2. すべてのフィードバックを結合してGemini APIに送信
+3. Gemini APIで要約を生成
+4. 要約を「要約」シートに書き込む
+
+【プロンプト例】
+「以下の顧客フィードバックを、主要なポイントを3つ挙げて要約してください。
+{フィードバック全文}」
+
+【その他の要望】
+- Gemini APIキーは、プロパティサービスから取得する
+- カスタムメニューから実行できるようにする
+- 「要約」シートが存在しない場合は、新規作成する
+- 要約結果は、日付とともに記録する</div>
+
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mt-6">
+            <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">⚠️ 注意点</p>
+            <ul class="space-y-2 text-base md:text-lg text-yellow-800 list-disc pl-6">
+              <li>フィードバックが非常に多い場合、APIのトークン制限に引っかかる可能性があります</li>
+              <li>その場合は、フィードバックを分割して複数回に分けて要約する必要があります</li>
+              <li>要約結果は、AIが生成したものなので、必ず人間がレビューしてから使用しましょう</li>
+            </ul>
+          </div>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
+            <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 応用例</p>
+            <p class="text-base md:text-lg text-blue-800 mb-3">
+              この手法は、以下のような場面でも活用できます：
+            </p>
+            <ul class="space-y-2 text-base md:text-lg text-blue-800 list-disc pl-6">
+              <li>会議の議事録を自動要約</li>
+              <li>ニュース記事やブログ記事を要約してダイジェスト作成</li>
+              <li>SNSのコメントを分析して、主要な意見を抽出</li>
+              <li>レビュー情報を要約して、製品改善のヒントを得る</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、Gemini APIの実用的な活用例について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>商品説明文の自動生成で、EC事業者のライティング作業を効率化できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>問い合わせ内容の自動分類で、カスタマーサポートの対応速度が向上します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>大量のフィードバックを要約することで、重要なポイントを素早く把握できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>ChatGPTにプロンプトを送ることで、必要なコードを自動生成できます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、Gemini API連携の注意点や、ChatGPT APIとの違いを学んでいきましょう。
+          安全に、効率的にAPIを活用するための知識を身につけましょうね！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-gemini-05.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：注意点とまとめ →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

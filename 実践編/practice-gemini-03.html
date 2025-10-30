@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編⑥-3：GASとの連携 | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b5cf6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #7c3aed;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .code-block {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+    .code-block .keyword {
+      color: #c792ea;
+    }
+    .code-block .function {
+      color: #82aaff;
+    }
+    .code-block .string {
+      color: #c3e88d;
+    }
+    .code-block .comment {
+      color: #676e95;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-purple-600 hover:text-purple-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-gemini-02.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-gemini-04.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="step1">
+        <span class="dot-label">ステップ1: APIキーを保存</span>
+      </div>
+      <div class="dot" data-section="step2">
+        <span class="dot-label">ステップ2: テキスト生成コード</span>
+      </div>
+      <div class="dot" data-section="explanation">
+        <span class="dot-label">コードの詳細解説</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💻 GASからGemini APIを使ってテキスト生成
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        取得したAPIキーを使って、実際にテキスト生成を試してみましょう
+      </p>
+    </header>
+
+    <!-- 小セクション1: ステップ1 APIキーをGASに保存 -->
+    <section id="step1" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 ステップ1：APIキーをGASに保存
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          まず、取得したAPIキーをGASの<strong>プロパティサービス</strong>に保存します。
+          プロパティサービスは、GASでキーと値のペアを安全に保存できる機能です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          APIキーをコード内に直接書いてしまうと、コードを共有したときに他人に見られてしまう危険があります。
+          プロパティサービスを使えば、APIキーを安全に管理できますよ。
+        </p>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 プロパティサービスとは？</p>
+          <p class="text-base md:text-lg text-blue-800">
+            プロパティサービスは、GASでキーと値のペアを永続的に保存できる機能です。
+            APIキーのような機密情報を安全に保存するのに最適で、コードには直接書かずに済みます。
+          </p>
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          コード例
+        </h3>
+
+        <div class="code-block">
+<span class="keyword">function</span> <span class="function">setGeminiApiKey</span>() {<br>
+&nbsp;&nbsp;<span class="comment">// プロパティサービスを取得</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> scriptProperties = <span class="function">PropertiesService</span>.<span class="function">getScriptProperties</span>();<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// APIキーを保存（YOUR_API_KEY_HEREを、実際のAPIキーに置き換えてください）</span><br>
+&nbsp;&nbsp;scriptProperties.<span class="function">setProperty</span>(<span class="string">'GEMINI_API_KEY'</span>, <span class="string">'YOUR_API_KEY_HERE'</span>);<br>
+&nbsp;&nbsp;<br>
+&nbsp;&nbsp;<span class="comment">// 保存完了メッセージ</span><br>
+&nbsp;&nbsp;<span class="function">Logger</span>.<span class="function">log</span>(<span class="string">'APIキーを保存しました'</span>);<br>
+}
+        </div>
+
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mt-8 mb-4">
+          実行手順
+        </h3>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
+              <div>
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  GASエディタを開く
+                </h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  Googleスプレッドシートから、<strong>拡張機能</strong> → <strong>Apps Script</strong> を選択して、
+                  GASエディタを開きます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
+              <div>
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  上記のコードを貼り付ける
+                </h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  エディタに上記のコードを貼り付けます。
+                  <code class="bg-gray-200 px-2 py-1 rounded text-purple-700">'YOUR_API_KEY_HERE'</code>
+                  の部分を、前のセクションで取得した実際のAPIキーに置き換えてくださいね。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                3
+              </div>
+              <div>
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  関数を実行
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  画面上部の<strong>「実行」</strong>ボタンをクリックして、
+                  <code class="bg-gray-200 px-2 py-1 rounded text-purple-700">setGeminiApiKey</code>
+                  関数を実行します。
+                </p>
+                <p class="text-base md:text-lg text-gray-600">
+                  初回実行時は、権限の承認を求められます。
+                  「許可を確認」→ 自分のGoogleアカウントを選択 → 「許可」をクリックしてください。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                4
+              </div>
+              <div>
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  保存確認
+                </h4>
+                <p class="text-base md:text-lg text-gray-700">
+                  実行が完了したら、<strong>「表示」</strong> → <strong>「ログ」</strong>を開いて、
+                  「APIキーを保存しました」というメッセージが表示されているか確認しましょう。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">
+            ✅ APIキーの保存が完了しました！
+          </p>
+          <p class="text-base md:text-lg text-green-800">
+            これで、APIキーが安全にプロパティサービスに保存されました。
+            この関数は初回のみ実行すればOKです。次回からは、保存されたAPIキーを読み込んで使用します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ステップ2 テキスト生成コードを作成 -->
+    <section id="step2" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🚀 ステップ2：テキスト生成コードを作成
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          それでは、実際にGemini APIを使ってテキストを生成するコードを作成してみましょう。
+          以下のコードをGASエディタに追加してください。
+        </p>
+
+        <div class="code-block">
+<span class="keyword">function</span> <span class="function">generateTextWithGemini</span>() {<br>
+&nbsp;&nbsp;<span class="comment">// プロパティサービスからAPIキーを取得</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> scriptProperties = <span class="function">PropertiesService</span>.<span class="function">getScriptProperties</span>();<br>
+&nbsp;&nbsp;<span class="keyword">const</span> apiKey = scriptProperties.<span class="function">getProperty</span>(<span class="string">'GEMINI_API_KEY'</span>);<br>
+<br>
+&nbsp;&nbsp;<span class="comment">// プロンプト（AIに送る指示）</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> prompt = <span class="string">'日本の観光名所を3つ教えてください。'</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="comment">// APIエンドポイント</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> url = <span class="string">`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=<span class="keyword">${</span>apiKey<span class="keyword">}</span>`</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="comment">// リクエストペイロード</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> payload = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"contents"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"parts"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"text"</span>: prompt<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;]<br>
+&nbsp;&nbsp;};<br>
+<br>
+&nbsp;&nbsp;<span class="comment">// リクエストオプション</span><br>
+&nbsp;&nbsp;<span class="keyword">const</span> options = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'method'</span>: <span class="string">'POST'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'contentType'</span>: <span class="string">'application/json'</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">'payload'</span>: <span class="function">JSON</span>.<span class="function">stringify</span>(payload)<br>
+&nbsp;&nbsp;};<br>
+<br>
+&nbsp;&nbsp;<span class="comment">// API呼び出し</span><br>
+&nbsp;&nbsp;<span class="keyword">try</span> {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> response = <span class="function">UrlFetchApp</span>.<span class="function">fetch</span>(url, options);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> result = <span class="function">JSON</span>.<span class="function">parse</span>(response.<span class="function">getContentText</span>());<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// 生成されたテキストを取得</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">const</span> generatedText = result.candidates[<span class="string">0</span>].content.parts[<span class="string">0</span>].text;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">Logger</span>.<span class="function">log</span>(generatedText);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> generatedText;<br>
+&nbsp;&nbsp;} <span class="keyword">catch</span> (error) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="function">Logger</span>.<span class="function">log</span>(<span class="string">'エラー: '</span> + error.message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">null</span>;<br>
+&nbsp;&nbsp;}<br>
+}
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            実行してみましょう
+          </h3>
+          <ol class="space-y-3 text-base md:text-lg text-gray-700 list-decimal pl-6">
+            <li>上記のコードをGASエディタに追加します</li>
+            <li>画面上部の関数選択で <code class="bg-gray-200 px-2 py-1 rounded text-purple-700">generateTextWithGemini</code> を選択</li>
+            <li><strong>「実行」</strong>ボタンをクリック</li>
+            <li><strong>「表示」</strong> → <strong>「ログ」</strong>を開いて、生成されたテキストを確認</li>
+          </ol>
+          <p class="text-base md:text-lg text-gray-600 mt-4">
+            うまくいけば、日本の観光名所が3つ表示されるはずですよ！
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: コードの詳細解説 -->
+    <section id="explanation" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔍 コードの詳細解説
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          それでは、上記のコードがどのように動いているのか、詳しく見ていきましょう。
+          各部分の役割を理解することで、自分で応用できるようになりますよ。
+        </p>
+
+        <div class="space-y-8 mt-8">
+          <!-- 解説1 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              1️⃣ APIキーの取得
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">const</span> scriptProperties = <span class="function">PropertiesService</span>.<span class="function">getScriptProperties</span>();<br>
+<span class="keyword">const</span> apiKey = scriptProperties.<span class="function">getProperty</span>(<span class="string">'GEMINI_API_KEY'</span>);
+            </div>
+            <p class="text-base md:text-lg text-gray-700">
+              プロパティサービスから、先ほど保存したAPIキーを取得しています。
+              <code class="bg-gray-200 px-2 py-1 rounded">getProperty('GEMINI_API_KEY')</code>で、
+              保存したキーを読み込むことができます。
+            </p>
+          </div>
+
+          <!-- 解説2 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              2️⃣ プロンプトの設定
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">const</span> prompt = <span class="string">'日本の観光名所を3つ教えてください。'</span>;
+            </div>
+            <p class="text-base md:text-lg text-gray-700">
+              AIに送る指示（プロンプト）を設定しています。
+              このプロンプトを変更することで、さまざまなタスクを実行できます。
+              例えば、「メール文章を作成してください」や「この文章を要約してください」など、
+              用途に応じて変更しましょう。
+            </p>
+          </div>
+
+          <!-- 解説3 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              3️⃣ APIエンドポイント
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">const</span> url = <span class="string">`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=<span class="keyword">${</span>apiKey<span class="keyword">}</span>`</span>;
+            </div>
+            <p class="text-base md:text-lg text-gray-700">
+              Gemini APIのエンドポイント（アクセス先）を指定しています。
+              <code class="bg-gray-200 px-2 py-1 rounded">gemini-pro</code>はモデル名で、
+              テキスト生成に特化したモデルです。
+              URLの最後に、取得したAPIキーを付けることで、認証が行われます。
+            </p>
+          </div>
+
+          <!-- 解説4 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              4️⃣ リクエストペイロード
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">const</span> payload = {<br>
+&nbsp;&nbsp;<span class="string">"contents"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"parts"</span>: [{ <span class="string">"text"</span>: prompt }]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;]<br>
+};
+            </div>
+            <p class="text-base md:text-lg text-gray-700">
+              APIに送信するデータの形式を指定しています。
+              <code class="bg-gray-200 px-2 py-1 rounded">contents</code>の中に、
+              プロンプトを含めることで、AIがその指示に基づいてテキストを生成します。
+              この構造は、Gemini APIの仕様で決まっています。
+            </p>
+          </div>
+
+          <!-- 解説5 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              5️⃣ API呼び出しとレスポンス処理
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">const</span> response = <span class="function">UrlFetchApp</span>.<span class="function">fetch</span>(url, options);<br>
+<span class="keyword">const</span> result = <span class="function">JSON</span>.<span class="function">parse</span>(response.<span class="function">getContentText</span>());<br>
+<span class="keyword">const</span> generatedText = result.candidates[<span class="string">0</span>].content.parts[<span class="string">0</span>].text;
+            </div>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              <code class="bg-gray-200 px-2 py-1 rounded">UrlFetchApp.fetch()</code>で、
+              APIにリクエストを送信します。
+              返ってきたレスポンスはJSON形式なので、<code class="bg-gray-200 px-2 py-1 rounded">JSON.parse()</code>で解析します。
+            </p>
+            <p class="text-base md:text-lg text-gray-700">
+              最後に、<code class="bg-gray-200 px-2 py-1 rounded">result.candidates[0].content.parts[0].text</code>
+              で、生成されたテキストを取り出しています。
+              この階層構造は、Gemini APIのレスポンス形式に従っていますよ。
+            </p>
+          </div>
+
+          <!-- 解説6 -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-600 mb-3">
+              6️⃣ エラーハンドリング
+            </h3>
+            <div class="code-block mb-3">
+<span class="keyword">try</span> {<br>
+&nbsp;&nbsp;<span class="comment">// API呼び出し処理</span><br>
+} <span class="keyword">catch</span> (error) {<br>
+&nbsp;&nbsp;<span class="function">Logger</span>.<span class="function">log</span>(<span class="string">'エラー: '</span> + error.message);<br>
+&nbsp;&nbsp;<span class="keyword">return</span> <span class="keyword">null</span>;<br>
+}
+            </div>
+            <p class="text-base md:text-lg text-gray-700">
+              <code class="bg-gray-200 px-2 py-1 rounded">try-catch</code>文で、
+              エラーが発生した場合の処理を記述しています。
+              APIキーが間違っていたり、ネットワークエラーが発生した場合は、
+              エラーメッセージがログに記録されます。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 応用のヒント</p>
+          <p class="text-base md:text-lg text-blue-800 mb-3">
+            プロンプトを変更することで、さまざまなタスクに対応できます。例えば：
+          </p>
+          <ul class="space-y-2 text-base md:text-lg text-blue-800 list-disc pl-6">
+            <li>「以下の文章を英語に翻訳してください」</li>
+            <li>「以下の商品情報から、魅力的な説明文を作成してください」</li>
+            <li>「以下の問い合わせ内容を、『商品』『配送』『その他』に分類してください」</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、GASからGemini APIを使ったテキスト生成について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>APIキーはプロパティサービスに保存して、安全に管理します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>UrlFetchApp.fetch()でAPIにリクエストを送信し、レスポンスを受け取ります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>プロンプトを変更することで、さまざまなタスクに対応できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-purple-600 font-bold">✓</span>
+            <span>エラーハンドリングを実装して、予期しない問題に対処します</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、この基本を応用して、実際のビジネスシーンで使える実用例を紹介していきます。
+          商品説明文の自動生成や、問い合わせ内容の分類など、実践的な活用方法を一緒に学んでいきましょう！
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="practice-gemini-04.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：実用的な活用例 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

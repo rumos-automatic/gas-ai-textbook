@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実践編⑥-5：注意点とまとめ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b5cf6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #7c3aed;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-purple-600 hover:text-purple-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-gemini-04.html" class="text-base md:text-lg font-semibold text-purple-600 hover:text-purple-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-base md:text-lg text-gray-400">次へ</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="cautions">
+        <span class="dot-label">注意点</span>
+      </div>
+      <div class="dot" data-section="comparison">
+        <span class="dot-label">ChatGPT APIとの違い</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ⚠️ 注意点とまとめ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        Gemini API連携を安全に、効率的に活用するための知識を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: Gemini API連携の注意点 -->
+    <section id="cautions" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔐 Gemini API連携の注意点
+      </h2>
+      <div class="space-y-8">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          Gemini APIを安全に、効率的に使うために、以下の注意点を必ず守りましょう。
+          特に、APIキーの管理と利用料金については、十分に理解しておく必要がありますよ。
+        </p>
+
+        <!-- 注意点1: APIキーの管理 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-red-600 mb-4 flex items-center gap-2">
+            <span>🔑</span>
+            <span>1. APIキーの管理</span>
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            APIキーは、あなたのGoogleアカウントに紐付いた重要な情報です。
+            絶対に他人に見せてはいけません。
+          </p>
+
+          <div class="bg-red-50 border-2 border-red-300 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-red-900 mb-3">❌ やってはいけないこと</h4>
+            <ul class="space-y-2 text-base md:text-lg text-red-800 list-disc pl-6">
+              <li>GitHubなどの公開リポジトリにアップロードする</li>
+              <li>コード内に直接ハードコーディングする</li>
+              <li>メールやチャットで他人に送信する</li>
+              <li>スクリーンショットをSNSに投稿する</li>
+            </ul>
+          </div>
+
+          <div class="bg-green-50 border-2 border-green-300 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-green-900 mb-3">✅ 推奨される管理方法</h4>
+            <ul class="space-y-2 text-base md:text-lg text-green-800 list-disc pl-6">
+              <li>GASのプロパティサービスに保存（本講座で紹介した方法）</li>
+              <li>パスワード管理ツール（1Password、LastPassなど）に保存</li>
+              <li>環境変数として設定</li>
+              <li>定期的にAPIキーをローテーション（新しいキーに更新）</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 注意点2: API利用料金 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-yellow-600 mb-4 flex items-center gap-2">
+            <span>💰</span>
+            <span>2. API利用料金</span>
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            Gemini APIには無料枠がありますが、それを超えると課金される場合があります。
+            料金体系を理解して、予期しない高額請求を避けましょう。
+          </p>
+
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">📊 無料枠</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-white p-4 rounded-lg shadow">
+                <p class="text-base md:text-lg font-bold text-purple-700 mb-2">リクエスト制限</p>
+                <p class="text-3xl font-bold text-gray-900">15 <span class="text-lg text-gray-600">リクエスト/分</span></p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow">
+                <p class="text-base md:text-lg font-bold text-purple-700 mb-2">1日あたりの制限</p>
+                <p class="text-3xl font-bold text-gray-900">1,500 <span class="text-lg text-gray-600">リクエスト/日</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+            <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">⚠️ 無料枠を超えた場合</p>
+            <p class="text-base md:text-lg text-yellow-800 mb-3">
+              無料枠を超えると、課金される可能性があります。
+              使用量が多い場合は、事前に料金を確認しましょう。
+            </p>
+            <p class="text-base md:text-lg text-yellow-800">
+              <a href="https://ai.google.dev/pricing" target="_blank" class="underline font-semibold hover:text-yellow-900">
+                公式料金ページ（https://ai.google.dev/pricing）
+              </a>で最新の料金情報を確認できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 注意点3: レスポンスの処理 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-4 flex items-center gap-2">
+            <span>📊</span>
+            <span>3. レスポンスの処理</span>
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            Gemini APIのレスポンスは、JSON形式で返ってきます。
+            適切に解析して、必要なデータを取り出しましょう。
+          </p>
+
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">注意すべきポイント</h4>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span><strong>エラーハンドリング：</strong>API呼び出しが失敗した場合の処理を必ず実装する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span><strong>タイムアウト設定：</strong>レスポンスが遅い場合に備えて、タイムアウトを設定する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span><strong>レスポンスの検証：</strong>期待した形式のレスポンスが返ってきているか確認する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600 font-bold">✓</span>
+                <span><strong>ログ記録：</strong>エラーが発生した場合は、ログに記録して原因を特定できるようにする</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: ChatGPT APIとの違い -->
+    <section id="comparison" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔄 ChatGPT APIとの違い
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          Gemini APIとChatGPT APIは、どちらも生成AIのAPIサービスですが、いくつかの違いがあります。
+          用途や予算に応じて、適切な方を選びましょう。
+        </p>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
+                <tr>
+                  <th class="px-6 py-4 text-lg md:text-xl font-bold">項目</th>
+                  <th class="px-6 py-4 text-lg md:text-xl font-bold">Gemini API</th>
+                  <th class="px-6 py-4 text-lg md:text-xl font-bold">ChatGPT API</th>
+                </tr>
+              </thead>
+              <tbody class="text-base md:text-lg">
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">提供元</td>
+                  <td class="px-6 py-4 text-gray-700">Google</td>
+                  <td class="px-6 py-4 text-gray-700">OpenAI</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">無料枠</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">15リクエスト/分まで無料</td>
+                  <td class="px-6 py-4 text-red-700">なし（すべて有料）</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">Googleサービス連携</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">親和性が高い</td>
+                  <td class="px-6 py-4 text-gray-700">連携は別途必要</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">マルチモーダル</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">対応</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">対応（GPT-4V以降）</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">料金</td>
+                  <td class="px-6 py-4 text-gray-700">無料枠あり、以降は従量課金</td>
+                  <td class="px-6 py-4 text-gray-700">使用量に応じて課金</td>
+                </tr>
+                <tr class="hover:bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-gray-900">日本語対応</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">良好</td>
+                  <td class="px-6 py-4 text-green-700 font-semibold">良好</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+          <!-- Gemini APIの推奨ケース -->
+          <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-purple-900 mb-4">
+              🌟 Gemini APIがオススメの場合
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg text-gray-700 list-disc pl-6">
+              <li>Google Workspaceを使っている</li>
+              <li>まずは無料で試したい</li>
+              <li>小規模なプロジェクトや個人利用</li>
+              <li>画像や音声も扱いたい（マルチモーダル）</li>
+              <li>GASとの連携を重視している</li>
+            </ul>
+          </div>
+
+          <!-- ChatGPT APIの推奨ケース -->
+          <div class="bg-gradient-to-br from-green-50 to-teal-50 p-6 rounded-lg shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-green-900 mb-4">
+              🚀 ChatGPT APIがオススメの場合
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg text-gray-700 list-disc pl-6">
+              <li>大規模なプロジェクトで利用</li>
+              <li>高度な自然言語処理が必要</li>
+              <li>既存のOpenAIツールとの連携</li>
+              <li>カスタムモデルのファインチューニング</li>
+              <li>エンタープライズサポートが必要</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: まとめ -->
+    <section id="summary" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✅ 実践編⑥のまとめ
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          お疲れ様でした！この実践編では、GASからGemini APIを使ったテキスト生成と分析について学びました。
+          ここで学んだ知識を活かして、ぜひ実際の業務に役立つツールを作ってみてくださいね。
+        </p>
+
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">📚 学んだこと</h3>
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-lg shadow">
+              <h4 class="text-lg md:text-xl font-bold text-purple-600 mb-2">1️⃣ Gemini APIの基本</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                Gemini APIは、Googleが提供する生成AIサービスで、Googleサービスとの親和性が高く、
+                無料枠が大きいのが特徴です。マルチモーダル対応で、テキスト、画像、音声など幅広く扱えます。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+              <h4 class="text-lg md:text-xl font-bold text-purple-600 mb-2">2️⃣ APIキーの取得と管理</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                Google AI StudioからAPIキーを取得し、GASのプロパティサービスに安全に保存する方法を学びました。
+                APIキーは絶対に他人に見せてはいけません。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+              <h4 class="text-lg md:text-xl font-bold text-purple-600 mb-2">3️⃣ GASからのAPI呼び出し</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                UrlFetchApp.fetch()を使って、GASからGemini APIを呼び出し、テキスト生成を行う方法を学びました。
+                プロンプトを変更することで、さまざまなタスクに対応できます。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+              <h4 class="text-lg md:text-xl font-bold text-purple-600 mb-2">4️⃣ 実用的な活用例</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                商品説明文の自動生成、問い合わせ内容の分類、フィードバックの要約など、
+                実際のビジネスシーンで使える活用例を学びました。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+              <h4 class="text-lg md:text-xl font-bold text-purple-600 mb-2">5️⃣ 注意点と比較</h4>
+              <p class="text-base md:text-lg text-gray-700">
+                APIキーの管理方法、利用料金の確認、レスポンス処理の重要性を学びました。
+                また、ChatGPT APIとの違いを理解し、用途に応じて選択できるようになりました。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-3">💡 次のステップ</p>
+          <p class="text-base md:text-lg text-blue-800 mb-3">
+            この実践で学んだことを活かして、以下のようなツールを作ってみましょう：
+          </p>
+          <ul class="space-y-2 text-base md:text-lg text-blue-800 list-disc pl-6">
+            <li>自分の業務に合わせた自動化ツール</li>
+            <li>複数のAPI（Gemini API + Slack API など）を組み合わせたツール</li>
+            <li>より高度なプロンプトエンジニアリングを使ったツール</li>
+            <li>ユーザーインターフェースを備えたWebアプリ</li>
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-500 p-8 rounded-xl mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-green-900 mb-4">
+            🎉 おめでとうございます！
+          </h3>
+          <p class="text-lg md:text-xl text-gray-800 mb-3">
+            実践編⑥「GAS×GeminiAPI連携」を完了しました！
+          </p>
+          <p class="text-base md:text-lg text-gray-700">
+            Gemini API連携により、テキスト生成や分析を自動化できるようになりました。
+            特に、Googleサービスとの連携を考えている場合は、Gemini APIが最適です。
+            ぜひ、実際の業務に活用してみてくださいね！
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- トップページへ戻る -->
+    <div class="text-center">
+      <a href="../index.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        トップページへ戻る
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

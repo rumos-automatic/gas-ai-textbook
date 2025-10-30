@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション2: API連携のメリット | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #ef4444;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #dc2626;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-red-600 hover:text-red-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="api-introduction.html" class="text-base md:text-lg font-semibold text-red-600 hover:text-red-800 transition">
+            ← 前へ
+          </a>
+          <a href="api-methods.html" class="text-base md:text-lg font-semibold text-red-600 hover:text-red-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">API連携のメリット</span>
+      </div>
+      <div class="dot" data-section="external">
+        <span class="dot-label">外部サービスの活用</span>
+      </div>
+      <div class="dot" data-section="integration">
+        <span class="dot-label">複数サービスの連携</span>
+      </div>
+      <div class="dot" data-section="efficiency">
+        <span class="dot-label">ビジネスの効率化</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- 上級者向け警告バナー -->
+    <div class="mb-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg shadow-md">
+      <p class="text-lg md:text-xl text-yellow-800 font-semibold flex items-center">
+        <span class="text-3xl mr-3">⚠️</span>
+        この章はロードマップ外の上級者向けコンテンツです。基礎編を修了してから取り組んでください。
+      </p>
+    </div>
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🌐 API連携のメリット
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        GASでAPI連携を行うことで得られる3つの大きなメリットを学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: API連携のメリット（イントロ） -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🚀 GASでAPI連携を行うメリット
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASでAPI連携を行うことで、以下のような大きなメリットが得られます。
+          これらのメリットを活用することで、あなたの業務効率が劇的に向上するでしょう。
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🌐</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              外部サービスの活用
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              Google以外のサービスの機能を利用できる
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">🔗</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              複数サービスの連携
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              複数のサービスを組み合わせて高度な自動化を実現
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-red-500 to-red-600 p-6 rounded-lg shadow-lg text-white">
+            <div class="text-4xl mb-3 text-center">⚡</div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 text-center">
+              ビジネスの効率化
+            </h3>
+            <p class="text-base md:text-lg text-center">
+              手動作業を自動化し、業務時間を大幅に短縮
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-red-900 mb-2">💡 重要なポイント</p>
+          <p class="text-lg md:text-xl text-red-800">
+            API連携を活用することで、GASの可能性が無限に広がります。
+            あなたのアイデア次第で、どんな自動化システムでも構築できるようになるでしょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 外部サービスの機能を活用できる -->
+    <section id="external" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🌐 外部サービスの機能を活用できる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          API連携を使えば、Google以外のサービス（Slack、Twitter、ChatGPT、Geminiなど）の機能を、GASから直接利用できるようになります。
+          これにより、GASの可能性が大きく広がり、より多くのことが実現できるようになるでしょう。
+        </p>
+
+        <div class="space-y-6">
+          <!-- Slack連携 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-l-4 border-purple-500">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 text-4xl">💬</div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  SlackにGASから通知を送信
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 mb-3">
+                  GASとSlack APIを連携させることで、Googleフォームの回答やスプレッドシートのデータ更新をリアルタイムでSlackに通知できます。
+                </p>
+                <div class="bg-purple-50 p-4 rounded">
+                  <p class="text-base md:text-lg text-purple-800">
+                    <strong>例：</strong>「お客様からの問い合わせがあったら、すぐにSlackに通知する」
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Twitter連携 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-l-4 border-blue-500">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 text-4xl">🐦</div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  TwitterにGASから自動投稿
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 mb-3">
+                  GASとTwitter APIを連携させることで、スプレッドシートに記載した内容を自動でTwitterに投稿できます。
+                </p>
+                <div class="bg-blue-50 p-4 rounded">
+                  <p class="text-base md:text-lg text-blue-800">
+                    <strong>例：</strong>「毎朝9時に、今日のニュース記事を自動でツイートする」
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ChatGPT連携 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-l-4 border-green-500">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 text-4xl">🤖</div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  ChatGPT APIを使って文章を生成
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 mb-3">
+                  GASとChatGPT APIを連携させることで、メール文章や商品説明文を自動生成できます。
+                </p>
+                <div class="bg-green-50 p-4 rounded">
+                  <p class="text-base md:text-lg text-green-800">
+                    <strong>例：</strong>「お客様の名前と注文内容を入力すると、自動で丁寧なお礼メールを生成する」
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gemini連携 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition border-l-4 border-orange-500">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 text-4xl">✨</div>
+              <div class="flex-1">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  Gemini APIを使って画像を分析
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 mb-3">
+                  GASとGemini APIを連携させることで、画像の内容を自動で説明したり、大量のテキストデータを要約したりできます。
+                </p>
+                <div class="bg-orange-50 p-4 rounded">
+                  <p class="text-base md:text-lg text-orange-800">
+                    <strong>例：</strong>「商品画像をアップロードすると、自動で商品説明文を生成する」
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 複数のサービスを連携できる -->
+    <section id="integration" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔗 複数のサービスを連携できる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          複数のサービスを組み合わせることで、より高度な自動化が実現できます。
+          単一のサービスだけでは難しかったことも、複数のサービスを連携させることで可能になるでしょう。
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-purple-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">📋 連携の具体例</h3>
+
+          <div class="space-y-8">
+            <!-- 例1 -->
+            <div class="border-l-4 border-blue-500 pl-6">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例1：問い合わせ対応の自動化</h4>
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-semibold">Googleフォーム</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">GAS</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-purple-100 text-purple-800 rounded-lg font-semibold">Slack通知</span>
+              </div>
+              <p class="text-base md:text-lg text-gray-700">
+                お客様がGoogleフォームで問い合わせを送信すると、GASが自動でSlackに通知し、担当者がすぐに対応できるようになります。
+              </p>
+            </div>
+
+            <!-- 例2 -->
+            <div class="border-l-4 border-green-500 pl-6">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例2：メール対応の効率化</h4>
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-4 py-2 bg-red-100 text-red-800 rounded-lg font-semibold">Gmail</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">GAS</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg font-semibold">ChatGPT API</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-semibold">スプレッドシート</span>
+              </div>
+              <p class="text-base md:text-lg text-gray-700">
+                受信したメールをGASが取得し、ChatGPT APIで自動要約し、スプレッドシートに記録することで、メール対応が効率化されます。
+              </p>
+            </div>
+
+            <!-- 例3 -->
+            <div class="border-l-4 border-orange-500 pl-6">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">例3：画像分析から報告まで自動化</h4>
+              <div class="flex items-center gap-3 mb-2">
+                <span class="px-4 py-2 bg-purple-100 text-purple-800 rounded-lg font-semibold">スプレッドシート</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">GAS</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-orange-100 text-orange-800 rounded-lg font-semibold">Gemini API</span>
+                <span class="text-2xl">→</span>
+                <span class="px-4 py-2 bg-red-100 text-red-800 rounded-lg font-semibold">Gmail</span>
+              </div>
+              <p class="text-base md:text-lg text-gray-700">
+                スプレッドシートに画像URLを記載すると、GASがGemini APIで画像を分析し、結果をGmailで自動送信します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">🎯 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            複数のサービスを組み合わせることで、単一のサービスでは実現できなかった、より複雑で高度な自動化が可能になります。
+            あなたのアイデア次第で、無限の可能性が広がるでしょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: ビジネスの効率化が加速する -->
+    <section id="efficiency" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🚀 ビジネスの効率化が加速する
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          API連携により、これまで手動で行っていた作業を自動化できるため、ビジネスの効率が劇的に向上します。
+          特に、繰り返し行う作業や、複数のサービス間でデータをやり取りする作業において、大きな効果が期待できるでしょう。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 顧客対応の自動化 -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📞 顧客対応の自動化
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              顧客からの問い合わせを自動分類してSlack通知することで、対応時間を大幅に短縮できます。
+            </p>
+            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+              <p class="text-sm font-semibold">従来：手動で1件5分 × 100件 = 500分</p>
+              <p class="text-sm font-semibold">自動化後：自動分類 × 100件 = 10分</p>
+              <p class="text-lg font-bold mt-2">⏱️ 約490分の削減！</p>
+            </div>
+          </div>
+
+          <!-- データ分析の自動化 -->
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📊 データ分析の自動化
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              売上データを自動分析してレポート作成することで、意思決定のスピードが上がります。
+            </p>
+            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+              <p class="text-sm font-semibold">従来：手動で分析 = 2時間</p>
+              <p class="text-sm font-semibold">自動化後：自動分析 = 5分</p>
+              <p class="text-lg font-bold mt-2">⏱️ 約115分の削減！</p>
+            </div>
+          </div>
+
+          <!-- 在庫管理の自動化 -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📦 在庫管理の自動化
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              在庫データを自動チェックして発注メール送信することで、在庫切れを防げます。
+            </p>
+            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+              <p class="text-sm font-semibold">従来：手動チェック = 毎日30分</p>
+              <p class="text-sm font-semibold">自動化後：自動チェック = 0分</p>
+              <p class="text-lg font-bold mt-2">⏱️ 月間15時間の削減！</p>
+            </div>
+          </div>
+
+          <!-- レポート作成の自動化 -->
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📝 レポート作成の自動化
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              データを自動で集計・整形してレポート作成することで、報告業務が効率化されます。
+            </p>
+            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+              <p class="text-sm font-semibold">従来：手動で作成 = 週3時間</p>
+              <p class="text-sm font-semibold">自動化後：自動作成 = 10分</p>
+              <p class="text-lg font-bold mt-2">⏱️ 月間約10時間の削減！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-500 p-6 rounded-lg">
+          <p class="text-lg md:text-xl font-semibold text-red-900 mb-3">💡 削減した時間で何ができるか？</p>
+          <p class="text-lg md:text-xl text-gray-800 mb-3">
+            これらの自動化により削減できた時間を、より創造的な仕事や、顧客との対話に使うことができます。
+          </p>
+          <ul class="space-y-2 text-lg md:text-xl text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span>新しいビジネスアイデアの検討</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span>顧客との関係構築</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span>チームメンバーの育成</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-red-600 font-bold">•</span>
+              <span>自己研鑽やスキルアップ</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、API連携のメリットについて理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>API連携により、Google以外のサービス（Slack、Twitter、ChatGPT、Geminiなど）の機能を活用できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>複数のサービスを組み合わせることで、より高度な自動化が実現できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>手動作業を自動化することで、業務時間を大幅に短縮できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-red-600 font-bold">✓</span>
+            <span>削減した時間を、より創造的な仕事に使えるようになります</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、実際にGASでAPI連携を行う方法について学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="api-methods.html" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：GASでAPI連携を行う方法 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

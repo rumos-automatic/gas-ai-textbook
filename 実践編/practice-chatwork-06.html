@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>注意点とまとめ | 実践編⑤ GAS×チャットワークAPI連携</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #f472b6;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #ec4899;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-pink-600 hover:text-pink-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-chatwork-05.html" class="text-base md:text-lg font-semibold text-pink-600 hover:text-pink-800 transition">
+            ← 前へ
+          </a>
+          <span class="text-base md:text-lg text-gray-400">次へ</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="notes">
+        <span class="dot-label">注意点</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ⚠️ 注意点とまとめ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        チャットワークAPI連携を使う際の重要なポイントを確認しましょう
+      </p>
+    </header>
+
+    <!-- 小セクション1: チャットワークAPI連携の注意点 -->
+    <section id="notes" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📌 チャットワークAPI連携の注意点
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          チャットワークAPI連携は非常に便利な機能ですが、使用する際にはいくつか注意すべきポイントがあります。
+          これらを理解しておくことで、安全で効率的な運用ができますよ。
+        </p>
+
+        <!-- 注意点1: APIトークンの管理 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="text-5xl">🔐</div>
+            <div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                1. APIトークンの管理
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                APIトークンは、<strong class="text-pink-600">絶対に他人に見せてはいけません</strong>。
+                パスワードと同じように、慎重に管理する必要があります。
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg mb-6">
+            <p class="text-lg md:text-xl font-semibold text-red-900 mb-3">
+              ⛔ やってはいけないこと
+            </p>
+            <ul class="space-y-2 text-base md:text-lg text-red-800">
+              <li class="flex items-start gap-2">
+                <span class="text-red-600 font-bold">×</span>
+                <span>コード内にAPIトークンを直接書く（コードを共有すると漏洩する）</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-600 font-bold">×</span>
+                <span>GitHubなどの公開リポジトリにトークンをアップロードする</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-600 font-bold">×</span>
+                <span>チャットやメールでトークンをやり取りする</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+            <p class="text-lg md:text-xl font-semibold text-green-900 mb-3">
+              ✅ 推奨する管理方法
+            </p>
+            <ul class="space-y-2 text-base md:text-lg text-green-800">
+              <li class="flex items-start gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>プロパティサービスを使って安全に保存する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>定期的にトークンを再発行して更新する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>使わなくなったトークンは削除する</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>トークンが漏洩した場合は、すぐに削除して再発行する</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 注意点2: API呼び出し回数の制限 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="text-5xl">📊</div>
+            <div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                2. API呼び出し回数の制限
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                チャットワークAPIには、<strong class="text-pink-600">1時間あたり100回</strong>の呼び出し制限があります。
+                この制限を超えると、一時的にAPIが使えなくなってしまうので注意が必要です。
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-6">
+            <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">
+              ⚠️ 制限を超えないための対策
+            </p>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-yellow-600 font-bold">1.</span>
+                <div>
+                  <p class="font-semibold">不要な通知を減らす</p>
+                  <p class="text-gray-600">例：在庫アラートを「10以下」ではなく「5以下」にする</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-yellow-600 font-bold">2.</span>
+                <div>
+                  <p class="font-semibold">重複通知を防ぐ</p>
+                  <p class="text-gray-600">例：同じ内容の通知が複数回送られないようにフラグを立てる</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-yellow-600 font-bold">3.</span>
+                <div>
+                  <p class="font-semibold">定期実行の頻度を調整する</p>
+                  <p class="text-gray-600">例：1時間ごとではなく、1日1回にする</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-lg">
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              💡 <strong>参考：</strong>
+              100回/時間という制限は、通常の業務利用であれば十分な量です。
+              例えば、1日に10回レポートを送信したとしても、全く問題ありません。
+              ただし、スプレッドシートの編集時トリガーで毎回通知を送るような設定にすると、
+              すぐに制限に達してしまう可能性があるので注意しましょう。
+            </p>
+          </div>
+        </div>
+
+        <!-- 注意点3: メンション機能 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="text-5xl">💬</div>
+            <div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                3. メンション機能の使い方
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                チャットワークのメッセージでは、特定のユーザーに<strong class="text-pink-600">メンション</strong>を送ることができます。
+                メンションを使うことで、通知を確実に届けることができますよ。
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              📝 メンションの書き方
+            </h4>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              メッセージ内に<code class="bg-gray-200 px-2 py-1 rounded">[To:ユーザーID]</code>と記述することで、
+              特定のユーザーにメンションを送れます。
+            </p>
+
+            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4">
+              <pre><code class="text-sm">const message = '[To:123456] 新しい問い合わせがありました！';</code></pre>
+            </div>
+
+            <p class="text-base md:text-lg text-gray-600">
+              <strong>ユーザーIDの確認方法：</strong>
+              チャットワークの「コンタクト」から該当ユーザーのプロフィールを開き、
+              URLの<code class="bg-gray-200 px-2 py-1 rounded">contact_id=</code>の後の数字がユーザーIDです。
+            </p>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-lg">
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              💡 <strong>便利な使い方：</strong>
+              緊急性の高い通知には、担当者にメンションを付けることで、
+              確実に気づいてもらえるようになります。
+              例えば、在庫アラートでは担当者にメンション、日次レポートではメンションなし、
+              といった使い分けができますよ。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: まとめ -->
+    <section id="summary" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✅ この実践のまとめ
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          この実践では、Google Apps ScriptからチャットワークAPIを使って、
+          自動的にメッセージを送信する方法を学びました。
+          皆さん、すべての内容について理解できましたでしょうか？
+        </p>
+
+        <div class="bg-gradient-to-br from-pink-50 to-red-50 p-8 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+            🎓 この実践で学んだこと
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 学んだこと1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  1
+                </div>
+                <div>
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    チャットワークAPIの基本
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    チャットワークAPIを使うことで、メッセージ送信、タスク作成、ファイルアップロードなど、
+                    さまざまな操作を自動化できることを学びました。
+                    ビジネスチャットの自動化は、業務効率を大きく向上させる可能性がありますね。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 学んだこと2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  2
+                </div>
+                <div>
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    APIトークンの取得と管理
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    チャットワークの「サービス連携」からAPIトークンを取得し、
+                    プロパティサービスを使って安全に管理する方法を学びました。
+                    セキュリティを意識した管理が重要ですよ。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 学んだこと3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  3
+                </div>
+                <div>
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    GASからメッセージを送信
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    UrlFetchApp.fetchを使ってチャットワークAPIを呼び出し、
+                    メッセージを自動送信する実装方法を学びました。
+                    エラーハンドリングも含めた、実用的なコードを書けるようになりましたね。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 学んだこと4 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  4
+                </div>
+                <div>
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    実用的な活用例
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    Googleフォームの回答通知、スプレッドシートの在庫アラート、定期的な売上レポートなど、
+                    実際の業務で使える活用例を学びました。
+                    これらをベースに、あなたの業務に合わせてカスタマイズできるはずです。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 学んだこと5 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  5
+                </div>
+                <div>
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    API連携の注意点
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    トークンの安全な管理方法、API呼び出し回数の制限、メンション機能の使い方など、
+                    実運用で気をつけるべきポイントを学びました。
+                    これらを理解することで、安全で効率的な運用ができますね。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            🌟 次のステップ
+          </h3>
+          <div class="space-y-4 text-lg md:text-xl text-gray-700">
+            <p class="leading-relaxed">
+              チャットワークAPI連携の基本をマスターしたあなたは、
+              次のようなことにチャレンジしてみてはいかがでしょうか？
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="text-pink-600 font-bold">1.</span>
+                <span>この実践で学んだ活用例を、実際の業務に適用してみる</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-pink-600 font-bold">2.</span>
+                <span>複数のAPI（チャットワーク、Gemini、Slackなど）を組み合わせた、より高度な自動化を実現する</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-pink-600 font-bold">3.</span>
+                <span>チャットワークのタスク作成やファイルアップロード機能にも挑戦してみる</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-pink-600 font-bold">4.</span>
+                <span>他のメンバーにも教えて、チーム全体の業務効率化を進める</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-pink-100 via-red-100 to-orange-100 p-8 rounded-xl shadow-lg mt-8">
+          <div class="text-center">
+            <p class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              🎉 お疲れさまでした！
+            </p>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              この実践編⑤「GAS×チャットワークAPI連携」を最後まで学習していただき、ありがとうございました。
+              チャットワークAPIを活用することで、あなたの業務がより効率的になることを願っています。
+            </p>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-4">
+              わからないことがあれば、何度でも読み返してくださいね。
+              また、実際にコードを書いて試してみることで、より深く理解できると思いますよ。
+            </p>
+            <p class="text-lg md:text-xl text-gray-800 font-semibold mt-6">
+              これからも一緒に学んでいきましょう！
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- トップページへ戻る -->
+    <div class="text-center">
+      <a href="../index.html" class="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        トップページへ戻る
+      </a>
+    </div>
+
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

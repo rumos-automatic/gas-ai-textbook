@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3. 修正依頼は「1回に1個」 | 基本的な考え方 | GAS短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ドットインジケーターのスタイル */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      margin: 0.5rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot:hover {
+      background-color: #9ca3af;
+      transform: scale(1.3);
+    }
+
+    .dot.active {
+      background-color: #3b82f6;
+      transform: scale(1.4);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    /* 画像拡大モーダル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    /* 比較レイアウト */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dot-indicator {
+        display: none;
+      }
+    }
+
+    /* ワーク課題のスタイル */
+    .work-section {
+      background-color: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    .work-textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 1rem;
+      border: 2px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+    }
+
+    .work-textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    /* ポイントボックス */
+    .point-box {
+      background-color: #e0f2fe;
+      border-left: 4px solid #0ea5e9;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    /* 悪い例のボックス */
+    .bad-example {
+      background-color: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* 良い例のボックス */
+    .good-example {
+      background-color: #dcfce7;
+      border-left: 4px solid #22c55e;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* ステップカード */
+    .step-card {
+      background-color: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="section-02.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
+        ← 前へ
+      </a>
+      <div class="text-base md:text-lg text-gray-600">
+        3. 修正依頼は「1回に1個」
+      </div>
+      <a href="../index.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
+        トップへ
+      </a>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot active" data-target="intro">
+      <div class="dot-label">イントロダクション</div>
+    </div>
+    <div class="dot" data-target="section3-1">
+      <div class="dot-label">パンクする</div>
+    </div>
+    <div class="dot" data-target="section3-2">
+      <div class="dot-label">修正例の比較</div>
+    </div>
+    <div class="dot" data-target="section3-3">
+      <div class="dot-label">根気よく</div>
+    </div>
+    <div class="dot" data-target="section3-4">
+      <div class="dot-label">修正のコツ</div>
+    </div>
+    <div class="dot" data-target="section3-5">
+      <div class="dot-label">ワーク</div>
+    </div>
+    <div class="dot" data-target="summary">
+      <div class="dot-label">まとめ</div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    <!-- イントロダクション -->
+    <section id="intro" class="mb-16">
+      <div class="mb-4">
+        <span class="text-lg md:text-xl text-blue-600 font-semibold">基本的な考え方 - セクション 3/3</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        3. 修正依頼は「1回に1個」
+      </h1>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+        AIに修正を依頼する際の重要なルールがあります。
+      </p>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+        効果的なコミュニケーション方法を学んで、スムーズにツールを完成させましょう。
+      </p>
+    </section>
+
+    <hr class="my-12 border-gray-300">
+
+    <!-- セクション3: 修正依頼は「1回に1個」 -->
+    <section class="mb-16">
+      <!-- 小セクション3-1 -->
+      <div id="section3-1" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">⚠️</span>
+          一度に複数要望を投げるとパンクする
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          AIに修正を依頼する際の重要なルールがあります。
+          それは、<strong>修正依頼は「1回に1個」</strong>ということです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          一度に複数要望を投げると、ChatGPTがパンクして、
+          なかなか思い通りに修正されなかったり、別のコードまで壊してしまったりすることがあります。
+        </p>
+        <div class="point-box bg-red-50 border-red-500">
+          <p class="text-lg md:text-xl leading-relaxed text-gray-900 font-semibold">
+            ⚠️ AIも人間と同じで、一度にたくさんの要望を受けると混乱してしまうのです。
+          </p>
+        </div>
+      </div>
+
+      <!-- 小セクション3-2 -->
+      <div id="section3-2" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          修正依頼の悪い例と良い例
+        </h3>
+
+        <!-- 悪い例 -->
+        <div class="bad-example mb-6">
+          <h4 class="text-xl font-bold text-red-700 mb-3 flex items-center">
+            <span class="text-2xl mr-2">❌</span>
+            悪い例：複数の修正を一度に依頼
+          </h4>
+          <div class="bg-white p-4 rounded">
+            <p class="text-lg text-gray-800 italic">
+              「日付フォーマットを「YYYY/MM/DD」に変更して、重複チェック機能を追加して、
+              メール送信機能も付けてください。」
+            </p>
+          </div>
+          <p class="text-base leading-relaxed text-gray-700 mt-4">
+            このように複数の要望を一度に投げると、AIが混乱し、
+            一部しか修正されなかったり、既存のコードが壊れたりすることがあります。
+          </p>
+        </div>
+
+        <!-- 良い例 -->
+        <div class="good-example">
+          <h4 class="text-xl font-bold text-green-700 mb-3 flex items-center">
+            <span class="text-2xl mr-2">✅</span>
+            良い例：1つずつ修正を依頼
+          </h4>
+
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+              <p class="text-sm font-semibold text-blue-700 mb-1">依頼1回目：</p>
+              <p class="text-lg text-gray-800">
+                日付フォーマットを「YYYY/MM/DD」に変更してください。
+              </p>
+            </div>
+
+            <div class="text-center text-gray-500 font-bold">
+              ⬇️ 修正が完了したら、次の依頼をする
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+              <p class="text-sm font-semibold text-blue-700 mb-1">依頼2回目：</p>
+              <p class="text-lg text-gray-800">
+                重複チェック機能を追加してください。同じ注文番号がある場合はスキップするようにしてください。
+              </p>
+            </div>
+
+            <div class="text-center text-gray-500 font-bold">
+              ⬇️ さらに修正が完了したら、次の依頼をする
+            </div>
+
+            <div class="bg-white p-4 rounded border-l-4 border-blue-500">
+              <p class="text-sm font-semibold text-blue-700 mb-1">依頼3回目：</p>
+              <p class="text-lg text-gray-800">
+                処理が完了したら、自分宛にメール通知を送る機能を追加してください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小セクション3-3 -->
+      <div id="section3-3" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">🐢</span>
+          根気よく1個ずつ修正を依頼しましょう
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          <strong>根気よく1個ずつ修正を依頼しましょう。</strong>
+          急がば回れです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-4">
+          一見遠回りに思えますが、結果的にこの方法が最も早く、
+          確実にツールを完成させることができます。
+        </p>
+        <div class="point-box">
+          <p class="text-lg md:text-xl leading-relaxed text-gray-900 font-semibold">
+            💡 焦らず、1つずつ着実に進めることが、最短ルートなのです。
+          </p>
+        </div>
+      </div>
+
+      <!-- 小セクション3-4 -->
+      <div id="section3-4" class="mb-12">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center">
+          <span class="text-3xl mr-3">📝</span>
+          修正依頼のコツ
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
+          修正依頼をする際は、以下のポイントを意識してみましょう。
+        </p>
+
+        <div class="space-y-4">
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              1. 1回の依頼で1つの修正のみ
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              欲張らず、1つずつ確実に修正していきます。
+              これが最も効率的な方法です。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              2. 修正内容を具体的に伝える
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700 mb-2">
+              抽象的な表現は避けましょう。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 list-disc list-inside ml-4 space-y-1">
+              <li>❌ 「うまくいきません」</li>
+              <li>✅ 「○○が△△になってしまいます」</li>
+            </ul>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              3. 期待する結果を明示する
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              「こうなってほしい」という最終形を具体的に伝えます。
+              AIは目標が明確なほど、正確に修正できます。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <h4 class="text-lg font-bold text-gray-900 mb-2">
+              4. 修正が完了したら動作確認
+            </h4>
+            <p class="text-base leading-relaxed text-gray-700">
+              次の修正に進む前に、必ず動作確認をしましょう。
+              問題がないことを確認してから、次のステップに進むのが安全です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 小セクション3-5: ワーク課題 -->
+      <div id="section3-5" class="mb-12">
+        <div class="work-section">
+          <h3 class="text-xl md:text-2xl font-bold text-amber-900 mb-4 flex items-center">
+            <span class="text-3xl mr-3">✅</span>
+            【ワーク】修正依頼の練習
+          </h3>
+          <p class="text-lg leading-relaxed text-gray-800 mb-4">
+            以下のシチュエーションで、ChatGPTへの修正依頼文を作成してみましょう。
+          </p>
+
+          <div class="bg-white p-4 rounded mb-4">
+            <p class="text-base font-semibold text-gray-900 mb-2">シチュエーション：</p>
+            <p class="text-base text-gray-700 mb-2">
+              GASでメール転記ツールを作ったが、以下の問題が発生している。
+            </p>
+            <ul class="text-base leading-relaxed text-gray-700 list-disc list-inside space-y-1 ml-4">
+              <li>日付が「Fri Jan 01 2025 00:00:00 GMT+0900」という形式になってしまう</li>
+              <li>重複データが転記されてしまう</li>
+              <li>処理が完了したか分からない</li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-4 rounded mb-4">
+            <p class="text-base font-semibold text-gray-900 mb-2">課題：</p>
+            <p class="text-base text-gray-700">
+              上記3つの問題を、1つずつ修正依頼する文章を作成してください。
+            </p>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-base font-semibold text-gray-900 mb-2">依頼1回目（日付フォーマット）：</label>
+            <textarea
+              class="work-textarea"
+              placeholder="日付フォーマットの修正依頼を書いてみましょう..."
+            ></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-base font-semibold text-gray-900 mb-2">依頼2回目（重複チェック）：</label>
+            <textarea
+              class="work-textarea"
+              placeholder="重複チェックの追加依頼を書いてみましょう..."
+            ></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="block text-base font-semibold text-gray-900 mb-2">依頼3回目（完了通知）：</label>
+            <textarea
+              class="work-textarea"
+              placeholder="完了通知の追加依頼を書いてみましょう..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="my-12 border-gray-300">
+
+    <!-- まとめ -->
+    <section id="summary" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        まとめ
+      </h2>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
+        皆さん、AIでツールを製作するときの基本的な考え方について理解できましたでしょうか？
+      </p>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
+        この3つのセクションでは、以下のことを学びました：
+      </p>
+
+      <div class="space-y-6 mb-8">
+        <div class="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+          <h3 class="text-xl font-bold text-blue-900 mb-2 flex items-center">
+            <span class="text-2xl mr-3">📋</span>
+            1. 棚卸作業
+          </h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            現状の作業を具体的に書き出すことが重要です。
+            細かければ細かいほど、AIが正確に動けるようになります。
+          </p>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+          <h3 class="text-xl font-bold text-green-900 mb-2 flex items-center">
+            <span class="text-2xl mr-3">🔧</span>
+            2. ツールは1発で完成しない
+          </h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            トライ&エラーを繰り返しながら改善していくのが当たり前です。
+            諦めず、粘り強く対話を続けましょう。
+          </p>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+          <h3 class="text-xl font-bold text-purple-900 mb-2 flex items-center">
+            <span class="text-2xl mr-3">📝</span>
+            3. 修正依頼は「1回に1個」
+          </h3>
+          <p class="text-lg leading-relaxed text-gray-700">
+            複数の要望を一度に投げず、1つずつ確実に修正していくことが最短ルートです。
+            急がば回れの精神で進めましょう。
+          </p>
+        </div>
+      </div>
+
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-6">
+        これらの考え方を理解しておくことで、AIとの協働がスムーズになり、
+        効率的にツールを作成できるようになると思います。
+      </p>
+      <p class="text-lg md:text-xl leading-relaxed text-gray-700 mb-8">
+        次は、実際にGASツールを作成する実践編に進んでいきましょう。
+        わからないことがあれば、何度でも読み返してくださいね。
+      </p>
+
+      <div class="text-center">
+        <a href="../index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl py-4 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
+          トップページに戻る
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターの機能
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section, section > div[id]');
+
+    // ドットクリックでスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetId = dot.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // スクロール時にアクティブなドットを更新
+    function updateActiveDot() {
+      let currentSection = '';
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      dots.forEach(dot => {
+        dot.classList.remove('active');
+        if (dot.getAttribute('data-target') === currentSection) {
+          dot.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveDot);
+
+    // 画像拡大モーダルの機能
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeModal = document.querySelector('.close-modal');
+
+    // 画像をクリックしたときにモーダルを開く
+    document.querySelectorAll('img:not(#modalImage)').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function() {
+        modal.classList.add('active');
+        modalImg.src = this.src;
+      });
+    });
+
+    // モーダルを閉じる
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

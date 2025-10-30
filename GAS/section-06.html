@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション6: GASが動くまでの流れ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .step-box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+    .step-box:hover {
+      transform: translateY(-4px);
+    }
+    .arrow {
+      text-align: center;
+      font-size: 2rem;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-05.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="../index.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            トップへ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="where">
+        <span class="dot-label">GASがどこにあるか</span>
+      </div>
+      <div class="dot" data-section="creation">
+        <span class="dot-label">GASができるまでの流れ</span>
+      </div>
+      <div class="dot" data-section="how">
+        <span class="dot-label">GASがどう動くか</span>
+      </div>
+      <div class="dot" data-section="flow">
+        <span class="dot-label">GASが動く仕組み</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🔄 GASが動くまでの流れ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        GASがどこにあり、どのように動作するのかをイメージできるようにしましょう
+      </p>
+    </header>
+
+    <!-- 小セクション1: GASがどこにあるか -->
+    <section id="where" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📍 GASが「どこにあるか」を知ろう
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GAS（Google Apps Script）は、Googleのサービスを動かすための
+          <strong class="text-indigo-600">スクリプト（命令書）</strong>です。
+        </p>
+        <p class="text-base md:text-lg text-gray-700">
+          Googleスプレッドシートの中には「スクリプトエディタ」という場所があり、
+          そこにコードを書いて保存することで、
+          <strong class="text-indigo-600">このスプレッドシート専用の小さなプログラム</strong>が作られます。
+        </p>
+        <p class="text-base md:text-lg text-gray-700">
+          つまり、GASは「スプレッドシートの中に隠れているプログラム」というイメージです。
+          スプレッドシートを開いている人には見えませんが、裏で自動的に動いています。
+        </p>
+
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
+            イメージ図
+          </h3>
+          <div class="text-center">
+            <div class="inline-block bg-white p-6 rounded-lg shadow-md mb-4">
+              <p class="text-lg md:text-xl font-bold text-gray-800 mb-2">📊 スプレッドシート</p>
+              <p class="text-base text-gray-600">↓</p>
+              <p class="text-lg md:text-xl font-bold text-gray-800 mb-2">拡張機能 → Apps Script</p>
+              <p class="text-base text-gray-600">↓</p>
+              <p class="text-lg md:text-xl font-bold text-indigo-600">📝 スクリプトエディタ</p>
+              <p class="text-sm text-gray-500 mt-2">ここにGASのコードを書きます</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-base md:text-lg font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-base md:text-lg text-blue-800">
+            GASは、スプレッドシート、Gmail、ドライブなど、各Googleサービスに紐付けて作成します。
+            どのサービスから作成するかによって、扱えるデータが変わります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: GASができるまでの流れ -->
+    <section id="creation" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 GASができるまでの流れ
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASを作成する基本的な流れは、以下の5ステップです。
+          既にセクション2で学びましたが、ここでおさらいしましょう。
+        </p>
+
+        <div class="space-y-6 mt-8">
+          <div class="step-box">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              ステップ1: スプレッドシートを開く
+            </h3>
+            <p class="text-base md:text-lg">
+              まず、Googleスプレッドシートを開きます。
+              新しいシートを作成するか、既存のシートを開いてください。
+            </p>
+          </div>
+
+          <div class="arrow">↓</div>
+
+          <div class="step-box">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              ステップ2: メニューから「拡張機能」→「Apps Script」をクリック
+            </h3>
+            <p class="text-base md:text-lg">
+              スプレッドシートの上部メニューから、「拡張機能」をクリックし、
+              「Apps Script」を選択します。
+            </p>
+          </div>
+
+          <div class="arrow">↓</div>
+
+          <div class="step-box">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              ステップ3: スクリプトエディタが開く
+            </h3>
+            <p class="text-base md:text-lg">
+              新しいタブで、スクリプトエディタが開きます。
+              ここがGASのコードを書く場所です。
+            </p>
+          </div>
+
+          <div class="arrow">↓</div>
+
+          <div class="step-box">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              ステップ4: エディタにコードを書いて「保存」する
+            </h3>
+            <p class="text-base md:text-lg">
+              エディタにコードを書いて、保存ボタン（💾アイコン）をクリックします。
+            </p>
+          </div>
+
+          <div class="arrow">↓</div>
+
+          <div class="step-box">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              ステップ5: このスプレッドシートとひも付けされる
+            </h3>
+            <p class="text-base md:text-lg">
+              保存したスクリプトは、今開いているスプレッドシートとひも付けされます。
+              つまり、「このシートで動く命令書」を作る感じです。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">
+          <p class="text-base md:text-lg font-semibold text-green-900 mb-2">🎉 完成！</p>
+          <p class="text-base md:text-lg text-green-800">
+            これでGASが作成できました。あとは、トリガーを設定すれば、
+            自動で動くようになります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: GASがどう動くか -->
+    <section id="how" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚙️ GASが「どう動くか」をイメージしよう
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          コードを書いて保存しただけでは、まだ動きません。
+          GASが動くには<strong class="text-indigo-600">「トリガー（きっかけ）」</strong>を指定する必要があります。
+        </p>
+        <p class="text-base md:text-lg text-gray-700">
+          トリガーとは、「このプログラムがいつ発動するのか」を指定するものです。
+          トリガーを設定することで、自動実行が可能になります。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-8">
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-4">
+              📋 トリガーの種類
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600">•</span>
+                <span><strong>編集トリガー</strong>：スプレッドシートが編集されたら動く</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600">•</span>
+                <span><strong>時間トリガー</strong>：1分ごと/毎日9時に/毎週月曜日に動く</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-blue-600">•</span>
+                <span><strong>手動実行</strong>：ボタンを押したら動く</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-4">
+              💡 トリガーの例
+            </h3>
+            <ul class="space-y-3 text-base md:text-lg text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="text-green-600">✓</span>
+                <span>スプレッドシートのA列が変更されたら、自動でメールを送信</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-600">✓</span>
+                <span>毎朝9時に、自動で売上データを集計</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-green-600">✓</span>
+                <span>カスタムメニューのボタンをクリックしたら、データを処理</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg mt-8">
+          <p class="text-base md:text-lg font-semibold text-purple-900 mb-2">📌 重要</p>
+          <p class="text-base md:text-lg text-purple-800">
+            トリガーを設定しないと、GASは動きません。
+            「コードを書く」だけでなく、「トリガーを設定する」ことも忘れずに行いましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: GASが動く仕組み -->
+    <section id="flow" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔄 GASが動く仕組み（4ステップ）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASが実際に動作する流れは、以下の4ステップです。
+          この流れを理解しておくと、GASがどのように動いているのかイメージしやすくなります。
+        </p>
+
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg mt-8">
+          <div class="space-y-6">
+            <!-- ステップ1 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  1
+                </div>
+                <div>
+                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    トリガーが発生する
+                  </h3>
+                  <p class="text-base md:text-lg text-gray-700">
+                    スプレッドシートの変更、時間経過、ボタンクリックなど、
+                    設定したトリガーが発生します。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- ステップ2 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  2
+                </div>
+                <div>
+                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    GASが条件をチェックする
+                  </h3>
+                  <p class="text-base md:text-lg text-gray-700">
+                    「メールの中に"注文"という文字があるか」「今日は月曜日か」など、
+                    コードで指定した条件をチェックします。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- ステップ3 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  3
+                </div>
+                <div>
+                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    条件に一致したら、GASが動作する
+                  </h3>
+                  <p class="text-base md:text-lg text-gray-700">
+                    Gmailを検索、スプレッドシートに書き込み、メール送信など、
+                    コードで指定した処理を実行します。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow">↓</div>
+
+            <!-- ステップ4 -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                  4
+                </div>
+                <div>
+                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    結果がスプレッドシートやメールに反映される
+                  </h3>
+                  <p class="text-base md:text-lg text-gray-700">
+                    処理の結果が、スプレッドシートに書き込まれたり、
+                    メールが送信されたりします。完了！
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
+          <p class="text-base md:text-lg font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-base md:text-lg text-blue-800">
+            この流れを理解しておくと、GASがどのように動いているのかイメージしやすくなります。
+            トラブルが起きたときも、どのステップで問題が発生しているのか考えやすくなりますよ。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション5: まとめ -->
+    <section id="summary" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 md:p-12 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+          🎓 GAS紹介のまとめ
+        </h2>
+
+        <div class="space-y-6">
+          <p class="text-lg md:text-xl text-center text-gray-800 leading-relaxed">
+            皆さん、GASの基本的な仕組みについて理解できましたでしょうか？<br>
+            この章で学んだことをおさらいしましょう。
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-6 mt-8">
+            <!-- セクション1-2のまとめ -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+                📚 セクション1-2：GASの基本
+              </h3>
+              <ul class="space-y-2 text-base md:text-lg text-gray-700">
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600">✓</span>
+                  <span>GASは、Googleが提供する無料の自動化ツール</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600">✓</span>
+                  <span>クラウド上で動作し、パソコンの電源が切れていても動く</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-600">✓</span>
+                  <span>Googleアカウントがあれば誰でも使える</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- セクション3のまとめ -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-4">
+                🛠️ セクション3：GASでできること
+              </h3>
+              <ul class="space-y-2 text-base md:text-lg text-gray-700">
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Gmail、スプレッドシート、ドライブなどと連携</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>トリガーで自動実行が可能</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>API連携で外部サービスとも連携可能（上級者向け）</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- セクション4-5のまとめ -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl md:text-2xl font-bold text-orange-600 mb-4">
+                ⚖️ セクション4-5：得意なこと・制限
+              </h3>
+              <ul class="space-y-2 text-base md:text-lg text-gray-700">
+                <li class="flex items-start gap-2">
+                  <span class="text-orange-600">✓</span>
+                  <span>Google製品との連携、定期実行が得意</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-orange-600">✓</span>
+                  <span>重い処理や大量データは苦手</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-orange-600">✓</span>
+                  <span>実行時間6分、メール100通/日などの制限あり</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- セクション6のまとめ -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4">
+                🔄 セクション6：動く仕組み
+              </h3>
+              <ul class="space-y-2 text-base md:text-lg text-gray-700">
+                <li class="flex items-start gap-2">
+                  <span class="text-purple-600">✓</span>
+                  <span>スプレッドシート内のスクリプトエディタで作成</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-purple-600">✓</span>
+                  <span>トリガー設定で自動実行が可能</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-purple-600">✓</span>
+                  <span>トリガー→条件チェック→動作→結果反映の流れで動く</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mt-8">
+            <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">
+              🎉 おめでとうございます！
+            </p>
+            <p class="text-base md:text-lg text-yellow-800">
+              GAS紹介セクションが完了しました。
+              次は、AIでツールを製作するときの基本的な考え方について学んでいきましょう。
+              わからないことがあれば、何度でもこのセクションに戻ってきてくださいね。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center mb-12">
+      <a href="../index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        トップページへ戻る →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // スクリーンショットプレースホルダーのクリックイベント（実際の画像追加時に使用）
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        alert('ここに実際のスクリーンショットが表示されます');
+      });
+    });
+  </script>
+
+</body>
+</html>

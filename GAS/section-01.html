@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション1: GASとは？ | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="automation-tool">
+        <span class="dot-label">Googleが提供する自動化ツール</span>
+      </div>
+      <div class="dot" data-section="integration">
+        <span class="dot-label">Googleサービスとの連携</span>
+      </div>
+      <div class="dot" data-section="cloud">
+        <span class="dot-label">クラウド上で動作</span>
+      </div>
+      <div class="dot" data-section="work">
+        <span class="dot-label">ワーク課題</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        ⚙️ GASとは？
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        Google Apps Script（GAS）とは何か、どんなことができるのかを学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: Googleが提供する自動化ツール -->
+    <section id="automation-tool" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚙️ Googleが提供する自動化ツール
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GAS（Google Apps Script）は、Googleが提供する無料の自動化ツールです。
+          <strong class="text-indigo-600">Apps Script = アプリ用のスクリプト</strong>という意味で、
+          Googleのさまざまなサービスを自動で動かすことができます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          プログラミング初心者でも、ChatGPTと組み合わせることで、簡単にツールを作成できるようになります。
+          難しいプログラミングの知識がなくても、「こんなことがしたい」という要望を言葉で伝えるだけで、
+          生成AIがコードを作成してくれるのです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          これにより、事務作業やデータ処理などの繰り返し作業を自動化し、
+          業務の効率を大幅に向上させることができます。
+        </p>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            GASは完全無料で使えます。Googleアカウントさえあれば、今すぐ始められますよ。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: Googleサービスとの連携 -->
+    <section id="integration" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔗 Googleスプレッドシート、Gmail、ドライブなどと連携できる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASは、以下のようなGoogleサービスと簡単に連携できます。
+          これらのサービスを組み合わせることで、さまざまな業務の効率化が図れます。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Googleスプレッドシート -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📊 Googleスプレッドシート
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              データの追加、編集、取得ができます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              表計算ソフトのデータを自動で更新したり、集計したりすることができます。
+              手作業でデータを入力する時間を大幅に削減できるでしょう。
+            </p>
+          </div>
+
+          <!-- Gmail -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📧 Gmail
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              メール送信、検索、転記ができます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              特定の件名のメールを自動で検索し、内容をスプレッドシートに転記することも可能です。
+              メール処理の効率が大幅に向上します。
+            </p>
+          </div>
+
+          <!-- Googleドライブ -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📁 Googleドライブ
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              ファイル一覧、コピー、整理ができます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              ファイルの管理を自動化し、フォルダの整理や古いファイルのアーカイブなどを
+              自動で行うことができます。
+            </p>
+          </div>
+
+          <!-- Googleフォーム -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📝 Googleフォーム
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              回答を自動で処理できます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              フォームの回答者に自動でメールを送信したり、回答内容に応じて
+              処理を分岐させたりすることができます。
+            </p>
+          </div>
+
+          <!-- Googleカレンダー -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📅 Googleカレンダー
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              予定の追加、編集ができます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              スプレッドシートのデータを元に、自動でカレンダーに予定を追加することも可能です。
+              スケジュール管理の手間を省けます。
+            </p>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700 mt-6">
+          これらのサービスを組み合わせることで、業務の効率化が図れます。
+          例えば、「Gmailで受信した注文メールの内容をスプレッドシートに自動転記し、
+          お客様に確認メールを自動送信する」といった一連の流れを自動化できるのです。
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション3: クラウド上で動作 -->
+    <section id="cloud" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ☁️ クラウド上に保存されるため、パソコンの電源が入っていなくても自動で動く
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          GASの最大の特徴は、<strong class="text-indigo-600">クラウド上に保存される</strong>ことです。
+          これは、他の多くのプログラミング言語と大きく異なる点です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          つまり、パソコンの電源が入っていなかったり、スプレッドシートを閉じていても、
+          GASは自動で動き続けます。これにより、<strong class="text-indigo-600">完全放置の自動化</strong>が実現できます。
+        </p>
+
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            🌟 クラウド実行のメリット
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-600 font-bold text-xl">✓</span>
+              <div>
+                <p class="text-lg md:text-xl text-gray-800 font-semibold mb-2">
+                  24時間365日、自動で動作
+                </p>
+                <p class="text-base md:text-lg text-gray-700">
+                  あなたが寝ている間も、休日も、GASは指定した時間に自動で処理を実行してくれます。
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-600 font-bold text-xl">✓</span>
+              <div>
+                <p class="text-lg md:text-xl text-gray-800 font-semibold mb-2">
+                  パソコンを開く必要がない
+                </p>
+                <p class="text-base md:text-lg text-gray-700">
+                  外出中でも、パソコンを持っていなくても、GASは動き続けます。
+                  完全に自動化された業務フローが実現できます。
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-indigo-600 font-bold text-xl">✓</span>
+              <div>
+                <p class="text-lg md:text-xl text-gray-800 font-semibold mb-2">
+                  電気代もかからない
+                </p>
+                <p class="text-base md:text-lg text-gray-700">
+                  自分のパソコンで動かすわけではないので、電気代の心配もありません。
+                  Googleのサーバーで動作するため、環境にも優しいですね。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">💡 具体例</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            「毎朝9時に自動で売上データを集計してレポートを作成する」といった処理を設定すれば、
+            あなたが出社する前に、すでに最新のレポートが完成しているのです。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: ワーク課題 -->
+    <section id="work" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク課題
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          自分の業務で「繰り返し作業」を3つ書き出してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          あなたの業務で、毎日・毎週繰り返している作業を3つ書き出してみましょう。
+          これがGASで自動化できる候補になります。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-600">
+            <li>• 毎朝のメールチェックとデータ転記</li>
+            <li>• 週次レポートの作成</li>
+            <li>• お客様への自動返信メール</li>
+          </ul>
+        </div>
+        <div class="mt-6 p-6 bg-white rounded-lg border-2 border-dashed border-gray-300">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">あなたの回答：</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">1.</span>
+              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">2.</span>
+              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">3.</span>
+              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、GASの基本的な概念について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>GASは、Googleが提供する無料の自動化ツールです</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>Gmail、スプレッドシート、ドライブ、フォーム、カレンダーなどと連携できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>クラウド上で動作するため、パソコンの電源が入っていなくても自動で動きます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>プログラミング初心者でも、ChatGPTと組み合わせれば簡単にツールを作れます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、実際にGASを始める方法について学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-02.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：GASの始め方 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // スクリーンショットプレースホルダーのクリックイベント（実際の画像追加時に使用）
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        alert('ここに実際のスクリーンショットが表示されます');
+      });
+    });
+  </script>
+
+</body>
+</html>
