@@ -330,6 +330,7 @@
               <tr>
                 <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">プラン</th>
                 <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">料金</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">利用可能モデル</th>
                 <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">特徴</th>
               </tr>
             </thead>
@@ -338,37 +339,45 @@
                 <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Free</td>
                 <td class="px-6 py-4 text-base md:text-lg text-green-600 font-bold">無料</td>
                 <td class="px-6 py-4 text-base md:text-lg">
-                  GPT-4o miniが使える。基本的な機能は利用可能。
+                  ChatGPT 5（Auto/Instant、制限あり）
+                </td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  基本的な機能は利用可能。
                   <br>
-                  <span class="text-sm text-gray-500">※ 応答速度は有料プランより遅い</span>
+                  <span class="text-sm text-gray-500">※ メッセージ数に制限あり</span>
                 </td>
               </tr>
               <tr class="hover:bg-gray-50 transition bg-blue-50">
                 <td class="px-6 py-4 text-lg md:text-xl font-semibold text-indigo-600">Plus ⭐</td>
                 <td class="px-6 py-4 text-base md:text-lg font-bold">$20/月</td>
                 <td class="px-6 py-4 text-base md:text-lg">
-                  GPT-4が使える。優先アクセス、応答速度が速い。
+                  ChatGPT 5（すべてのモード）<br>
+                  レガシーモデル（GPT-4o、o3など）
+                </td>
+                <td class="px-6 py-4 text-base md:text-lg">
+                  優先アクセス、応答速度が速い。
                   <br>
                   <span class="text-sm font-semibold text-indigo-600">※ ツール作成にはPlusプラン以上を推奨</span>
                 </td>
               </tr>
               <tr class="hover:bg-gray-50 transition">
-                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Team</td>
-                <td class="px-6 py-4 text-base md:text-lg font-bold">$25/月<br><span class="text-sm text-gray-500">（ユーザーあたり）</span></td>
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Pro</td>
+                <td class="px-6 py-4 text-base md:text-lg font-bold">$200/月</td>
                 <td class="px-6 py-4 text-base md:text-lg">
-                  チームでの共同作業に最適。管理者機能あり。
+                  すべてのモデル<br>
+                  + Proモード（研究レベル）
                 </td>
-              </tr>
-              <tr class="hover:bg-gray-50 transition">
-                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-gray-900">Enterprise</td>
-                <td class="px-6 py-4 text-base md:text-lg font-bold">要相談</td>
                 <td class="px-6 py-4 text-base md:text-lg">
-                  企業向けの高度なセキュリティと管理機能。
+                  ほぼ無制限のアクセス。最高性能。
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <p class="text-base md:text-lg text-gray-600 italic">
+          ※ この他にTeam（チーム向け）、Enterprise（企業向け）プランもありますが、個人で使う場合はPlus以下で十分です。
+        </p>
 
         <div class="bg-indigo-50 border-2 border-indigo-500 p-6 rounded-xl shadow-lg">
           <h3 class="text-xl md:text-2xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
@@ -376,20 +385,20 @@
             ツールを作るならPlusプラン以上を推奨します
           </h3>
           <p class="text-lg md:text-xl text-indigo-800 mb-3">
-            理由は、GPT-4の方がコード生成の精度が高く、複雑な指示にも対応できるためです。
+            理由は、ChatGPT 5のすべてのモード（特にThinking）が使えて、コード生成の精度が高く、複雑な指示にも対応できるためです。
           </p>
           <ul class="text-base md:text-lg text-indigo-700 space-y-2">
             <li class="flex items-start gap-2">
               <span>✓</span>
-              <span>コード生成の精度が高い</span>
+              <span>ChatGPT 5のThinkingモードで高精度なコード生成</span>
             </li>
             <li class="flex items-start gap-2">
               <span>✓</span>
-              <span>複雑な指示にも対応できる</span>
+              <span>複雑な指示にも正確に対応できる</span>
             </li>
             <li class="flex items-start gap-2">
               <span>✓</span>
-              <span>応答速度が速く、ストレスなく作業できる</span>
+              <span>レガシーモデル（GPT-4o、o3など）も選択可能</span>
             </li>
             <li class="flex items-start gap-2">
               <span>✓</span>
@@ -497,78 +506,235 @@
         🧠 モデルの選び方
       </h2>
       <div class="space-y-6">
+        <!-- ChatGPT 5の概要 -->
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
-          ChatGPTには複数のモデルがあります。用途に応じて使い分けましょう。
+          2025年8月にリリースされた<strong>ChatGPT 5</strong>が最新モデルです。
+          高速レスポンスと深い推論能力を自動で切り替え、コーディング性能が大幅に向上しています。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPT 5には、質問の内容に応じて使い分けられる複数のモードがあります。
+          基本的には「Auto」モードを使えば、自動で最適なモードを選んでくれます。
         </p>
 
-        <div class="grid md:grid-cols-3 gap-6">
-          <!-- GPT-4o -->
-          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              GPT-4o
-            </h3>
+        <!-- ChatGPT 5のモード選択 -->
+        <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mt-8 mb-4">
+          📊 ChatGPT 5のモード
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Auto -->
+          <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 rounded-lg shadow-lg text-white border-4 border-yellow-400">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xl md:text-2xl font-bold">
+                Auto ⭐推奨
+              </h3>
+              <span class="bg-yellow-400 text-indigo-900 px-3 py-1 rounded-full text-sm font-bold">デフォルト</span>
+            </div>
             <p class="text-base md:text-lg mb-4">
-              最新の高性能モデル。複雑なタスクに最適。
+              思考時間を自動調整
             </p>
             <div class="bg-white/20 p-4 rounded-lg">
-              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <p class="text-sm font-semibold mb-2">どんな時に使う？</p>
               <ul class="text-sm space-y-1">
-                <li>• コード生成</li>
-                <li>• 複雑な文章作成</li>
-                <li>• データ分析</li>
-                <li>• 高度な推論</li>
+                <li>• 基本的にこれを選んでおけばOK</li>
+                <li>• 質問の難易度を自動判断してくれる</li>
+                <li>• 迷ったらこれ！</li>
               </ul>
             </div>
           </div>
 
-          <!-- GPT-4o mini -->
+          <!-- Instant -->
           <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
             <h3 class="text-xl md:text-2xl font-bold mb-3">
-              GPT-4o mini
+              Instant
             </h3>
             <p class="text-base md:text-lg mb-4">
-              軽量で高速。シンプルなタスク向け。
+              瞬時に回答
             </p>
             <div class="bg-white/20 p-4 rounded-lg">
-              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <p class="text-sm font-semibold mb-2">どんな時に使う？</p>
               <ul class="text-sm space-y-1">
-                <li>• 簡単な質問応答</li>
-                <li>• 短文の作成</li>
-                <li>• 要約・翻訳</li>
-                <li>• カジュアルな会話</li>
+                <li>• 日常会話</li>
+                <li>• 簡単な質問</li>
+                <li>• すぐに答えが欲しい時</li>
               </ul>
             </div>
           </div>
 
-          <!-- o1 -->
-          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+          <!-- Thinking mini -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
             <h3 class="text-xl md:text-2xl font-bold mb-3">
-              o1
+              Thinking mini
             </h3>
             <p class="text-base md:text-lg mb-4">
-              推論に特化したモデル。複雑な問題解決に最適。
+              素早く思考
             </p>
             <div class="bg-white/20 p-4 rounded-lg">
-              <p class="text-sm font-semibold mb-2">推奨用途：</p>
+              <p class="text-sm font-semibold mb-2">どんな時に使う？</p>
               <ul class="text-sm space-y-1">
-                <li>• 論理的な推論</li>
-                <li>• 複雑な計算</li>
-                <li>• 戦略立案</li>
-                <li>• 高度な分析</li>
+                <li>• 中程度の難易度の質問</li>
+                <li>• 少し考えてほしい時</li>
+                <li>• バランス重視</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Thinking -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              Thinking
+            </h3>
+            <p class="text-base md:text-lg mb-4">
+              より良い回答のために長く思考
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">どんな時に使う？</p>
+              <ul class="text-sm space-y-1">
+                <li>• コード生成</li>
+                <li>• 複雑な問題解決</li>
+                <li>• 高精度な回答が必要な時</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">🎯 ツール作成にはGPT-4o以上を推奨します</p>
-          <p class="text-lg md:text-xl text-indigo-800">
-            コード生成の精度が高く、複雑な指示にも対応できるため、ツール作成にはGPT-4o以上のモデルを使用することをおすすめします。
+        <!-- Proモード（別枠） -->
+        <div class="bg-gradient-to-br from-gray-700 to-gray-800 p-6 rounded-lg shadow-lg text-white">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl md:text-2xl font-bold">
+              Pro
+            </h3>
+            <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">Proプラン限定</span>
+          </div>
+          <p class="text-base md:text-lg mb-3">
+            研究レベルのインテリジェンス
+          </p>
+          <p class="text-sm">
+            ※ このモードを使うには、ChatGPT Pro（$200/月）の契約が必要です。Plus契約では利用できません。
           </p>
         </div>
 
+        <!-- レガシーモデル -->
+        <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mt-12 mb-4">
+          📁 レガシーモデル
+        </h3>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPT 5以前のモデルも「レガシーモデル」として継続利用できます。
+          基本的にはChatGPT 5で十分ですが、対話の雰囲気を変えたい場合などに使い分けることができます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">利用可能なレガシーモデル（Plus以上）</h4>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-4o</h5>
+              <p class="text-sm text-gray-700">
+                人間らしい対話スタイルが好評。クリエイティブな対話を楽しみたい場合におすすめです。
+              </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-4.1</h5>
+              <p class="text-sm text-gray-700">
+                コーディング特化版。プログラミングに最適化されたモデルです。
+              </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-purple-500">
+              <h5 class="font-semibold text-gray-900 mb-2">o3</h5>
+              <p class="text-sm text-gray-700">
+                推論特化型モデル。科学や数学などの複雑な問題に向いています。
+              </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-orange-500">
+              <h5 class="font-semibold text-gray-900 mb-2">o4-mini</h5>
+              <p class="text-sm text-gray-700">
+                高速推論モデル。STEM分野の問題解決に優れています。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 初心者向けおすすめ設定 -->
+        <div class="bg-green-50 border-2 border-green-500 p-6 rounded-xl shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">✅</span>
+            初心者向けおすすめ設定（Plus契約者向け）
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">1️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-green-900">基本的に「Auto」を使う</p>
+                <p class="text-base md:text-lg text-green-800">
+                  自動で最適なモードを選んでくれるので、迷ったらこれを選びましょう。
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">2️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-green-900">対話の雰囲気を変えたい場合</p>
+                <p class="text-base md:text-lg text-green-800">
+                  レガシーモデルの「GPT-4o」を試してみましょう。より人間らしい対話が楽しめます。
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">3️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-green-900">コーディングや複雑な問題</p>
+                <p class="text-base md:text-lg text-green-800">
+                  「Thinking」を明示的に選択すると、より精度の高い回答が得られます。
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">4️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-green-900">急いでいる場合</p>
+                <p class="text-base md:text-lg text-green-800">
+                  「Instant」で素早く回答を得られます。簡単な質問に最適です。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ツール作成時の推奨 -->
+        <div class="bg-indigo-50 border-2 border-indigo-500 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">🎯</span>
+            GASツール作成にはPlus以上を推奨します
+          </h3>
+          <p class="text-lg md:text-xl text-indigo-800 mb-4">
+            理由は以下の通りです：
+          </p>
+          <ul class="text-base md:text-lg text-indigo-700 space-y-2">
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>ChatGPT 5のThinkingモードが使える（高精度なコード生成）</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>複雑な指示にも正確に対応できる</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>エラー修正時にも的確なアドバイスが得られる</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>レガシーモデルも使えるため、用途に応じて切り替え可能</span>
+            </li>
+          </ul>
+          <p class="text-base md:text-lg text-indigo-800 mt-4">
+            無料プランでもAutoやInstantは使えますが、制限があるため、
+            本格的なツール作成にはPlus契約をおすすめします。
+          </p>
+        </div>
+
+        <!-- スクリーンショット -->
         <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-model-selector.png')">
-          <p class="text-lg font-semibold mb-2">📸 モデル選択画面</p>
+          <p class="text-lg font-semibold mb-2">📸 ChatGPT 5のモード選択画面</p>
           <p class="text-sm">screenshot-chatgpt-model-selector.png</p>
           <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
         </div>
@@ -665,10 +831,10 @@
             今週の東京の天気は？
           </div>
         </div>
-        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
-          <p class="text-base md:text-lg text-yellow-800">
-            <strong>注意：</strong>ChatGPTは学習データの範囲内でしか回答できないため、
-            リアルタイムの天気情報は取得できません。「最新の情報は天気予報サイトで確認してください」という回答が返ってくるはずです。
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>💡 ポイント：</strong>ChatGPT 5はWeb検索機能を使って、リアルタイムの情報も取得できます。
+            天気予報サイトから最新の情報を検索して回答してくれるはずです。
           </p>
         </div>
       </div>
@@ -788,7 +954,7 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="text-indigo-600 font-bold">✓</span>
-            <span>ツール作成にはPlusプラン以上を推奨します（GPT-4が使える）</span>
+            <span>ツール作成にはPlusプラン以上を推奨します（ChatGPT 5のすべてのモードが使える）</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-indigo-600 font-bold">✓</span>
@@ -796,7 +962,11 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="text-indigo-600 font-bold">✓</span>
-            <span>用途に応じてGPT-4o、GPT-4o mini、o1のモデルを使い分けましょう</span>
+            <span>基本的に「Auto」モードを使えば、自動で最適なモードを選んでくれます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>コーディングには「Thinking」モード、日常会話には「Instant」モードが便利です</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-indigo-600 font-bold">✓</span>
