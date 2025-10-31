@@ -185,19 +185,50 @@
           スプレッドシートを開いている人には見えませんが、裏で自動的に動いています。
         </p>
 
-        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl shadow-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 text-center">
-            イメージ図
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 md:p-12 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+            イメージ図：GASがどこにあるか
           </h3>
-          <div class="text-center">
-            <div class="inline-block bg-white p-6 rounded-lg shadow-md mb-4">
-              <p class="text-lg md:text-xl font-bold text-gray-800 mb-2">📊 スプレッドシート</p>
-              <p class="text-base text-gray-600">↓</p>
-              <p class="text-lg md:text-xl font-bold text-gray-800 mb-2">拡張機能 → Apps Script</p>
-              <p class="text-base text-gray-600">↓</p>
-              <p class="text-lg md:text-xl font-bold text-indigo-600">📝 スクリプトエディタ</p>
-              <p class="text-sm text-gray-500 mt-2">ここにGASのコードを書きます</p>
+
+          <!-- フローチャート風のカード -->
+          <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
+            <!-- カード1: スプレッドシート -->
+            <div class="w-full md:w-64 bg-gradient-to-br from-green-400 to-green-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer">
+              <div class="text-7xl mb-4 text-center animate-bounce">📊</div>
+              <h4 class="text-2xl font-bold text-center mb-2">スプレッドシート</h4>
+              <p class="text-center text-sm opacity-90">まずはここから開始</p>
             </div>
+
+            <!-- 矢印 -->
+            <div class="text-5xl md:text-6xl text-indigo-600 font-bold transform md:rotate-0 rotate-90 animate-pulse">
+              →
+            </div>
+
+            <!-- カード2: メニュー -->
+            <div class="w-full md:w-64 bg-gradient-to-br from-blue-400 to-blue-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer">
+              <div class="text-7xl mb-4 text-center">⚙️</div>
+              <h4 class="text-2xl font-bold text-center mb-2">拡張機能</h4>
+              <p class="text-center text-sm opacity-90">「Apps Script」を選択</p>
+            </div>
+
+            <!-- 矢印 -->
+            <div class="text-5xl md:text-6xl text-indigo-600 font-bold transform md:rotate-0 rotate-90 animate-pulse">
+              →
+            </div>
+
+            <!-- カード3: エディタ -->
+            <div class="w-full md:w-64 bg-gradient-to-br from-purple-400 to-purple-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-110 hover:shadow-2xl cursor-pointer">
+              <div class="text-7xl mb-4 text-center">📝</div>
+              <h4 class="text-2xl font-bold text-center mb-2">スクリプトエディタ</h4>
+              <p class="text-center text-sm opacity-90">ここでコードを書く！</p>
+            </div>
+          </div>
+
+          <!-- 補足説明 -->
+          <div class="mt-8 text-center">
+            <p class="text-base md:text-lg text-gray-700 bg-white/60 rounded-lg p-4 inline-block shadow-md">
+              💡 <strong>ポイント：</strong>GASは、スプレッドシートの中に隠れているプログラムです
+            </p>
           </div>
         </div>
 
@@ -222,62 +253,90 @@
           既にセクション2で学びましたが、ここでおさらいしましょう。
         </p>
 
-        <div class="space-y-6 mt-8">
-          <div class="step-box">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              ステップ1: スプレッドシートを開く
-            </h3>
-            <p class="text-base md:text-lg">
-              まず、Googleスプレッドシートを開きます。
-              新しいシートを作成するか、既存のシートを開いてください。
-            </p>
-          </div>
+        <!-- タイムライン風の5ステップ -->
+        <div class="mt-8 overflow-x-auto">
+          <div class="min-w-max flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 pb-8 pt-6 px-6">
 
-          <div class="arrow">↓</div>
+            <!-- ステップ1 -->
+            <div class="timeline-step relative">
+              <div class="w-72 bg-gradient-to-br from-blue-400 to-blue-600 text-white p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 shadow-lg">
+                  1
+                </div>
+                <div class="text-5xl mb-4 text-center">📊</div>
+                <h3 class="text-xl font-bold mb-3 text-center">スプレッドシートを開く</h3>
+                <p class="text-sm text-center opacity-90">新しいシートまたは既存のシートを開きます</p>
+              </div>
+            </div>
 
-          <div class="step-box">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              ステップ2: メニューから「拡張機能」→「Apps Script」をクリック
-            </h3>
-            <p class="text-base md:text-lg">
-              スプレッドシートの上部メニューから、「拡張機能」をクリックし、
-              「Apps Script」を選択します。
-            </p>
-          </div>
+            <!-- 矢印1 -->
+            <div class="text-4xl md:text-5xl text-indigo-600 font-bold mx-4 transform md:rotate-0 rotate-90">
+              →
+            </div>
 
-          <div class="arrow">↓</div>
+            <!-- ステップ2 -->
+            <div class="timeline-step relative">
+              <div class="w-72 bg-gradient-to-br from-green-400 to-green-600 text-white p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 shadow-lg">
+                  2
+                </div>
+                <div class="text-5xl mb-4 text-center">⚙️</div>
+                <h3 class="text-xl font-bold mb-3 text-center">拡張機能メニュー</h3>
+                <p class="text-sm text-center opacity-90">「拡張機能」→「Apps Script」をクリック</p>
+              </div>
+            </div>
 
-          <div class="step-box">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              ステップ3: スクリプトエディタが開く
-            </h3>
-            <p class="text-base md:text-lg">
-              新しいタブで、スクリプトエディタが開きます。
-              ここがGASのコードを書く場所です。
-            </p>
-          </div>
+            <!-- 矢印2 -->
+            <div class="text-4xl md:text-5xl text-indigo-600 font-bold mx-4 transform md:rotate-0 rotate-90">
+              →
+            </div>
 
-          <div class="arrow">↓</div>
+            <!-- ステップ3 -->
+            <div class="timeline-step relative">
+              <div class="w-72 bg-gradient-to-br from-purple-400 to-purple-600 text-white p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 shadow-lg">
+                  3
+                </div>
+                <div class="text-5xl mb-4 text-center">📝</div>
+                <h3 class="text-xl font-bold mb-3 text-center">エディタが開く</h3>
+                <p class="text-sm text-center opacity-90">新しいタブでスクリプトエディタが開きます</p>
+              </div>
+            </div>
 
-          <div class="step-box">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              ステップ4: エディタにコードを書いて「保存」する
-            </h3>
-            <p class="text-base md:text-lg">
-              エディタにコードを書いて、保存ボタン（💾アイコン）をクリックします。
-            </p>
-          </div>
+            <!-- 矢印3 -->
+            <div class="text-4xl md:text-5xl text-indigo-600 font-bold mx-4 transform md:rotate-0 rotate-90">
+              →
+            </div>
 
-          <div class="arrow">↓</div>
+            <!-- ステップ4 -->
+            <div class="timeline-step relative">
+              <div class="w-72 bg-gradient-to-br from-orange-400 to-orange-600 text-white p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 shadow-lg">
+                  4
+                </div>
+                <div class="text-5xl mb-4 text-center">💾</div>
+                <h3 class="text-xl font-bold mb-3 text-center">コードを保存</h3>
+                <p class="text-sm text-center opacity-90">エディタにコードを書いて保存ボタンをクリック</p>
+              </div>
+            </div>
 
-          <div class="step-box">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              ステップ5: このスプレッドシートとひも付けされる
-            </h3>
-            <p class="text-base md:text-lg">
-              保存したスクリプトは、今開いているスプレッドシートとひも付けされます。
-              つまり、「このシートで動く命令書」を作る感じです。
-            </p>
+            <!-- 矢印4 -->
+            <div class="text-4xl md:text-5xl text-indigo-600 font-bold mx-4 transform md:rotate-0 rotate-90">
+              →
+            </div>
+
+            <!-- ステップ5 -->
+            <div class="timeline-step relative">
+              <div class="w-72 bg-gradient-to-br from-pink-400 to-pink-600 text-white p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div class="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-2xl font-bold text-gray-900 shadow-lg">
+                  5
+                </div>
+                <div class="text-5xl mb-4 text-center">🔗</div>
+                <h3 class="text-xl font-bold mb-3 text-center">シートと紐付け</h3>
+                <p class="text-sm text-center opacity-90">スプレッドシートと紐付けされて完成！</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -369,86 +428,139 @@
           この流れを理解しておくと、GASがどのように動いているのかイメージしやすくなります。
         </p>
 
-        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg mt-8">
-          <div class="space-y-6">
-            <!-- ステップ1 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                  1
-                </div>
-                <div>
-                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    トリガーが発生する
-                  </h3>
-                  <p class="text-base md:text-lg text-gray-700">
-                    スプレッドシートの変更、時間経過、ボタンクリックなど、
-                    設定したトリガーが発生します。
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 md:p-12 rounded-xl shadow-lg mt-8">
+
+          <!-- 4ステップの2x2グリッド図解 -->
+          <div class="max-w-5xl mx-auto">
+
+            <!-- グリッドレイアウト -->
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 relative">
+
+              <!-- ステップ1: トリガー発生 -->
+              <div class="relative pt-4">
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg">
+                    1
+                  </div>
+                  <div class="text-6xl mb-4 text-center">⚡</div>
+                  <h3 class="text-2xl md:text-3xl font-bold mb-3 text-center">トリガー発生</h3>
+                  <p class="text-base md:text-lg text-center opacity-90 leading-relaxed">
+                    時間・編集・クリックで起動
                   </p>
                 </div>
-              </div>
-            </div>
-
-            <div class="arrow">↓</div>
-
-            <!-- ステップ2 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                  2
+                <!-- 矢印（右へ） -->
+                <div class="hidden md:block absolute top-1/2 -right-10 transform -translate-y-1/2">
+                  <div class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-3xl font-bold rounded-full w-14 h-14 flex items-center justify-center shadow-xl animate-pulse">
+                    →
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    GASが条件をチェックする
-                  </h3>
-                  <p class="text-base md:text-lg text-gray-700">
-                    「メールの中に"注文"という文字があるか」「今日は月曜日か」など、
-                    コードで指定した条件をチェックします。
+                <!-- モバイル矢印（下へ） -->
+                <div class="md:hidden text-center my-4">
+                  <div class="inline-block bg-gradient-to-b from-indigo-500 to-purple-500 text-white text-4xl font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg animate-pulse">
+                    ↓
+                  </div>
+                </div>
+              </div>
+
+              <!-- ステップ2: 条件チェック -->
+              <div class="relative pt-4">
+                <div class="bg-gradient-to-br from-purple-400 to-purple-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg">
+                    2
+                  </div>
+                  <div class="text-6xl mb-4 text-center">🔍</div>
+                  <h3 class="text-2xl md:text-3xl font-bold mb-3 text-center">条件チェック</h3>
+                  <p class="text-base md:text-lg text-center opacity-90 leading-relaxed">
+                    条件に合うか確認
                   </p>
                 </div>
-              </div>
-            </div>
-
-            <div class="arrow">↓</div>
-
-            <!-- ステップ3 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                  3
+                <!-- 矢印（下へ） -->
+                <div class="hidden md:block absolute -bottom-10 left-1/2 transform -translate-x-1/2">
+                  <div class="bg-gradient-to-b from-purple-500 to-orange-500 text-white text-3xl font-bold rounded-full w-14 h-14 flex items-center justify-center shadow-xl animate-pulse">
+                    ↓
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    条件に一致したら、GASが動作する
-                  </h3>
-                  <p class="text-base md:text-lg text-gray-700">
-                    Gmailを検索、スプレッドシートに書き込み、メール送信など、
-                    コードで指定した処理を実行します。
+                <!-- モバイル矢印（下へ） -->
+                <div class="md:hidden text-center my-4">
+                  <div class="inline-block bg-gradient-to-b from-purple-500 to-orange-500 text-white text-4xl font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg animate-pulse">
+                    ↓
+                  </div>
+                </div>
+              </div>
+
+              <!-- 中央の円（デスクトップのみ） -->
+              <div class="hidden md:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div class="bg-white rounded-full w-24 h-24 flex items-center justify-center shadow-2xl border-4 border-indigo-600">
+                  <div class="text-center">
+                    <div class="text-4xl">🔄</div>
+                    <p class="text-xs font-bold text-indigo-600">GAS</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ステップ4: 結果反映（順序入れ替え） -->
+              <div class="relative pt-4 md:order-3">
+                <div class="bg-gradient-to-br from-green-400 to-green-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg">
+                    4
+                  </div>
+                  <div class="text-6xl mb-4 text-center">✅</div>
+                  <h3 class="text-2xl md:text-3xl font-bold mb-3 text-center">結果反映</h3>
+                  <p class="text-base md:text-lg text-center opacity-90 leading-relaxed">
+                    完了！
                   </p>
                 </div>
-              </div>
-            </div>
-
-            <div class="arrow">↓</div>
-
-            <!-- ステップ4 -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="flex items-start gap-4">
-                <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
-                  4
+                <!-- 矢印（上へ、左上のステップ1へ戻る） -->
+                <div class="hidden md:block absolute -top-10 left-1/2 transform -translate-x-1/2">
+                  <div class="bg-gradient-to-t from-green-500 to-blue-500 text-white text-3xl font-bold rounded-full w-14 h-14 flex items-center justify-center shadow-xl animate-pulse">
+                    ↑
+                  </div>
                 </div>
-                <div>
-                  <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    結果がスプレッドシートやメールに反映される
-                  </h3>
-                  <p class="text-base md:text-lg text-gray-700">
-                    処理の結果が、スプレッドシートに書き込まれたり、
-                    メールが送信されたりします。完了！
+                <!-- モバイル矢印（上へ） -->
+                <div class="md:hidden text-center my-4">
+                  <div class="inline-block bg-gradient-to-t from-green-500 to-blue-500 text-white text-4xl font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg animate-pulse">
+                    ↑
+                  </div>
+                </div>
+              </div>
+
+              <!-- ステップ3: GAS動作 -->
+              <div class="relative pt-4 md:order-4">
+                <div class="bg-gradient-to-br from-orange-400 to-orange-600 text-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div class="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center text-3xl font-bold text-gray-900 shadow-lg">
+                    3
+                  </div>
+                  <div class="text-6xl mb-4 text-center">⚙️</div>
+                  <h3 class="text-2xl md:text-3xl font-bold mb-3 text-center">GASが動作</h3>
+                  <p class="text-base md:text-lg text-center opacity-90 leading-relaxed">
+                    処理を実行
                   </p>
                 </div>
+                <!-- 矢印（左へ、ステップ4へ） -->
+                <div class="hidden md:block absolute top-1/2 -left-10 transform -translate-y-1/2">
+                  <div class="bg-gradient-to-l from-orange-500 to-green-500 text-white text-3xl font-bold rounded-full w-14 h-14 flex items-center justify-center shadow-xl animate-pulse">
+                    ←
+                  </div>
+                </div>
+                <!-- モバイル矢印（下へ） -->
+                <div class="md:hidden text-center my-4">
+                  <div class="inline-block bg-gradient-to-b from-orange-500 to-green-500 text-white text-4xl font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg animate-pulse">
+                    ↓
+                  </div>
+                </div>
               </div>
+
             </div>
+
           </div>
+
+          <!-- フロー全体の説明 -->
+          <div class="mt-12 text-center">
+            <p class="text-base md:text-lg text-gray-700 bg-white/60 rounded-lg p-4 inline-block shadow-md">
+              🔄 <strong>この4ステップの循環</strong>で、GASは自動的に動作します
+            </p>
+          </div>
+
         </div>
 
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-8">
