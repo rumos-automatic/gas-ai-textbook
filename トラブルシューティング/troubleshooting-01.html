@@ -126,6 +126,9 @@
       <div class="dot" data-section="error-message">
         <span class="dot-label">エラーメッセージが出た場合</span>
       </div>
+      <div class="dot" data-section="full-code-display">
+        <span class="dot-label">修正コードの全文表示</span>
+      </div>
     </div>
   </div>
 
@@ -438,6 +441,197 @@
       </div>
     </section>
 
+    <!-- 小セクション5: 修正コードの全文表示をお願いする -->
+    <section id="full-code-display" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔄 修正コードの全文表示をお願いする
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTにエラー修正を依頼すると、<strong class="text-orange-600">修正した箇所のみを表示してくれることがあります</strong>。
+          これはコードが長い場合に効率的ですが、初心者の方には「どこをどう修正したのか」が分かりにくいかもしれません。
+        </p>
+
+        <!-- 初心者への配慮メッセージ -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">😊 初心者の皆さんへ</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            修正された箇所がどこか分からなくても、全く問題ありません。私も最初はよく分からなかったので、ご安心ください。
+            <strong>「修正したコードを全文で表示してください」と依頼するだけで解決できます</strong>。
+          </p>
+        </div>
+
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          全文表示を依頼することで、以下のメリットがあります：
+        </p>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-orange-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">✨ 全文表示のメリット</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-green-600 font-bold text-xl">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                <strong>どこが変わったか探す必要がない</strong>：全体を見渡せるので安心です
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-600 font-bold text-xl">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                <strong>コピー&ペーストが簡単</strong>：全文をそのままGASエディタに貼り付けるだけ
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-green-600 font-bold text-xl">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                <strong>ミスが減る</strong>：部分的なコピーによる貼り付けミスを防げます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- いい例のボックス -->
+        <div class="bg-green-50 border-2 border-green-500 p-8 rounded-lg shadow-lg">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-4xl">💮</span>
+            <h3 class="text-xl md:text-2xl font-bold text-green-900">いい例</h3>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-green-300">
+            <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+              以下のエラーが出ました。修正してください。
+            </p>
+            <div class="bg-gray-900 text-white p-4 rounded font-mono text-sm md:text-base mb-4">
+              TypeError: Cannot read property 'getRange' of null at transferEmailsToSheet(コード:25)
+            </div>
+            <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-bold text-green-700">
+              修正したコードを全文で表示してください。
+            </p>
+          </div>
+        </div>
+
+        <!-- なぜ良いのか -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">✅ なぜ良いのか？</h3>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">明確な依頼</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  「全文で表示してください」という明確な依頼があるため、ChatGPTはコード全体を返してくれます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">初心者でも安心</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  どこが修正されたか探す必要がなく、返ってきたコードをそのまま使えます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">コピーミスを防げる</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  全文をコピー&ペーストするだけなので、部分的な修正による貼り付けミスが起きません。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 悪い例のボックス -->
+        <div class="bg-red-50 border-2 border-red-500 p-8 rounded-lg shadow-lg">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-4xl">⚠️</span>
+            <h3 class="text-xl md:text-2xl font-bold text-red-900">悪い例</h3>
+          </div>
+          <div class="bg-white p-6 rounded-lg border border-red-300">
+            <p class="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+              以下のエラーが出ました。修正してください。
+            </p>
+            <div class="bg-gray-900 text-white p-4 rounded font-mono text-sm md:text-base">
+              TypeError: Cannot read property 'getRange' of null at transferEmailsToSheet(コード:25)
+            </div>
+          </div>
+        </div>
+
+        <!-- なぜ悪いのか -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-red-200">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">❌ なぜ悪いのか？</h3>
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                ✕
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">全文表示の依頼がない</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  「修正してください」だけでは、ChatGPTは修正箇所のみを表示することがあります。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                ✕
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">修正箇所を探す手間が増える</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  部分的なコードが返ってきた場合、どこに貼り付けるべきか初心者には分かりにくいです。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                ✕
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">コピーミスのリスクが高まる</h4>
+                <p class="text-lg md:text-xl text-gray-700">
+                  部分的なコードを手動で既存のコードに組み込む際、間違いが起きやすくなります。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ポイントボックス -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-4">💡 長いコードの場合のヒント</p>
+          <p class="text-lg md:text-xl text-blue-800 mb-4">
+            コードが非常に長い場合（100行以上など）は、以下のように依頼することもできます：
+          </p>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-lg md:text-xl text-gray-800 mb-2">
+              ✓ 「<strong>〇〇関数のコードを全文で表示してください</strong>」
+            </p>
+            <p class="text-lg md:text-xl text-gray-800 mb-2">
+              ✓ 「<strong>修正したファイル全体を表示してください</strong>」
+            </p>
+            <p class="text-lg md:text-xl text-gray-800">
+              ✓ 「<strong>function.gsのコードを全文で表示してください</strong>」
+            </p>
+          </div>
+          <p class="text-lg md:text-xl text-blue-800 mt-4">
+            このように、特定の範囲を指定することで、必要な部分の全文を効率的に取得できます。
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- まとめセクション -->
     <section class="mb-20 bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-xl shadow-lg">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -459,6 +653,10 @@
           <li class="flex items-start gap-3">
             <span class="text-orange-600 font-bold">✓</span>
             <span>エラーメッセージは全文をコピーして送りましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-orange-600 font-bold">✓</span>
+            <span>修正コードは「全文で表示してください」と依頼することで、コピー&ペーストが簡単になります</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-orange-600 font-bold">✓</span>
