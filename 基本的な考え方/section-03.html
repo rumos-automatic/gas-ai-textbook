@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3. 修正依頼は「1回に1個」 | 基本的な考え方 | GAS短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/workManager.js"></script>
   <style>
     /* スムーススクロール */
     html {
@@ -434,6 +435,7 @@
           <div class="mb-4">
             <label class="block text-base font-semibold text-gray-900 mb-2">依頼1回目（日付フォーマット）：</label>
             <textarea
+              id="work-textarea-1"
               class="work-textarea"
               placeholder="日付フォーマットの修正依頼を書いてみましょう..."
             ></textarea>
@@ -442,6 +444,7 @@
           <div class="mb-4">
             <label class="block text-base font-semibold text-gray-900 mb-2">依頼2回目（重複チェック）：</label>
             <textarea
+              id="work-textarea-2"
               class="work-textarea"
               placeholder="重複チェックの追加依頼を書いてみましょう..."
             ></textarea>
@@ -450,9 +453,21 @@
           <div class="mb-4">
             <label class="block text-base font-semibold text-gray-900 mb-2">依頼3回目（完了通知）：</label>
             <textarea
+              id="work-textarea-3"
               class="work-textarea"
               placeholder="完了通知の追加依頼を書いてみましょう..."
             ></textarea>
+          </div>
+
+          <!-- 保存/クリアボタン -->
+          <div class="mt-4 flex items-center gap-4">
+            <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+              💾 保存
+            </button>
+            <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+              🗑️ クリア
+            </button>
+            <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
           </div>
         </div>
       </div>
@@ -515,6 +530,13 @@
         次は、実際にGASツールを作成する実践編に進んでいきましょう。
         わからないことがあれば、何度でも読み返してくださいね。
       </p>
+
+      <!-- エクスポートボタン -->
+      <div class="text-center mb-8">
+        <button onclick="WorkManager.exportAllAnswers()" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+          📥 全ワーク課題をエクスポート
+        </button>
+      </div>
 
       <div class="text-center">
         <a href="../index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl py-4 px-8 rounded-lg transition shadow-lg hover:shadow-xl">
@@ -601,6 +623,72 @@
         modal.classList.remove('active');
       }
     });
+
+    // ===== ワーク課題管理 =====
+    const PAGE_ID = '基本的な考え方/section-03.html';
+    const WORK_IDS = ['work-1', 'work-2', 'work-3'];
+    const TEXTAREA_IDS = ['work-textarea-1', 'work-textarea-2', 'work-textarea-3'];
+
+    // ページ読み込み時に保存済みデータを復元
+    function loadWorkAnswers() {
+      WORK_IDS.forEach((workId, index) => {
+        const savedData = WorkManager.loadWorkAnswer(PAGE_ID, workId);
+        if (savedData && savedData.type === 'textarea' && savedData.answer) {
+          const textarea = document.getElementById(TEXTAREA_IDS[index]);
+          if (textarea) {
+            textarea.value = savedData.answer;
+          }
+        }
+      });
+    }
+
+    // 保存ボタンのハンドラ
+    function saveWork() {
+      WORK_IDS.forEach((workId, index) => {
+        const textarea = document.getElementById(TEXTAREA_IDS[index]);
+        const answer = textarea ? textarea.value : '';
+
+        WorkManager.saveWorkAnswer(PAGE_ID, workId, {
+          type: 'textarea',
+          answer: answer
+        });
+      });
+
+      const feedback = document.getElementById('save-feedback');
+      WorkManager.showSaveFeedback(feedback);
+    }
+
+    // クリアボタンのハンドラ
+    function clearWork() {
+      if (confirm('全ての回答をクリアしてもよろしいですか？')) {
+        WORK_IDS.forEach((workId, index) => {
+          const textarea = document.getElementById(TEXTAREA_IDS[index]);
+          if (textarea) {
+            textarea.value = '';
+          }
+
+          WorkManager.clearWorkAnswer(PAGE_ID, workId);
+        });
+
+        alert('全ての回答をクリアしました。');
+      }
+    }
+
+    // 自動保存（デバウンス）
+    const autoSave = WorkManager.debounce(() => {
+      saveWork();
+    }, WorkManager.SAVE_DELAY);
+
+    // 各textareaに自動保存を設定
+    TEXTAREA_IDS.forEach(id => {
+      const textarea = document.getElementById(id);
+      if (textarea) {
+        textarea.addEventListener('input', autoSave);
+      }
+    });
+
+    // ページ読み込み時にデータを復元
+    window.addEventListener('DOMContentLoaded', loadWorkAnswers);
   </script>
 </body>
 </html>

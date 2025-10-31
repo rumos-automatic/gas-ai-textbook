@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(for dir in 生成AI GAS 実践編 基本的な考え方 上級編)",
+      "Bash(do echo '=== $dir ===')",
+      "Bash(find:*)",
+      "Bash(done)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

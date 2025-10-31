@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1. 棚卸作業 | 基本的な考え方 | GAS短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/workManager.js"></script>
   <style>
     /* スムーススクロール */
     html {
@@ -426,14 +427,33 @@
           </div>
 
           <textarea
+            id="work-textarea"
             class="work-textarea"
             placeholder="こちらに棚卸作業を書いてみましょう...&#10;&#10;例：&#10;ステップ1：...&#10;ステップ2：...&#10;ステップ3：..."
           ></textarea>
+
+          <!-- 保存/クリアボタン -->
+          <div class="mt-4 flex items-center gap-4">
+            <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+              💾 保存
+            </button>
+            <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+              🗑️ クリア
+            </button>
+            <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
+          </div>
         </div>
       </div>
     </section>
 
     <hr class="my-12 border-gray-300">
+
+    <!-- エクスポートボタン -->
+    <div class="text-center mb-8">
+      <button onclick="WorkManager.exportAllAnswers()" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        📥 全ワーク課題をエクスポート
+      </button>
+    </div>
 
     <!-- 次のセクションへ -->
     <section class="mb-16 text-center">
@@ -529,6 +549,62 @@
         modal.classList.remove('active');
       }
     });
+
+    // ===== ワーク課題管理 =====
+    const PAGE_ID = '基本的な考え方/section-01.html';
+    const WORK_ID = 'work';
+
+    // ページ読み込み時に保存済みデータを復元
+    function loadWorkAnswers() {
+      const savedData = WorkManager.loadWorkAnswer(PAGE_ID, WORK_ID);
+      if (savedData && savedData.type === 'textarea' && savedData.answer) {
+        const textarea = document.getElementById('work-textarea');
+        if (textarea) {
+          textarea.value = savedData.answer;
+        }
+      }
+    }
+
+    // 保存ボタンのハンドラ
+    function saveWork() {
+      const textarea = document.getElementById('work-textarea');
+      const answer = textarea ? textarea.value : '';
+
+      WorkManager.saveWorkAnswer(PAGE_ID, WORK_ID, {
+        type: 'textarea',
+        answer: answer
+      });
+
+      const feedback = document.getElementById('save-feedback');
+      WorkManager.showSaveFeedback(feedback);
+    }
+
+    // クリアボタンのハンドラ
+    function clearWork() {
+      if (confirm('回答をクリアしてもよろしいですか？')) {
+        const textarea = document.getElementById('work-textarea');
+        if (textarea) {
+          textarea.value = '';
+        }
+
+        WorkManager.clearWorkAnswer(PAGE_ID, WORK_ID);
+        alert('回答をクリアしました。');
+      }
+    }
+
+    // 自動保存（デバウンス）
+    const autoSave = WorkManager.debounce(() => {
+      saveWork();
+    }, WorkManager.SAVE_DELAY);
+
+    // textareaに自動保存を設定
+    const textarea = document.getElementById('work-textarea');
+    if (textarea) {
+      textarea.addEventListener('input', autoSave);
+    }
+
+    // ページ読み込み時にデータを復元
+    window.addEventListener('DOMContentLoaded', loadWorkAnswers);
   </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>セクション3: ChatGPTにやらせてはいけないこと | 生成AI×GAS 短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/workManager.js"></script>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
@@ -621,17 +622,27 @@
           <div class="space-y-3">
             <div class="flex items-center gap-3">
               <span class="text-lg font-bold text-indigo-600">1.</span>
-              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+              <input type="text" id="work-item-1" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：顧客との最終的な契約交渉">
             </div>
             <div class="flex items-center gap-3">
               <span class="text-lg font-bold text-indigo-600">2.</span>
-              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+              <input type="text" id="work-item-2" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：個人情報の管理">
             </div>
             <div class="flex items-center gap-3">
               <span class="text-lg font-bold text-indigo-600">3.</span>
-              <div class="flex-1 border-b-2 border-gray-300 pb-1"></div>
+              <input type="text" id="work-item-3" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：重要な経営判断">
             </div>
           </div>
+        </div>
+        <!-- 保存/クリアボタン -->
+        <div class="mt-4 flex items-center gap-4">
+          <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            💾 保存
+          </button>
+          <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            🗑️ クリア
+          </button>
+          <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
         </div>
       </div>
     </section>
@@ -673,6 +684,13 @@
         </p>
       </div>
     </section>
+
+    <!-- エクスポートボタン -->
+    <div class="text-center mb-8">
+      <button onclick="WorkManager.exportAllAnswers()" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        📥 全ワーク課題をエクスポート
+      </button>
+    </div>
 
     <!-- 次のセクションへ -->
     <div class="text-center">
@@ -756,6 +774,62 @@
       if (e.key === 'Escape') {
         closeModal();
       }
+    });
+
+    // ワーク課題の管理
+    const PAGE_ID = 'section-03.html';
+
+    // ページ読み込み時に保存された回答を復元
+    window.addEventListener('DOMContentLoaded', () => {
+      WorkManager.loadAnswers(PAGE_ID, ['work-item-1', 'work-item-2', 'work-item-3']);
+    });
+
+    // 保存関数
+    function saveWork() {
+      const answers = [
+        document.getElementById('work-item-1').value,
+        document.getElementById('work-item-2').value,
+        document.getElementById('work-item-3').value
+      ];
+
+      WorkManager.saveAnswers(PAGE_ID, answers);
+
+      // フィードバック表示
+      const feedback = document.getElementById('save-feedback');
+      feedback.textContent = '✅ 保存しました！';
+      feedback.classList.remove('opacity-0');
+      feedback.classList.add('text-green-600');
+      setTimeout(() => {
+        feedback.classList.add('opacity-0');
+      }, 2000);
+    }
+
+    // クリア関数
+    function clearWork() {
+      if (confirm('入力内容をクリアしてもよろしいですか？')) {
+        document.getElementById('work-item-1').value = '';
+        document.getElementById('work-item-2').value = '';
+        document.getElementById('work-item-3').value = '';
+        WorkManager.clearAnswers(PAGE_ID);
+
+        // フィードバック表示
+        const feedback = document.getElementById('save-feedback');
+        feedback.textContent = '🗑️ クリアしました';
+        feedback.classList.remove('opacity-0', 'text-green-600');
+        feedback.classList.add('text-gray-600');
+        setTimeout(() => {
+          feedback.classList.add('opacity-0');
+        }, 2000);
+      }
+    }
+
+    // Enterキーで保存
+    ['work-item-1', 'work-item-2', 'work-item-3'].forEach(id => {
+      document.getElementById(id).addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          saveWork();
+        }
+      });
     });
   </script>
 

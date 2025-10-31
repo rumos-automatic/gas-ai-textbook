@@ -161,6 +161,17 @@
 - 全セクションで統一されたデザインとナビゲーション機能を実装済み
 
 ### 最新更新（2025-10-31）
+- ✅ **ワーク課題の入力可能化とローカルストレージ保存機能**を実装
+  - 共通JavaScriptライブラリ（`assets/js/workManager.js`）を作成
+  - 11ファイルのワーク課題に入力フィールドを追加
+    - 生成AI: section-01.html, section-02.html, section-03.html
+    - GAS: section-01.html, section-03.html, section-05.html
+    - 基本的な考え方: section-01.html, section-03.html
+  - 自動保存機能（500msデバウンス）
+  - 保存/クリアボタンの追加
+  - エクスポート機能（全ワーク課題をテキストファイルでダウンロード）
+  - ページ読み込み時の自動復元機能
+
 - ✅ **生成AI紹介 セクション4**を最新情報に更新
   - ChatGPT 5の5つのモード（Auto、Instant、Thinking mini、Thinking、Pro）を詳細化
   - プラン比較表に「利用可能モデル」列を追加
