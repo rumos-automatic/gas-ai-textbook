@@ -392,10 +392,10 @@
 
   <!-- スクリプト -->
   <script>
-    // サンプルメール送信機能
-    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxXf-_GUUAWP14aBgMjevcJen6r1COwwUhAYyfSVWLs895nuBviLzhNzs2W705v3z3O/exec';
+    // サンプルメール送信機能（JSONP対応）
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx1r7tTYGusZDJStgz92FLJqVVfaX3oukDYPVJ7R0D2jQTiMq3k2mwmj0rfGK_Db7Yq/exec';
 
-    async function sendSampleEmail() {
+    function sendSampleEmail() {
       const emailInput = document.getElementById('emailInput');
       const sendButton = document.getElementById('sendButton');
       const buttonText = document.getElementById('buttonText');
@@ -421,33 +421,48 @@
       buttonSpinner.classList.remove('hidden');
       statusMessage.classList.add('hidden');
 
-      try {
-        const response = await fetch(GAS_WEB_APP_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email: email }),
-          mode: 'cors'
-        });
+      // JSONP リクエスト
+      const callbackName = 'jsonpCallback_' + Date.now();
 
-        const data = await response.json();
-
+      // コールバック関数を定義
+      window[callbackName] = function(data) {
         if (data.success) {
           showStatus('success', data.message);
           emailInput.value = ''; // 入力欄をクリア
         } else {
           showStatus('error', data.message);
         }
-      } catch (error) {
-        console.error('Error:', error);
-        showStatus('error', 'ネットワークエラーが発生しました。時間をおいて再度お試しください。');
-      } finally {
+
+        // クリーンアップ
+        delete window[callbackName];
+        document.body.removeChild(script);
+
         // ローディング解除
         sendButton.disabled = false;
         buttonText.classList.remove('hidden');
         buttonSpinner.classList.add('hidden');
-      }
+      };
+
+      // エラーハンドリング
+      const handleError = function() {
+        showStatus('error', 'ネットワークエラーが発生しました。時間をおいて再度お試しください。');
+        delete window[callbackName];
+        document.body.removeChild(script);
+
+        // ローディング解除
+        sendButton.disabled = false;
+        buttonText.classList.remove('hidden');
+        buttonSpinner.classList.add('hidden');
+      };
+
+      // scriptタグを動的に作成
+      const script = document.createElement('script');
+      script.src = GAS_WEB_APP_URL +
+        '?callback=' + callbackName +
+        '&email=' + encodeURIComponent(email);
+      script.onerror = handleError;
+      script.onabort = handleError;
+      document.body.appendChild(script);
     }
 
     function isValidEmail(email) {

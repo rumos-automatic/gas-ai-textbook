@@ -9,101 +9,85 @@ const PROPERTIES_KEY_COUNT = 'emailSentCount'; // 送信カウンター
 const PROPERTIES_KEY_DATE = 'lastResetDate'; // 最終リセット日
 
 /**
- * Web AppのGETリクエストを処理（プリフライトリクエスト対応）
+ * Web AppのGETリクエストを処理（JSONP対応）
  */
 function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({
-    success: true,
-    message: 'Server is running'
-  }))
-  .setMimeType(ContentService.MimeType.JSON)
-  .setHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  });
-}
-
-/**
- * Web AppのPOSTリクエストを処理
- */
-function doPost(e) {
   try {
-    // CORSヘッダーを含むレスポンスを返す
-    const response = handleEmailRequest(e);
-    return ContentService.createTextOutput(JSON.stringify(response))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeaders({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      });
+    // URLパラメータから値を取得
+    const callback = e.parameter.callback;
+    const email = e.parameter.email;
+
+    let response;
+
+    // callbackが指定されていない場合（直接アクセス）
+    if (!callback) {
+      response = {
+        success: false,
+        message: 'このエンドポイントはJSONP経由でのみアクセスできます'
+      };
+      return ContentService.createTextOutput(JSON.stringify(response))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // メールアドレスのバリデーション
+    if (!email || !isValidEmail(email)) {
+      response = {
+        success: false,
+        message: 'メールアドレスの形式が正しくありません'
+      };
+      return createJsonpResponse(callback, response);
+    }
+
+    // 送信制限チェック
+    const limitCheck = checkDailyLimit();
+    if (!limitCheck.allowed) {
+      response = {
+        success: false,
+        message: limitCheck.message
+      };
+      return createJsonpResponse(callback, response);
+    }
+
+    // メール送信
+    try {
+      sendSampleEmail(email);
+
+      // 送信カウンターを増やす
+      incrementEmailCount();
+
+      response = {
+        success: true,
+        message: 'サンプルメールを送信しました！Gmailを確認してください'
+      };
+      return createJsonpResponse(callback, response);
+
+    } catch (error) {
+      Logger.log('Error sending email: ' + error.toString());
+      response = {
+        success: false,
+        message: 'メール送信中にエラーが発生しました: ' + error.toString()
+      };
+      return createJsonpResponse(callback, response);
+    }
+
   } catch (error) {
-    Logger.log('Error in doPost: ' + error.toString());
-    return ContentService.createTextOutput(JSON.stringify({
+    Logger.log('Error in doGet: ' + error.toString());
+    const callback = e.parameter.callback || 'callback';
+    const response = {
       success: false,
       message: 'サーバーエラーが発生しました: ' + error.toString()
-    }))
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    });
+    };
+    return createJsonpResponse(callback, response);
   }
 }
 
 /**
- * メール送信リクエストを処理
+ * JSONP形式のレスポンスを作成
  */
-function handleEmailRequest(e) {
-  // リクエストボディからメールアドレスを取得
-  let emailAddress;
-  try {
-    const postData = JSON.parse(e.postData.contents);
-    emailAddress = postData.email;
-  } catch (error) {
-    return {
-      success: false,
-      message: 'リクエストの形式が正しくありません'
-    };
-  }
-
-  // メールアドレスのバリデーション
-  if (!emailAddress || !isValidEmail(emailAddress)) {
-    return {
-      success: false,
-      message: 'メールアドレスの形式が正しくありません'
-    };
-  }
-
-  // 送信制限チェック
-  const limitCheck = checkDailyLimit();
-  if (!limitCheck.allowed) {
-    return {
-      success: false,
-      message: limitCheck.message
-    };
-  }
-
-  // メール送信
-  try {
-    sendSampleEmail(emailAddress);
-
-    // 送信カウンターを増やす
-    incrementEmailCount();
-
-    return {
-      success: true,
-      message: 'サンプルメールを送信しました！Gmailを確認してください'
-    };
-  } catch (error) {
-    Logger.log('Error sending email: ' + error.toString());
-    return {
-      success: false,
-      message: 'メール送信中にエラーが発生しました: ' + error.toString()
-    };
-  }
+function createJsonpResponse(callback, data) {
+  const jsonpResponse = callback + '(' + JSON.stringify(data) + ')';
+  return ContentService.createTextOutput(jsonpResponse)
+    .setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 
 /**
