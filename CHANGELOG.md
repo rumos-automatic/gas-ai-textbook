@@ -2,6 +2,40 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-02] - 実践編①にサンプルメール送信機能を実装
+
+### 🎉 新規追加
+
+- ✅ **サンプルメール自動送信機能の実装**
+  - GAS Web App（Clasp管理）でサンプルメール送信エンドポイントを作成
+  - practice-01-step1.htmlに受講者向けメール送信フォームを追加
+  - 注文番号は毎回ランダムに生成（YYYYMMDD-XXXXX形式）
+  - 1日80通の送信制限を実装（PropertiesService使用）
+  - JSONP方式でCORSエラーを完全回避
+  - 迷惑メールフォルダに入る可能性の注意書きを追加
+
+### 🔧 修正内容
+
+- ✅ **CORS対応の試行錯誤を経てJSONP方式に決定**
+  - 当初はCORSヘッダー（Access-Control-Allow-Origin）での対応を試みるも、GASの制限により失敗
+  - JSONP（JSON with Padding）方式に変更し、CORSを完全回避
+  - HTMLのfetchからscriptタグ動的挿入方式に変更
+  - GASでdoGet関数でURLパラメータ（callback, email）を処理
+
+### 📁 追加ファイル
+
+- `gas-projects/sample-email-sender/` - GASプロジェクト（Clasp管理）
+  - `Code.gs` - メール送信ロジック、JSONP対応、送信制限管理
+  - `appsscript.json` - GAS設定ファイル
+  - `.clasp.json` - Clasp設定ファイル
+
+### 🌐 デプロイ情報
+
+- **GAS Web App URL**: `https://script.google.com/macros/s/AKfycbx1r7tTYGusZDJStgz92FLJqVVfaX3oukDYPVJ7R0D2jQTiMq3k2mwmj0rfGK_Db7Yq/exec`
+- **GASエディタ**: `https://script.google.com/d/1QeAO4NNb2E1RASnaOucK6KEmXDyk7SqFdAotPup5dRxnexPntXSBkyvY/edit`
+
+---
+
 ## [2025-10-31] - GAS紹介セクション6の図解を大幅にビジュアル強化
 
 ### 🎨 ビジュアル改善
