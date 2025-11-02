@@ -93,6 +93,79 @@
       </div>
     </header>
 
+    <!-- サンプルメール送信セクション -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📧 事前準備：サンプルメールを受信しましょう</h2>
+
+      <!-- 注意書き -->
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 重要：送信制限について</h3>
+        <ul class="list-disc pl-6 space-y-2 text-lg leading-relaxed text-gray-700">
+          <li><strong>1日の送信上限：</strong>80通</li>
+          <li><strong>同時受講者20名想定：</strong>各自最大4回まで送信可能</li>
+          <li><strong>エラーが出た場合：</strong>時間をおいて再度お試しください</li>
+          <li><strong>上限到達時：</strong>翌日（午前0時）にリセットされます</li>
+        </ul>
+      </div>
+
+      <!-- 説明 -->
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          この実践編では、注文確認メールをスプレッドシートに自動転記する機能を作ります。
+          まず、練習用のサンプルメールをあなたのGmailに送信しましょう。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed">
+          受信したメールには、注文番号（例：20250102-12345）や商品情報が含まれています。
+          このメールを使って、GASでの自動転記を実践していきます。
+        </p>
+      </div>
+
+      <!-- フォーム -->
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">サンプルメールを送信</h3>
+
+        <div class="mb-6">
+          <label for="emailInput" class="block text-lg font-semibold text-gray-700 mb-2">
+            あなたのメールアドレス
+          </label>
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="your-email@gmail.com"
+            class="w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+          >
+        </div>
+
+        <button
+          id="sendButton"
+          onclick="sendSampleEmail()"
+          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-6 py-4 rounded-lg transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          <span id="buttonText">サンプルメールを送信</span>
+          <span id="buttonSpinner" class="hidden">
+            <svg class="animate-spin inline-block h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            送信中...
+          </span>
+        </button>
+
+        <!-- ステータスメッセージ -->
+        <div id="statusMessage" class="mt-6 hidden"></div>
+      </div>
+
+      <!-- 補足説明 -->
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 このメールの使い方</h3>
+        <p class="text-lg leading-relaxed text-gray-700">
+          サンプルメールには、「注文番号」「商品名」「価格」「配送予定日」などの情報が含まれています。
+          次のステップでは、このメールの情報をGASで自動的にスプレッドシートに転記する方法を学びます。
+          何度でも送信できますので、練習用にお使いください。
+        </p>
+      </div>
+    </section>
+
     <!-- 棚卸の重要性 -->
     <section class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">なぜ作業の棚卸が必要なのか？</h2>
@@ -319,6 +392,83 @@
 
   <!-- スクリプト -->
   <script>
+    // サンプルメール送信機能
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwjZOySjmtlVPWySbywIAiqBxKxS47rsWBz2Z44adQsbPC1zhNJ_1rEhT08grkeHgZM/exec';
+
+    async function sendSampleEmail() {
+      const emailInput = document.getElementById('emailInput');
+      const sendButton = document.getElementById('sendButton');
+      const buttonText = document.getElementById('buttonText');
+      const buttonSpinner = document.getElementById('buttonSpinner');
+      const statusMessage = document.getElementById('statusMessage');
+
+      const email = emailInput.value.trim();
+
+      // バリデーション
+      if (!email) {
+        showStatus('error', 'メールアドレスを入力してください');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        showStatus('error', 'メールアドレスの形式が正しくありません');
+        return;
+      }
+
+      // ローディング状態
+      sendButton.disabled = true;
+      buttonText.classList.add('hidden');
+      buttonSpinner.classList.remove('hidden');
+      statusMessage.classList.add('hidden');
+
+      try {
+        const response = await fetch(GAS_WEB_APP_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: email }),
+          mode: 'cors'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showStatus('success', data.message);
+          emailInput.value = ''; // 入力欄をクリア
+        } else {
+          showStatus('error', data.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showStatus('error', 'ネットワークエラーが発生しました。時間をおいて再度お試しください。');
+      } finally {
+        // ローディング解除
+        sendButton.disabled = false;
+        buttonText.classList.remove('hidden');
+        buttonSpinner.classList.add('hidden');
+      }
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function showStatus(type, message) {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.classList.remove('hidden');
+
+      if (type === 'success') {
+        statusMessage.className = 'mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg';
+        statusMessage.innerHTML = `<strong>✅ ${message}</strong>`;
+      } else {
+        statusMessage.className = 'mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg';
+        statusMessage.innerHTML = `<strong>❌ ${message}</strong>`;
+      }
+    }
+
+    // 画像モーダル機能
     function openModal(imagePath) {
       const modal = document.getElementById('imageModal');
       const modalImage = document.getElementById('modalImage');
