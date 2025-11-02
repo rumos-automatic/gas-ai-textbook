@@ -9,6 +9,22 @@ const PROPERTIES_KEY_COUNT = 'emailSentCount'; // 送信カウンター
 const PROPERTIES_KEY_DATE = 'lastResetDate'; // 最終リセット日
 
 /**
+ * Web AppのGETリクエストを処理（プリフライトリクエスト対応）
+ */
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    success: true,
+    message: 'Server is running'
+  }))
+  .setMimeType(ContentService.MimeType.JSON)
+  .setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
+}
+
+/**
  * Web AppのPOSTリクエストを処理
  */
 function doPost(e) {
@@ -16,13 +32,24 @@ function doPost(e) {
     // CORSヘッダーを含むレスポンスを返す
     const response = handleEmailRequest(e);
     return ContentService.createTextOutput(JSON.stringify(response))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      });
   } catch (error) {
     Logger.log('Error in doPost: ' + error.toString());
     return ContentService.createTextOutput(JSON.stringify({
       success: false,
       message: 'サーバーエラーが発生しました: ' + error.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
+    }))
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
   }
 }
 
