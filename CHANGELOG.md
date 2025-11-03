@@ -2,6 +2,23 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-03] - GASプロジェクトのアカウント移行
+
+### 🔧 修正内容
+
+- ✅ **サンプルメール送信機能のGoogleアカウントを変更**
+  - clasp loginで新しいGoogleアカウントに切り替え
+  - `.clasp.json`を削除し、新アカウントで再作成
+  - clasp createで新しいスプレッドシートとGASプロジェクトを作成
+  - GASコード（Code.gs, appsscript.json）を新プロジェクトにpush
+  - Web Appとして再デプロイ
+
+### 📊 技術的詳細
+
+- **新スプレッドシートURL**: https://drive.google.com/open?id=1hdW7ZyeXmrhpSwiT0Hphb_YV__tXDms3WdpJHil_2D4
+- **新スクリプトエディタURL**: https://script.google.com/d/1KzGoxcpFqCsm56O_fvOWkXMX8G3TMyuTlVtGAyx_JQ-wDU-24rP9TP4h/edit
+- **デプロイID**: AKfycbxchkq3xGZmIqnWJk9puduu6tsaPDbr9uYlmgW8m8LOWp-ZrbkV01TOISJhoR4VYnDi
+
 ## [2025-11-03] - 全セクションのレイアウト統一
 
 ### 🎨 デザイン改善
