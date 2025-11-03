@@ -168,6 +168,7 @@
   - clasp createで新しいスプレッドシートとGASプロジェクトを作成
   - GASコード（Code.gs, appsscript.json）を新プロジェクトにpush
   - Web Appとして再デプロイ完了
+  - practice-01-step1.htmlのGAS Web App URLを新アカウントのURLに更新
 
 - ✅ **全セクションのレイアウトを統一（27ファイル）**
   - warmup-section-* (4ファイル): ヘッダーバッジ削除、ナビゲーション2層化、ドットインジケーター標準化

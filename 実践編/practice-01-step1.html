@@ -49,6 +49,53 @@
       height: 4px;
       background: linear-gradient(to right, #667eea 0%, #667eea 25%, #e5e7eb 25%, #e5e7eb 100%);
     }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="smooth-scroll bg-gray-50">
@@ -73,6 +120,24 @@
     </div>
   </nav>
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="sample-mail">
+        <span class="dot-label">サンプルメール送信</span>
+      </div>
+      <div class="dot" data-section="why-inventory">
+        <span class="dot-label">棚卸の重要性</span>
+      </div>
+      <div class="dot" data-section="current-workflow">
+        <span class="dot-label">現在の手作業</span>
+      </div>
+      <div class="dot" data-section="automation-value">
+        <span class="dot-label">自動化の価値</span>
+      </div>
+    </div>
+  </div>
+
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -87,7 +152,7 @@
     </header>
 
     <!-- サンプルメール送信セクション -->
-    <section class="mb-20">
+    <section id="sample-mail" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📧 事前準備：サンプルメールを受信しましょう</h2>
 
       <!-- 注意書き -->
@@ -167,7 +232,7 @@
     </section>
 
     <!-- 棚卸の重要性 -->
-    <section class="mb-20">
+    <section id="why-inventory" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">なぜ作業の棚卸が必要なのか？</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
@@ -199,7 +264,7 @@
     </section>
 
     <!-- 現在の手作業の流れ -->
-    <section class="mb-20">
+    <section id="current-workflow" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">現在の手作業の流れ</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
@@ -331,7 +396,7 @@
     </section>
 
     <!-- この作業を自動化する価値 -->
-    <section class="mb-20">
+    <section id="automation-value" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">この作業を自動化する価値</h2>
 
       <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg shadow-md p-8">
@@ -369,7 +434,7 @@
     </section>
 
     <!-- 次のステップへの誘導 -->
-    <section class="mb-20">
+    <section id="sample-mail" class="mb-20">
       <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">作業の棚卸ができましたか？</h2>
         <p class="text-lg md:text-xl mb-6">
@@ -393,7 +458,7 @@
   <!-- スクリプト -->
   <script>
     // サンプルメール送信機能（JSONP対応）
-    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx1r7tTYGusZDJStgz92FLJqVVfaX3oukDYPVJ7R0D2jQTiMq3k2mwmj0rfGK_Db7Yq/exec';
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzxqeoP6m-48bAcxLY0iTUDjiYsVI-ww_1AjP8Ijr4/exec';
 
     function sendSampleEmail() {
       const emailInput = document.getElementById('emailInput');
@@ -501,6 +566,46 @@
       if (event.key === 'Escape') {
         closeModal();
       }
+    });
+
+    // ドットインジケーター
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
     });
   </script>
 
