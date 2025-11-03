@@ -360,29 +360,31 @@
       }
     }
 
-    // スクロール時にアクティブなドットを更新
-    window.addEventListener('scroll', function() {
-      const sections = ['celebration', 'learned', 'gained', 'next', 'final'];
-      const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
 
-      let currentSection = '';
-      sections.forEach(sectionId => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            currentSection = sectionId;
-          }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            const dotSection = dot.getAttribute('onclick').match(/'(.+?)'/)[1];
+            if (dotSection === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
         }
       });
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
 
-      dots.forEach((dot, index) => {
-        if (sections[index] === currentSection) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
+    sections.forEach(section => {
+      observer.observe(section);
     });
   </script>
 

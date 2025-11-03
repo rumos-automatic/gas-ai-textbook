@@ -323,36 +323,40 @@
       }
     });
 
-    // ドットインジケーター
-    const dots = document.querySelectorAll('.dot');
+    // ドットインジケーターのスクロール連動
     const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
 
-    // スクロール時にアクティブなドットを更新
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= sectionTop - 200) {
-          current = section.getAttribute('id');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
         }
       });
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
 
-      dots.forEach(dot => {
-        dot.classList.remove('active');
-        if (dot.getAttribute('data-section') === current) {
-          dot.classList.add('active');
-        }
-      });
+    sections.forEach(section => {
+      observer.observe(section);
     });
 
     // ドットクリックでスムーススクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const targetId = dot.getAttribute('data-section');
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });

@@ -2,6 +2,35 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-03] - ドットインジケーターをIntersectionObserverに完全移行
+
+### ⚡ パフォーマンス改善
+
+- ✅ **10ファイルのドットインジケーターをIntersectionObserverに更新**
+  - practice-01-intro.html
+  - practice-02-section-01.html
+  - practice-04シリーズ全8ファイル（intro, step1-6, summary）
+
+### 🔧 技術的改善
+
+- ✅ **旧式実装の削除**
+  - `window.addEventListener('scroll')`イベントリスナーを削除
+  - `scrollY`を使った手動位置計算を削除
+  - `getBoundingClientRect()`による可視性判定を削除
+
+- ✅ **IntersectionObserver実装**
+  - 効率的なセクション可視性判定
+  - `rootMargin: '-50% 0px -50% 0px'`で画面中央検出
+  - `threshold: 0`で1pxでも見えたら検出
+  - スムーススクロール機能を完全保持
+
+### 📊 改善結果
+
+- 全65ファイル中65ファイルでIntersectionObserver実装完了（100%）
+- パフォーマンス向上：スクロールイベントによる無駄な計算を削減
+- メモリ効率向上：ブラウザネイティブAPIによる最適化
+- モダンなベストプラクティスに完全準拠
+
 ## [2025-11-03] - 実践編①と上級編に進捗バーを追加
 
 ### 🎨 デザイン改善
