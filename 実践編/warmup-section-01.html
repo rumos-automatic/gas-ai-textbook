@@ -58,6 +58,11 @@
       opacity: 1;
     }
 
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #3b82f6 0%, #3b82f6 25%, #e5e7eb 25%, #e5e7eb 100%);
+    }
+
     /* モバイルでドットインジケーターを非表示 */
     @media (max-width: 768px) {
       .dot-indicator {
@@ -131,6 +136,8 @@
           </a>
         </div>
       </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
 

@@ -16,6 +16,59 @@
       height: 4px;
       background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 71.43%, #e5e7eb 71.43%, #e5e7eb 100%);
     }
+
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot.active {
+      background-color: #6366f1;
+      transform: scale(1.5);
+    }
+
+    .dot:hover {
+      transform: scale(1.3);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(99, 102, 241, 0.9);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body class="smooth-scroll bg-gray-50">
@@ -41,6 +94,27 @@
     </div>
   </nav>
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="importance">
+        <span class="dot-label">動作確認の重要性</span>
+      </div>
+      <div class="dot" data-section="checkpoints">
+        <span class="dot-label">確認すべきポイント</span>
+      </div>
+      <div class="dot" data-section="error-handling">
+        <span class="dot-label">エラー対処法</span>
+      </div>
+      <div class="dot" data-section="common-errors">
+        <span class="dot-label">よくあるエラー例</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">動作確認完了</span>
+      </div>
+    </div>
+  </div>
+
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -58,7 +132,7 @@
     </header>
 
     <!-- 動作確認の重要性 -->
-    <section class="mb-16">
+    <section id="importance" class="mb-16">
       <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
         <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
           💡 なぜ動作確認が重要なのか？
@@ -70,7 +144,7 @@
     </section>
 
     <!-- 確認ポイント -->
-    <section class="mb-16">
+    <section id="checkpoints" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         ✅ 確認すべきポイント
       </h2>
@@ -183,7 +257,7 @@
     </section>
 
     <!-- エラーが出た場合の対処法 -->
-    <section class="mb-16">
+    <section id="error-handling" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         ⚠️ エラーが出た場合の対処法
       </h2>
@@ -261,7 +335,7 @@
     </section>
 
     <!-- よくあるエラー例 -->
-    <section class="mb-16">
+    <section id="common-errors" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         🔍 よくあるエラー例
       </h2>
@@ -306,7 +380,7 @@
     </section>
 
     <!-- まとめ -->
-    <section class="mb-16">
+    <section id="summary" class="mb-16">
       <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
           ✅ 動作確認が完了したら
@@ -348,6 +422,46 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    // ドットインジケーターのスクロール連動
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでスムーススクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

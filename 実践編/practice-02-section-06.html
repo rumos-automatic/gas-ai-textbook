@@ -49,6 +49,59 @@
       height: 4px;
       background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 85.71%, #e5e7eb 85.71%, #e5e7eb 100%);
     }
+
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot.active {
+      background-color: #6366f1;
+      transform: scale(1.5);
+    }
+
+    .dot:hover {
+      transform: scale(1.3);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(99, 102, 241, 0.9);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body class="smooth-scroll bg-gray-50">
@@ -74,6 +127,30 @@
     </div>
   </nav>
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="what-is">
+        <span class="dot-label">カスタムメニューとは</span>
+      </div>
+      <div class="dot" data-section="important-point">
+        <span class="dot-label">超重要ポイント</span>
+      </div>
+      <div class="dot" data-section="request-example">
+        <span class="dot-label">依頼例</span>
+      </div>
+      <div class="dot" data-section="implementation">
+        <span class="dot-label">実装手順</span>
+      </div>
+      <div class="dot" data-section="tips">
+        <span class="dot-label">使う際のポイント</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
+    </div>
+  </div>
+
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -91,7 +168,7 @@
     </header>
 
     <!-- カスタムメニューとは -->
-    <section class="mb-16">
+    <section id="what-is" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         📋 カスタムメニューとは？
       </h2>
@@ -158,7 +235,7 @@
     </section>
 
     <!-- 超重要ポイント -->
-    <section class="mb-16">
+    <section id="important-point" class="mb-16">
       <div class="bg-red-50 border-l-4 border-red-600 p-8 rounded-r-lg">
         <h2 class="text-3xl md:text-4xl font-bold text-red-800 mb-6">
           ⚠️ 作り方の超重要ポイント
@@ -201,7 +278,7 @@
     </section>
 
     <!-- 実践②をメニュー化する依頼例 -->
-    <section class="mb-16">
+    <section id="request-example" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         💬 実践②をメニュー化する依頼例
       </h2>
@@ -228,7 +305,7 @@
     </section>
 
     <!-- 実装手順 -->
-    <section class="mb-16">
+    <section id="implementation" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         🛠️ 実装手順
       </h2>
@@ -353,7 +430,7 @@ function importOrderData() {
     </section>
 
     <!-- ポイント -->
-    <section class="mb-16">
+    <section id="tips" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
         💡 カスタムメニューを使う際のポイント
       </h2>
@@ -408,7 +485,7 @@ function importOrderData() {
     </section>
 
     <!-- まとめ -->
-    <section class="mb-16">
+    <section id="summary" class="mb-16">
       <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
           ✅ カスタムメニュー設定完了！
@@ -486,6 +563,44 @@ function importOrderData() {
       if (e.key === 'Escape') {
         modal.classList.remove('active');
       }
+    });
+
+    // ドットインジケーターのスクロール連動
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでスムーススクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
   </script>
 

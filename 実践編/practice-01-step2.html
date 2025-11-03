@@ -49,6 +49,53 @@
       height: 4px;
       background: linear-gradient(to right, #667eea 0%, #667eea 37.5%, #e5e7eb 37.5%, #e5e7eb 100%);
     }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
     .code-block {
       background-color: #1e293b;
       color: #e2e8f0;
@@ -83,6 +130,24 @@
     </div>
   </nav>
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="what-is-prompt">
+        <span class="dot-label">プロンプトとは</span>
+      </div>
+      <div class="dot" data-section="prompt-structure">
+        <span class="dot-label">プロンプトの構成</span>
+      </div>
+      <div class="dot" data-section="prompt-example">
+        <span class="dot-label">実際のプロンプト例</span>
+      </div>
+      <div class="dot" data-section="after-sending">
+        <span class="dot-label">送信後の流れ</span>
+      </div>
+    </div>
+  </div>
+
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
@@ -97,7 +162,7 @@
     </header>
 
     <!-- プロンプトとは -->
-    <section class="mb-20">
+    <section id="what-is-prompt" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトとは？</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
@@ -140,7 +205,7 @@
     </section>
 
     <!-- プロンプトの構成 -->
-    <section class="mb-20">
+    <section id="prompt-structure" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">効果的なプロンプトの構成</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
@@ -178,7 +243,7 @@
     </section>
 
     <!-- 実際のプロンプト例 -->
-    <section class="mb-20">
+    <section id="prompt-example" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">実際のプロンプト例</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
@@ -244,7 +309,7 @@ Gmailで特定のメールを検索し、内容をGoogleスプレッドシート
     </section>
 
     <!-- プロンプトを送った後 -->
-    <section class="mb-20">
+    <section id="after-sending" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトを送った後は？</h2>
 
       <div class="bg-white rounded-lg shadow-md p-8">
@@ -362,6 +427,46 @@ Gmailで特定のメールを検索し、内容をGoogleスプレッドシート
         }, 3000);
       });
     }
+
+    // ドットインジケーター
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
   </script>
 
 </body>
