@@ -17,9 +17,6 @@
       right: 2rem;
       top: 50%;
       transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
       z-index: 50;
     }
 
@@ -133,38 +130,42 @@
 <body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
 
   <!-- ナビゲーション -->
-  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
-    <div class="max-w-5xl mx-auto flex justify-between items-center">
-      <a href="../index.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
-        ← トップページへ戻る
-      </a>
-      <div class="flex gap-4">
-        <a href="warmup-section-01.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
-          ← 前へ
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-blue-600 hover:text-blue-800 transition">
+          ← トップページへ
         </a>
-        <a href="warmup-section-03.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
-          次へ →
-        </a>
+        <div class="flex gap-4">
+          <a href="warmup-section-01.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+            ← 前へ
+          </a>
+          <a href="warmup-section-03.html" class="text-base md:text-lg font-semibold text-blue-600 hover:text-blue-800 transition">
+            次へ →
+          </a>
+        </div>
       </div>
     </div>
   </nav>
 
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
-    <div class="dot active" data-target="intro">
-      <span class="dot-label">このセクションで学ぶこと</span>
-    </div>
-    <div class="dot" data-target="how-to">
-      <span class="dot-label">ChatGPTで関数を作る流れ</span>
-    </div>
-    <div class="dot" data-target="work1">
-      <span class="dot-label">ワーク1：ステータス自動付与</span>
-    </div>
-    <div class="dot" data-target="work2">
-      <span class="dot-label">ワーク2：発送予定日の自動計算</span>
-    </div>
-    <div class="dot" data-target="summary">
-      <span class="dot-label">まとめ</span>
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">このセクションで学ぶこと</span>
+      </div>
+      <div class="dot" data-section="how-to">
+        <span class="dot-label">ChatGPTで関数を作る流れ</span>
+      </div>
+      <div class="dot" data-section="work1">
+        <span class="dot-label">ワーク1：ステータス自動付与</span>
+      </div>
+      <div class="dot" data-section="work2">
+        <span class="dot-label">ワーク2：発送予定日の自動計算</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
+      </div>
     </div>
   </div>
 
@@ -172,17 +173,11 @@
   <main class="max-w-4xl mx-auto px-6 py-12">
 
     <!-- セクションタイトル -->
-    <header class="mb-12 text-center">
-      <div class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-2 rounded-full text-base md:text-lg font-bold mb-4">
-        実践ウォーミングアップ - セクション 2
-      </div>
-      <div class="inline-block bg-green-100 text-green-800 px-4 py-1 rounded-full text-sm font-bold mb-4">
-        🟢 カンタンレベル
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
         ChatGPTで関数を作ってみよう
       </h1>
-      <p class="text-lg md:text-xl text-gray-700">
+      <p class="text-lg md:text-xl text-gray-600">
         ChatGPTに"目的"を伝えるだけで、関数を自動作成してくれます。<br>
         「毎回手作業だったことが、関数で一瞬で終わる」を体験しましょう。
       </p>
@@ -556,7 +551,7 @@
 
       dots.forEach(dot => {
         dot.classList.remove('active');
-        if (dot.getAttribute('data-target') === current) {
+        if (dot.getAttribute('data-section') === current) {
           dot.classList.add('active');
         }
       });
@@ -565,7 +560,7 @@
     // ドットクリックでスムーススクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const targetId = dot.getAttribute('data-target');
+        const targetId = dot.getAttribute('data-section');
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
           targetSection.scrollIntoView({ behavior: 'smooth' });
