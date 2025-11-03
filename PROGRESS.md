@@ -176,8 +176,10 @@
   - clasp loginでアカウント変更、`.clasp.json`を削除して再作成
   - clasp createで新しいスプレッドシートとGASプロジェクトを作成
   - GASコード（Code.gs, appsscript.json）を新プロジェクトにpush
+  - appsscript.jsonにwebapp設定を追加（executeAs: USER_DEPLOYING, access: ANYONE）
   - Web Appとして再デプロイ完了
   - practice-01-step1.htmlのGAS Web App URLを新アカウントのURLに更新
+  - メール送信機能の動作確認完了 ✅
 
 - ✅ **全セクションのレイアウトを統一（27ファイル）**
   - warmup-section-* (4ファイル): ヘッダーバッジ削除、ナビゲーション2層化、ドットインジケーター標準化

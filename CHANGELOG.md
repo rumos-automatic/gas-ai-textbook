@@ -42,8 +42,10 @@
   - `.clasp.json`を削除し、新アカウントで再作成
   - clasp createで新しいスプレッドシートとGASプロジェクトを作成
   - GASコード（Code.gs, appsscript.json）を新プロジェクトにpush
+  - **appsscript.jsonにwebapp設定を追加**（executeAs: USER_DEPLOYING, access: ANYONE）
   - Web Appとして再デプロイ
   - practice-01-step1.htmlのGAS Web App URLを新アカウントのURLに更新
+  - **メール送信機能の動作確認完了**
 
 ### 📊 技術的詳細
 
@@ -51,6 +53,7 @@
 - **新スクリプトエディタURL**: https://script.google.com/d/1KzGoxcpFqCsm56O_fvOWkXMX8G3TMyuTlVtGAyx_JQ-wDU-24rP9TP4h/edit
 - **新Web App URL**: https://script.google.com/macros/s/AKfycbzxqeoP6m-48bAcxLY0iTUDjiYsVI-ww_1AjP8Ijr4/exec
 - **デプロイID**: AKfycbzxqeoP6m-48bAcxLY0iTUDjiYsVI-ww_1AjP8Ijr4 (@HEAD)
+- **タイムゾーン**: Asia/Tokyo
 
 ## [2025-11-03] - 全セクションのレイアウト統一
 
