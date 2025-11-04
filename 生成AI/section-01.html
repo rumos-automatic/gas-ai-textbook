@@ -947,7 +947,7 @@
           </div>
         </div>
 
-        <!-- 保存/クリアボタン -->
+        <!-- 保存/クリア/エクスポートボタン -->
         <div class="mt-4 flex items-center gap-4">
           <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
             💾 保存
@@ -955,13 +955,16 @@
           <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
             🗑️ クリア
           </button>
+          <button onclick="WorkManager.exportAllAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            📥 エクスポート
+          </button>
           <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
         </div>
       </div>
     </section>
 
     <!-- まとめセクション -->
-    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+    <section class="mb-32 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
         📝 このセクションのまとめ
       </h2>
@@ -997,13 +1000,6 @@
         </p>
       </div>
     </section>
-
-    <!-- エクスポートボタン -->
-    <div class="text-center mb-8">
-      <button onclick="WorkManager.exportAllAnswers()" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
-        📥 全ワーク課題をエクスポート
-      </button>
-    </div>
 
     <!-- 次のセクションへ -->
     <div class="text-center">
