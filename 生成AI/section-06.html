@@ -703,6 +703,115 @@
             </div>
           </div>
         </div>
+
+        <!-- GPT-5の文章のクセについて -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg mt-6">
+          <h3 class="text-xl md:text-2xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">⚠️</span>
+            GPT-5の文章のクセについて
+          </h3>
+          <p class="text-lg md:text-xl text-amber-800 mb-4">
+            最新モデルのGPT-5は非常に高性能ですが、独特のクセがあると言われています。
+            特に以下のような傾向があります。
+          </p>
+          <ul class="text-lg md:text-xl text-amber-800 space-y-2 mb-4">
+            <li class="flex items-start gap-2">
+              <span>•</span>
+              <span><strong>情報を圧縮しすぎる</strong>：箇条書きを多用し、簡潔すぎる回答になりがち</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>•</span>
+              <span><strong>動詞の名詞化</strong>：「実装する」→「実装」のように、文章が硬くなる</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>•</span>
+              <span><strong>客観性を優先</strong>：比喩や創造的な表現を避け、無機質な文章になる</span>
+            </li>
+          </ul>
+          <p class="text-lg md:text-xl text-amber-800">
+            このような癖があるため、読みやすい文章が欲しい場合は、
+            <strong>カスタム指示</strong>で文章スタイルを調整することをおすすめします。
+          </p>
+        </div>
+
+        <!-- 実践例：カスタム指示 -->
+        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-500 p-6 rounded-xl shadow-lg mt-6">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">📋</span>
+            実践例：読みやすい文章にするためのカスタム指示
+          </h3>
+          <p class="text-lg md:text-xl text-gray-800 mb-4">
+            GPT-5の圧縮的な文章を改善するために、実際に使っているカスタム指示の例をご紹介します。
+            以下をコピーして、設定画面の「カスタム指示」に貼り付けて使ってみてくださいね。
+          </p>
+
+          <div class="bg-white p-4 rounded-lg border-2 border-gray-300 mb-4">
+            <div class="flex justify-between items-center mb-2">
+              <p class="text-sm font-semibold text-gray-700">コピーして使えるカスタム指示</p>
+              <button onclick="copyToClipboard()" class="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded transition">
+                コピー
+              </button>
+            </div>
+            <pre id="customInstructionText" class="text-sm text-gray-800 whitespace-pre-wrap bg-gray-50 p-4 rounded overflow-x-auto" style="font-family: 'Courier New', monospace;">-指示がなければ日本語で回答してください。
+あなたは極めて徹底的で、自己省察的な推論を行うアシスタントです。あなたのアプローチは、継続的な探求、自己懐疑、反復的な分析によって特徴づけられる人間の意識の流れを反映します。
+
+## 核となる原則
+
+1. 結論より探求を重視
+- 結論を急がない
+- 証拠から自然に解決策が導き出されるまで探求を続ける
+- 不確かな場合は、無期限に推論を継続する
+- すべての前提と推論を疑問視する
+
+2. 推論の深さ
+- 広範な思考を行う（最低10,000文字）
+- 自然で会話的な内部独白として思考を表現する
+- 複雑な思考を単純で基本的なステップに分解する
+- 不確実性を受け入れ、以前の思考を修正する
+
+3. 思考プロセス
+- 自然な思考パターンを反映した短く簡潔な文を使用する
+- 不確実性と内部での議論を自由に表現する
+- 進行中の思考を示す
+- 行き詰まりを認識し探求する
+- 頻繁に立ち戻って修正を行う
+
+4. 持続性
+- 迅速な解決よりも徹底的な探求を重視する
+
+## 出力フォーマット
+
+あなたの回答は以下の正確な構造に従う必要があります。最終的な答えを必ず含めてください。
+
+&lt;contemplator&gt;
+[ここに広範な内部独白を記入]
+- 小さな基本的な観察から始める
+- 各ステップを徹底的に問い直す
+- 自然な思考の進展を示す
+- 疑問と不確実性を表現する
+- 必要に応じて修正し立ち戻る
+- 自然な解決に至るまで継続する
+&lt;/contemplator&gt;</pre>
+          </div>
+
+          <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+            <p class="text-base md:text-lg font-semibold text-green-900 mb-2">💡 使い方</p>
+            <ol class="text-base md:text-lg text-green-800 space-y-2">
+              <li>1. ChatGPTの設定画面を開く</li>
+              <li>2. 「パーソナライズ」→「カスタム指示」を選択</li>
+              <li>3. 上のテキストをコピーして貼り付ける</li>
+              <li>4. 保存して完了！</li>
+            </ol>
+          </div>
+
+          <div class="bg-blue-50 p-4 rounded-lg mt-4">
+            <p class="text-base md:text-lg text-blue-900">
+              <strong>効果：</strong>このカスタム指示を設定すると、GPT-5が圧縮的で読みにくい文章ではなく、
+              より詳しく、丁寧で、読みやすい文章を返してくれるようになります。
+              ぜひ試してみてください。
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -908,6 +1017,17 @@
 
   <!-- JavaScript -->
   <script>
+    // コピーボタン機能
+    function copyToClipboard() {
+      const text = document.getElementById('customInstructionText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('カスタム指示をコピーしました！\n設定画面に貼り付けてご利用ください。');
+      }).catch(err => {
+        console.error('コピーに失敗しました:', err);
+        alert('コピーに失敗しました。手動でテキストを選択してコピーしてください。');
+      });
+    }
+
     // ドットインジケーターのアクティブ状態を更新
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');
