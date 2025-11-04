@@ -157,17 +157,6 @@
     <section id="sample-mail" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📧 事前準備：サンプルメールを受信しましょう</h2>
 
-      <!-- 注意書き -->
-      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 重要：送信制限について</h3>
-        <ul class="list-disc pl-6 space-y-2 text-lg leading-relaxed text-gray-700">
-          <li><strong>1日の送信上限：</strong>80通</li>
-          <li><strong>同時受講者20名想定：</strong>各自最大4回まで送信可能</li>
-          <li><strong>エラーが出た場合：</strong>時間をおいて再度お試しください</li>
-          <li><strong>上限到達時：</strong>翌日（午前0時）にリセットされます</li>
-        </ul>
-      </div>
-
       <!-- 説明 -->
       <div class="bg-white rounded-lg shadow-md p-8 mb-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
@@ -177,6 +166,15 @@
         <p class="text-lg md:text-xl leading-relaxed">
           受信したメールには、注文番号（例：20250102-12345）や商品情報が含まれています。
           このメールを使って、GASでの自動転記を実践していきます。
+        </p>
+      </div>
+
+      <!-- プライバシー保護に関する注意 -->
+      <div class="bg-gray-50 border-l-4 border-gray-400 p-6 rounded-lg mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔒 個人情報の取り扱いについて</h3>
+        <p class="text-lg leading-relaxed text-gray-700">
+          こちらで入力いただいたメールアドレスは、<strong>サンプルメールの送信のみに使用</strong>いたします。
+          それ以外の目的で使用することは一切ありませんので、ご安心ください。
         </p>
       </div>
 
@@ -223,7 +221,43 @@
           次のステップでは、このメールの情報をGASで自動的にスプレッドシートに転記する方法を学びます。
           何度でも送信できますので、練習用にお使いください。
         </p>
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-4">
+
+        <!-- サンプルメールの内容 -->
+        <div class="mt-6">
+          <h4 class="text-lg font-bold text-gray-900 mb-3">📨 実際に届くメールの内容</h4>
+          <div class="bg-white border-2 border-gray-300 rounded-lg p-6 shadow-inner" style="font-family: 'Courier New', Courier, monospace;">
+            <div class="mb-4 pb-4 border-b-2 border-gray-300">
+              <p class="text-base text-gray-600 mb-1"><strong>差出人：</strong></p>
+              <p class="text-lg text-gray-900">aisapo1.ru4@gmail.com</p>
+            </div>
+            <div class="mb-4 pb-4 border-b-2 border-gray-300">
+              <p class="text-base text-gray-600 mb-1"><strong>件名：</strong></p>
+              <p class="text-lg text-gray-900">【注文完了】ご注文ありがとうございます</p>
+            </div>
+            <div class="text-base text-gray-800 whitespace-pre-line leading-relaxed">━━━━━━━━━━━━━━━━━━━━━
+  ご注文ありがとうございます
+━━━━━━━━━━━━━━━━━━━━━
+
+注文番号: 20251104-12345（例）
+注文日時: 2025年11月4日 14:30（例）
+
+【商品情報】
+商品名: ノートパソコン HP Pavilion 15
+数量: 1個
+価格: 89,800円
+
+お届け予定日: 2025年11月7日（例）
+配送先: ご登録住所
+
+━━━━━━━━━━━━━━━━━━━━━
+※このメールはGAS講座の練習用サンプルです</div>
+          </div>
+          <p class="text-sm text-gray-600 mt-3">
+            ※ 注文番号、注文日時、お届け予定日は送信時に自動生成されます
+          </p>
+        </div>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-6">
           <p class="text-base leading-relaxed text-gray-800">
             <strong>⚠️ 注意：</strong>
             メールが迷惑メールフォルダに振り分けられる可能性があります。
