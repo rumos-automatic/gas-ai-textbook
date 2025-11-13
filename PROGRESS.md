@@ -189,6 +189,34 @@
 
 ### 最新更新（2025-01-13）
 
+- ✅ **実践編①②のスプレッドシートテンプレート作成とリンク追加**
+  - **実践編①メール転記テンプレート作成**
+    - claspで管理するスプレッドシートテンプレート（注文管理シート）
+    - 飛び飛びの列構成（C, D, E, F, G, H, I, J, L, N列）に対応
+    - 10項目の注文管理データ（注文ID、メールアドレス、注文日時、電話番号、お客様名、数量、配送先住所、商品名、金額、配送希望日）
+    - サンプルデータ1行付き、空のCode.gs（受講者が生成AIでコード作成）
+  - **実践編②CSV転記テンプレート作成**
+    - claspで管理するスプレッドシートテンプレート（転記先データシート）
+    - 連続した列構成（A~F列）
+    - 6項目の注文データ（注文者、住所、電話番号、商品名、個数、金額）
+    - サンプルデータ2行付き、空のCode.gs（受講者が生成AIでコード作成）
+  - **HTMLページにテンプレートリンクボタンを追加**
+    - practice-01-section-01.html：作業の棚卸セクションにオレンジグラデーションボタン追加
+    - practice-01-section-08.html：コード貼り付けセクションにオレンジグラデーションボタン追加
+    - practice-02-section-05.html：準備編セクションにグリーングラデーションボタン追加
+    - 既存デザインパターンに準拠（ホバーエフェクト、シャドウ、アイコン付き）
+  - **practice-01-section-05.htmlの列重複を修正**
+    - E列の重複解消：注文日時（E列）、電話番号（E列→F列に変更）
+    - G列の重複解消：お客様名（G列）、数量（G列→H列に変更）
+    - 資料の学習内容と完全一致（飛び飛びの列でもOK）
+  - **templatesディレクトリ追加**
+    - templates/practice-01/：実践編①のclaspプロジェクト（.clasp.json, appsscript.json, Code.gs）
+    - templates/practice-02/：実践編②のclaspプロジェクト（.clasp.json, appsscript.json, Code.gs）
+  - **公開テンプレートURL**
+    - 実践編①：https://docs.google.com/spreadsheets/d/1N5ig61EzRiuVUhWC48hctSQJkZNk3-X_rO6klVyB7_0/edit?usp=sharing
+    - 実践編②：https://docs.google.com/spreadsheets/d/1WcW_RiMwFGxdxCnfVW1Qd11U8dRBJQpjRaP-zNu6gIU/edit?usp=sharing
+    - 両方とも「リンクを知っている全員が閲覧可能」に設定済み。受講者は「コピーを作成」で即座に利用可能
+
 - ✅ **index.htmlを横スクロール対応にUI改善**
   - **全11カテゴリを横スクロール対応に変更**
     - グリッドレイアウト（grid-cols-1 md:grid-cols-2 lg:grid-cols-3） → 横スクロールレイアウト
