@@ -38,6 +38,19 @@
   transform: translateY(0);
 }
 
+/* ヘッダー直下の検索ボタン（index.html, roadmap.html用） */
+header > .global-search-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+}
+
+/* ヘッダーをrelativeに */
+header:has(> .global-search-button) {
+  position: relative;
+}
+
 /* モバイル対応 */
 @media (max-width: 768px) {
   .global-search-button {
@@ -48,6 +61,11 @@
   .global-search-button svg {
     width: 18px;
     height: 18px;
+  }
+
+  header > .global-search-button {
+    top: 1rem;
+    right: 1rem;
   }
 }
 
