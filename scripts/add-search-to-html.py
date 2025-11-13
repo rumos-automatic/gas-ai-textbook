@@ -82,7 +82,7 @@ def main():
     print()
 
     # 対象ディレクトリ
-    target_dirs = ["生成AI", "GAS", "実践編", "基本的な考え方", "上級編"]
+    target_dirs = ["生成AI", "GAS", "実践編", "基本的な考え方", "上級編", "トラブルシューティング"]
 
     total_files = 0
     added_files = 0

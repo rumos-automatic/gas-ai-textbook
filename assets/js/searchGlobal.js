@@ -48,7 +48,7 @@ class GlobalSearch {
 
       if (decodedHref.includes('/生成AI/') || decodedHref.includes('/GAS/') ||
           decodedHref.includes('/実践編/') || decodedHref.includes('/基本的な考え方/') ||
-          decodedHref.includes('/上級編/')) {
+          decodedHref.includes('/上級編/') || decodedHref.includes('/トラブルシューティング/')) {
         // サブディレクトリ内のHTMLファイル
         basePath = '../';
       } else {
@@ -465,7 +465,7 @@ class GlobalSearch {
     let basePath;
     if (decodedHref.includes('/生成AI/') || decodedHref.includes('/GAS/') ||
         decodedHref.includes('/実践編/') || decodedHref.includes('/基本的な考え方/') ||
-        decodedHref.includes('/上級編/')) {
+        decodedHref.includes('/上級編/') || decodedHref.includes('/トラブルシューティング/')) {
       // サブディレクトリ内のHTMLファイル
       basePath = '../';
     } else {

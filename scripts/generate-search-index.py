@@ -19,6 +19,7 @@ CATEGORY_MAP = {
     "実践編": {"icon": "🚀", "color": "purple"},
     "基本的な考え方": {"icon": "💡", "color": "yellow"},
     "上級編": {"icon": "🎓", "color": "green"},
+    "トラブルシューティング": {"icon": "🔧", "color": "red"},
 }
 
 
@@ -156,7 +157,7 @@ def main():
     print()
 
     # 対象ディレクトリ
-    target_dirs = ["生成AI", "GAS", "実践編", "基本的な考え方", "上級編"]
+    target_dirs = ["生成AI", "GAS", "実践編", "基本的な考え方", "上級編", "トラブルシューティング"]
 
     pages = []
     total_sections = 0
