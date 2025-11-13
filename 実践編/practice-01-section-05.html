@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>転記項目の設計 | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 40%, #e5e7eb 40%, #e5e7eb 100%);
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: bold;
+      padding: 1rem;
+      text-align: left;
+    }
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-01-section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-01-section-06.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator space-y-4">
+    <div class="dot" data-section="intro">
+      <span class="dot-label">イントロダクション</span>
+    </div>
+    <div class="dot" data-section="step1">
+      <span class="dot-label">作業の棚卸</span>
+    </div>
+    <div class="dot" data-section="worksheet">
+      <span class="dot-label">ワークシート紹介</span>
+    </div>
+    <div class="dot" data-section="mail-sample">
+      <span class="dot-label">メールサンプル</span>
+    </div>
+    <div class="dot active" data-section="transfer-items">
+      <span class="dot-label">転記項目</span>
+    </div>
+    <div class="dot" data-section="prompt">
+      <span class="dot-label">プロンプト例</span>
+    </div>
+    <div class="dot" data-section="gas-paste">
+      <span class="dot-label">コード貼り付け</span>
+    </div>
+    <div class="dot" data-section="authorization">
+      <span class="dot-label">初回承認</span>
+    </div>
+    <div class="dot" data-section="confirmation">
+      <span class="dot-label">動作確認</span>
+    </div>
+    <div class="dot" data-section="trigger">
+      <span class="dot-label">トリガー設定</span>
+    </div>
+    <div class="dot" data-section="summary">
+      <span class="dot-label">まとめ</span>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- タイトル -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+        📊 転記項目の設計
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        実践編① - 注文メール → スプレッドシート転記
+      </p>
+    </div>
+
+    <!-- 導入説明 -->
+    <section id="intro" class="mb-16">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+          💡 なぜ表を作るの?
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          メールから<span class="font-bold text-blue-700">取得したい項目</span>と<span class="font-bold text-blue-700">転記したい列</span>を、<br/>
+          事前に表にしておきましょう！
+        </p>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                生成AIが<span class="font-bold">何を抽出すればいいか</span>明確に理解できる
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                サンプルデータがあることで、<span class="font-bold">出力形式も正確に</span>
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                自分でも整理できるので、<span class="font-bold">後から修正しやすい</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 転記項目表 -->
+    <section id="transfer-table" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📋 転記先シートの転記項目
+        </h2>
+
+        <div class="overflow-x-auto mb-8">
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th class="text-lg md:text-xl">項目名</th>
+                <th class="text-lg md:text-xl">列</th>
+                <th class="text-lg md:text-xl">抽出内容サンプル</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">注文ID</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">C</td>
+                <td class="text-lg text-gray-700">12345</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">注文日時</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">E</td>
+                <td class="text-lg text-gray-700">2025/10/28 14:30</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">お客様名</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">G</td>
+                <td class="text-lg text-gray-700">山田太郎</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">メールアドレス</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">D</td>
+                <td class="text-lg text-gray-700">yamada@example.com</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">電話番号</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">E</td>
+                <td class="text-lg text-gray-700">090-1234-5678</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">商品名</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">J</td>
+                <td class="text-lg text-gray-700">有機りんご 5kg</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">数量</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">G</td>
+                <td class="text-lg text-gray-700">2箱</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">金額</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">L</td>
+                <td class="text-lg text-gray-700">5600 ※カンマ・円記号除去</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">配送先住所</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">I</td>
+                <td class="text-lg text-gray-700">東京都渋谷区〇〇1-2-3</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">配送希望日</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">N</td>
+                <td class="text-lg text-gray-700">2025/11/01</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 応用メッセージ -->
+        <div class="bg-orange-50 p-6 rounded-2xl mb-6 border-2 border-orange-200">
+          <p class="text-lg md:text-xl text-center text-gray-800 leading-relaxed">
+            <span class="font-bold text-orange-600">💡 この対応表を真似して、</span><br/>
+            自分の業務に合わせた自動化ツールが作れます！
+          </p>
+        </div>
+
+        <!-- 応用方法 -->
+        <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-200">
+          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 text-center">
+            📝 自分の業務に応用するには
+          </h3>
+          <div class="space-y-3 max-w-3xl mx-auto">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                「項目名」欄を自分が抽出したいデータに置き換える
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                「列」は<span class="font-bold text-blue-700">既存シートで使いたい列を指定</span>（C列、E列、J列など飛び飛びでもOK）
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                「抽出内容サンプル」に実際のデータ例を書く
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                この表をそのまま生成AIへのプロンプトに貼り付ければOK！
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 重要ポイント -->
+    <section id="key-point" class="mb-16">
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-purple-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center gap-3">
+          <span class="text-3xl">⚡</span>
+          列指定のポイント
+        </h2>
+        <div class="space-y-6 max-w-3xl mx-auto">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 飛び飛びの列でもOK</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              既存のシートに列が存在している場合、A,B,C列と連続していなくても大丈夫です。
+              例えば「C列、E列、G列、J列、L列、N列」のように飛び飛びでも指定できます。
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 既存の列は変更されない</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              指定した列以外のデータは一切変更されません。
+              既にデータが入っているシートでも、安全に追記できます。
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 最終行の次に追記される</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              GASは自動的にシートの最終行を検出し、その次の行にデータを追記します。
+              手動でデータが入っていても、自動転記のデータと混在させずに管理できます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへ -->
+    <section id="next-step" class="mb-16">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-4">
+          📌 次は生成AIへのプロンプト例を確認しましょう
+        </h2>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          転記項目が設計できたら、次は実際に生成AIに渡すプロンプトの例を見ていきます。<br/>
+          ワークシートの5ステップに沿って、どう書けばいいかを確認しましょう。
+        </p>
+        <a href="practice-01-section-06.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          次へ：プロンプト例 →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編①</p>
+    </div>
+  </footer>
+
+  <script>
+    // ドットインジケーターのクリックイベント
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const sections = [
+          'practice-01-intro.html',
+          'practice-01-section-01.html',
+          'practice-01-section-02.html',
+          'practice-01-section-03.html',
+          'practice-01-section-04.html',
+          'practice-01-section-05.html',
+          'practice-01-step2.html',
+          'practice-01-step3.html',
+          'practice-01-step4.html',
+          'practice-01-step5.html',
+          'practice-01-summary.html'
+        ];
+        window.location.href = sections[index];
+      });
+    });
+
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>この実践の流れ | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 25%, #e5e7eb 25%, #e5e7eb 100%);
+    }
+    .step-card {
+      transition: all 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    }
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      flex-shrink: 0;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="../index.html" class="text-lg font-bold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページ
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="practice-01-section-02.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition">
+            ← 前のステップ
+          </a>
+          <a href="practice-01-section-03.html" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
+            次のステップ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 進捗バー -->
+  <div class="progress-bar w-full"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-6 py-12">
+
+    <!-- ヘッダー -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+        📧 実践① 注文メール → スプレッドシート転記
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 font-medium">
+        この実践の流れ
+      </p>
+    </div>
+
+    <!-- 説明 -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+        これから、<span class="font-bold text-indigo-600">4つのパート</span>に分けて、<br class="hidden md:block"/>
+        注文メール自動転記ツールを作成していきます。
+      </p>
+    </div>
+
+    <!-- ステップカード -->
+    <div class="space-y-6">
+
+      <!-- Part 1 -->
+      <a href="practice-01-section-03.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">1</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 1: メールサンプル
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                実際の注文メールの形式を確認します。<br/>
+                メール本文にどんな情報が含まれているかを把握しましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 2 -->
+      <a href="practice-01-section-04.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">2</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 2: 転記項目
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                どのデータをどの列に転記するか設計します。<br/>
+                転記項目表を作ることで、AIが正確にコードを生成できます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 3 -->
+      <a href="practice-01-section-05.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">3</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 3: プロンプト例
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                生成AIへの指示文を確認します。<br/>
+                ワークシートの5ステップに沿って、具体的なプロンプトを作成しましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 4 -->
+      <a href="practice-01-section-06.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">4</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 4: 実行編
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                コードを貼り付けて実行します。<br/>
+                ChatGPTが生成したコードをGASエディタに貼り付け、動作確認を行います。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ポイント -->
+    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl shadow-lg p-8 mt-12">
+      <div class="flex items-start">
+        <span class="text-4xl mr-4">💡</span>
+        <div>
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            ポイント
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+            各パートを順番に進めることで、<span class="font-bold text-indigo-600">設計から実装まで迷わず進められます。</span><br/>
+            まずはPart 1のメールサンプルから確認していきましょう！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ナビゲーションボタン -->
+    <div class="flex justify-between items-center mt-12">
+      <a href="practice-01-section-02.html" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition">
+        ← 前のステップ
+      </a>
+      <a href="practice-01-section-03.html" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition">
+        次のステップ：Part 1 メールサンプル →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white shadow-md mt-20 py-6">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-gray-600">
+        © 2025 生成AI×GAS 短期講座 | すべての資料は学習目的で提供されています
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

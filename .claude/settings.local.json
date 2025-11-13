@@ -5,7 +5,18 @@
       "Bash(for dir in 生成AI GAS 実践編 基本的な考え方 上級編)",
       "Bash(do echo '=== $dir ===')",
       "Bash(find:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(python:*)",
+      "WebFetch(domain:support.udemy.com)",
+      "WebFetch(domain:hirashimatakumi.com)",
+      "WebFetch(domain:h2ham.net)",
+      "WebFetch(domain:wd-stock.work)",
+      "WebFetch(domain:stand-4u.com)",
+      "WebFetch(domain:qiita.com)",
+      "Bash(cat:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メリット | 実践編② | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 90%, #e5e7eb 90%, #e5e7eb 100%);
+    }
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-02-section-10.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-02-section-12.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- タイトル -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+        💡 このツールのメリット
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        実践編② - 注文データ自動転記
+      </p>
+    </div>
+
+    <!-- メリット一覧 -->
+    <section id="merits" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          🎉 自動化で得られる10のメリット
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 技術的メリット -->
+          <div class="bg-green-50 p-6 rounded-xl hover-lift border-2 border-green-200">
+            <h3 class="text-lg md:text-xl font-bold text-green-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              ファイルIDのコピー不要
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              フォルダに入れるだけでOK
+            </p>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-xl hover-lift border-2 border-blue-200">
+            <h3 class="text-lg md:text-xl font-bold text-blue-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              複数ファイル一括処理
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              50件でも100件でも同じ時間
+            </p>
+          </div>
+
+          <div class="bg-purple-50 p-6 rounded-xl hover-lift border-2 border-purple-200">
+            <h3 class="text-lg md:text-xl font-bold text-purple-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              処理履歴が残る
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              処理済みフォルダで管理しやすい
+            </p>
+          </div>
+
+          <div class="bg-orange-50 p-6 rounded-xl hover-lift border-2 border-orange-200">
+            <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              実務に近い
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              ECサイト、POSなどに応用可能
+            </p>
+          </div>
+
+          <!-- 手作業との比較 -->
+          <div class="bg-red-50 p-6 rounded-xl hover-lift border-4 border-red-300">
+            <h3 class="text-lg md:text-xl font-bold text-red-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">⏰</span>
+              作業時間 96%削減
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              月8時間 → 20分に短縮
+            </p>
+          </div>
+
+          <div class="bg-yellow-50 p-6 rounded-xl hover-lift border-4 border-yellow-300">
+            <h3 class="text-lg md:text-xl font-bold text-yellow-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">🎯</span>
+              転記ミス 0%
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              手作業2-3% → 完全自動で0%
+            </p>
+          </div>
+
+          <!-- ビジネスメリット -->
+          <div class="bg-pink-50 p-6 rounded-xl hover-lift border-4 border-pink-300">
+            <h3 class="text-lg md:text-xl font-bold text-pink-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">💰</span>
+              外注不要
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              年間120万円のコスト削減
+            </p>
+          </div>
+
+          <div class="bg-indigo-50 p-6 rounded-xl hover-lift border-4 border-indigo-300">
+            <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">🌙</span>
+              24時間365日稼働
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              深夜注文も翌朝には転記完了
+            </p>
+          </div>
+
+          <div class="bg-teal-50 p-6 rounded-xl hover-lift border-4 border-teal-300">
+            <h3 class="text-lg md:text-xl font-bold text-teal-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">📈</span>
+              少人数運営でもスケール
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              売上2倍でも工数は同じ
+            </p>
+          </div>
+
+          <div class="bg-emerald-50 p-6 rounded-xl hover-lift border-4 border-emerald-300">
+            <h3 class="text-lg md:text-xl font-bold text-emerald-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">😊</span>
+              本業に集中できる
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              単純作業から解放される
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 具体的な効果 -->
+    <section id="concrete-effect" class="mb-16">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📊 具体的な効果（1ヶ月あたり）
+        </h2>
+
+        <div class="space-y-6 max-w-3xl mx-auto">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">⏱️ 時間削減</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-red-600">手作業：</span> 1件5分 × 100件 = 500分（約8時間）
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-green-600">自動化：</span> 100件を一括処理 = 約20分
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → 月に7時間40分の削減！
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">💵 コスト削減</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                時給2,000円の人件費と仮定
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                月8時間 × 2,000円 = <span class="font-bold text-red-600">16,000円</span>
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                年間では <span class="font-bold text-red-600">192,000円</span> の削減
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → GAS利用料は無料！
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">✨ 品質向上</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-red-600">手作業：</span> 100件中2-3件のミス（2-3%）
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-green-600">自動化：</span> ミス率 0%
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → クレーム削減、信頼性向上
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへ -->
+    <section id="next-step" class="mb-16">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-4">
+          📌 次はまとめを確認しましょう
+        </h2>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          実践編②で学んだことを振り返り、次のステップに進む準備をしましょう。
+        </p>
+        <a href="practice-02-section-12.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          次へ：まとめ →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編②</p>
+    </div>
+  </footer>
+
+  <script>
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>実践編②-7: まとめ | 生成AI×GAS 短期講座</title>
+  <title>実践編②-5: ステップ4 動作確認 | 生成AI×GAS 短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -14,7 +14,7 @@
     }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 100%, #e5e7eb 100%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 80%, #e5e7eb 80%, #e5e7eb 100%);
     }
 
     .dot-indicator {
@@ -69,7 +69,11 @@
         display: none;
       }
     }
-  </style>
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
 </head>
 <body class="smooth-scroll bg-gray-50">
 
@@ -81,10 +85,12 @@
           ← トップページへ
         </a>
         <div class="flex gap-4">
-          <a href="practice-02-section-06.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          <a href="practice-02-section-09.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
-          <span class="text-base md:text-lg text-gray-400">次へ</span>
+          <a href="practice-02-section-11.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
         </div>
       </div>
       <!-- 進捗バー -->
@@ -95,17 +101,20 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="achievements">
-        <span class="dot-label">達成したこと</span>
+      <div class="dot active" data-section="importance">
+        <span class="dot-label">動作確認の重要性</span>
       </div>
-      <div class="dot" data-section="skills">
-        <span class="dot-label">学んだスキル</span>
+      <div class="dot" data-section="checkpoints">
+        <span class="dot-label">確認すべきポイント</span>
       </div>
-      <div class="dot" data-section="applications">
-        <span class="dot-label">応用できる場面</span>
+      <div class="dot" data-section="error-handling">
+        <span class="dot-label">エラー対処法</span>
       </div>
-      <div class="dot" data-section="reflection">
-        <span class="dot-label">振り返りと次のステップ</span>
+      <div class="dot" data-section="common-errors">
+        <span class="dot-label">よくあるエラー例</span>
+      </div>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">動作確認完了</span>
       </div>
     </div>
   </div>
@@ -115,252 +124,294 @@
 
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
-      <div class="inline-block bg-green-600 text-white px-6 py-2 rounded-full mb-4">
-        <span class="font-bold">✅ 完了</span>
+      <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
+        <span class="font-bold">ステップ 4 / 5</span>
       </div>
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-        お疲れ様でした！
+        動作確認
       </h1>
       <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
-        実践編②: CSVファイル自動転記ツールが完成しました
+        ツールが正しく動作するかチェックしましょう
       </p>
     </header>
 
-    <!-- 達成したこと -->
-    <section id="achievements" class="mb-16">
-      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8 mb-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-          🎉 あなたが達成したこと
+    <!-- 動作確認の重要性 -->
+    <section id="importance" class="mb-16">
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
+          💡 なぜ動作確認が重要なのか？
         </h2>
-
-        <div class="space-y-6">
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl">
-                ✅
-              </div>
-              <div>
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  Googleドライブからファイルを取得する方法を習得
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                  Google Apps Scriptを使って、指定したフォルダから最新のCSVファイルを自動で取得できるようになりました。これにより、毎回手動でファイルを探してダウンロードする手間が不要になりましたね。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl">
-                ✅
-              </div>
-              <div>
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  CSVファイルを解析してスプレッドシートに転記
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                  CSVファイルのデータを自動的に解析して、スプレッドシートの適切な列に転記できるようになりました。手動でコピー＆ペーストする必要がなくなり、データの取り込みミスも防げます。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl">
-                ✅
-              </div>
-              <div>
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  カスタムメニューで簡単に実行できるようにした
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                  スプレッドシートのメニューバーからボタンをクリックするだけで、ツールを実行できるようになりました。プログラミングの知識がない人でも使えるようになったので、業務効率化につながります。
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
+          生成AIが作成したコードは、そのまま完璧に動作するとは限りません。フォルダIDの指定ミスや、シート名の違いなど、細かい部分でエラーが発生することがあります。動作確認をしっかり行うことで、問題を早期に発見して修正できます。
+        </p>
       </div>
     </section>
 
-    <!-- 学んだスキルまとめ -->
-    <section id="skills" class="mb-16">
+    <!-- 確認ポイント -->
+    <section id="checkpoints" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        📚 この実践で学んだスキル
-      </h2>
-
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              1️⃣ 作業の棚卸
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              現在の手作業を具体的に書き出すことで、自動化すべき範囲を明確にする方法を学びました。
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              2️⃣ 効果的なプロンプト作成
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              「やりたいこと」「現在の手順」「その他の要望」を含めた、AIに伝わりやすいプロンプトの書き方を習得しました。
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              3️⃣ GASエディタの操作
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              スプレッドシートからGASエディタを開いて、コードを貼り付けて保存する基本操作を身につけました。
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              4️⃣ 動作確認とエラー対処
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              ツールが正しく動作するかチェックする方法と、エラーが出た場合の対処法を学びました。
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              5️⃣ カスタムメニュー設定
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              スプレッドシートのメニューバーにオリジナルのボタンを追加して、ワンクリックでツールを実行できるようにする方法を習得しました。
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 rounded-lg p-6">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
-              6️⃣ 重複チェック機能
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              同じデータが重複して転記されないようにする仕組みを理解しました。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 応用できること -->
-    <section id="applications" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        🚀 このスキルを応用できる場面
+        ✅ 確認すべきポイント
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        今回学んだスキルは、CSVファイルの転記だけでなく、さまざまな業務に応用できます。以下のような場面で活用してみましょう。
+        ツールが正しく動作しているか、以下の4つのポイントを確認しましょう。1つずつ丁寧にチェックすることで、トラブルを未然に防げます。
       </p>
 
-      <div class="space-y-4">
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-            📊 売上データの自動集計
-          </h3>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            複数の店舗から届いた売上CSVを自動で取り込み、集計シートに転記する
-          </p>
+      <div class="space-y-6">
+        <!-- ポイント1 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                Googleドライブからファイルが正しく取得されているか
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                指定したフォルダIDのフォルダから、CSVファイルが取得されているかを確認します。フォルダIDが間違っていると、ファイルが見つからずにエラーになります。
+              </p>
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h4 class="font-bold text-lg mb-3">確認方法</h4>
+                <ul class="list-disc pl-6 space-y-2 text-base md:text-lg text-gray-700">
+                  <li>GASエディタで、<strong>「実行」ボタン</strong>をクリックしてツールを実行</li>
+                  <li>エラーが出ずに処理が完了するか確認</li>
+                  <li>もしエラーが出た場合は、エラーメッセージを読んでフォルダIDが正しいか確認</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-            📋 在庫管理データの取り込み
-          </h3>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            倉庫システムから出力された在庫CSVを、在庫管理スプレッドシートに自動転記する
-          </p>
+        <!-- ポイント2 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                CSVファイルの内容が正しく解析されているか
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                CSVファイルのヘッダー行（1行目）がスキップされ、実際のデータだけが処理されているかを確認します。また、各列が正しく分割されているかもチェックしましょう。
+              </p>
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h4 class="font-bold text-lg mb-3">確認方法</h4>
+                <ul class="list-disc pl-6 space-y-2 text-base md:text-lg text-gray-700">
+                  <li>ログに出力されたデータを確認（GASエディタの<strong>「実行ログ」</strong>タブで確認できます）</li>
+                  <li>ヘッダー行が含まれていないか確認</li>
+                  <li>データが正しく列ごとに分割されているか確認</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-            📧 顧客データの一元管理
-          </h3>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            複数のシステムから出力された顧客情報CSVを、1つのスプレッドシートに統合する
-          </p>
+        <!-- ポイント3 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                スプレッドシートに正しく転記されているか
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                データが正しい列に入力されているか、既存データに追記されているかを確認します。列がずれていると、データが意図しない場所に書き込まれてしまいます。
+              </p>
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h4 class="font-bold text-lg mb-3">確認方法</h4>
+                <ul class="list-disc pl-6 space-y-2 text-base md:text-lg text-gray-700">
+                  <li>スプレッドシートを開いて、データが転記されているか確認</li>
+                  <li>A列、B列、C列...と、指定した列に正しくデータが入っているか確認</li>
+                  <li>既存データの下に追記されているか確認（既存データが上書きされていないか）</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-            📈 アクセスログの分析
-          </h3>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            Webサイトのアクセスログをスプレッドシートに取り込み、グラフ化して可視化する
-          </p>
+        <!-- ポイント4 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                重複チェックが機能しているか
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                同じ注文番号のデータが重複して転記されないかを確認します。重複チェック機能がないと、同じデータが何度も追加されてしまう可能性があります。
+              </p>
+              <div class="bg-gray-100 p-6 rounded-lg">
+                <h4 class="font-bold text-lg mb-3">確認方法</h4>
+                <ul class="list-disc pl-6 space-y-2 text-base md:text-lg text-gray-700">
+                  <li>同じCSVファイルで2回ツールを実行してみる</li>
+                  <li>2回目の実行後、データが重複して追加されていないか確認</li>
+                  <li>ログに「重複データをスキップしました」などのメッセージが出ているか確認</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
-        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
-          <strong>ポイント:</strong> 今回学んだ「作業の棚卸 → プロンプト作成 → 実装 → 動作確認 → メニュー化」という流れは、あらゆる自動化ツール作成に応用できます。ぜひ他の業務でも試してみてください。
-        </p>
       </div>
     </section>
 
-    <!-- 振り返りと次のステップ -->
-    <section id="reflection" class="mb-16">
+    <!-- エラーが出た場合の対処法 -->
+    <section id="error-handling" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        🤔 振り返りと次のステップ
+        ⚠️ エラーが出た場合の対処法
       </h2>
 
-      <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-8 mb-8">
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        ツールを実行してエラーが出た場合でも、焦る必要はありません。エラーメッセージをよく読んで、ChatGPTに修正を依頼すれば解決できます。
+      </p>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
         <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-          皆さん、理解できましたでしょうか？
+          エラー対処の基本手順
         </h3>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          この実践を通して、Googleドライブからファイルを自動で取得し、スプレッドシートに転記するツールを作成できるようになりましたね。手作業で5〜10分かかっていた作業が、ボタン1つでわずか数秒で完了するようになったはずです。
-        </p>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-          もし分からない部分があれば、何度でも読み返してくださいね。実際に手を動かして試してみることが、理解を深める一番の方法です。
-        </p>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                エラーメッセージをコピーする
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                GASエディタに表示されたエラーメッセージを、すべて選択してコピーします。エラーメッセージには、問題の原因が書かれていることが多いので、全文コピーすることが大切です。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-6 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                ChatGPTにエラーメッセージを送る
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+                ツールを作成したときと<strong>同じチャット</strong>に戻り、以下のように依頼しましょう。
+              </p>
+              <div class="bg-gray-900 text-gray-100 rounded-lg p-6">
+                <pre class="text-sm md:text-base whitespace-pre-wrap"><code>以下のエラーが出ました。修正してください。
+
+[エラーメッセージをここに貼り付け]</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div class="flex-1">
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                修正されたコードを貼り付け直す
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ChatGPTが修正したコードを生成してくれるので、それを再度GASエディタに貼り付けて保存します。そして、もう一度動作確認を行いましょう。
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="bg-indigo-50 rounded-lg p-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-          次のステップへ
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          💡 エラー対処のコツ
         </h3>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          次の実践では、<strong>Googleフォームの自動返信ボット</strong>を作成します。フォームに回答があったら、自動的にメールを送信するツールを作成していきましょう。
-        </p>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-          今回学んだスキルをさらに発展させて、より実践的なツールを作成できるようになります。楽しみにしていてくださいね。
-        </p>
+        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-blue-900">
+          <li>エラーメッセージは省略せずに全文をコピーする</li>
+          <li>必ず同じチャットでエラーを報告する（新しいチャットで依頼すると、ChatGPTが前後の文脈を把握できません）</li>
+          <li>何度かエラーが出ても焦らず、1つずつ修正していく</li>
+          <li>どうしても解決しない場合は、プロンプトを見直して作り直すのも1つの手です</li>
+        </ul>
       </div>
     </section>
 
-    <!-- 最後のメッセージ -->
-    <section class="mb-16">
-      <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-10 text-center">
+    <!-- よくあるエラー例 -->
+    <section id="common-errors" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🔍 よくあるエラー例
+      </h2>
+
+      <div class="space-y-6">
+        <div class="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-6">
+          <h3 class="text-lg md:text-xl font-bold text-red-800 mb-2">
+            ❌ エラー: "フォルダが見つかりません"
+          </h3>
+          <p class="text-base md:text-lg text-red-900 mb-3">
+            <strong>原因:</strong> フォルダIDが間違っている、またはアクセス権限がない
+          </p>
+          <p class="text-base md:text-lg text-red-900">
+            <strong>解決策:</strong> フォルダIDを再確認して、正しいIDをプロンプトに含めてコードを再生成する
+          </p>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-6">
+          <h3 class="text-lg md:text-xl font-bold text-red-800 mb-2">
+            ❌ エラー: "シートが見つかりません"
+          </h3>
+          <p class="text-base md:text-lg text-red-900 mb-3">
+            <strong>原因:</strong> 指定したシート名がスプレッドシートに存在しない
+          </p>
+          <p class="text-base md:text-lg text-red-900">
+            <strong>解決策:</strong> スプレッドシートのシート名を確認して、プロンプトに正しいシート名を記載してコードを再生成する
+          </p>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-400 rounded-r-lg p-6">
+          <h3 class="text-lg md:text-xl font-bold text-red-800 mb-2">
+            ❌ エラー: "権限がありません"
+          </h3>
+          <p class="text-base md:text-lg text-red-900 mb-3">
+            <strong>原因:</strong> 初回実行時に、GoogleドライブやGoogleスプレッドシートへのアクセス権限を許可していない
+          </p>
+          <p class="text-base md:text-lg text-red-900">
+            <strong>解決策:</strong> 実行時に表示される権限許可のダイアログで<strong>「許可」</strong>をクリックする
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめ -->
+    <section id="summary" class="mb-16">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          ✨ 本当にお疲れ様でした！
+          ✅ 動作確認が完了したら
         </h2>
-        <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
-          実践編②を完了したあなたは、もう立派な<br>
-          <strong class="text-indigo-600">「生成AI × GAS」実践者</strong>です。
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          以下の4つのポイントがすべてクリアできていれば、ツールは正常に動作しています。お疲れ様でした！
         </p>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-          ここで学んだスキルを活かして、<br>
-          あなたの業務をどんどん効率化していきましょう。
+        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-gray-700">
+          <li>✅ Googleドライブからファイルが取得できている</li>
+          <li>✅ CSVファイルの内容が正しく解析されている</li>
+          <li>✅ スプレッドシートに正しく転記されている</li>
+          <li>✅ 重複チェックが機能している</li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-6">
+          次のステップでは、このツールをさらに使いやすくするために、カスタムメニューを追加しましょう。
         </p>
       </div>
     </section>
 
-    <!-- トップページへのリンク -->
+    <!-- 次へのリンク -->
     <section class="mt-16 text-center">
-      <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="bg-indigo-50 rounded-lg p-8">
         <p class="text-lg md:text-xl text-gray-700 mb-6">
-          実践編③に進む準備ができたら、トップページから次のセクションを選んでください。
+          動作確認が完了したら、最後にカスタムメニューを設定しましょう。
         </p>
-        <a href="../index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-10 py-5 rounded-lg transition transform hover:scale-105">
-          トップページに戻る
+        <a href="practice-02-section-11.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          次へ：メリット →
         </a>
       </div>
     </section>

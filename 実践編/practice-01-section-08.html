@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ステップ4: 初回承認 | 実践編① | 生成AI×GAS 短期講座</title>
+  <title>ステップ3: コードをGASエディタに貼り付け | 実践編① | 生成AI×GAS 短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -47,7 +47,7 @@
     }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 62.5%, #e5e7eb 62.5%, #e5e7eb 100%);
+      background: linear-gradient(to right, #667eea 0%, #667eea 50%, #e5e7eb 50%, #e5e7eb 100%);
     }
 
     /* ドットインジケーター */
@@ -108,20 +108,24 @@
         display: none;
       }
     }
-  </style>
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
 </head>
 <body class="smooth-scroll bg-gray-50">
 
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
-    <div class="dot" data-target="what-is-auth">
-      <div class="dot-label">初回承認とは？</div>
+    <div class="dot" data-target="intro">
+      <div class="dot-label">イントロ</div>
     </div>
-    <div class="dot" data-target="auth-procedure">
-      <div class="dot-label">承認手順</div>
+    <div class="dot" data-target="procedure">
+      <div class="dot-label">コードを貼り付ける手順</div>
     </div>
-    <div class="dot" data-target="notes">
-      <div class="dot-label">注意点</div>
+    <div class="dot" data-target="project-name">
+      <div class="dot-label">プロジェクト名の変更</div>
     </div>
     <div class="dot" data-target="next-step">
       <div class="dot-label">次のステップへ</div>
@@ -136,11 +140,11 @@
           ← トップページへ
         </a>
         <div class="flex gap-4 items-center">
-          <a href="practice-01-step3.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          <a href="practice-01-section-07.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
-          <span class="text-sm md:text-base text-gray-500">ステップ 4 / 6</span>
-          <a href="practice-01-step5.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          <span class="text-sm md:text-base text-gray-500">ステップ 3 / 6</span>
+          <a href="practice-01-section-09.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             次へ →
           </a>
         </div>
@@ -156,51 +160,31 @@
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-        初回承認
+        コードをGASエディタに貼り付け
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
-        GASを初めて実行する際は、Googleアカウントへの承認が必要です
+        ChatGPTが生成したコードを、GASエディタに貼り付けましょう
       </p>
     </header>
 
-    <!-- 初回承認とは -->
-    <section id="what-is-auth" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">初回承認とは？</h2>
-
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+    <!-- イントロ -->
+    <section id="intro" class="mb-20">
+      <div class="bg-white rounded-lg shadow-md p-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          GASを初めて実行する際、GmailやGoogleスプレッドシートにアクセスする権限を
-          Googleアカウントに与える必要があります。これを<strong>「初回承認」</strong>と言います。
+          ChatGPTがGASコードを生成してくれたら、次はそのコードをGoogleのスクリプトエディタに貼り付けます。
+          スクリプトエディタは、GASのコードを書いて実行するための専用環境です。
         </p>
 
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          この承認プロセスは、セキュリティのために必要なステップです。
-          GASがあなたのGmailやスプレッドシートにアクセスすることを、あなた自身が許可する必要があるからです。
+        <p class="text-lg md:text-xl leading-relaxed">
+          このステップでは、スクリプトエディタを開いて、コードを貼り付け、保存するまでの流れを見ていきましょう。
+          初めての方でも迷わないように、画面のスクリーンショットと一緒に丁寧に説明していきます。
         </p>
-
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 なぜ承認が必要なの？</h3>
-          <p class="text-lg leading-relaxed text-gray-700">
-            今回作成するツールは、Gmailからメールを読み取り、スプレッドシートに書き込みます。
-            このような「あなたのデータにアクセスする操作」を行う場合、
-            Googleは安全のために明示的な承認を求めます。
-          </p>
-        </div>
       </div>
     </section>
 
-    <!-- 承認手順 -->
-    <section id="auth-procedure" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">承認手順</h2>
-
-      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 注意</h3>
-        <p class="text-lg leading-relaxed text-gray-700">
-          承認プロセスの途中で「このアプリは確認されていません」という警告が表示されますが、
-          <strong>自分で作成したスクリプトであれば安全</strong>です。
-          警告画面で「詳細」をクリックして進めてください。
-        </p>
-      </div>
+    <!-- 手順 -->
+    <section id="procedure" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">コードを貼り付ける手順</h2>
 
       <div class="space-y-8">
         <!-- ステップ1 -->
@@ -210,18 +194,18 @@
               1
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">関数を選択</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleスプレッドシートを開く</h3>
             </div>
           </div>
 
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            スクリプトエディタの上部にある「関数を選択」というプルダウンメニューから、
-            実行したい関数を選択します。
+          <p class="text-lg md:text-xl leading-relaxed mb-4">
+            まず、メールを転記したいGoogleスプレッドシートを開きましょう。
+            すでにスプレッドシートがある場合はそれを使い、新しく作成する場合は「空白」から新規作成してください。
           </p>
 
           <p class="text-lg md:text-xl leading-relaxed">
-            ChatGPTが生成したコードには、通常<code class="bg-gray-200 px-2 py-1 rounded">transferEmailsToSheet</code>のような
-            関数名が付いています。この関数名をプルダウンから選択してください。
+            スプレッドシートのシート名は、特に変更する必要はありませんが、
+            わかりやすい名前（例：「メール転記」など）に変更しておくと管理しやすくなります。
           </p>
         </div>
 
@@ -232,17 +216,29 @@
               2
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">実行ボタンをクリック</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メニューから「拡張機能」→「Apps Script」をクリック</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            関数を選択したら、その横にある<strong>「▶️ 実行」</strong>ボタンをクリックします。
+            スプレッドシートの上部メニューバーから、<strong>「拡張機能」</strong>をクリックし、
+            ドロップダウンメニューから<strong>「Apps Script」</strong>を選択します。
           </p>
 
-          <p class="text-lg md:text-xl leading-relaxed">
-            初めて実行する場合、すぐに承認ダイアログが表示されます。
-          </p>
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ポイント</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              メニュー項目が見つからない場合は、スプレッドシートの画面幅を広げてみてください。
+              画面が狭いと、一部のメニューが「︙」（縦三点リーダー）の中に隠れていることがあります。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-open-apps-script.png')">
+            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
+            <p class="text-lg">「拡張機能」→「Apps Script」をクリックする様子</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-open-apps-script.png</p>
+          </div>
         </div>
 
         <!-- ステップ3 -->
@@ -252,20 +248,30 @@
               3
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">「許可を確認」ダイアログが表示される</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">スクリプトエディタが開く</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            実行ボタンをクリックすると、「承認が必要です」というダイアログが表示されます。
-            このダイアログには、<strong>「権限を確認」</strong>というボタンがあるので、それをクリックします。
+            新しいタブで、GASのスクリプトエディタが開きます。
+            初めて開く場合は、以下のようなサンプルコードが表示されているかもしれません：
+          </p>
+
+          <div class="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm mb-6">
+            <pre>function myFunction() {
+
+}</pre>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed">
+            このサンプルコードは削除して、ChatGPTが生成したコードに置き換えます。
           </p>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-auth-dialog1.png')">
+          <div class="mt-6 screenshot-placeholder" onclick="openModal('screenshot-practice01-gas-editor-initial.png')">
             <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">「権限を確認」ダイアログ</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-auth-dialog1.png</p>
+            <p class="text-lg">スクリプトエディタの初期画面</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-gas-editor-initial.png</p>
           </div>
         </div>
 
@@ -276,20 +282,28 @@
               4
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleアカウントを選択</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTが生成したコードをすべて選択してコピー</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            次に、使用するGoogleアカウントの選択画面が表示されます。
-            スプレッドシートやGmailにアクセスするアカウントを選択してください。
+            ChatGPTの画面に戻って、生成されたコードをすべて選択してコピーします。
           </p>
 
+          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ 注意</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              コードをコピーする際は、<strong>コードブロック全体</strong>を選択してください。
+              ChatGPTの画面では、コードブロックの右上に「コピー」ボタンが表示されていることが多いので、
+              それをクリックすると簡単にコピーできます。
+            </p>
+          </div>
+
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-account-select.png')">
+          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-copy-code.png')">
             <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">Googleアカウント選択画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-account-select.png</p>
+            <p class="text-lg">ChatGPTからコードをコピーする様子</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-copy-code.png</p>
           </div>
         </div>
 
@@ -300,37 +314,32 @@
               5
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">「このアプリは確認されていません」という警告が表示される</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">エディタに貼り付け</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            Googleアカウントを選択すると、「このアプリは確認されていません」という警告画面が表示されることがあります。
-            <strong>これは正常な動作です。</strong>心配しないでください。
+            スクリプトエディタに戻って、コピーしたコードを貼り付けます。
+            既存のコード（<code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code>）がある場合は、
+            それをすべて削除してから貼り付けてください。
           </p>
 
-          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ なぜ警告が出るの？</h4>
-            <p class="text-lg leading-relaxed text-gray-700 mb-3">
-              この警告は、Google公式の審査を受けていないアプリに対して表示されます。
-              今回は<strong>あなた自身が作成したスクリプト</strong>なので、安全に進めることができます。
-            </p>
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h4>
             <p class="text-lg leading-relaxed text-gray-700">
-              ただし、他人が作成したスクリプトを実行する場合は、
-              内容を十分に確認してから承認するようにしましょう。
+              コードの貼り付けは、以下のショートカットキーで行えます：
             </p>
+            <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+              <li><strong>Windows:</strong> Ctrl + V</li>
+              <li><strong>Mac:</strong> Cmd + V</li>
+            </ul>
           </div>
 
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            警告画面の左下にある<strong>「詳細」</strong>をクリックします。
-            すると、「（プロジェクト名）に移動」というリンクが表示されるので、それをクリックします。
-          </p>
-
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-unverified-warning.png')">
+          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-paste-code.png')">
             <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">「このアプリは確認されていません」警告画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-unverified-warning.png</p>
+            <p class="text-lg">スクリプトエディタにコードを貼り付けた様子</p>
+            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-paste-code.png</p>
           </div>
         </div>
 
@@ -341,94 +350,60 @@
               6
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">権限を許可</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">「保存」ボタンをクリック</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            次の画面では、GASがアクセスする権限の一覧が表示されます。
-            以下のような権限が表示されることがあります：
+            コードを貼り付けたら、必ず<strong>「保存」</strong>してください。
+            スクリプトエディタの上部にある「💾 保存」ボタンをクリックするか、
+            ショートカットキーで保存できます。
           </p>
 
-          <div class="bg-gray-100 border-2 border-gray-300 rounded-lg p-6 mb-6">
-            <ul class="space-y-2 text-lg text-gray-700">
-              <li>✉️ <strong>Gmailメッセージの表示</strong> - メールを検索して読み取るため</li>
-              <li>📊 <strong>スプレッドシートの表示と編集</strong> - データを転記するため</li>
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              保存のショートカットキー：
+            </p>
+            <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+              <li><strong>Windows:</strong> Ctrl + S</li>
+              <li><strong>Mac:</strong> Cmd + S</li>
             </ul>
           </div>
 
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            これらの権限は、今回作成したツールが正しく動作するために必要なものです。
-            問題がなければ、<strong>「許可」</strong>ボタンをクリックします。
-          </p>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-permission-allow.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">権限許可画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-permission-allow.png</p>
-          </div>
-        </div>
-
-        <!-- ステップ7 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-              ✓
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">承認完了！</h3>
-            </div>
-          </div>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            「許可」をクリックすると、初回承認が完了します。
-            スクリプトエディタの画面に戻り、関数が実行されます。
-          </p>
-
           <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">🎉 おめでとうございます！</h4>
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 保存完了の確認</h4>
             <p class="text-lg leading-relaxed text-gray-700">
-              初回承認が完了しました。
-              これで、GASがGmailやスプレッドシートにアクセスできるようになりました。
-              次回以降は、この承認プロセスを行う必要はありません。
+              保存が完了すると、画面上部に「保存しました」というメッセージが表示されます。
+              また、ファイル名の横に「*（アスタリスク）」が付いている場合は、まだ保存されていない状態です。
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 注意点 -->
-    <section id="notes" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">注意点</h2>
+    <!-- プロジェクト名の変更（オプション） -->
+    <section id="project-name" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロジェクト名を変更する（オプション）</h2>
 
-      <div class="space-y-6">
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          スクリプトエディタの左上に表示されている「無題のプロジェクト」という名前は、
+          わかりやすい名前に変更することができます。
+        </p>
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          例えば、「メール転記ツール」という名前に変更すると、
+          後で複数のGASプロジェクトを管理する際に便利です。
+        </p>
+
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">✅ 自分で作成したスクリプトは安全</h3>
-          <p class="text-lg leading-relaxed text-gray-700">
-            初回承認は、GASがGmailやスプレッドシートにアクセスする権限を得るために必要です。
-            あなた自身が作成したスクリプト（または信頼できるソースから入手したスクリプト）であれば、
-            安全に承認して問題ありません。
-          </p>
-        </div>
-
-        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 他人が作成したスクリプトは注意</h3>
-          <p class="text-lg leading-relaxed text-gray-700">
-            他人が作成したスクリプトを実行する場合は、内容を十分に確認してから承認してください。
-            悪意のあるコードが含まれている可能性があるため、
-            信頼できるソースから入手したもの以外は実行しないようにしましょう。
-          </p>
-        </div>
-
-        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔐 権限の確認方法</h3>
-          <p class="text-lg leading-relaxed text-gray-700 mb-3">
-            承認したGASの権限は、後からGoogleアカウントの設定画面で確認・取り消しできます。
-          </p>
-          <p class="text-lg leading-relaxed text-gray-700">
-            <strong>確認方法：</strong>Googleアカウント設定 → セキュリティ → サードパーティによるアクセス
-          </p>
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 プロジェクト名の変更方法</h4>
+          <ol class="list-decimal pl-6 space-y-2 text-lg text-gray-700">
+            <li>画面左上の「無題のプロジェクト」をクリック</li>
+            <li>新しい名前を入力（例：「メール転記ツール」）</li>
+            <li>Enterキーを押して確定</li>
+          </ol>
         </div>
       </div>
     </section>
@@ -436,12 +411,13 @@
     <!-- 次のステップへの誘導 -->
     <section id="next-step" class="mb-20">
       <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">初回承認ができましたか？</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">コードの貼り付けができましたか？</h2>
         <p class="text-lg md:text-xl mb-6">
-          承認が完了したら、次は実際にツールが正しく動作するか確認してみましょう。
+          コードを貼り付けて保存できたら、次は初回承認の手順を進めましょう。
+          GASを初めて実行する際は、Googleアカウントへの承認が必要です。
         </p>
-        <a href="practice-01-step5.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
-          ステップ5へ進む →
+        <a href="practice-01-section-09.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ4へ進む →
         </a>
       </div>
     </section>

@@ -1,0 +1,180 @@
+<!-- このファイルには共通のドットインジケーターコードが含まれています -->
+
+<!-- CSS (各ファイルの<style>タグ内の.progress-barの後に追加) -->
+<style>
+.dot-indicator {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+}
+@media (max-width: 768px) {
+  .dot-indicator {
+    display: none;
+  }
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #d1d5db;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.dot:hover {
+  background-color: #8b9dc3;
+  transform: scale(1.3);
+}
+.dot.active {
+  background-color: #667eea;
+  transform: scale(1.5);
+}
+.dot-label {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  font-size: 0.875rem;
+}
+.dot:hover .dot-label {
+  opacity: 1;
+}
+</style>
+
+<!-- JavaScript (各ファイルの</body>タグ直前に追加) -->
+<script>
+// ドットインジケーター
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.dot');
+
+const observerOptions = {
+  root: null,
+  rootMargin: '-50% 0px -50% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const sectionId = entry.target.getAttribute('id');
+      dots.forEach(dot => {
+        if (dot.getAttribute('data-section') === sectionId) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+
+// ドットクリックでセクションへスクロール
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const sectionId = dot.getAttribute('data-section');
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+});
+</script>
+
+<!-- practice-01-step3.html用のドットHTML -->
+<!-- </nav>の後に追加 -->
+<div class="dot-indicator">
+  <div class="flex flex-col gap-4">
+    <div class="dot active" data-section="intro">
+      <span class="dot-label">イントロ</span>
+    </div>
+    <div class="dot" data-section="paste-steps">
+      <span class="dot-label">貼り付け手順</span>
+    </div>
+    <div class="dot" data-section="project-rename">
+      <span class="dot-label">プロジェクト名変更</span>
+    </div>
+  </div>
+</div>
+
+<!-- practice-01-step4.html用のドットHTML -->
+<div class="dot-indicator">
+  <div class="flex flex-col gap-4">
+    <div class="dot active" data-section="what-is-auth">
+      <span class="dot-label">初回承認とは</span>
+    </div>
+    <div class="dot" data-section="auth-steps">
+      <span class="dot-label">承認手順</span>
+    </div>
+    <div class="dot" data-section="notes">
+      <span class="dot-label">注意点</span>
+    </div>
+  </div>
+</div>
+
+<!-- practice-01-step5.html用のドットHTML -->
+<div class="dot-indicator">
+  <div class="flex flex-col gap-4">
+    <div class="dot active" data-section="intro">
+      <span class="dot-label">イントロ</span>
+    </div>
+    <div class="dot" data-section="check-points">
+      <span class="dot-label">確認ポイント</span>
+    </div>
+    <div class="dot" data-section="errors">
+      <span class="dot-label">エラー対処</span>
+    </div>
+    <div class="dot" data-section="troubleshooting">
+      <span class="dot-label">トラブルシューティング</span>
+    </div>
+  </div>
+</div>
+
+<!-- practice-01-step6.html用のドットHTML -->
+<div class="dot-indicator">
+  <div class="flex flex-col gap-4">
+    <div class="dot active" data-section="what-is-trigger">
+      <span class="dot-label">トリガーとは</span>
+    </div>
+    <div class="dot" data-section="trigger-setup">
+      <span class="dot-label">トリガー設定手順</span>
+    </div>
+    <div class="dot" data-section="example">
+      <span class="dot-label">設定例</span>
+    </div>
+    <div class="dot" data-section="warnings">
+      <span class="dot-label">注意事項</span>
+    </div>
+  </div>
+</div>
+
+<!-- practice-01-summary.html用のドットHTML -->
+<div class="dot-indicator">
+  <div class="flex flex-col gap-4">
+    <div class="dot active" data-section="achievements">
+      <span class="dot-label">達成したこと</span>
+    </div>
+    <div class="dot" data-section="learned">
+      <span class="dot-label">学んだこと</span>
+    </div>
+    <div class="dot" data-section="next-steps">
+      <span class="dot-label">次のステップ</span>
+    </div>
+    <div class="dot" data-section="help">
+      <span class="dot-label">困ったときは</span>
+    </div>
+  </div>
+</div>

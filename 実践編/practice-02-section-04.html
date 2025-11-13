@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>この実践の流れ | 実践編② | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #10b981 0%, #10b981 20%, #e5e7eb 20%, #e5e7eb 100%);
+    }
+    .step-card {
+      transition: all 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+    }
+    .step-number {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      flex-shrink: 0;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="../index.html" class="text-lg font-bold text-green-600 hover:text-green-800 transition">
+          ← トップページ
+        </a>
+        <div class="flex items-center space-x-4">
+          <a href="practice-02-section-03.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition">
+            ← 前のステップ
+          </a>
+          <a href="practice-02-section-05.html" class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition">
+            次のステップ →
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 進捗バー -->
+  <div class="progress-bar w-full"></div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-6 py-12">
+
+    <!-- ヘッダー -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
+        📦 実践② 注文データ自動転記
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-600 font-medium">
+        この実践の流れ
+      </p>
+    </div>
+
+    <!-- 説明 -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+        これから、<span class="font-bold text-green-600">5つのパート</span>に分けて、<br class="hidden md:block"/>
+        CSVファイル自動転記ツールを作成していきます。
+      </p>
+    </div>
+
+    <!-- ステップカード -->
+    <div class="space-y-6">
+
+      <!-- Part 1 -->
+      <a href="practice-02-section-03-preparation.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">1</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 1: 準備編
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                GoogleDriveでフォルダを作成し、フォルダIDを取得します。<br/>
+                このフォルダIDがGASでファイルを操作する際に必要になります。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 2 -->
+      <a href="practice-02-section-04-data-format.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">2</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 2: データ形式と転記項目
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                CSVファイルのサンプルデータと転記項目を確認します。<br/>
+                どのデータをどの列に転記するか設計しましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 3 -->
+      <a href="practice-02-section-05-prompt.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">3</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 3: プロンプト例
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                生成AIへの指示文を確認します。<br/>
+                フォルダID、データ形式、転記項目を含めた具体的なプロンプトを作成します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 4 -->
+      <a href="practice-02-section-06.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">4</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 4: 実行編
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                ChatGPTが生成したコードをGASエディタに貼り付けて実行します。<br/>
+                カスタムメニューを作成して、ボタン1つで実行できるようにします。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Part 5 -->
+      <a href="practice-02-section-09-merit.html" class="block">
+        <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
+          <div class="flex items-start">
+            <div class="step-number mr-6">5</div>
+            <div class="flex-grow">
+              <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                Part 5: メリット
+              </h3>
+              <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                この自動化ツールのビジネスメリットを理解します。<br/>
+                作業時間の削減、ミスの防止など、具体的な効果を確認しましょう。
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ポイント -->
+    <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl shadow-lg p-8 mt-12">
+      <div class="flex items-start">
+        <span class="text-4xl mr-4">💡</span>
+        <div>
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            ポイント
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+            各パートを順番に進めることで、<span class="font-bold text-green-600">準備から実装、効果確認まで体系的に学べます。</span><br/>
+            まずはPart 1の準備編から始めていきましょう！
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ナビゲーションボタン -->
+    <div class="flex justify-between items-center mt-12">
+      <a href="practice-02-section-03.html" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition">
+        ← 前のステップ
+      </a>
+      <a href="practice-02-section-05.html" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition">
+        次のステップ：Part 1 準備編 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white shadow-md mt-20 py-6">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-gray-600">
+        © 2025 生成AI×GAS 短期講座 | すべての資料は学習目的で提供されています
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

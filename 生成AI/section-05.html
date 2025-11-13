@@ -96,7 +96,11 @@
       max-height: 90%;
       object-fit: contain;
     }
-  </style>
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
 </head>
 <body class="smooth-scroll bg-gray-50">
 
@@ -147,6 +151,9 @@
       </div>
       <div class="dot" data-section="work3">
         <span class="dot-label">ワーク3</span>
+      </div>
+      <div class="dot" data-section="settings">
+        <span class="dot-label">設定とプラン</span>
       </div>
     </div>
   </div>
@@ -820,6 +827,180 @@
       </div>
     </section>
 
+    <!-- 小セクション9: 設定ページとプラン管理 -->
+    <section id="settings" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚙️ 設定ページとプラン管理
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTを使い始める前に、設定ページの場所や現在のプラン確認方法を知っておくと便利です。
+          ここでは、基本的な設定の確認方法とプラン管理について説明します。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            設定ページへのアクセス方法
+          </h3>
+
+          <div class="space-y-6">
+            <!-- ステップ1 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  画面左下のプロフィールアイコンをクリック
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  ChatGPT画面の左下に、あなたのプロフィールアイコン（またはイニシャル）が表示されています。
+                  これをクリックすると、メニューが開きます。
+                </p>
+              </div>
+            </div>
+
+            <!-- ステップ2 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  「Settings」をクリック
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  メニューの中から<strong class="text-indigo-600">「Settings」</strong>を選択します。
+                  ここで、ChatGPTの各種設定を確認・変更できます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-placeholder mt-6" onclick="openModal('screenshot-chatgpt-settings-access.png')">
+            <p class="text-lg font-semibold mb-2">📸 設定ページへのアクセス手順</p>
+            <p class="text-sm">screenshot-chatgpt-settings-access.png</p>
+            <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-6">
+            現在のプラン確認方法
+          </h3>
+
+          <div class="space-y-4">
+            <p class="text-base md:text-lg text-gray-700">
+              Settings画面を開いたら、<strong class="text-green-600">「My Plan」</strong>または<strong class="text-green-600">「Subscription」</strong>をクリックします。
+              ここで、以下の情報を確認できます。
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <h5 class="font-semibold text-gray-900 mb-2">現在のプラン</h5>
+                <p class="text-sm text-gray-700">
+                  Free、Plus、Proのいずれかが表示されます
+                </p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <h5 class="font-semibold text-gray-900 mb-2">利用状況</h5>
+                <p class="text-sm text-gray-700">
+                  使用可能なモデルや機能の一覧が確認できます
+                </p>
+              </div>
+              <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                <h5 class="font-semibold text-gray-900 mb-2">次回請求日</h5>
+                <p class="text-sm text-gray-700">
+                  有料プランの場合、次回の課金日が表示されます
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-placeholder mt-6" onclick="openModal('screenshot-chatgpt-my-plan.png')">
+            <p class="text-lg font-semibold mb-2">📸 My Plan画面</p>
+            <p class="text-sm">screenshot-chatgpt-my-plan.png</p>
+            <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-6">
+            プラン変更・アップグレード方法
+          </h3>
+
+          <div class="space-y-4">
+            <p class="text-base md:text-lg text-gray-700">
+              無料プランから有料プラン（Plusなど）にアップグレードする場合は、以下の手順で行います。
+            </p>
+
+            <div class="space-y-6">
+              <!-- アップグレード手順 -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                  1
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    「Upgrade to Plus」ボタンをクリック
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700">
+                    My Plan画面に表示される<strong class="text-purple-600">「Upgrade to Plus」</strong>または<strong class="text-purple-600">「Upgrade plan」</strong>ボタンをクリックします。
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                  2
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    支払い情報を入力
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700">
+                    クレジットカード情報を入力して、アップグレードを完了します。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-placeholder mt-6" onclick="openModal('screenshot-chatgpt-upgrade-button.png')">
+            <p class="text-lg font-semibold mb-2">📸 アップグレードボタンの位置</p>
+            <p class="text-sm">screenshot-chatgpt-upgrade-button.png</p>
+            <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">💡 注意事項</p>
+          <ul class="space-y-2 text-base md:text-lg text-yellow-800">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>Plusプランは<strong>月額課金（自動更新）</strong>です。毎月自動的に請求されます。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>キャンセルは<strong>いつでも可能</strong>です。Settings → My Plan → Manage subscriptionから手続きできます。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>詳細な料金や返金ポリシーについては、OpenAIの公式サポートページをご確認ください。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            設定ページは何度でも確認できます。プランの変更や確認が必要になったら、
+            いつでも左下のプロフィールアイコンから「Settings」にアクセスしてくださいね。
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- まとめセクション -->
     <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -849,6 +1030,10 @@
           <li class="flex items-start gap-3">
             <span class="text-indigo-600 font-bold">✓</span>
             <span>1回で完璧を目指さず、対話を重ねて目的を達成しましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>設定ページから現在のプラン確認やアップグレードができます</span>
           </li>
         </ul>
         <p class="text-lg md:text-xl text-gray-800 mt-6">

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メールサンプル | 実践編① | 生成AI×GAS 短期講座</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #667eea 0%, #667eea 30%, #e5e7eb 30%, #e5e7eb 100%);
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../assets/css/search-global.css">
+  <script src="../assets/js/searchGlobal.js" defer></script>
+  <script src="../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="practice-01-section-03.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="practice-01-section-05.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator space-y-4">
+    <div class="dot" data-section="intro">
+      <span class="dot-label">イントロダクション</span>
+    </div>
+    <div class="dot" data-section="step1">
+      <span class="dot-label">作業の棚卸</span>
+    </div>
+    <div class="dot" data-section="worksheet">
+      <span class="dot-label">ワークシート紹介</span>
+    </div>
+    <div class="dot active" data-section="mail-sample">
+      <span class="dot-label">メールサンプル</span>
+    </div>
+    <div class="dot" data-section="transfer-items">
+      <span class="dot-label">転記項目</span>
+    </div>
+    <div class="dot" data-section="prompt">
+      <span class="dot-label">プロンプト例</span>
+    </div>
+    <div class="dot" data-section="gas-paste">
+      <span class="dot-label">コード貼り付け</span>
+    </div>
+    <div class="dot" data-section="authorization">
+      <span class="dot-label">初回承認</span>
+    </div>
+    <div class="dot" data-section="confirmation">
+      <span class="dot-label">動作確認</span>
+    </div>
+    <div class="dot" data-section="trigger">
+      <span class="dot-label">トリガー設定</span>
+    </div>
+    <div class="dot" data-section="summary">
+      <span class="dot-label">まとめ</span>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- タイトル -->
+    <div class="text-center mb-12">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+        📧 メールサンプル
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        実践編① - 注文メール → スプレッドシート転記
+      </p>
+    </div>
+
+    <!-- ゴール -->
+    <section id="goal" class="mb-16">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
+        <div class="text-center">
+          <div class="text-5xl md:text-6xl mb-6">🎯</div>
+          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            ゴール
+          </h2>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+            注文メールの内容を抽出して、1クリックでシートへ転記
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- サンプル注文メール -->
+    <section id="mail-sample" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-3">
+          <span class="text-3xl">📨</span>
+          サンプル：注文メールの形式
+        </h2>
+
+        <!-- メール風デザイン -->
+        <div class="bg-white border-4 border-gray-300 rounded-2xl shadow-xl max-w-4xl mx-auto overflow-hidden">
+          <!-- メールヘッダー -->
+          <div class="bg-gray-100 p-6 border-b-2 border-gray-300">
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <span class="text-lg font-bold text-gray-600 min-w-[100px]">件名：</span>
+                <span class="text-lg md:text-xl font-bold text-gray-900">【注文受付】#12345 山田太郎様</span>
+              </div>
+              <div class="flex items-start">
+                <span class="text-lg font-bold text-gray-600 min-w-[100px]">差出人：</span>
+                <span class="text-lg text-gray-700">shop@example.com</span>
+              </div>
+              <div class="flex items-start">
+                <span class="text-lg font-bold text-gray-600 min-w-[100px]">受信日時：</span>
+                <span class="text-lg text-gray-700">2025/10/28 14:30</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- メール本文 -->
+          <div class="p-8 space-y-6">
+            <!-- タイトル -->
+            <div class="text-center py-4 bg-orange-50 rounded-xl border-2 border-orange-200">
+              <p class="text-lg md:text-xl font-bold text-orange-600">━━━━━━━━━━━━━━━━━━</p>
+              <p class="text-xl md:text-2xl font-bold text-gray-800 py-2">ご注文ありがとうございます</p>
+              <p class="text-lg md:text-xl font-bold text-orange-600">━━━━━━━━━━━━━━━━━━</p>
+            </div>
+
+            <!-- お客様情報 -->
+            <div class="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
+              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span class="text-2xl">👤</span>
+                お客様情報
+              </h3>
+              <div class="space-y-2">
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">注文ID:</span> 12345
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">注文日時:</span> 2025/10/28 14:30
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">お客様名:</span> 山田太郎
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">メールアドレス:</span> yamada@example.com
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">電話番号:</span> 090-1234-5678
+                </p>
+              </div>
+            </div>
+
+            <!-- ご注文内容 -->
+            <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
+              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span class="text-2xl">🛒</span>
+                【ご注文内容】
+              </h3>
+              <div class="space-y-2">
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">商品名:</span> 有機りんご 5kg
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">数量:</span> 2箱
+                </p>
+                <p class="text-xl md:text-2xl text-orange-600 font-bold mt-4">
+                  <span class="font-bold">小計:</span> 5,600円
+                </p>
+              </div>
+            </div>
+
+            <!-- 配送情報 -->
+            <div class="bg-green-50 p-6 rounded-xl border-2 border-green-200">
+              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span class="text-2xl">🚚</span>
+                配送情報
+              </h3>
+              <div class="space-y-2">
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">配送先住所:</span> 東京都渋谷区〇〇1-2-3
+                </p>
+                <p class="text-lg text-gray-700">
+                  <span class="font-bold text-gray-800">配送希望日:</span> 2025/11/01
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- このメールから取得したいデータ -->
+    <section id="data-to-extract" class="mb-16">
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-purple-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+          💡 このメールから取得したいデータ
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 mb-6 text-center leading-relaxed">
+          メール本文の中から、以下の情報を自動で抽出してスプレッドシートに転記します
+        </p>
+        <div class="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 注文ID</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 注文日時</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ お客様名</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ メールアドレス</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 電話番号</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 商品名</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 数量</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 金額</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 配送先住所</p>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 配送希望日</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のステップへ -->
+    <section id="next-step" class="mb-16">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-4">
+          📌 次は転記項目を設計しましょう
+        </h2>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          メールの形式が分かったら、次は「どのデータをどの列に転記するか」を設計します。<br/>
+          この設計がしっかりできていると、生成AIが正確なコードを作ってくれます。
+        </p>
+        <a href="practice-01-section-05.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          次へ：転記項目の設計 →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編①</p>
+    </div>
+  </footer>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <script>
+    // 画像拡大機能
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+
+    document.querySelectorAll('.screenshot-placeholder').forEach(img => {
+      img.addEventListener('click', function() {
+        modal.classList.add('active');
+        modalImage.src = this.dataset.src || '';
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+
+    // ドットインジケーターのクリックイベント
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        const sections = [
+          'practice-01-intro.html',
+          'practice-01-section-01.html',
+          'practice-01-section-02.html',
+          'practice-01-section-03.html',
+          'practice-01-section-04.html',
+          'practice-01-section-05.html',
+          'practice-01-step2.html',
+          'practice-01-step3.html',
+          'practice-01-step4.html',
+          'practice-01-step5.html',
+          'practice-01-summary.html'
+        ];
+        window.location.href = sections[index];
+      });
+    });
+
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
