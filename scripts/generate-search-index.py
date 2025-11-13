@@ -23,6 +23,39 @@ CATEGORY_MAP = {
 }
 
 
+def load_synonyms(base_dir):
+    """シノニム辞書を読み込む"""
+    synonyms_file = base_dir / "assets" / "data" / "search-synonyms.json"
+    try:
+        with open(synonyms_file, 'r', encoding='utf-8') as f:
+            synonyms_data = json.load(f)
+            return synonyms_data.get("commonSynonyms", {})
+    except Exception as e:
+        print(f"警告: シノニム辞書の読み込みに失敗しました - {e}")
+        return {}
+
+
+def expand_with_synonyms(text, synonyms):
+    """テキストにシノニムを追加（頻出語のみ）"""
+    expanded_terms = []
+    text_lower = text.lower()
+
+    # 各シノニムグループをチェック
+    for main_term, synonym_list in synonyms.items():
+        # テキスト内に主要な用語または同義語が含まれているか確認
+        if any(term.lower() in text_lower for term in [main_term] + synonym_list):
+            # 同義語をすべて追加（重複を避けるため、まだ含まれていないもののみ）
+            for synonym in synonym_list:
+                if synonym.lower() not in text_lower and synonym not in expanded_terms:
+                    expanded_terms.append(synonym)
+
+    # 拡張された用語がある場合、元のテキストに追加
+    if expanded_terms:
+        return text + " " + " ".join(expanded_terms)
+
+    return text
+
+
 class HTMLTextExtractor(HTMLParser):
     """HTMLからテキストを抽出するパーサー"""
 
@@ -104,7 +137,7 @@ def extract_sections(html_content):
     return sections
 
 
-def process_html_file(file_path, base_dir):
+def process_html_file(file_path, base_dir, synonyms=None):
     """HTMLファイルを処理"""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -121,6 +154,11 @@ def process_html_file(file_path, base_dir):
 
         if not sections:
             return None
+
+        # シノニム展開を適用（頻出語のみ）
+        if synonyms:
+            for section in sections:
+                section["content"] = expand_with_synonyms(section["content"], synonyms)
 
         # カテゴリを判定
         parts = relative_path.split('/')
@@ -156,6 +194,15 @@ def main():
     print("=" * 60)
     print()
 
+    # シノニム辞書を読み込み
+    print("シノニム辞書を読み込んでいます...")
+    synonyms = load_synonyms(base_dir)
+    if synonyms:
+        print(f"[OK] {len(synonyms)}個のシノニムグループを読み込みました")
+    else:
+        print("[WARNING] シノニム辞書なしで続行します")
+    print()
+
     # 対象ディレクトリ
     target_dirs = ["生成AI", "GAS", "実践編", "基本的な考え方", "上級編", "トラブルシューティング"]
 
@@ -176,7 +223,7 @@ def main():
         for html_file in html_files:
             print(f"  - {html_file.name} を処理中...")
 
-            page_data = process_html_file(html_file, base_dir)
+            page_data = process_html_file(html_file, base_dir, synonyms)
             if page_data:
                 pages.append(page_data)
                 total_sections += len(page_data["sections"])
@@ -188,7 +235,7 @@ def main():
         if file_path.exists():
             print(f"[{special_file}] を処理中...")
 
-            page_data = process_html_file(file_path, base_dir)
+            page_data = process_html_file(file_path, base_dir, synonyms)
             if page_data:
                 # カテゴリを上書き
                 page_data["category"] = "トップ"

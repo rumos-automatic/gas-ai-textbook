@@ -7,7 +7,9 @@
 class GlobalSearch {
   constructor() {
     this.searchIndex = null;
+    this.synonymsDict = null;
     this.isIndexLoaded = false;
+    this.isSynonymsLoaded = false;
     this.isModalOpen = false;
     this.currentResults = [];
     this.debounceTimer = null;
@@ -18,8 +20,11 @@ class GlobalSearch {
 
   // 初期化
   async init() {
-    // 検索インデックスを読み込み
-    await this.loadSearchIndex();
+    // 検索インデックスとシノニム辞書を並列読み込み
+    await Promise.all([
+      this.loadSearchIndex(),
+      this.loadSynonyms()
+    ]);
 
     // UIを描画
     this.renderUI();
@@ -79,6 +84,64 @@ class GlobalSearch {
     }
   }
 
+  // シノニム辞書を読み込む
+  async loadSynonyms() {
+    let synonymsUrl = '';
+    try {
+      // 現在のHTMLファイルの位置を特定
+      const currentHref = decodeURIComponent(window.location.href);
+
+      // HTMLファイルの階層を判定
+      let basePath;
+      if (currentHref.includes('/生成AI/') || currentHref.includes('/GAS/') ||
+          currentHref.includes('/実践編/') || currentHref.includes('/基本的な考え方/') ||
+          currentHref.includes('/上級編/') || currentHref.includes('/トラブルシューティング/')) {
+        basePath = '../';
+      } else {
+        basePath = './';
+      }
+
+      synonymsUrl = `${basePath}assets/data/search-synonyms.json`;
+
+      const response = await fetch(synonymsUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      this.synonymsDict = await response.json();
+      this.isSynonymsLoaded = true;
+
+      console.log('✅ シノニム辞書読み込み完了!');
+      console.log('  - commonSynonyms:', Object.keys(this.synonymsDict.commonSynonyms || {}).length);
+      console.log('  - dynamicSynonyms:', Object.keys(this.synonymsDict.dynamicSynonyms || {}).length);
+    } catch (error) {
+      console.warn('⚠️ シノニム辞書の読み込みに失敗（検索は通常モードで動作します）');
+      console.warn('  - エラー:', error.message);
+      console.warn('  - 試行したパス:', synonymsUrl);
+      this.isSynonymsLoaded = false;
+    }
+  }
+
+  // クエリをシノニムで展開
+  expandQueryWithSynonyms(query) {
+    if (!this.isSynonymsLoaded || !this.synonymsDict) {
+      return [query];
+    }
+
+    const expandedTerms = new Set([query]);
+    const queryLower = query.toLowerCase();
+
+    // dynamicSynonymsを適用
+    const dynamicSynonyms = this.synonymsDict.dynamicSynonyms || {};
+    for (const [key, synonyms] of Object.entries(dynamicSynonyms)) {
+      if (queryLower.includes(key.toLowerCase())) {
+        synonyms.forEach(synonym => expandedTerms.add(synonym));
+      }
+    }
+
+    return Array.from(expandedTerms);
+  }
+
   // UIを描画
   renderUI() {
     // ナビゲーションバーに検索ボタンを追加
@@ -136,6 +199,8 @@ class GlobalSearch {
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+              <!-- サジェストリスト -->
+              <div id="globalSearchSuggestions" class="global-search-suggestions" style="display: none;"></div>
             </div>
             <button id="globalSearchClose" class="global-search-close-button" aria-label="閉じる">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -239,13 +304,81 @@ class GlobalSearch {
 
     if (keyword.trim().length === 0) {
       this.clearResults();
+      this.hideSuggestions();
       return;
+    }
+
+    // サジェストを表示（入力2文字以上）
+    if (keyword.trim().length >= 2) {
+      this.showSuggestions(keyword);
+    } else {
+      this.hideSuggestions();
     }
 
     // 500ms後に検索実行
     this.debounceTimer = setTimeout(() => {
       this.performSearch(keyword);
     }, 500);
+  }
+
+  // サジェストを表示
+  showSuggestions(keyword) {
+    if (!this.isSynonymsLoaded || !this.synonymsDict || !this.synonymsDict.suggestions) {
+      return;
+    }
+
+    const suggestionsContainer = document.getElementById('globalSearchSuggestions');
+    if (!suggestionsContainer) return;
+
+    const allSuggestions = [
+      ...this.synonymsDict.suggestions.popular || [],
+      ...this.synonymsDict.suggestions.goalOriented || [],
+      ...this.synonymsDict.suggestions.troubleshooting || [],
+      ...this.synonymsDict.suggestions.beginner || []
+    ];
+
+    // キーワードに部分一致するサジェストをフィルター
+    const keywordLower = keyword.toLowerCase();
+    const filteredSuggestions = allSuggestions.filter(item =>
+      item.text.toLowerCase().includes(keywordLower)
+    ).slice(0, 5); // 最大5件
+
+    if (filteredSuggestions.length === 0) {
+      this.hideSuggestions();
+      return;
+    }
+
+    // サジェストHTML生成
+    const html = filteredSuggestions.map(item => `
+      <div class="suggestion-item" data-text="${item.text}">
+        <svg class="suggestion-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <span>${item.text}</span>
+        <span class="suggestion-category">${item.category}</span>
+      </div>
+    `).join('');
+
+    suggestionsContainer.innerHTML = html;
+    suggestionsContainer.style.display = 'block';
+
+    // サジェストクリックイベント
+    suggestionsContainer.querySelectorAll('.suggestion-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const text = item.dataset.text;
+        document.getElementById('globalSearchInput').value = text;
+        this.hideSuggestions();
+        this.performSearch(text);
+      });
+    });
+  }
+
+  // サジェストを非表示
+  hideSuggestions() {
+    const suggestionsContainer = document.getElementById('globalSearchSuggestions');
+    if (suggestionsContainer) {
+      suggestionsContainer.style.display = 'none';
+    }
   }
 
   // 検索を実行
@@ -278,13 +411,21 @@ class GlobalSearch {
     // ひらがな/カタカナ変換対応
     const keywordVariants = this.generateKeywordVariants(keywordLower);
 
+    // シノニム展開を追加
+    const expandedTerms = this.expandQueryWithSynonyms(keyword);
+    const allSearchTerms = [...new Set([...keywordVariants, ...expandedTerms])];
+
+    console.log('🔍 検索語:', keyword);
+    console.log('  - 展開後:', allSearchTerms);
+
     this.searchIndex.pages.forEach(page => {
       page.sections.forEach(section => {
         const contentLower = section.content.toLowerCase();
 
-        // いずれかのバリアントにマッチするかチェック
-        const matchCount = keywordVariants.reduce((count, variant) => {
-          const matches = contentLower.match(new RegExp(variant, 'g'));
+        // すべての検索語（バリアント + シノニム）でマッチチェック
+        const matchCount = allSearchTerms.reduce((count, term) => {
+          const termLower = term.toLowerCase();
+          const matches = contentLower.match(new RegExp(termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'));
           return count + (matches ? matches.length : 0);
         }, 0);
 
