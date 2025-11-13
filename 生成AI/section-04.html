@@ -424,10 +424,14 @@
           シンプルな構成なので、すぐに使いこなせるようになります。
         </p>
 
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-interface.png')">
-          <p class="text-lg font-semibold mb-2">📸 ChatGPTのインターフェース全体像</p>
-          <p class="text-sm">screenshot-chatgpt-interface.png</p>
-          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        <div class="mb-6">
+          <p class="text-lg font-semibold mb-3 text-gray-900">📸 ChatGPTのインターフェース全体像</p>
+          <img
+            src="../assets/images/screenshots/screenshot-chatgpt-interface.webp"
+            alt="ChatGPTのインターフェース全体像"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+            onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-interface.webp')">
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6">
@@ -484,7 +488,7 @@
             <ul class="space-y-3 text-base md:text-lg text-gray-700">
               <li class="flex items-start gap-2">
                 <span class="font-bold">•</span>
-                <span><strong>「+」ボタン</strong>：左上の「+」ボタンで新しいチャットを開始</span>
+                <span><strong>「新しいチャット」ボタン</strong>：左上の「新しいチャット」ボタンで新しいチャットを開始</span>
               </li>
               <li class="flex items-start gap-2">
                 <span class="font-bold">•</span>
@@ -510,22 +514,41 @@
         🧠 モデルの選び方
       </h2>
       <div class="space-y-6">
-        <!-- ChatGPT 5の概要 -->
+        <!-- ChatGPT 5.1の概要 -->
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
-          2025年8月にリリースされた<strong>ChatGPT 5</strong>が最新モデルです。
+          <strong>ChatGPT 5.1</strong>が最新モデルです。
           高速レスポンスと深い推論能力を自動で切り替え、コーディング性能が大幅に向上しています。
         </p>
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
-          ChatGPT 5には、質問の内容に応じて使い分けられる複数のモードがあります。
+          ChatGPT 5.1には、質問の内容に応じて使い分けられる複数のモードがあります。
           基本的には「Auto」モードを使えば、自動で最適なモードを選んでくれます。
         </p>
 
-        <!-- ChatGPT 5のモード選択 -->
+        <!-- モデル選択のスクリーンショット -->
+        <div class="mb-6">
+          <p class="text-lg font-semibold mb-3 text-gray-900">📸 モデルの選択方法</p>
+          <img
+            src="../assets/images/screenshots/screenshot-chatgpt-model-selector.png"
+            alt="ChatGPTのモデル選択画面"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+            onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-model-selector.png')">
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 モデルの切り替え方</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            チャット画面の左上に現在のモデル名が表示されています。
+            そこをクリックすると、モデル選択のメニューが開き、好きなモデルに切り替えることができます。
+          </p>
+        </div>
+
+        <!-- ChatGPT 5.1のモード選択 -->
         <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mt-8 mb-4">
-          📊 ChatGPT 5のモード
+          📊 ChatGPT 5.1のモード
         </h3>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-3 gap-6">
           <!-- Auto -->
           <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 rounded-lg shadow-lg text-white border-4 border-yellow-400">
             <div class="flex items-center justify-between mb-3">
@@ -565,24 +588,6 @@
             </div>
           </div>
 
-          <!-- Thinking mini -->
-          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
-            <h3 class="text-xl md:text-2xl font-bold mb-3">
-              Thinking mini
-            </h3>
-            <p class="text-base md:text-lg mb-4">
-              素早く思考
-            </p>
-            <div class="bg-white/20 p-4 rounded-lg">
-              <p class="text-sm font-semibold mb-2">どんな時に使う？</p>
-              <ul class="text-sm space-y-1">
-                <li>• 中程度の難易度の質問</li>
-                <li>• 少し考えてほしい時</li>
-                <li>• バランス重視</li>
-              </ul>
-            </div>
-          </div>
-
           <!-- Thinking -->
           <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
             <h3 class="text-xl md:text-2xl font-bold mb-3">
@@ -602,7 +607,10 @@
           </div>
         </div>
 
-        <!-- Proモード（別枠） -->
+        <!-- GPT-5のProモード（別枠） -->
+        <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mt-8 mb-4">
+          🔬 GPT-5のProモード
+        </h3>
         <div class="bg-gradient-to-br from-gray-700 to-gray-800 p-6 rounded-lg shadow-lg text-white">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-xl md:text-2xl font-bold">
@@ -623,13 +631,34 @@
           📁 レガシーモデル
         </h3>
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
-          ChatGPT 5以前のモデルも「レガシーモデル」として継続利用できます。
-          基本的にはChatGPT 5で十分ですが、対話の雰囲気を変えたい場合などに使い分けることができます。
+          ChatGPT 5.1以前のモデルも「レガシーモデル」として継続利用できます。
+          基本的にはChatGPT 5.1で十分ですが、対話の雰囲気を変えたい場合などに使い分けることができます。
         </p>
 
         <div class="bg-white p-6 rounded-lg shadow-lg">
           <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">利用可能なレガシーモデル（Plus以上）</h4>
           <div class="grid md:grid-cols-2 gap-4">
+            <!-- GPT-5シリーズ -->
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-indigo-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-5 Instant</h5>
+              <p class="text-sm text-gray-700">
+                GPT-5の高速モード。瞬時に回答を生成します。
+              </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-indigo-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-5 Thinking mini</h5>
+              <p class="text-sm text-gray-700">
+                GPT-5の中速モード。素早く思考して回答します。
+              </p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-indigo-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-5 Thinking</h5>
+              <p class="text-sm text-gray-700">
+                GPT-5の高精度モード。深く思考して回答します。
+              </p>
+            </div>
+
+            <!-- GPT-4シリーズ -->
             <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
               <h5 class="font-semibold text-gray-900 mb-2">GPT-4o</h5>
               <p class="text-sm text-gray-700">
@@ -642,6 +671,14 @@
                 コーディング特化版。プログラミングに最適化されたモデルです。
               </p>
             </div>
+            <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+              <h5 class="font-semibold text-gray-900 mb-2">GPT-4.5</h5>
+              <p class="text-sm text-gray-700">
+                GPT-4.1の改良版。コーディング性能がさらに向上しています。
+              </p>
+            </div>
+
+            <!-- 推論特化モデル -->
             <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-purple-500">
               <h5 class="font-semibold text-gray-900 mb-2">o3</h5>
               <p class="text-sm text-gray-700">
@@ -736,12 +773,6 @@
           </p>
         </div>
 
-        <!-- スクリーンショット -->
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-model-selector.png')">
-          <p class="text-lg font-semibold mb-2">📸 ChatGPT 5のモード選択画面</p>
-          <p class="text-sm">screenshot-chatgpt-model-selector.png</p>
-          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
-        </div>
       </div>
     </section>
 
@@ -809,10 +840,14 @@
           </div>
         </div>
 
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-title-edit.png')">
-          <p class="text-lg font-semibold mb-2">📸 タイトル編集画面</p>
-          <p class="text-sm">screenshot-chatgpt-title-edit.png</p>
-          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        <div class="mb-6">
+          <p class="text-lg font-semibold mb-3 text-gray-900">📸 タイトル編集画面</p>
+          <img
+            src="../assets/images/screenshots/screenshot-chatgpt-title-edit.png"
+            alt="チャットタイトル編集画面"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+            onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-title-edit.png')">
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
       </div>
     </section>
