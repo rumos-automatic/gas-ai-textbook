@@ -173,9 +173,13 @@
       <div class="max-w-4xl mx-auto">
         <div class="rounded-lg overflow-hidden shadow-xl">
           <video
+            id="demo-video"
             class="w-full"
             controls
-            preload="metadata"
+            autoplay
+            muted
+            playsinline
+            preload="auto"
             poster="../assets/videos/generative-ai-demo-thumbnail.jpg"
           >
             <source src="../assets/videos/generative-ai-demo.mp4" type="video/mp4">
@@ -183,6 +187,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+      // 動画を2回再生したら停止
+      (function() {
+        const video = document.getElementById('demo-video');
+        let playCount = 0;
+
+        video.addEventListener('ended', function() {
+          playCount++;
+          if (playCount < 2) {
+            video.play();
+          }
+        });
+      })();
+    </script>
 
     <!-- 小セクション1: AIの基本的な定義 -->
     <section id="intro" class="mb-20 scroll-mt-24">
