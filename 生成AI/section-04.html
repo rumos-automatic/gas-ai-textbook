@@ -189,13 +189,60 @@
     <!-- 小セクション1: ChatGPTの登録方法 -->
     <section id="signup" class="mb-20 scroll-mt-24">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        📧 ChatGPTの登録方法（メールアドレス・Google連携）
+        📧 ChatGPTの登録方法（Googleアカウント連携）
       </h2>
       <div class="space-y-6">
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
           ChatGPTを使うには、まずアカウントを作成する必要があります。
-          登録は無料で、メールアドレスまたはGoogleアカウントで簡単に始められます。
+          登録は無料で、複数の方法から選択できます。
         </p>
+
+        <!-- 登録方法の選択肢 -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <h3 class="text-lg md:text-xl font-bold text-blue-900 mb-3">利用可能な登録方法</h3>
+          <p class="text-base md:text-lg text-blue-800 mb-3">
+            ChatGPTは、以下のいずれかの方法でアカウントを作成できます：
+          </p>
+          <ul class="text-base md:text-lg text-blue-800 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold">✓</span>
+              <span><strong>Googleアカウント</strong>で連携（おすすめ・簡単）</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold">✓</span>
+              <span><strong>Appleアカウント</strong>で連携</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold">✓</span>
+              <span><strong>Microsoftアカウント</strong>で連携</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold">✓</span>
+              <span><strong>メールアドレス</strong>で登録</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-green-600 font-bold">✓</span>
+              <span><strong>電話番号</strong>で登録</span>
+            </li>
+          </ul>
+          <p class="text-base md:text-lg text-blue-800 mt-4">
+            この資料では、最も簡単な<strong>Googleアカウント連携</strong>での登録方法をご紹介します。
+          </p>
+        </div>
+
+        <!-- 動画セクション -->
+        <div class="mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            📹 登録の流れを動画で確認
+          </h3>
+          <video
+            controls
+            class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
+            preload="metadata">
+            <source src="../assets/videos/chatgpt-signup-google-optimized.mp4" type="video/mp4">
+            お使いのブラウザは動画タグに対応していません。
+          </video>
+        </div>
 
         <div class="bg-white p-6 rounded-lg shadow-lg">
           <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
@@ -209,15 +256,10 @@
               <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
                 ChatGPT公式サイトにアクセス
               </h4>
-              <p class="text-base md:text-lg text-gray-700 mb-3">
-                ブラウザで「<a href="https://chat.openai.com/" target="_blank" class="text-indigo-600 hover:underline font-semibold">https://chat.openai.com/</a>」にアクセスします。
-                ChatGPTのトップページが表示されます。
+              <p class="text-base md:text-lg text-gray-700">
+                ブラウザで「<a href="https://chat.openai.com/" target="_blank" class="text-indigo-600 hover:underline font-semibold">https://chat.openai.com/</a>」にアクセスし、
+                画面右上の<strong class="text-indigo-600">「無料でサインアップ」</strong>ボタンをクリックします。
               </p>
-              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-homepage.png')">
-                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
-                <p class="text-sm">screenshot-chatgpt-homepage.png</p>
-                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
-              </div>
             </div>
           </div>
 
@@ -226,17 +268,12 @@
             <span class="step-number">2</span>
             <div class="flex-1">
               <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                「Sign up」ボタンをクリック
+                「Googleで続行」ボタンをクリック
               </h4>
-              <p class="text-base md:text-lg text-gray-700 mb-3">
-                画面右上にある<strong class="text-indigo-600">「Sign up」</strong>ボタンをクリックします。
-                新規アカウント作成画面に移動します。
+              <p class="text-base md:text-lg text-gray-700">
+                ログイン画面が表示されたら、<strong class="text-indigo-600">「Googleで続行」</strong>ボタンをクリックします。
+                Google認証画面に移動します。
               </p>
-              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-signup-button.png')">
-                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
-                <p class="text-sm">screenshot-chatgpt-signup-button.png</p>
-                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
-              </div>
             </div>
           </div>
 
@@ -245,57 +282,18 @@
             <span class="step-number">3</span>
             <div class="flex-1">
               <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                メールアドレスを入力、またはGoogleアカウントで連携
+                Googleアカウントを選択
               </h4>
-              <p class="text-base md:text-lg text-gray-700 mb-3">
-                以下のいずれかの方法でアカウントを作成できます：
+              <p class="text-base md:text-lg text-gray-700">
+                使用するGoogleアカウントを選択します。
+                複数のアカウントをお持ちの場合は、ChatGPTで使用したいアカウントを選んでください。
               </p>
-              <div class="grid md:grid-cols-2 gap-4 mb-3">
-                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                  <h5 class="font-semibold text-gray-900 mb-2">メールアドレスで登録</h5>
-                  <p class="text-sm text-gray-700">
-                    メールアドレスとパスワードを入力して登録します。
-                    確認メールが届くので、リンクをクリックして認証してください。
-                  </p>
-                </div>
-                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                  <h5 class="font-semibold text-gray-900 mb-2">Googleアカウントで連携</h5>
-                  <p class="text-sm text-gray-700">
-                    「Continue with Google」ボタンをクリックし、Googleアカウントでログインします。
-                    メール認証の手間が省けて便利です。
-                  </p>
-                </div>
-              </div>
-              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-signup-options.png')">
-                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
-                <p class="text-sm">screenshot-chatgpt-signup-options.png</p>
-                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
-              </div>
             </div>
           </div>
 
           <!-- ステップ4 -->
-          <div class="mb-6 flex items-start gap-4">
-            <span class="step-number">4</span>
-            <div class="flex-1">
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                確認メールが届くので、リンクをクリックして認証
-              </h4>
-              <p class="text-base md:text-lg text-gray-700 mb-3">
-                メールアドレスで登録した場合、OpenAI社から確認メールが届きます。
-                メール内の「Verify email address」ボタンをクリックして、メールアドレスを認証してください。
-              </p>
-              <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
-                <p class="text-base text-yellow-800">
-                  <strong>注意：</strong>確認メールが届かない場合は、迷惑メールフォルダを確認してください。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ステップ5 -->
           <div class="flex items-start gap-4">
-            <span class="step-number">5</span>
+            <span class="step-number">4</span>
             <div class="flex-1">
               <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
                 プロフィール情報を入力して完了
@@ -304,11 +302,6 @@
                 名前や生年月日などの基本情報を入力します。
                 すべて入力が完了すると、ChatGPTのチャット画面が表示され、すぐに使い始めることができます。
               </p>
-              <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-profile-setup.png')">
-                <p class="text-lg font-semibold mb-2">📸 スクリーンショット</p>
-                <p class="text-sm">screenshot-chatgpt-profile-setup.png</p>
-                <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
-              </div>
             </div>
           </div>
         </div>
