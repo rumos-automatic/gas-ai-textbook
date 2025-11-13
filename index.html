@@ -41,6 +41,132 @@
     html {
       scroll-behavior: smooth;
     }
+
+    /* 横スクロールコンテナ */
+    .scroll-container {
+      position: relative;
+      width: 100%;
+      padding: 0 40px;
+      overflow: hidden; /* グラデーション効果のために必須 */
+    }
+
+    .scroll-wrapper {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 1.5rem;
+      padding: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+    }
+
+    /* 左側のグラデーションフェード + シャドウ */
+    .scroll-container::before {
+      content: '';
+      position: absolute;
+      left: 40px;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: linear-gradient(to right,
+        rgb(249, 250, 251) 0%,
+        rgba(249, 250, 251, 0.8) 30%,
+        rgba(249, 250, 251, 0) 100%);
+      box-shadow: inset 15px 0 20px -10px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0; /* 初期状態は非表示 */
+      transition: opacity 0.3s ease;
+    }
+
+    /* 右側のグラデーションフェード + シャドウ */
+    .scroll-container::after {
+      content: '';
+      position: absolute;
+      right: 40px;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: linear-gradient(to left,
+        rgb(249, 250, 251) 0%,
+        rgba(249, 250, 251, 0.8) 30%,
+        rgba(249, 250, 251, 0) 100%);
+      box-shadow: inset -15px 0 20px -10px rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 5;
+      opacity: 1; /* 初期状態は表示（次のカードがある） */
+      transition: opacity 0.3s ease;
+    }
+
+    /* スクロール可能な時のグラデーション表示 */
+    .scroll-container.can-scroll-left::before {
+      opacity: 1;
+    }
+
+    .scroll-container.can-scroll-right::after {
+      opacity: 1;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb {
+      background-color: rgba(156, 163, 175, 0.5);
+      border-radius: 10px;
+    }
+
+    .scroll-wrapper::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(107, 114, 128, 0.7);
+    }
+
+    /* 左右矢印ボタン */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .scroll-btn:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .scroll-btn-left {
+      left: -10px;
+    }
+
+    .scroll-btn-right {
+      right: -10px;
+    }
+
+    /* カード固定幅（横スクロール時） */
+    .scroll-wrapper .section-card {
+      flex: 0 0 auto;
+      width: 280px;
+    }
+
+    @media (min-width: 768px) {
+      .scroll-wrapper .section-card {
+        width: 320px;
+      }
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="./assets/css/search-global.css">
   <script src="./assets/js/searchGlobal.js" defer></script>
@@ -89,7 +215,13 @@
         生成AIの基本概念から実践的な使い方まで、初心者でも分かりやすく学べます。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- セクション1 -->
         <a href="生成AI/section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -194,6 +326,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -207,7 +345,13 @@
         Google Apps Scriptの基礎から実践まで、ツール開発に必要な知識を習得します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- ステップ1 -->
         <a href="GAS/section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -297,6 +441,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -310,7 +460,13 @@
         AIツールを作る前に知っておくべき、効果的なAI活用の心構えとテクニックを学びます。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- セクション1: 棚卸作業 -->
         <a href="基本的な考え方/section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -355,6 +511,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -368,7 +530,13 @@
         GASに入る前に、スプレッドシート関数を使った自動化を体験します。ChatGPTを使えば、関数も簡単に作れることを実感しましょう。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- セクション1 -->
         <a href="実践編/warmup-section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -428,6 +596,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -441,7 +615,13 @@
         Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- イントロダクション -->
         <a href="実践編/practice-01-intro.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -636,6 +816,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -649,7 +835,13 @@
         Googleドライブ内のCSVファイルをスプレッドシートに自動転記するツールを作成します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- イントロダクション -->
         <a href="実践編/practice-02-section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -829,6 +1021,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -842,7 +1040,13 @@
         Googleフォームに回答があったら、自動的にお礼メールを送信するボットを作成します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- ステップ1 -->
         <a href="実践編/practice-form-bot-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -902,6 +1106,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -915,7 +1125,13 @@
         エラーが出たときの対処法を学び、問題を解決する力を身につけます。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- セクション1: エラーやうまく動かない時の指示の出し方 -->
         <a href="トラブルシューティング/troubleshooting-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -960,6 +1176,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -973,7 +1195,13 @@
         これまでの知識を活かして、自分だけの自動化ツールを作ります。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- イントロダクション -->
         <a href="実践編/practice-04-intro.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -1093,6 +1321,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -1115,7 +1349,13 @@
         API連携の基礎知識を学び、外部サービスとGASを連携させる方法を習得します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- セクション1: APIとは？ -->
         <a href="上級編/api-introduction.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -1190,6 +1430,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -1203,7 +1449,13 @@
         GASとチャットワークAPIを連携させて、業務を効率化するツールを作ります。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- ステップ1 -->
         <a href="実践編/practice-chatwork-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -1293,6 +1545,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -1306,7 +1564,13 @@
         GASとGemini APIを連携させて、AI機能を組み込んだツールを作成します。
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="scroll-container">
+        <button class="scroll-btn scroll-btn-left" onclick="scrollCategory(this, -1)" aria-label="前のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <div class="scroll-wrapper">
         <!-- ステップ1 -->
         <a href="実践編/practice-gemini-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
@@ -1381,6 +1645,12 @@
             </p>
           </div>
         </a>
+        </div>
+        <button class="scroll-btn scroll-btn-right" onclick="scrollCategory(this, 1)" aria-label="次のカードを表示">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
       </div>
     </section>
 
@@ -1394,6 +1664,64 @@
       </p>
     </div>
   </footer>
+
+  <!-- スクロール機能のJavaScript -->
+  <script>
+    function scrollCategory(button, direction) {
+      const container = button.parentElement;
+      const wrapper = container.querySelector('.scroll-wrapper');
+      const cardWidth = wrapper.querySelector('.section-card').offsetWidth;
+      const gap = 24; // gap-6 = 1.5rem = 24px
+      const scrollAmount = (cardWidth + gap) * direction;
+
+      wrapper.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // スクロール位置に応じてボタンとグラデーションの状態を更新
+    function updateScrollButtons(wrapper) {
+      const container = wrapper.parentElement;
+      const leftBtn = container.querySelector('.scroll-btn-left');
+      const rightBtn = container.querySelector('.scroll-btn-right');
+
+      // 左端にいる場合
+      const isAtStart = wrapper.scrollLeft <= 10;
+      if (isAtStart) {
+        leftBtn.style.opacity = '0.3';
+        leftBtn.style.pointerEvents = 'none';
+        container.classList.remove('can-scroll-left');
+      } else {
+        leftBtn.style.opacity = '1';
+        leftBtn.style.pointerEvents = 'auto';
+        container.classList.add('can-scroll-left');
+      }
+
+      // 右端にいる場合
+      const isAtEnd = wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 10;
+      if (isAtEnd) {
+        rightBtn.style.opacity = '0.3';
+        rightBtn.style.pointerEvents = 'none';
+        container.classList.remove('can-scroll-right');
+      } else {
+        rightBtn.style.opacity = '1';
+        rightBtn.style.pointerEvents = 'auto';
+        container.classList.add('can-scroll-right');
+      }
+    }
+
+    // 全てのスクロールラッパーにイベントリスナーを設定
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.scroll-wrapper').forEach(wrapper => {
+        // スクロール時にボタン状態を更新
+        wrapper.addEventListener('scroll', () => updateScrollButtons(wrapper));
+
+        // 初期状態を設定
+        updateScrollButtons(wrapper);
+      });
+    });
+  </script>
 
 </body>
 </html>
