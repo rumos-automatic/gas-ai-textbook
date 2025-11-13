@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>実践編②-6: ステップ5 カスタムメニュー設定 | 生成AI×GAS 短期講座</title>
+  <title>実践編②-3: ステップ2 ChatGPTにプロンプトを送る | 生成AI×GAS 短期講座</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
@@ -12,42 +12,9 @@
     .smooth-scroll {
       scroll-behavior: smooth;
     }
-    .screenshot-placeholder {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 0.5rem;
-      padding: 3rem;
-      text-align: center;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .screenshot-placeholder:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    #imageModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
-    #imageModal.active {
-      display: flex;
-    }
-    #imageModal img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 85.71%, #e5e7eb 85.71%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 42.86%, #e5e7eb 42.86%, #e5e7eb 100%);
     }
 
     .dot-indicator {
@@ -114,10 +81,10 @@
           ← トップページへ
         </a>
         <div class="flex gap-4">
-          <a href="practice-02-section-05.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          <a href="practice-02-section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
-          <a href="practice-02-section-07.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          <a href="practice-02-section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             次へ →
           </a>
         </div>
@@ -130,23 +97,20 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="what-is">
-        <span class="dot-label">カスタムメニューとは</span>
+      <div class="dot active" data-section="importance">
+        <span class="dot-label">プロンプトの重要性</span>
       </div>
-      <div class="dot" data-section="important-point">
-        <span class="dot-label">超重要ポイント</span>
+      <div class="dot" data-section="structure">
+        <span class="dot-label">プロンプトの基本構成</span>
       </div>
-      <div class="dot" data-section="request-example">
-        <span class="dot-label">依頼例</span>
+      <div class="dot" data-section="example">
+        <span class="dot-label">プロンプト例</span>
       </div>
-      <div class="dot" data-section="implementation">
-        <span class="dot-label">実装手順</span>
+      <div class="dot" data-section="folder-id">
+        <span class="dot-label">フォルダIDの取得方法</span>
       </div>
-      <div class="dot" data-section="tips">
-        <span class="dot-label">使う際のポイント</span>
-      </div>
-      <div class="dot" data-section="summary">
-        <span class="dot-label">まとめ</span>
+      <div class="dot" data-section="send">
+        <span class="dot-label">ChatGPTに送信</span>
       </div>
     </div>
   </div>
@@ -157,271 +121,191 @@
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
       <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
-        <span class="font-bold">ステップ 5 / 5</span>
+        <span class="font-bold">ステップ 2 / 5</span>
       </div>
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-        カスタムメニュー設定で<br>使いやすくする
+        ChatGPTにプロンプトを送る
       </h1>
       <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
-        ボタンクリックでツールを実行できるようにします
+        作業内容を整理して、AIにツール作成を依頼します
       </p>
     </header>
 
-    <!-- カスタムメニューとは -->
-    <section id="what-is" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        📋 カスタムメニューとは？
-      </h2>
-
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        カスタムメニューとは、スプレッドシートのメニューバーに<strong>オリジナルのボタン</strong>を追加できる機能です。これを設定することで、誰でも簡単にツールを実行できるようになります。
-      </p>
-
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8 mb-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-          カスタムメニューのメリット
-        </h3>
-
-        <div class="space-y-4">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 text-2xl">✨</div>
-            <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                クリックするだけでツールを実行できる
-              </h4>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                メニューから項目を選ぶだけで、ツールが起動します。コードを見る必要がないので、初心者でも使いやすいです。
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 text-2xl">🚀</div>
-            <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                「拡張機能 → Apps Script」を開く必要なし
-              </h4>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                毎回GASエディタを開いて実行ボタンを押す手間が省けます。スプレッドシート上でそのまま操作できるので、作業効率が上がります。
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 text-2xl">👥</div>
-            <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                初心者でも簡単に使える
-              </h4>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                プログラミングの知識がない人でも、メニューから選ぶだけで使えます。チームで共有する際にも便利です。
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 text-2xl">📂</div>
-            <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                複数の機能をまとめることも可能
-              </h4>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                1つのメニューに複数のツールを登録できるので、関連する機能をまとめて管理できます。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 超重要ポイント -->
-    <section id="important-point" class="mb-16">
-      <div class="bg-red-50 border-l-4 border-red-600 p-8 rounded-r-lg">
-        <h2 class="text-3xl md:text-4xl font-bold text-red-800 mb-6">
-          ⚠️ 作り方の超重要ポイント
+    <!-- プロンプトの重要性 -->
+    <section id="importance" class="mb-16">
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
+          💡 良いプロンプトが良いツールを作る
         </h2>
-
-        <p class="text-xl md:text-2xl text-red-900 leading-relaxed mb-6 font-bold">
-          カスタムメニューは、ツールを作ったのと<strong>【同じチャット内】</strong>で続けて依頼しましょう！
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed mb-4">
+          ステップ1で書き出した作業内容を、ChatGPTに分かりやすく伝えることが大切です。プロンプトが具体的であればあるほど、AIは正確なコードを生成してくれます。
         </p>
-
-        <p class="text-lg md:text-xl text-red-900 leading-relaxed mb-6">
-          これが非常に重要です。新しいチャットで依頼すると、ChatGPTが関数名を把握していないため、エラーが発生する可能性があります。必ずツールを作成したチャットで、続けて依頼してください。
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
+          逆に、曖昧な指示だと、AIが意図しない動作をするツールを作ってしまう可能性があります。ここでしっかり時間をかけて、プロンプトを作り込みましょう。
         </p>
-
-        <div class="bg-white rounded-lg p-6 mt-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ❌ 悪い例
-          </h3>
-          <div class="bg-gray-100 p-4 rounded-lg mb-4">
-            <p class="text-lg text-gray-700 mb-2"><strong>【新しいチャットで】</strong></p>
-            <p class="text-base text-gray-600">→ 「メニューを作って」</p>
-          </div>
-          <p class="text-lg text-red-700">
-            → AIが関数名を知らないのでエラー発生
-          </p>
-        </div>
-
-        <div class="bg-white rounded-lg p-6 mt-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ✅ 良い例
-          </h3>
-          <div class="bg-green-100 p-4 rounded-lg mb-4">
-            <p class="text-lg text-gray-700 mb-2"><strong>【ツール作成後、同じチャットで】</strong></p>
-            <p class="text-base text-gray-600">→ 「このツールをメニューから実行できるようにして」</p>
-          </div>
-          <p class="text-lg text-green-700">
-            → AIが関数名を把握しているのでスムーズ！
-          </p>
-        </div>
       </div>
     </section>
 
-    <!-- 実践②をメニュー化する依頼例 -->
-    <section id="request-example" class="mb-16">
+    <!-- プロンプトの基本構成 -->
+    <section id="structure" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        💬 実践②をメニュー化する依頼例
+        📝 プロンプトの基本構成
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        実践②（CSVファイル転記ツール）をメニュー化する場合の依頼例です。ツール作成後、同じチャットで以下のプロンプトを送りましょう。
+        効果的なプロンプトには、以下の3つの要素が含まれていることが重要です。この構成に従って書くことで、AIが理解しやすいプロンプトになります。
       </p>
 
-      <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto mb-8">
-        <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>このツールをスプレッドシートのメニューから実行できるようにしてください。
+      <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            1
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【やりたいこと】を明確に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              まず、「何を実現したいのか」を一言で表現します。例えば、「GoogleドライブのCSVファイルをスプレッドシートに転記する」というように、目的を簡潔に伝えましょう。
+            </p>
+          </div>
+        </div>
 
-メニュー名：📦 注文管理ツール
-項目名：📥 注文データを取り込む</code></pre>
-      </div>
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            2
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【現在の手順】を具体的に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              ステップ1で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
+            </p>
+          </div>
+        </div>
 
-      <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
-          💡 これだけでOK！
-        </h3>
-        <p class="text-lg md:text-xl text-blue-900 leading-relaxed">
-          関数名とか難しいことは気にしなくて大丈夫です。ChatGPTが自動的に判断して、カスタムメニューのコードを生成してくれます。メニュー名や項目名は、あなたの好きな名前に変更してOKです。
-        </p>
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            3
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【その他の要望】を追加する
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              重複チェックや、エラー処理、ログ出力など、特別な機能が必要な場合はここに書きます。最初から完璧を求める必要はありませんが、必須の機能は最初から伝えておくとスムーズです。
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 実装手順 -->
-    <section id="implementation" class="mb-16">
+    <!-- プロンプト例 -->
+    <section id="example" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        🛠️ 実装手順
+        💬 プロンプト例
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        ChatGPTがカスタムメニューのコードを生成したら、以下の手順で実装します。通常、`onOpen()` という関数が追加されます。この関数は、スプレッドシートを開いたときに自動的に実行され、カスタムメニューを表示する役割を持っています。
+        実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
+      </p>
+
+      <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto">
+        <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+<strong class="text-green-400">【やりたいこと】</strong>
+Googleドライブの特定フォルダにあるCSVファイルを、Googleスプレッドシートに自動転記する
+
+<strong class="text-blue-400">【現在の手順】</strong>
+1. Googleドライブを開く
+2. フォルダID「XXXXXXXXXXXXX」のフォルダを開く
+3. 最新のCSVファイルを取得
+4. CSVファイルの内容を解析
+5. Googleスプレッドシートの「データ」シートに転記
+   - A列：注文番号
+   - B列：顧客名
+   - C列：商品名
+   - D列：数量
+   - E列：金額
+6. 既存データに追記する形で転記
+
+<strong class="text-yellow-400">【その他の要望】</strong>
+- CSVファイルの1行目はヘッダー行なのでスキップする
+- 重複チェック機能を付けて、同じ注文番号は転記しないようにする
+- 処理が完了したら、処理件数をログに出力する</code></pre>
+      </div>
+
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          📌 プロンプトのカスタマイズポイント
+        </h3>
+        <ul class="list-disc pl-6 space-y-3 text-lg md:text-xl text-blue-900">
+          <li><strong>フォルダID</strong>は、実際のGoogleドライブのフォルダIDに置き換えてください（後ほど説明します）</li>
+          <li><strong>シート名</strong>や<strong>列の配置</strong>は、あなたのスプレッドシートの構成に合わせて変更してください</li>
+          <li><strong>データ項目</strong>（注文番号、顧客名など）は、あなたのCSVファイルの内容に合わせて書き換えてください</li>
+          <li><strong>その他の要望</strong>は、必要に応じて追加・削除してOKです</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- フォルダIDの取得方法 -->
+    <section id="folder-id" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🔍 GoogleドライブのフォルダIDを取得する方法
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        プロンプトに「フォルダID」を含める必要があります。フォルダIDは、Googleドライブで対象のフォルダを開いたときのURLから取得できます。
       </p>
 
       <div class="bg-white rounded-lg shadow-md p-8">
-        <div class="space-y-8">
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          取得手順
+        </h3>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
               1
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                ChatGPTにプロンプトを送る → コードが作成される
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                上記のプロンプトを送ると、ChatGPTがカスタムメニューのコードを生成します。通常、以下のような `onOpen()` 関数が追加されます。
-              </p>
-              <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto">
-                <pre class="text-sm"><code>function onOpen() {
-  const ui = SpreadsheetApp.getUi();
-  ui.createMenu('📦 注文管理ツール')
-    .addItem('📥 注文データを取り込む', 'importOrderData')
-    .addToUi();
-}
-
-function importOrderData() {
-  // CSVファイルを取り込む処理
-  // ...
-}</code></pre>
-              </div>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4">
-                この `onOpen()` 関数は、スプレッドシートを開いたときに自動的に実行され、メニューバーに「📦 注文管理ツール」というメニューを追加します。
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Googleドライブで対象のフォルダを開く
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                CSVファイルが保存されているフォルダを開きます。
               </p>
             </div>
           </div>
 
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
               2
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                スプレッドシートを開く → 「拡張機能 → Apps Script」
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                スプレッドシートを開き、メニューから<strong>「拡張機能」</strong>→<strong>「Apps Script」</strong>をクリックしてGASエディタを開きます。
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                ブラウザのアドレスバーを確認
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                URLは以下のような形式になっています。
               </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-open-gas-editor.png</p>
-                <p class="text-sm mt-2">GASエディタを開く手順</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              3
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                コードを貼り付け保存
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                ChatGPTが生成した `onOpen()` 関数を、GASエディタに貼り付けて保存します。
-              </p>
-              <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
-                <h4 class="font-bold text-lg text-red-800 mb-2">重要</h4>
-                <p class="text-base md:text-lg text-red-900">
-                  既存のコードに `onOpen()` 関数を<strong>追加する形</strong>で貼り付けてください。既存のコードを削除しないように注意しましょう！通常、ChatGPTは「このコードを既存のコードの上に追加してください」のように指示してくれます。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              4
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                スプレッドシートをリロード（F5キー）
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                コードを保存したら、スプレッドシートのタブに戻り、<strong>F5キー</strong>を押してページをリロードします。これにより、`onOpen()` 関数が実行され、カスタムメニューが表示されます。
-              </p>
-              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                <p class="text-base md:text-lg text-yellow-900">
-                  <strong>ヒント:</strong> リロードせずにメニューが表示されることもありますが、確実に表示させるためにはF5キーでリロードするのがおすすめです。
-                </p>
+              <div class="bg-gray-100 p-4 rounded font-mono text-sm break-all">
+                https://drive.google.com/drive/folders/<strong class="text-red-600">1AbCdEfGhIjKlMnOpQrStUvWxYz</strong>
               </div>
             </div>
           </div>
 
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              5
+            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
+              3
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                メニューバーに表示される！
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                リロード後、スプレッドシートのメニューバーに<strong>「📦 注文管理ツール」</strong>というメニューが追加されます。
-              </p>
-              <div class="screenshot-placeholder mb-4">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-custom-menu-displayed.png</p>
-                <p class="text-sm mt-2">カスタムメニューが表示された状態</p>
-              </div>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                クリックすると、<strong>「📥 注文データを取り込む」</strong>という項目が表示されます。この項目をクリックすると、ツールが実行されます。
+            <div>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                「folders/」の後ろの文字列をコピー
+              </h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                この赤字部分が<strong>フォルダID</strong>です。これをコピーして、プロンプトの「XXXXXXXXXXXXX」の部分に貼り付けましょう。
               </p>
             </div>
           </div>
@@ -429,77 +313,45 @@ function importOrderData() {
       </div>
     </section>
 
-    <!-- ポイント -->
-    <section id="tips" class="mb-16">
+    <!-- ChatGPTにプロンプトを送る -->
+    <section id="send" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        💡 カスタムメニューを使う際のポイント
+        🚀 ChatGPTにプロンプトを送信
       </h2>
 
-      <div class="bg-white rounded-lg shadow-md p-8 space-y-6">
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 text-3xl">📝</div>
-          <div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-              メニュー名は自由につけられる
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              日本語でも英語でもOKです。わかりやすい名前をつけましょう。例：「データ管理」「自動化ツール」「業務効率化」など
-            </p>
-          </div>
-        </div>
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        プロンプトの準備ができたら、ChatGPTに送信しましょう。ChatGPTが、プロンプトに基づいてGoogle Apps Scriptのコードを生成してくれます。
+      </p>
 
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 text-3xl">🎨</div>
-          <div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-              絵文字を使うと見つけやすい
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              メニューが増えても、絵文字があれば一目で分かります。例：📦、📥、📧、📊、🚀 など
-            </p>
-          </div>
-        </div>
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          送信後の流れ
+        </h3>
 
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 text-3xl">📂</div>
-          <div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-              複数の機能をまとめることも可能
-            </h3>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
-              1つのメニューに複数の項目を追加できます。例えば、「📦 注文管理ツール」の中に「📥 注文データを取り込む」「📊 注文データを集計」「📧 顧客にメール送信」などをまとめられます。
-            </p>
-            <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto">
-              <pre class="text-sm"><code>function onOpen() {
-  const ui = SpreadsheetApp.getUi();
-  ui.createMenu('📦 注文管理ツール')
-    .addItem('📥 注文データを取り込む', 'importOrderData')
-    .addItem('📊 注文データを集計', 'aggregateOrderData')
-    .addItem('📧 顧客にメール送信', 'sendEmailToCustomers')
-    .addToUi();
-}</code></pre>
-            </div>
-          </div>
+        <div class="space-y-4 text-lg md:text-xl text-gray-700">
+          <p class="leading-relaxed">
+            <strong>1. ChatGPTがコードを生成</strong><br>
+            数秒〜数十秒で、GASのコードが表示されます。コード全体をコピーできるように、コードブロックで表示されることが多いです。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>2. コードの説明を確認</strong><br>
+            ChatGPTは、コードと一緒に「このコードの使い方」や「各関数の説明」も提示してくれることがあります。後で見返せるように、メモしておくと便利です。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>3. 次のステップへ</strong><br>
+            生成されたコードを、GASエディタに貼り付けて実装します。次のセクションで詳しく説明しますので、コードをコピーした状態で進みましょう。
+          </p>
         </div>
       </div>
-    </section>
 
-    <!-- まとめ -->
-    <section id="summary" class="mb-16">
-      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          ✅ カスタムメニュー設定完了！
-        </h2>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          お疲れ様でした！カスタムメニューの設定が完了しました。これで、スプレッドシートを開くだけで、いつでもメニューからツールを実行できるようになりましたね。
-        </p>
-        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-gray-700">
-          <li>✅ 同じチャット内でカスタムメニューを依頼する重要性を理解しました</li>
-          <li>✅ `onOpen()` 関数を追加して、メニューを表示できるようにしました</li>
-          <li>✅ スプレッドシートをリロードして、メニューが表示されることを確認しました</li>
-        </ul>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-6">
-          次のセクションでは、実践編②で学んだことをまとめましょう。
+      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">
+          ✨ ワンポイントアドバイス
+        </h3>
+        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
+          もし生成されたコードが思っていたものと違っていても、焦らずにChatGPTに追加で指示を出せばOKです。「○○の部分を△△に変更してください」と伝えれば、修正してくれます。何度でもやり取りできるので、理想のツールになるまで調整しましょう。
         </p>
       </div>
     </section>
@@ -508,21 +360,15 @@ function importOrderData() {
     <section class="mt-16 text-center">
       <div class="bg-indigo-50 rounded-lg p-8">
         <p class="text-lg md:text-xl text-gray-700 mb-6">
-          カスタムメニューの設定が完了したら、最後にまとめを確認しましょう。
+          ChatGPTがコードを生成してくれたら、次はGASエディタに貼り付けて実装しましょう。
         </p>
-        <a href="practice-02-section-07.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
-          まとめへ進む →
+        <a href="practice-02-section-04.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ3へ進む →
         </a>
       </div>
     </section>
 
   </main>
-
-  <!-- 画像拡大モーダル -->
-  <div id="imageModal">
-    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
-    <img id="modalImage" src="" alt="拡大画像">
-  </div>
 
   <!-- フッター -->
   <footer class="bg-white border-t border-gray-200 mt-16">
@@ -534,37 +380,6 @@ function importOrderData() {
   </footer>
 
   <script>
-    // 画像拡大モーダル
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const closeModal = document.getElementById('closeModal');
-
-    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
-      placeholder.addEventListener('click', function() {
-        const imgSrc = this.querySelector('img')?.src;
-        if (imgSrc) {
-          modalImage.src = imgSrc;
-          modal.classList.add('active');
-        }
-      });
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.classList.remove('active');
-      }
-    });
-
     // ドットインジケーターのスクロール連動
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');
