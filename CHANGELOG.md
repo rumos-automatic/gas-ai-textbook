@@ -2,6 +2,46 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-01-13] - 実践編①②のドットインジケーター完全修正と追加実装
+
+### 🔧 修正内容
+
+- ✅ **ドットインジケーターの不具合を完全修正（9ファイル）**
+  - 別ページへ誤ジャンプする問題を解決
+  - ページ内セクションへの正しいスクロール機能を実装
+  - IntersectionObserverによる現在地ハイライト機能を追加
+  - 修正ファイル：
+    - practice-01-section-02.html
+    - practice-01-section-04.html
+    - practice-01-section-05.html
+    - practice-01-section-06.html
+    - practice-02-section-03.html
+    - practice-02-section-05.html
+    - practice-02-section-06.html
+    - practice-02-section-07.html
+    - practice-02-section-11.html
+
+### 🎉 新規追加
+
+- ✅ **ドットインジケーター機能の追加（4ファイル）**
+  - 未実装だったページに新規追加
+  - CSSスタイル、HTML要素、JavaScript機能の完全実装
+  - 追加ファイル：
+    - practice-02-section-05.html（6つのドット）
+    - practice-02-section-06.html（3つのドット）
+    - practice-02-section-07.html（3つのドット）
+    - practice-02-section-11.html（3つのドット）
+  - practice-01-section-03.htmlは既に完全実装済みを確認
+
+### 💡 実装機能
+
+- **ホバー表示**: ドットにカーソルを合わせるとセクション名を表示
+- **クリックスクロール**: ドットをクリックで該当セクションへスムーススクロール
+- **現在地ハイライト**: スクロール位置に応じて自動的に現在地のドットをハイライト
+- **レスポンシブ対応**: モバイル表示時は自動的に非表示
+
+---
+
 ## [2025-01-13] - 実践編①②のナビゲーション修正とメール送信機能の最適化
 
 ### 🔧 修正内容

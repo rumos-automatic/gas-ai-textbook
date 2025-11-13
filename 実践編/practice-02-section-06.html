@@ -34,6 +34,53 @@
     tr:nth-child(even) {
       background-color: #f9fafb;
     }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
@@ -61,6 +108,21 @@
       <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="data-format">
+        <span class="dot-label">データ形式</span>
+      </div>
+      <div class="dot" data-section="transfer-table">
+        <span class="dot-label">転記項目表</span>
+      </div>
+      <div class="dot" data-section="next-step">
+        <span class="dot-label">次のステップ</span>
+      </div>
+    </div>
+  </div>
 
   <!-- メインコンテンツ -->
   <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -284,6 +346,46 @@
             behavior: 'smooth',
             block: 'start'
           });
+        }
+      });
+    });
+
+    // ドットインジケーター機能
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });
