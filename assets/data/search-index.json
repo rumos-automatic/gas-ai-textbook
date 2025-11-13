@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "generatedAt": "2025-01-13T00:00:00",
+  "totalPages": 3,
+  "totalSections": 9,
+  "pages": [
+    {
+      "path": "生成AI/section-01.html",
+      "title": "生成AIとは？",
+      "category": "生成AI紹介",
+      "categoryIcon": "🤖",
+      "categoryColor": "indigo",
+      "sections": [
+        {
+          "id": "intro",
+          "title": "AIの基本的な定義",
+          "content": "生成AIは、人間が書いた文章を理解して、文章・画像・コードを自動で作成してくれるAIです。近年、ビジネスや教育の現場で急速に普及していると思います。ChatGPTやGeminiなど、さまざまな生成AIツールが登場しています。"
+        },
+        {
+          "id": "mechanism",
+          "title": "生成AIの仕組み",
+          "content": "生成AIは大量のデータから学習し、パターンを認識することで、新しいコンテンツを生成します。機械学習やディープラーニングの技術を使って、人間の言語を理解し、適切な回答を生成することができます。"
+        },
+        {
+          "id": "capabilities",
+          "title": "生成AIでできること",
+          "content": "生成AIは、文章作成、翻訳、要約、コード生成、画像生成など、多岐にわたるタスクに対応できます。特にビジネスシーンでは、メール作成や資料作成の効率化に役立ちます。"
+        }
+      ]
+    },
+    {
+      "path": "GAS/section-01.html",
+      "title": "Google Apps Scriptとは？",
+      "category": "GAS紹介",
+      "categoryIcon": "⚙️",
+      "categoryColor": "blue",
+      "sections": [
+        {
+          "id": "intro",
+          "title": "GASの基本概念",
+          "content": "Google Apps Script（GAS）は、Googleのサービスを自動化するためのプログラミング言語です。Googleスプレッドシート、Gmail、Googleカレンダーなどを連携させて、業務を効率化できます。"
+        },
+        {
+          "id": "features",
+          "title": "GASでできること",
+          "content": "GASを使えば、スプレッドシートのデータを自動集計したり、定期的にメールを送信したり、フォームの回答を自動処理したりできます。プログラミング初心者でも、基本的なスクリプトから始めれば、徐々に複雑な自動化も可能になります。"
+        },
+        {
+          "id": "advantages",
+          "title": "GASの利点",
+          "content": "GASは無料で使える上、サーバーの管理が不要です。Googleアカウントがあれば誰でも使え、スプレッドシートから直接コードを書いて実行できます。"
+        }
+      ]
+    },
+    {
+      "path": "実践編/practice-01-section-01.html",
+      "title": "実践編① メール自動送信",
+      "category": "実践編",
+      "categoryIcon": "🚀",
+      "categoryColor": "purple",
+      "sections": [
+        {
+          "id": "intro",
+          "title": "メール自動送信の概要",
+          "content": "この実践編では、GASを使ってスプレッドシートのデータを基に、自動でメールを送信する仕組みを作ります。生成AIを活用して、メール文面も自動生成します。"
+        },
+        {
+          "id": "preparation",
+          "title": "事前準備",
+          "content": "まず、Googleスプレッドシートを開いて、送信先のメールアドレスリストを作成します。次に、ツールメニューからスクリプトエディタを開いて、GASのコードを書いていきます。"
+        },
+        {
+          "id": "implementation",
+          "title": "実装手順",
+          "content": "スプレッドシートのデータを読み取り、各行のメールアドレスに対してGmailAPIを使ってメールを送信します。生成AIを使えば、受信者ごとにカスタマイズされたメール文面を自動生成できます。"
+        }
+      ]
+    }
+  ]
+}
