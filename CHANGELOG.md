@@ -2,6 +2,44 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-01-13] - 全ページヘッダーデザイン統一化（7ファイル）
+
+### 🎨 デザイン統一
+- ✅ **生成AI/section-01.htmlを基準に全ページのヘッダーデザインを統一**
+  - ナビゲーション構造の統一（max-w-5xl、Indigo配色、レスポンシブ対応）
+  - 進捗バーの配置統一（ナビゲーション内配置、rounded-full）
+  - フォントサイズ統一ルール準拠（text-5xl md:text-6xl）
+  - セマンティックHTMLの適用（headerタグ使用）
+
+### 🔧 ドットインジケーター統一
+- ✅ **基本的な考え方セクション（3ファイル）のドットインジケーター構造統一**
+  - HTML: `<div class="flex flex-col gap-4">` コンテナ追加
+  - 属性: `data-target` → `data-section` に統一
+  - タグ: `<div class="dot-label">` → `<span class="dot-label">` に統一
+  - JavaScript: 属性名の統一、`block: 'center'` によるスクロール最適化
+
+- ✅ **実践編（4ファイル）にドットインジケーター新規追加**
+  - practice-01-section-03.html（5つのドット）
+  - practice-02-section-02.html（3つのドット）
+  - practice-02-section-04.html（4つのドット）
+  - practice-04-step1.html（色の統一）
+
+### 📋 修正対象ファイル（合計7ファイル）
+- 基本的な考え方/section-01.html
+- 基本的な考え方/section-02.html
+- 基本的な考え方/section-03.html
+- 実践編/practice-01-section-03.html
+- 実践編/practice-02-section-02.html
+- 実践編/practice-02-section-04.html
+- 実践編/practice-04-step1.html
+
+### ✨ 効果
+- 全ページで統一されたナビゲーション体験
+- 固定ヘッダーを意識した快適なスクロール
+- Indigo系カラーによる一貫したブランディング
+
+---
+
 ## [2025-01-13] - 実践編①②のドットインジケーター完全修正と追加実装
 
 ### 🔧 修正内容

@@ -26,20 +26,19 @@
       height: 12px;
       border-radius: 50%;
       background-color: #d1d5db;
-      margin: 0.5rem 0;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
     }
 
     .dot:hover {
-      background-color: #9ca3af;
+      background-color: #6366f1;
       transform: scale(1.3);
     }
 
     .dot.active {
-      background-color: #3b82f6;
-      transform: scale(1.4);
+      background-color: #4f46e5;
+      transform: scale(1.5);
     }
 
     .dot-label {
@@ -199,44 +198,48 @@
 </head>
 <body class="bg-gray-50">
   <!-- ナビゲーション -->
-  <nav class="bg-white shadow-md py-4 px-6 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="../index.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
-        ← トップページへ
-      </a>
-      <div class="text-base md:text-lg text-gray-600">
-        1. 棚卸作業
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
       </div>
-      <a href="section-02.html" class="text-lg md:text-xl font-bold text-blue-600 hover:text-blue-800 transition">
-        次へ →
-      </a>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
     </div>
-    <!-- 進捗バー -->
-    <div class="progress-bar mt-3 rounded-full max-w-6xl mx-auto"></div>
   </nav>
 
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
-    <div class="dot active" data-target="intro">
-      <div class="dot-label">イントロダクション</div>
-    </div>
-    <div class="dot" data-target="section1-intro">
-      <div class="dot-label">棚卸作業</div>
-    </div>
-    <div class="dot" data-target="section1-1">
-      <div class="dot-label">見える化が大事</div>
-    </div>
-    <div class="dot" data-target="section1-2">
-      <div class="dot-label">AIの限界</div>
-    </div>
-    <div class="dot" data-target="section1-3">
-      <div class="dot-label">悪い例vs良い例</div>
-    </div>
-    <div class="dot" data-target="section1-4">
-      <div class="dot-label">棚卸のポイント</div>
-    </div>
-    <div class="dot" data-target="section1-5">
-      <div class="dot-label">ワーク</div>
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">イントロダクション</span>
+      </div>
+      <div class="dot" data-section="section1-intro">
+        <span class="dot-label">棚卸作業</span>
+      </div>
+      <div class="dot" data-section="section1-1">
+        <span class="dot-label">見える化が大事</span>
+      </div>
+      <div class="dot" data-section="section1-2">
+        <span class="dot-label">AIの限界</span>
+      </div>
+      <div class="dot" data-section="section1-3">
+        <span class="dot-label">悪い例vs良い例</span>
+      </div>
+      <div class="dot" data-section="section1-4">
+        <span class="dot-label">棚卸のポイント</span>
+      </div>
+      <div class="dot" data-section="section1-5">
+        <span class="dot-label">ワーク</span>
+      </div>
     </div>
   </div>
 
@@ -495,10 +498,10 @@
     // ドットクリックでスクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const targetId = dot.getAttribute('data-target');
+        const targetId = dot.getAttribute('data-section');
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });
@@ -517,7 +520,7 @@
 
       dots.forEach(dot => {
         dot.classList.remove('active');
-        if (dot.getAttribute('data-target') === currentSection) {
+        if (dot.getAttribute('data-section') === currentSection) {
           dot.classList.add('active');
         }
       });

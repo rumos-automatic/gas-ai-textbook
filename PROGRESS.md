@@ -189,6 +189,27 @@
 
 ### 最新更新（2025-01-13）
 
+- ✅ **ヘッダーデザインとドットインジケーターの完全統一（7ファイル）**
+  - **対象ファイル**
+    - 基本的な考え方: section-01.html, section-02.html, section-03.html
+    - 実践編: practice-01-section-03.html, practice-02-section-02.html, practice-02-section-04.html, practice-04-step1.html
+  - **デザイン統一内容**
+    - ナビゲーション: max-w-5xl、Indigo配色、レスポンシブパディング（px-4 sm:px-6 lg:px-8）
+    - 進捗バー: nav内に配置、rounded-full追加
+    - セマンティックHTML: `<header>`タグ使用
+    - フォントサイズ: h1を`text-5xl md:text-6xl`に統一
+    - ナビゲーションレイアウト: トップページリンクは左側、前へ/次へは右側
+  - **ドットインジケーター統一（基本的な考え方セクション）**
+    - HTML構造: `<div class="flex flex-col gap-4">`コンテナ追加
+    - data属性: `data-target`→`data-section`に変更
+    - ラベル要素: `<div class="dot-label">`→`<span class="dot-label">`に変更
+    - スクロール動作: `block: 'start'`→`block: 'center'`に変更（固定ヘッダー対応）
+  - **ドットインジケーター追加（実践編）**
+    - practice-01-section-03.html: 5つのドット（IntersectionObserver実装）
+    - practice-02-section-02.html, practice-02-section-04.html: 完全実装
+    - practice-04-step1.html: カラー変更（Pink→Indigo）
+  - **効果**: 全ページで統一されたUI/UX、固定ヘッダーを考慮したスムーズなスクロール
+
 - ✅ **実践編①②のナビゲーション修正とメール送信機能の最適化**
   - **ナビゲーション統一**
     - ファイル名規則を `step` から `section-XX` に統一
