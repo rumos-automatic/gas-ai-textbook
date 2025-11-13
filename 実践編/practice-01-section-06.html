@@ -370,26 +370,6 @@
   </footer>
 
   <script>
-    // ドットインジケーターのクリックイベント
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        const sections = [
-          'practice-01-intro.html',
-          'practice-01-section-01.html',
-          'practice-01-section-02.html',
-          'practice-01-section-03.html',
-          'practice-01-section-04.html',
-          'practice-01-section-05.html',
-          'practice-01-step2.html',
-          'practice-01-step3.html',
-          'practice-01-step4.html',
-          'practice-01-step5.html',
-          'practice-01-summary.html'
-        ];
-        window.location.href = sections[index];
-      });
-    });
-
     // スムーススクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {

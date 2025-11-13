@@ -126,39 +126,23 @@
   </nav>
 
   <!-- ドットインジケーター -->
-  <div class="dot-indicator space-y-4">
-    <div class="dot" data-section="intro">
-      <span class="dot-label">イントロダクション</span>
-    </div>
-    <div class="dot" data-section="step1">
-      <span class="dot-label">作業の棚卸</span>
-    </div>
-    <div class="dot" data-section="worksheet">
-      <span class="dot-label">ワークシート紹介</span>
-    </div>
-    <div class="dot active" data-section="mail-sample">
-      <span class="dot-label">メールサンプル</span>
-    </div>
-    <div class="dot" data-section="transfer-items">
-      <span class="dot-label">転記項目</span>
-    </div>
-    <div class="dot" data-section="prompt">
-      <span class="dot-label">プロンプト例</span>
-    </div>
-    <div class="dot" data-section="gas-paste">
-      <span class="dot-label">コード貼り付け</span>
-    </div>
-    <div class="dot" data-section="authorization">
-      <span class="dot-label">初回承認</span>
-    </div>
-    <div class="dot" data-section="confirmation">
-      <span class="dot-label">動作確認</span>
-    </div>
-    <div class="dot" data-section="trigger">
-      <span class="dot-label">トリガー設定</span>
-    </div>
-    <div class="dot" data-section="summary">
-      <span class="dot-label">まとめ</span>
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="goal">
+        <span class="dot-label">ゴール</span>
+      </div>
+      <div class="dot" data-section="mail-sample">
+        <span class="dot-label">メールサンプル</span>
+      </div>
+      <div class="dot" data-section="send-mail">
+        <span class="dot-label">メール送信</span>
+      </div>
+      <div class="dot" data-section="data-to-extract">
+        <span class="dot-label">抽出項目</span>
+      </div>
+      <div class="dot" data-section="next-step">
+        <span class="dot-label">次のステップ</span>
+      </div>
     </div>
   </div>
 
@@ -199,94 +183,110 @@
         </h2>
 
         <!-- メール風デザイン -->
-        <div class="bg-white border-4 border-gray-300 rounded-2xl shadow-xl max-w-4xl mx-auto overflow-hidden">
+        <div class="bg-white border-2 border-gray-300 rounded-lg shadow-inner max-w-4xl mx-auto" style="font-family: 'Courier New', Courier, monospace;">
           <!-- メールヘッダー -->
-          <div class="bg-gray-100 p-6 border-b-2 border-gray-300">
+          <div class="p-6 border-b-2 border-gray-300">
             <div class="space-y-3">
-              <div class="flex items-start">
-                <span class="text-lg font-bold text-gray-600 min-w-[100px]">件名：</span>
-                <span class="text-lg md:text-xl font-bold text-gray-900">【注文受付】#12345 山田太郎様</span>
+              <div>
+                <p class="text-base text-gray-600 mb-1"><strong>差出人：</strong></p>
+                <p class="text-lg text-gray-900">aisapo1.ru4@gmail.com</p>
               </div>
-              <div class="flex items-start">
-                <span class="text-lg font-bold text-gray-600 min-w-[100px]">差出人：</span>
-                <span class="text-lg text-gray-700">shop@example.com</span>
-              </div>
-              <div class="flex items-start">
-                <span class="text-lg font-bold text-gray-600 min-w-[100px]">受信日時：</span>
-                <span class="text-lg text-gray-700">2025/10/28 14:30</span>
+              <div>
+                <p class="text-base text-gray-600 mb-1"><strong>件名：</strong></p>
+                <p class="text-lg text-gray-900">【注文完了】ご注文ありがとうございます</p>
               </div>
             </div>
           </div>
 
           <!-- メール本文 -->
-          <div class="p-8 space-y-6">
-            <!-- タイトル -->
-            <div class="text-center py-4 bg-orange-50 rounded-xl border-2 border-orange-200">
-              <p class="text-lg md:text-xl font-bold text-orange-600">━━━━━━━━━━━━━━━━━━</p>
-              <p class="text-xl md:text-2xl font-bold text-gray-800 py-2">ご注文ありがとうございます</p>
-              <p class="text-lg md:text-xl font-bold text-orange-600">━━━━━━━━━━━━━━━━━━</p>
-            </div>
+          <div class="p-6 text-base text-gray-800 whitespace-pre-line leading-relaxed">━━━━━━━━━━━━━━━━━━━━━
+  ご注文ありがとうございます
+━━━━━━━━━━━━━━━━━━━━━
 
-            <!-- お客様情報 -->
-            <div class="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
-              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span class="text-2xl">👤</span>
-                お客様情報
-              </h3>
-              <div class="space-y-2">
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">注文ID:</span> 12345
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">注文日時:</span> 2025/10/28 14:30
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">お客様名:</span> 山田太郎
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">メールアドレス:</span> yamada@example.com
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">電話番号:</span> 090-1234-5678
-                </p>
-              </div>
-            </div>
+注文番号: 20251104-12345（例）
+注文日時: 2025年11月4日 14:30（例）
 
-            <!-- ご注文内容 -->
-            <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
-              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span class="text-2xl">🛒</span>
-                【ご注文内容】
-              </h3>
-              <div class="space-y-2">
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">商品名:</span> 有機りんご 5kg
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">数量:</span> 2箱
-                </p>
-                <p class="text-xl md:text-2xl text-orange-600 font-bold mt-4">
-                  <span class="font-bold">小計:</span> 5,600円
-                </p>
-              </div>
-            </div>
+【商品情報】
+商品名: ノートパソコン HP Pavilion 15
+数量: 1個
+価格: 89,800円
 
-            <!-- 配送情報 -->
-            <div class="bg-green-50 p-6 rounded-xl border-2 border-green-200">
-              <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span class="text-2xl">🚚</span>
-                配送情報
-              </h3>
-              <div class="space-y-2">
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">配送先住所:</span> 東京都渋谷区〇〇1-2-3
-                </p>
-                <p class="text-lg text-gray-700">
-                  <span class="font-bold text-gray-800">配送希望日:</span> 2025/11/01
-                </p>
-              </div>
-            </div>
-          </div>
+お届け予定日: 2025年11月7日（例）
+配送先: ご登録住所
+
+━━━━━━━━━━━━━━━━━━━━━
+※このメールはGAS講座の練習用サンプルです</div>
+        </div>
+
+        <p class="text-sm text-gray-600 mt-4 text-center">
+          ※ 注文番号、注文日時、お届け予定日は送信時に自動生成されます
+        </p>
+      </div>
+    </section>
+
+    <!-- サンプルメール送信セクション -->
+    <section id="send-mail" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">📧 サンプルメールを受信しましょう</h2>
+
+      <!-- プライバシー保護に関する注意 -->
+      <div class="bg-gray-50 border-l-4 border-gray-400 p-6 rounded-lg mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔒 個人情報の取り扱いについて</h3>
+        <p class="text-lg leading-relaxed text-gray-700">
+          こちらで入力いただいたメールアドレスは、<strong>サンプルメールの送信のみに使用</strong>いたします。
+          それ以外の目的で使用することは一切ありませんので、ご安心ください。
+        </p>
+      </div>
+
+      <!-- フォーム -->
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">サンプルメールを送信</h3>
+
+        <div class="mb-6">
+          <label for="emailInput" class="block text-lg font-semibold text-gray-700 mb-2">
+            あなたのメールアドレス
+          </label>
+          <input
+            type="email"
+            id="emailInput"
+            placeholder="your-email@gmail.com"
+            class="w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
+          >
+        </div>
+
+        <button
+          id="sendButton"
+          onclick="sendSampleEmail()"
+          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-6 py-4 rounded-lg transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        >
+          <span id="buttonText">サンプルメールを送信</span>
+          <span id="buttonSpinner" class="hidden">
+            <svg class="animate-spin inline-block h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            送信中...
+          </span>
+        </button>
+
+        <!-- ステータスメッセージ -->
+        <div id="statusMessage" class="mt-6 hidden"></div>
+      </div>
+
+      <!-- 補足説明 -->
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 このメールの使い方</h3>
+        <p class="text-lg leading-relaxed text-gray-700 mb-4">
+          サンプルメールには、「注文番号」「商品名」「価格」「配送予定日」などの情報が含まれています。
+          次のステップでは、このメールの情報をGASで自動的にスプレッドシートに転記する方法を学びます。
+          何度でも送信できますので、練習用にお使いください。
+        </p>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-6">
+          <p class="text-base leading-relaxed text-gray-800">
+            <strong>⚠️ 注意：</strong>
+            メールが迷惑メールフォルダに振り分けられる可能性があります。
+            届かない場合は、迷惑メールフォルダもご確認ください。
+          </p>
         </div>
       </div>
     </section>
@@ -367,6 +367,97 @@
   </div>
 
   <script>
+    // サンプルメール送信機能（JSONP対応）
+    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzxqeoP6m-48bAcxLY0iTUDjiYsVI-ww_1AjP8Ijr4/exec';
+
+    function sendSampleEmail() {
+      const emailInput = document.getElementById('emailInput');
+      const sendButton = document.getElementById('sendButton');
+      const buttonText = document.getElementById('buttonText');
+      const buttonSpinner = document.getElementById('buttonSpinner');
+      const statusMessage = document.getElementById('statusMessage');
+
+      const email = emailInput.value.trim();
+
+      // バリデーション
+      if (!email) {
+        showStatus('error', 'メールアドレスを入力してください');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        showStatus('error', 'メールアドレスの形式が正しくありません');
+        return;
+      }
+
+      // ローディング状態
+      sendButton.disabled = true;
+      buttonText.classList.add('hidden');
+      buttonSpinner.classList.remove('hidden');
+      statusMessage.classList.add('hidden');
+
+      // JSONP リクエスト
+      const callbackName = 'jsonpCallback_' + Date.now();
+
+      // コールバック関数を定義
+      window[callbackName] = function(data) {
+        if (data.success) {
+          showStatus('success', data.message);
+          emailInput.value = ''; // 入力欄をクリア
+        } else {
+          showStatus('error', data.message);
+        }
+
+        // クリーンアップ
+        delete window[callbackName];
+        document.body.removeChild(script);
+
+        // ローディング解除
+        sendButton.disabled = false;
+        buttonText.classList.remove('hidden');
+        buttonSpinner.classList.add('hidden');
+      };
+
+      // エラーハンドリング
+      const handleError = function() {
+        showStatus('error', 'ネットワークエラーが発生しました。時間をおいて再度お試しください。');
+        delete window[callbackName];
+        document.body.removeChild(script);
+
+        // ローディング解除
+        sendButton.disabled = false;
+        buttonText.classList.remove('hidden');
+        buttonSpinner.classList.add('hidden');
+      };
+
+      // scriptタグを動的に作成
+      const script = document.createElement('script');
+      script.src = GAS_WEB_APP_URL +
+        '?callback=' + callbackName +
+        '&email=' + encodeURIComponent(email);
+      script.onerror = handleError;
+      script.onabort = handleError;
+      document.body.appendChild(script);
+    }
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function showStatus(type, message) {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.classList.remove('hidden');
+
+      if (type === 'success') {
+        statusMessage.className = 'mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg';
+        statusMessage.innerHTML = `<strong>✅ ${message}</strong>`;
+      } else {
+        statusMessage.className = 'mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg';
+        statusMessage.innerHTML = `<strong>❌ ${message}</strong>`;
+      }
+    }
+
     // 画像拡大機能
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
@@ -396,26 +487,6 @@
       }
     });
 
-    // ドットインジケーターのクリックイベント
-    document.querySelectorAll('.dot').forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        const sections = [
-          'practice-01-intro.html',
-          'practice-01-section-01.html',
-          'practice-01-section-02.html',
-          'practice-01-section-03.html',
-          'practice-01-section-04.html',
-          'practice-01-section-05.html',
-          'practice-01-step2.html',
-          'practice-01-step3.html',
-          'practice-01-step4.html',
-          'practice-01-step5.html',
-          'practice-01-summary.html'
-        ];
-        window.location.href = sections[index];
-      });
-    });
-
     // スムーススクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -426,6 +497,46 @@
             behavior: 'smooth',
             block: 'start'
           });
+        }
+      });
+    });
+
+    // ドットインジケーター機能
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });

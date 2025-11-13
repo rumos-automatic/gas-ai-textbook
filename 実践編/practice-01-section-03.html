@@ -9,6 +9,9 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     .smooth-scroll {
       scroll-behavior: smooth;
     }
@@ -36,6 +39,61 @@
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       flex-shrink: 0;
     }
+
+    /* ドットインジケーター */
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
@@ -45,53 +103,76 @@
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
 
   <!-- ナビゲーション -->
-  <nav class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <a href="../index.html" class="text-lg font-bold text-indigo-600 hover:text-indigo-800 transition">
-          ← トップページ
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
         </a>
-        <div class="flex items-center space-x-4">
-          <a href="practice-01-section-02.html" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition">
-            ← 前のステップ
+        <div class="flex gap-4">
+          <a href="practice-01-section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
           </a>
-          <a href="practice-01-section-03.html" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition">
-            次のステップ →
+          <a href="practice-01-section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
           </a>
         </div>
       </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
 
-  <!-- 進捗バー -->
-  <div class="progress-bar w-full"></div>
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">実践の流れ</span>
+      </div>
+      <div class="dot" data-section="part1">
+        <span class="dot-label">Part 1: メールサンプル</span>
+      </div>
+      <div class="dot" data-section="part2">
+        <span class="dot-label">Part 2: 転記項目</span>
+      </div>
+      <div class="dot" data-section="part3">
+        <span class="dot-label">Part 3: プロンプト例</span>
+      </div>
+      <div class="dot" data-section="part4">
+        <span class="dot-label">Part 4: 実行編</span>
+      </div>
+    </div>
+  </div>
 
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-6 py-12">
 
     <!-- ヘッダー -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-        📧 実践① 注文メール → スプレッドシート転記
-      </h1>
-      <p class="text-xl md:text-2xl text-gray-600 font-medium">
-        この実践の流れ
-      </p>
-    </div>
+    <section id="intro">
+      <header class="mb-16 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+          📧 実践① 注文メール → スプレッドシート転記
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600">
+          この実践の流れ
+        </p>
+      </header>
 
-    <!-- 説明 -->
-    <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+      <!-- 説明 -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
         これから、<span class="font-bold text-indigo-600">4つのパート</span>に分けて、<br class="hidden md:block"/>
         注文メール自動転記ツールを作成していきます。
       </p>
     </div>
+    </section>
 
     <!-- ステップカード -->
     <div class="space-y-6">
 
       <!-- Part 1 -->
-      <a href="practice-01-section-03.html" class="block">
+      <section id="part1">
+      <a href="practice-01-section-04.html" class="block">
         <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div class="flex items-start">
             <div class="step-number mr-6">1</div>
@@ -107,8 +188,10 @@
           </div>
         </div>
       </a>
+      </section>
 
       <!-- Part 2 -->
+      <section id="part2">
       <a href="practice-01-section-04.html" class="block">
         <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div class="flex items-start">
@@ -125,8 +208,10 @@
           </div>
         </div>
       </a>
+      </section>
 
       <!-- Part 3 -->
+      <section id="part3">
       <a href="practice-01-section-05.html" class="block">
         <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div class="flex items-start">
@@ -143,8 +228,10 @@
           </div>
         </div>
       </a>
+      </section>
 
       <!-- Part 4 -->
+      <section id="part4">
       <a href="practice-01-section-06.html" class="block">
         <div class="step-card bg-white rounded-2xl shadow-lg p-6 md:p-8">
           <div class="flex items-start">
@@ -161,6 +248,7 @@
           </div>
         </div>
       </a>
+      </section>
 
     </div>
 
@@ -185,7 +273,7 @@
       <a href="practice-01-section-02.html" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold rounded-lg transition">
         ← 前のステップ
       </a>
-      <a href="practice-01-section-03.html" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition">
+      <a href="practice-01-section-04.html" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition">
         次のステップ：Part 1 メールサンプル →
       </a>
     </div>
@@ -200,6 +288,50 @@
       </p>
     </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーター
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    // IntersectionObserverでスクロール位置を監視
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

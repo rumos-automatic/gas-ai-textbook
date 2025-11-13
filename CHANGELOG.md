@@ -2,6 +2,42 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-01-13] - 実践編①②のナビゲーション修正とメール送信機能の最適化
+
+### 🔧 修正内容
+
+- ✅ **実践編①②のナビゲーション統一**
+  - ファイル名規則を `step` から `section-XX` に統一
+  - practice-01-intro.html, practice-01-section-01.html のリンク修正
+  - practice-01-section-03.html の壊れたリンク修正（同じページへの遷移を修正）
+
+- ✅ **ドットインジケーターの動作修正**
+  - 別ページへジャンプする誤った実装を削除
+  - ページ内スムーススクロールのみに統一
+  - practice-01-section-02.html, -04.html, -05.html, -06.html から誤った配列削除
+  - practice-02-section-03.html から実践編①への誤参照削除
+
+- ✅ **メール送信機能の最適化**
+  - practice-01-section-04.html（メールサンプルページ）に機能集約
+  - サンプル表示内容を実際の送信メールと完全一致に修正
+    - 差出人: aisapo1.ru4@gmail.com
+    - 件名: 【注文完了】ご注文ありがとうございます
+    - 商品: ノートパソコン HP Pavilion 15（89,800円）
+  - practice-01-section-01.html から重複機能削除
+  - ユーザー体験の向上：サンプル確認 → 送信 → 受信内容が一致
+
+### 📝 変更ファイル
+- 実践編/practice-01-intro.html
+- 実践編/practice-01-section-01.html（メール送信機能削除、ドット修正）
+- 実践編/practice-01-section-02.html（JavaScript配列削除）
+- 実践編/practice-01-section-03.html（リンク修正）
+- 実践編/practice-01-section-04.html（メール送信機能追加、サンプル内容修正）
+- 実践編/practice-01-section-05.html（JavaScript配列削除）
+- 実践編/practice-01-section-06.html（JavaScript配列削除）
+- 実践編/practice-02-section-03.html（誤参照削除）
+
+---
+
 ## [2025-01-13] - 初心者向けシノニム辞書とサジェスト機能で検索体験を革新
 
 ### 🎉 新規追加
