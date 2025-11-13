@@ -1,22 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch",
-      "Bash(for dir in 生成AI GAS 実践編 基本的な考え方 上級編)",
-      "Bash(do echo '=== $dir ===')",
-      "Bash(find:*)",
-      "Bash(done)",
-      "Bash(python:*)",
-      "WebFetch(domain:support.udemy.com)",
-      "WebFetch(domain:hirashimatakumi.com)",
-      "WebFetch(domain:h2ham.net)",
-      "WebFetch(domain:wd-stock.work)",
-      "WebFetch(domain:stand-4u.com)",
-      "WebFetch(domain:qiita.com)",
-      "Bash(cat:*)",
-      "Bash(gh repo view:*)",
-      "Bash(gh api:*)",
-      "Bash(sed:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(for file in practice-01-section-{01,10,11,12}.html practice-02-section-{01,12}.html)",
+      "Bash(do [ -f \"$file\" ])",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []
