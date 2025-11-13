@@ -83,9 +83,12 @@ class GlobalSearch {
   renderUI() {
     // ナビゲーションバーに検索ボタンを追加
     const nav = document.querySelector('nav .flex.gap-4');
+    const header = document.querySelector('header');
     console.log('🔍 ナビゲーション要素:', nav);
+    console.log('🔍 ヘッダー要素:', header);
 
     if (nav) {
+      // navタグがある場合（セクションページ）
       const searchButton = `
         <button id="globalSearchButton" class="global-search-button" aria-label="検索" title="全ページ検索">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,9 +97,26 @@ class GlobalSearch {
         </button>
       `;
       nav.insertAdjacentHTML('beforeend', searchButton);
-      console.log('✅ 検索ボタンを追加しました');
+      console.log('✅ ナビゲーションに検索ボタンを追加しました');
+    } else if (header) {
+      // navタグがない場合（index.html, roadmap.html）はheaderに追加
+      const searchButton = `
+        <button id="globalSearchButton" class="global-search-button" aria-label="検索" title="全ページ検索" style="position: absolute; top: 1.5rem; right: 1.5rem; z-index: 50;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      `;
+
+      // headerにrelativeポジションを追加
+      if (!header.style.position || header.style.position === 'static') {
+        header.style.position = 'relative';
+      }
+
+      header.insertAdjacentHTML('afterbegin', searchButton);
+      console.log('✅ ヘッダーに検索ボタンを追加しました');
     } else {
-      console.error('❌ ナビゲーション要素が見つかりません');
+      console.error('❌ ナビゲーション要素もヘッダー要素も見つかりません');
     }
 
     // 検索モーダルをbodyに追加
