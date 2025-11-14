@@ -68,14 +68,14 @@
     .category-header h2 {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       width: 100%;
       position: relative;
     }
 
     /* 折りたたみボタン */
     .toggle-button {
-      margin-left: auto;
+      margin-left: 1rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -95,26 +95,15 @@
       border-color: #9ca3af;
     }
 
-    .section-count {
-      font-weight: 500;
-      color: #4b5563;
-    }
-
     .toggle-text {
       color: #6b7280;
-      min-width: 60px;
+      min-width: 70px;
       display: inline-block;
       text-align: center;
     }
 
-    /* 閉じている時：展開する */
-    .category-section.collapsed .toggle-text::before {
-      content: '展開する';
-    }
-
-    /* 開いている時：閉じる */
-    .category-section:not(.collapsed) .toggle-text::before {
-      content: '閉じる';
+    .toggle-text::before {
+      content: '全て展開';
     }
 
     /* 折りたたみ可能なカード */
@@ -175,7 +164,6 @@
           <span class="text-5xl mr-4">🤖</span>
           生成AI紹介
           <button class="toggle-button">
-            <span class="section-count">7セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -299,7 +287,6 @@
           <span class="text-5xl mr-4">⚙️</span>
           GAS紹介
           <button class="toggle-button">
-            <span class="section-count">6セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -466,7 +453,6 @@
           <span class="text-5xl mr-4">🔧</span>
           実践ウォーミングアップ
           <button class="toggle-button">
-            <span class="section-count">4セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -545,7 +531,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編① メール内容をスプシに自動転記
           <button class="toggle-button">
-            <span class="section-count">11セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -759,7 +744,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編② CSVファイルをスプシに自動転記
           <button class="toggle-button">
-            <span class="section-count">10セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -943,7 +927,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編③ Googleフォーム自動返信ボット
           <button class="toggle-button">
-            <span class="section-count">4セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -1080,7 +1063,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編④ オリジナルツールを製作
           <button class="toggle-button">
-            <span class="section-count">5セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -1219,7 +1201,6 @@
           <span class="text-5xl mr-4">🔥</span>
           上級編
           <button class="toggle-button">
-            <span class="section-count">5セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -1322,7 +1303,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編⑤ GAS×チャットワークAPI連携
           <button class="toggle-button">
-            <span class="section-count">5セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
@@ -1431,7 +1411,6 @@
           <span class="text-5xl mr-4">🚀</span>
           実践編⑥ GAS×Gemini API連携
           <button class="toggle-button">
-            <span class="section-count">5セクション</span>
             <span class="toggle-text"></span>
           </button>
         </h2>
