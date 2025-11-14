@@ -113,11 +113,20 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="data-format">
+      <div class="dot active" data-section="csv-basics">
+        <span class="dot-label">CSV形式とは</span>
+      </div>
+      <div class="dot" data-section="data-format">
         <span class="dot-label">データ形式</span>
+      </div>
+      <div class="dot" data-section="data-structure">
+        <span class="dot-label">データ構造</span>
       </div>
       <div class="dot" data-section="transfer-table">
         <span class="dot-label">転記項目表</span>
+      </div>
+      <div class="dot" data-section="how-to-create">
+        <span class="dot-label">表の作り方</span>
       </div>
       <div class="dot" data-section="next-step">
         <span class="dot-label">次のステップ</span>
@@ -137,6 +146,136 @@
         実践編② - 注文データ自動転記
       </p>
     </div>
+
+    <!-- CSV形式の基礎知識 -->
+    <section id="csv-basics" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📖 CSV形式とは？
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          まず、今回扱う<strong class="text-indigo-600">CSV形式</strong>について理解しておきましょう。
+          CSV（Comma-Separated Values）は、カンマで区切られたデータを保存する、非常にシンプルな形式です。
+        </p>
+
+        <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200 mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">💡 CSV形式の特徴</h3>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">カンマで区切られている</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  各データ項目がカンマ（,）で区切られています。
+                  例：<code class="bg-white px-2 py-1 rounded text-sm">山田太郎,東京都,090-1234-5678</code>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">1行目はヘッダー行</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  通常、1行目には項目名（カラム名）が書かれています。
+                  例：<code class="bg-white px-2 py-1 rounded text-sm">注文者,住所,電話番号</code>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">テキストファイル形式</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  CSV形式はテキストファイルなので、メモ帳やテキストエディタで開けます。
+                  拡張子は<code class="bg-white px-2 py-1 rounded text-sm">.csv</code>または<code class="bg-white px-2 py-1 rounded text-sm">.txt</code>です。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Excelで開ける</p>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  Excelで開くと、カンマで区切られたデータが自動的に列に分かれて表示されます。
+                  ただし、保存する際はExcel形式ではなくCSV形式で保存してください。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CSV形式の例 -->
+        <div class="mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">📄 CSVファイルの中身（実例）</h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            実際にCSVファイルをメモ帳で開くと、以下のようなテキストが表示されます：
+          </p>
+          <div class="bg-gray-900 text-green-400 p-6 rounded-lg overflow-x-auto" style="font-family: 'Courier New', monospace;">
+            <pre class="text-sm md:text-base">注文者,住所,電話番号,商品名,個数,金額
+山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
+佐藤花子,大阪府大阪市△△2-3-4,080-9876-5432,みかん,5,500</pre>
+          </div>
+          <p class="text-sm md:text-base text-gray-600 mt-3">
+            ※ 各項目がカンマで区切られていることが分かります
+          </p>
+        </div>
+
+        <!-- ExcelとCSVの違い -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
+            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">✅ CSV形式の利点</h3>
+            <ul class="space-y-2">
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span><strong>シンプル</strong>：テキスト形式なので扱いやすい</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span><strong>軽量</strong>：ファイルサイズが小さい</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span><strong>互換性が高い</strong>：どんなシステムでも読み込める</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span><strong>GASで簡単に処理</strong>：データ抽出が容易</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-orange-50 p-6 rounded-xl border-l-4 border-orange-500">
+            <h3 class="text-lg md:text-xl font-bold text-orange-800 mb-3">⚠️ Excelとの違い</h3>
+            <ul class="space-y-2">
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span>CSV：テキスト形式、装飾なし</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span>Excel：バイナリ形式、装飾・数式が使える</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span>CSV：1シートのみ</span>
+              </li>
+              <li class="text-base md:text-lg text-gray-700 flex items-start">
+                <span class="mr-2">•</span>
+                <span>Excel：複数シート対応</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-8 text-center">
+          CSVはシンプルな形式なので、GASで処理しやすく、データの自動化に最適です！
+        </p>
+      </div>
+    </section>
 
     <!-- サンプルデータ形式 -->
     <section id="data-format" class="mb-16">
@@ -183,6 +322,169 @@
         <p class="text-lg md:text-xl text-center text-gray-600">
           💡 1行目がヘッダー、カンマ区切り（CSV形式またはTXT形式）
         </p>
+      </div>
+    </section>
+
+    <!-- データ構造の詳細説明 -->
+    <section id="data-structure" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          🔍 データ構造の詳細
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          サンプルデータを見ながら、CSV形式のデータ構造を詳しく理解していきましょう。
+        </p>
+
+        <!-- ヘッダー行の重要性 -->
+        <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-4 flex items-center gap-2">
+            <span class="text-2xl">1️⃣</span>
+            1行目：ヘッダー行（項目名）
+          </h3>
+          <div class="bg-white p-4 rounded-lg mb-4 overflow-x-auto">
+            <code class="text-base md:text-lg text-gray-800" style="font-family: 'Courier New', monospace;">
+              注文者,住所,電話番号,商品名,個数,金額
+            </code>
+          </div>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            1行目は<strong class="text-blue-700">ヘッダー行</strong>と呼ばれ、各列が何のデータかを示しています。
+            この情報をもとに、GASはどの列に何が書かれているかを判断します。
+          </p>
+          <div class="bg-blue-100 p-4 rounded-lg">
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              <strong>重要</strong>：GASのコード生成時に、このヘッダー行の情報を正確に伝えることで、
+              生成AIが正しいコードを作成してくれます。
+            </p>
+          </div>
+        </div>
+
+        <!-- データ行の構造 -->
+        <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500 mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-green-800 mb-4 flex items-center gap-2">
+            <span class="text-2xl">2️⃣</span>
+            2行目以降：実際のデータ
+          </h3>
+          <div class="bg-white p-4 rounded-lg mb-4 overflow-x-auto">
+            <code class="text-base md:text-lg text-gray-800" style="font-family: 'Courier New', monospace;">
+              山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
+            </code>
+          </div>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            2行目以降が<strong class="text-green-700">実際のデータ</strong>です。
+            各項目がカンマで区切られており、ヘッダー行の順番に対応しています。
+          </p>
+
+          <!-- データの対応表 -->
+          <div class="bg-white p-6 rounded-lg">
+            <h4 class="text-base md:text-lg font-bold text-gray-900 mb-4">📝 ヘッダーとデータの対応</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 p-3 rounded">
+                <p class="text-sm font-bold text-gray-600 mb-1">ヘッダー</p>
+                <p class="text-base text-indigo-700 font-semibold">注文者</p>
+                <p class="text-sm text-gray-600">↓</p>
+                <p class="text-base text-gray-800">山田太郎</p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded">
+                <p class="text-sm font-bold text-gray-600 mb-1">ヘッダー</p>
+                <p class="text-base text-indigo-700 font-semibold">住所</p>
+                <p class="text-sm text-gray-600">↓</p>
+                <p class="text-base text-gray-800">東京都渋谷区〇〇1-2-3</p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded">
+                <p class="text-sm font-bold text-gray-600 mb-1">ヘッダー</p>
+                <p class="text-base text-indigo-700 font-semibold">電話番号</p>
+                <p class="text-sm text-gray-600">↓</p>
+                <p class="text-base text-gray-800">090-1234-5678</p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded">
+                <p class="text-sm font-bold text-gray-600 mb-1">ヘッダー</p>
+                <p class="text-base text-indigo-700 font-semibold">商品名</p>
+                <p class="text-sm text-gray-600">↓</p>
+                <p class="text-base text-gray-800">りんご</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- カンマ区切りの仕組み -->
+        <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500 mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-4 flex items-center gap-2">
+            <span class="text-2xl">3️⃣</span>
+            カンマ区切りの仕組み
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            CSV形式では、<strong class="text-purple-700">カンマ（,）</strong>が列の区切りとして機能します。
+            GASはこのカンマを目印にして、データを分割して読み取ります。
+          </p>
+
+          <!-- ビジュアル説明 -->
+          <div class="bg-white p-6 rounded-lg">
+            <h4 class="text-base md:text-lg font-bold text-gray-900 mb-4">🔧 GASがデータを分割する仕組み</h4>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">山田太郎</span>
+                <span class="text-2xl mx-2 text-purple-600">,</span>
+                <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">東京都...</span>
+                <span class="text-2xl mx-2 text-purple-600">,</span>
+                <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">090-...</span>
+              </div>
+              <p class="text-sm md:text-base text-gray-600">
+                ↓ GASが自動的に分割
+              </p>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="bg-indigo-100 p-2 rounded text-center">
+                  <p class="text-xs font-bold text-indigo-700">列1</p>
+                  <p class="text-sm">山田太郎</p>
+                </div>
+                <div class="bg-indigo-100 p-2 rounded text-center">
+                  <p class="text-xs font-bold text-indigo-700">列2</p>
+                  <p class="text-sm">東京都...</p>
+                </div>
+                <div class="bg-indigo-100 p-2 rounded text-center">
+                  <p class="text-xs font-bold text-indigo-700">列3</p>
+                  <p class="text-sm">090-...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ファイル全体の構造 -->
+        <div class="bg-gradient-to-br from-yellow-50 to-orange-50 p-6 rounded-xl border-2 border-yellow-300">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">📋</span>
+            ファイル全体の構造まとめ
+          </h3>
+          <div class="bg-white p-6 rounded-lg">
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <span class="bg-blue-500 text-white px-3 py-1 rounded font-bold text-sm mr-4 flex-shrink-0">1行目</span>
+                <div>
+                  <p class="text-base md:text-lg font-bold text-gray-800">ヘッダー行</p>
+                  <p class="text-sm md:text-base text-gray-600">項目名を定義（注文者、住所、電話番号...）</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="bg-green-500 text-white px-3 py-1 rounded font-bold text-sm mr-4 flex-shrink-0">2行目〜</span>
+                <div>
+                  <p class="text-base md:text-lg font-bold text-gray-800">データ行</p>
+                  <p class="text-sm md:text-base text-gray-600">実際の注文データ（1行 = 1件の注文）</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <span class="bg-purple-500 text-white px-3 py-1 rounded font-bold text-sm mr-4 flex-shrink-0">区切り</span>
+                <div>
+                  <p class="text-base md:text-lg font-bold text-gray-800">カンマ（,）</p>
+                  <p class="text-sm md:text-base text-gray-600">列と列の境界を示す</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mt-4">
+            この構造を理解しておくと、プロンプト作成時に生成AIに正確な指示を出せるようになります！
+          </p>
+        </div>
       </div>
     </section>
 
@@ -304,6 +606,156 @@
               <span class="text-xl mr-3 flex-shrink-0">✓</span>
               <p class="text-lg md:text-xl text-gray-700">
                 この表をそのまま生成AIへのプロンプトに貼り付ければOK！
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 転記項目表の作り方 -->
+    <section id="how-to-create" class="mb-16">
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-indigo-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📝 自分で転記項目表を作成する手順
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          自分の業務に合わせて転記項目表を作成する際は、以下のステップで進めましょう
+        </p>
+
+        <div class="space-y-6">
+          <!-- ステップ1 -->
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                1
+              </div>
+              <div>
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                  サンプルCSVファイルを確認する
+                </h3>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                  まず、実際に処理するCSVファイルをメモ帳またはExcelで開いて、
+                  どんなデータが含まれているかを確認します。
+                </p>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                  <p class="text-sm md:text-base text-gray-700">
+                    <strong>確認ポイント</strong>：1行目のヘッダーに何が書かれているか、2行目以降のデータの形式はどうなっているか
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ2 -->
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                2
+              </div>
+              <div>
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                  必要な項目をリストアップする
+                </h3>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                  CSVファイルの中から、<strong>スプレッドシートに転記したい項目</strong>だけをピックアップします。
+                  すべての列を転記する必要はありません。
+                </p>
+                <div class="bg-green-50 p-4 rounded-lg">
+                  <p class="text-sm md:text-base text-gray-700 mb-2">
+                    <strong>例</strong>：CSVに10項目あっても、必要なのは6項目だけ
+                  </p>
+                  <p class="text-xs md:text-sm text-gray-600">
+                    必要：注文者、住所、電話番号、商品名、個数、金額<br/>
+                    不要：注文番号（内部管理用）、備考（未使用）など
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ3 -->
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                3
+              </div>
+              <div>
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                  スプレッドシートの列を決定する
+                </h3>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                  転記先のスプレッドシートで、<strong>どの列に何のデータを入れるか</strong>を決めます。
+                  連続した列（A, B, C...）でも、飛び飛びの列（A, C, E...）でもOKです。
+                </p>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                  <p class="text-sm md:text-base text-gray-700">
+                    <strong>ポイント</strong>：既存のシートに追記する場合は、そのシートの列構成に合わせて列を指定しましょう
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ステップ4 -->
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-indigo-600 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
+                4
+              </div>
+              <div>
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+                  表を作成する
+                </h3>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                  以下のフォーマットで、転記項目表を作成します。
+                  この表をそのままプロンプトにコピー＆ペーストできます。
+                </p>
+                <div class="bg-gray-100 p-6 rounded-lg overflow-x-auto">
+                  <pre class="text-sm md:text-base text-gray-800" style="font-family: monospace; white-space: pre;">項目名       列   抽出内容サンプル
+───────────────────────────────────
+注文者       A    山田太郎
+住所         B    東京都渋谷区〇〇1-2-3
+電話番号     C    090-1234-5678
+商品名       D    りんご
+個数         E    10
+金額         F    1000</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 作成のコツ -->
+        <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">💡</span>
+            表作成のコツ
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>項目名はCSVのヘッダー名と一致させる</strong>：生成AIが正確に対応づけられます
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>抽出内容サンプルは必ず書く</strong>：データのイメージが伝わり、コード生成の精度が上がります
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>列は大文字アルファベットで指定</strong>：A, B, C...またはC, E, G...など
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>表は整形して読みやすく</strong>：スペースで位置を揃えると、生成AIが理解しやすくなります
               </p>
             </div>
           </div>

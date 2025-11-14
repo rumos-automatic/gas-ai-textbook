@@ -134,14 +134,23 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="goal">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">導入</span>
+      </div>
+      <div class="dot" data-section="goal">
         <span class="dot-label">ゴール</span>
       </div>
       <div class="dot" data-section="folder-setup">
         <span class="dot-label">フォルダ作成</span>
       </div>
+      <div class="dot" data-section="folder-flow">
+        <span class="dot-label">フォルダ構成</span>
+      </div>
       <div class="dot" data-section="folder-id">
         <span class="dot-label">フォルダID取得</span>
+      </div>
+      <div class="dot" data-section="troubleshooting">
+        <span class="dot-label">よくあるトラブル</span>
       </div>
       <div class="dot" data-section="sample-data">
         <span class="dot-label">サンプルデータ</span>
@@ -167,6 +176,82 @@
         実践編② - 注文データ自動転記
       </p>
     </div>
+
+    <!-- 導入説明 -->
+    <section id="intro" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📖 なぜフォルダの準備が必要なの？
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          このツールは、<strong class="text-indigo-600">Googleドライブのフォルダを監視して、CSVファイルを自動的にスプレッドシートに転記する</strong>仕組みです。
+          実践編①のメール転記とは違い、今回は「ファイル」を扱うため、どのフォルダを監視するかを事前に決めておく必要があります。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+            <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-3">✅ 実践編①（メール転記）</h3>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              Gmailの受信トレイを自動検索するため、<strong>フォルダの準備は不要</strong>でした。
+              メールは自動的にGmailに届くので、検索キーワードを指定するだけでOKでした。
+            </p>
+          </div>
+
+          <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500">
+            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">📁 実践編②（ファイル転記）</h3>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              Googleドライブの<strong>特定のフォルダ</strong>を監視するため、<strong>フォルダを事前に作成</strong>しておく必要があります。
+              ファイルを置く場所を決めることで、GASが自動的に処理してくれます。
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-300">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 text-center">
+            🔄 このツールの動作イメージ
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="text-3xl mr-4 flex-shrink-0">1️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">「未処理」フォルダにファイルを入れる</p>
+                <p class="text-base md:text-lg text-gray-700">
+                  毎日ダウンロードしたCSVファイルを、このフォルダに入れるだけです。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="text-3xl mr-4 flex-shrink-0">2️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">GASを実行すると自動転記</p>
+                <p class="text-base md:text-lg text-gray-700">
+                  ボタン1つで、フォルダ内の全ファイルがスプレッドシートに転記されます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="text-3xl mr-4 flex-shrink-0">3️⃣</span>
+              <div>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">処理済みファイルは自動的に移動</p>
+                <p class="text-base md:text-lg text-gray-700">
+                  転記が完了したファイルは、「処理済み」フォルダに自動的に移動されます。
+                  これにより、同じファイルを2回処理してしまうミスを防げます。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-8 text-center">
+          このステップでは、この仕組みを動かすための<strong class="text-indigo-600">2つのフォルダを作成</strong>して、
+          <strong class="text-indigo-600">フォルダIDを取得</strong>します。
+          難しい作業ではありませんので、一緒に進めていきましょう。
+        </p>
+      </div>
+    </section>
 
     <!-- ゴール -->
     <section id="goal" class="mb-16">
@@ -237,6 +322,139 @@
       </div>
     </section>
 
+    <!-- フォルダ構成の図解 -->
+    <section id="folder-flow" class="mb-16">
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-indigo-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          🔄 フォルダ構成と処理の流れ
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          2つのフォルダがどのように連携して動くのかを確認しましょう
+        </p>
+
+        <!-- フロー図 -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <!-- ステップ1: 未処理フォルダ -->
+          <div class="bg-white rounded-xl shadow-lg p-6 border-4 border-blue-400 transform transition hover:scale-105">
+            <div class="text-center mb-4">
+              <div class="text-5xl mb-3">📥</div>
+              <h3 class="text-lg md:text-xl font-bold text-blue-700 mb-3">
+                ステップ1<br/>未処理フォルダ
+              </h3>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                ダウンロードしたCSVファイルをここに入れます。
+                複数ファイルを一度に入れてもOKです。
+              </p>
+            </div>
+            <div class="mt-4 text-center">
+              <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                📂 注文データ_未処理
+              </span>
+            </div>
+          </div>
+
+          <!-- ステップ2: GAS処理 -->
+          <div class="flex flex-col justify-center items-center">
+            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl shadow-lg p-6 border-4 border-purple-400 w-full">
+              <div class="text-center">
+                <div class="text-5xl mb-3">⚙️</div>
+                <h3 class="text-lg md:text-xl font-bold text-purple-700 mb-3">
+                  ステップ2<br/>GASが自動処理
+                </h3>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                  <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+                    ボタンをクリックすると：
+                  </p>
+                  <div class="space-y-2 text-left">
+                    <div class="flex items-start">
+                      <span class="text-base mr-2">①</span>
+                      <p class="text-sm md:text-base text-gray-700">ファイルを読み込み</p>
+                    </div>
+                    <div class="flex items-start">
+                      <span class="text-base mr-2">②</span>
+                      <p class="text-sm md:text-base text-gray-700">データを解析</p>
+                    </div>
+                    <div class="flex items-start">
+                      <span class="text-base mr-2">③</span>
+                      <p class="text-sm md:text-base text-gray-700">スプシに転記</p>
+                    </div>
+                    <div class="flex items-start">
+                      <span class="text-base mr-2">④</span>
+                      <p class="text-sm md:text-base text-gray-700">ファイルを移動</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 矢印 -->
+            <div class="hidden md:block">
+              <svg class="w-16 h-8 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 3l-7 7h4v7h6v-7h4l-7-7z" transform="rotate(90 10 10)"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- ステップ3: 処理済みフォルダ -->
+          <div class="bg-white rounded-xl shadow-lg p-6 border-4 border-green-400 transform transition hover:scale-105">
+            <div class="text-center mb-4">
+              <div class="text-5xl mb-3">✅</div>
+              <h3 class="text-lg md:text-xl font-bold text-green-700 mb-3">
+                ステップ3<br/>処理済みフォルダ
+              </h3>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                転記が完了したファイルが自動的に移動されます。
+                履歴として保管できます。
+              </p>
+            </div>
+            <div class="mt-4 text-center">
+              <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                📂 注文データ_処理済み
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ポイント -->
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">💡</span>
+            このフォルダ構成のメリット
+          </h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>重複処理を防止</strong>：処理済みファイルは別フォルダに移動するので、同じファイルを2回処理しません
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>履歴管理が簡単</strong>：処理済みフォルダを見れば、いつどのファイルを処理したか一目瞭然
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>複数ファイル対応</strong>：未処理フォルダに複数ファイルを入れても、一括で処理できます
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>エラーが起きても安心</strong>：元のファイルは保持されるので、いつでも再処理できます
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- フォルダID取得方法 -->
     <section id="folder-id" class="mb-16">
       <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
@@ -302,6 +520,141 @@
       </div>
     </section>
 
+    <!-- よくあるトラブルと対策 -->
+    <section id="troubleshooting" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          ⚠️ よくあるトラブルと対策
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          フォルダIDの設定でよくあるトラブルと、その解決方法を確認しておきましょう
+        </p>
+
+        <div class="space-y-6">
+          <!-- トラブル1 -->
+          <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3 flex items-center gap-2">
+              <span class="text-2xl">❌</span>
+              トラブル1: 「フォルダが見つかりません」エラー
+            </h3>
+            <div class="bg-white p-4 rounded-lg mb-4">
+              <p class="text-base md:text-lg text-gray-700 font-mono">
+                Error: Folder not found (ID: xxxxxxxxxx)
+              </p>
+            </div>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+              <strong>原因</strong>：フォルダIDが間違っているか、フォルダへのアクセス権限がありません。
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="text-lg font-bold text-green-800 mb-2 flex items-center gap-2">
+                <span>✓</span> 解決方法
+              </h4>
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">1.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    フォルダIDをもう一度確認してください（URLの最後の部分をコピー）
+                  </p>
+                </div>
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">2.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    フォルダが自分のGoogleドライブにあることを確認してください
+                  </p>
+                </div>
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">3.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    共有フォルダの場合は、編集権限があるか確認してください
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- トラブル2 -->
+          <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3 flex items-center gap-2">
+              <span class="text-2xl">❌</span>
+              トラブル2: フォルダIDを間違えた場合
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+              <strong>状況</strong>：プロンプトに間違ったフォルダIDを書いてしまった、またはコードに間違ったIDを貼り付けてしまった。
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="text-lg font-bold text-green-800 mb-2 flex items-center gap-2">
+                <span>✓</span> 解決方法
+              </h4>
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">1.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    <strong>プロンプト段階</strong>：正しいIDをコピーして、プロンプトを再送信すればOKです
+                  </p>
+                </div>
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">2.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    <strong>コード貼り付け後</strong>：GASエディタでIDの部分だけを正しいIDに修正して、再度実行してください
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- トラブル3 -->
+          <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3 flex items-center gap-2">
+              <span class="text-2xl">❌</span>
+              トラブル3: 同じファイルが2回転記される
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+              <strong>原因</strong>：処理済みファイルが「処理済みフォルダ」に移動されず、未処理フォルダに残っているため。
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="text-lg font-bold text-green-800 mb-2 flex items-center gap-2">
+                <span>✓</span> 解決方法
+              </h4>
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">1.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    処理済みフォルダのIDが正しく設定されているか確認してください
+                  </p>
+                </div>
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">2.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    GASの実行ログを確認して、ファイル移動処理が正常に完了しているか確認してください
+                  </p>
+                </div>
+                <div class="flex items-start">
+                  <span class="text-base mr-2 flex-shrink-0">3.</span>
+                  <p class="text-base md:text-lg text-gray-700">
+                    手動で未処理フォルダから処理済みフォルダにファイルを移動してください
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ヒント -->
+          <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-300">
+            <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-3 flex items-center gap-2">
+              <span class="text-2xl">💡</span>
+              確認のヒント
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              フォルダIDが正しいか確認するには、ブラウザで以下のURLを開いてみましょう：<br/>
+              <code class="bg-white px-2 py-1 rounded text-sm">https://drive.google.com/drive/folders/【取得したフォルダID】</code><br/>
+              正しいフォルダが開けば、IDは正しいです。エラーが出る場合は、IDが間違っているか、アクセス権限がありません。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- サンプルデータダウンロード -->
     <section id="sample-data" class="mb-16">
       <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-green-400">
@@ -324,6 +677,103 @@
             ※ GoogleDriveフォルダから3つのサンプルファイルをダウンロードして、<br/>
             「注文データ_未処理」フォルダに入れてください
           </p>
+        </div>
+
+        <!-- サンプルファイルの詳細説明 -->
+        <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 text-center">
+            📄 サンプルファイルの内容
+          </h3>
+
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
+            ダウンロードしたフォルダには、以下の3つのサンプルCSVファイルが含まれています。
+            これらはすべて同じ形式のファイルで、GASがまとめて処理できます。
+          </p>
+
+          <div class="space-y-4">
+            <!-- ファイル1 -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                <span class="text-xl">📝</span>
+                orders_20250128_morning.csv
+              </h4>
+              <p class="text-sm md:text-base text-gray-600 mb-2">
+                午前中に受け取った注文データ（2件のデータ）
+              </p>
+              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
+山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
+佐藤花子,大阪府大阪市△△2-3-4,080-9876-5432,みかん,5,500</pre>
+              </div>
+            </div>
+
+            <!-- ファイル2 -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                <span class="text-xl">📝</span>
+                orders_20250128_afternoon.csv
+              </h4>
+              <p class="text-sm md:text-base text-gray-600 mb-2">
+                午後に受け取った注文データ（3件のデータ）
+              </p>
+              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
+鈴木一郎,愛知県名古屋市◇◇3-4-5,070-1111-2222,バナナ,20,2000
+田中次郎,福岡県福岡市◎◎4-5-6,090-3333-4444,ぶどう,8,800
+高橋三郎,北海道札幌市〒〒5-6-7,080-5555-6666,メロン,3,3000</pre>
+              </div>
+            </div>
+
+            <!-- ファイル3 -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                <span class="text-xl">📝</span>
+                orders_20250129_morning.csv
+              </h4>
+              <p class="text-sm md:text-base text-gray-600 mb-2">
+                翌日の注文データ（2件のデータ）
+              </p>
+              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
+伊藤四郎,京都府京都市☆☆6-7-8,090-7777-8888,いちご,15,1500
+渡辺五郎,広島県広島市★★7-8-9,080-9999-0000,桃,12,1200</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- 重要ポイント -->
+          <div class="mt-6 bg-indigo-50 p-4 rounded-lg border-2 border-indigo-300">
+            <h4 class="text-base md:text-lg font-bold text-indigo-800 mb-3 flex items-center gap-2">
+              <span class="text-xl">📌</span>
+              重要ポイント
+            </h4>
+            <div class="space-y-2">
+              <div class="flex items-start">
+                <span class="text-base mr-2 flex-shrink-0">✓</span>
+                <p class="text-sm md:text-base text-gray-700">
+                  <strong>1行目はヘッダー</strong>：項目名が書かれています（注文者、住所、電話番号...）
+                </p>
+              </div>
+              <div class="flex items-start">
+                <span class="text-base mr-2 flex-shrink-0">✓</span>
+                <p class="text-sm md:text-base text-gray-700">
+                  <strong>カンマ区切り</strong>：各データはカンマ（,）で区切られています
+                </p>
+              </div>
+              <div class="flex items-start">
+                <span class="text-base mr-2 flex-shrink-0">✓</span>
+                <p class="text-sm md:text-base text-gray-700">
+                  <strong>ファイル名は自由</strong>：ファイル名は何でもOKです。GASはフォルダ内のすべてのファイルを処理します
+                </p>
+              </div>
+              <div class="flex items-start">
+                <span class="text-base mr-2 flex-shrink-0">✓</span>
+                <p class="text-sm md:text-base text-gray-700">
+                  <strong>合計7件のデータ</strong>：3つのファイルを合わせて、7件の注文データが転記されます
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

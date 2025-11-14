@@ -110,7 +110,13 @@
       <div class="dot active" data-section="intro">
         <span class="dot-label">導入</span>
       </div>
-      <div class="dot" data-section="prompt">
+      <div class="dot" data-section="what-is-prompt">
+        <span class="dot-label">プロンプトとは</span>
+      </div>
+      <div class="dot" data-section="prompt-structure">
+        <span class="dot-label">プロンプトの構成</span>
+      </div>
+      <div class="dot" data-section="prompt-example">
         <span class="dot-label">プロンプト例</span>
       </div>
       <div class="dot" data-section="next-step">
@@ -147,13 +153,142 @@
       </div>
     </section>
 
+    <!-- プロンプトとは？ -->
+    <section id="what-is-prompt" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          💬 プロンプトとは？
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          <strong class="text-indigo-600">プロンプト</strong>とは、生成AIに対して送る「指示文」のことです。
+          プロンプトの書き方次第で、生成AIが作るコードの品質が大きく変わります。
+        </p>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          良いプロンプトの条件は、<strong class="text-indigo-600">具体的であること</strong>です。
+          これまでのステップで作業を詳しく整理したおかげで、具体的なプロンプトを書く材料が揃っています。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">❌ 悪いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-red-200 mb-3">
+              <p class="text-lg text-gray-700">
+                「CSVファイルをスプレッドシートに転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700">
+              これでは曖昧すぎて、生成AIは何をどうすればいいのかわかりません。
+              結果として、期待通りのコードが生成されない可能性が高いです。
+            </p>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">✅ 良いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-green-200 mb-3">
+              <p class="text-lg text-gray-700">
+                「Google Driveの指定フォルダ内のCSVファイルを読み込み、注文者・住所・電話番号をスプレッドシートのA, B, C列に転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700">
+              具体的な条件と出力先が明記されているので、生成AIは正確なコードを作れます。
+              1回目から実用的なコードが生成される確率が高くなります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトの構成 -->
+    <section id="prompt-structure" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📐 効果的なプロンプトの5つの要素
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          ワークシートの5ステップが、そのまま効果的なプロンプトの構成になります。<br/>
+          この構成を意識するだけで、生成AIからより良い回答を引き出せるようになります。
+        </p>
+
+        <div class="space-y-6">
+          <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500">
+            <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-3">1️⃣ やりたいこと（目的）</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              何を実現したいのかを一言で明確に書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-blue-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「Google Driveの指定フォルダにあるCSVファイルを、既存のスプレッドシートに自動転記したい」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-purple-50 p-6 rounded-2xl border-l-4 border-purple-500">
+            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">2️⃣ 現在の手順（詳細）</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              ワークシートで整理した手作業の流れを、ステップバイステップで書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-purple-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「1. ファイルを開く → 2. ファイル内から情報を確認 → 3. スプレッドシートを開いて手動で転記 → 4. ファイルを別フォルダに移動」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-green-50 p-6 rounded-2xl border-l-4 border-green-500">
+            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">3️⃣ どんなデータを扱う？</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              対象のファイル形式、フォルダID、抽出したいデータ項目、転記先の列を具体的に指定します。
+              前のステップで作成した転記項目表をそのまま貼り付けましょう。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-green-200">
+              <p class="text-base text-gray-700">
+                <strong>重要：</strong>CSVファイルのサンプルデータと転記項目表を必ず含めてください
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-orange-50 p-6 rounded-2xl border-l-4 border-orange-500">
+            <h3 class="text-lg md:text-xl font-bold text-orange-800 mb-3">4️⃣ どこに保存する？</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              データをどこに保存するか明記します。シート名、追記方法、他の列への影響などを具体的に。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-orange-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「現在のスプレッドシートの『受注管理』シートに追記。A列の最終行の次の行から追記」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-500">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">5️⃣ その他の要望</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              複数ファイル処理、ファイルの移動、エラーハンドリング、ログ出力など、追加で実装してほしい機能を書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-red-200">
+              <p class="text-base text-gray-700">
+                <strong>重要：</strong>初心者向けにコメント付きのコードを依頼すると、理解しやすいコードが生成されます
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- プロンプト全体 -->
-    <section id="prompt" class="mb-12">
+    <section id="prompt-example" class="mb-12">
       <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
         <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-3">
           <span class="text-3xl">📋</span>
-          完全なプロンプト例
+          実際のプロンプト例
         </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！<br/>
+          5ステップの構成に沿って、具体的に書いていきましょう。
+        </p>
 
         <!-- 冒頭 -->
         <div class="bg-gray-100 p-6 rounded-xl mb-8 border-2 border-gray-300">
