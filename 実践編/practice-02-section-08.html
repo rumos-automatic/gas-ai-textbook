@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>実践編②-4: ステップ3 コードをGASエディタに貼り付け | 生成AI×GAS 短期講座</title>
+  <title>ステップ3: コードをGASエディタに貼り付け | 実践編② | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -51,44 +51,50 @@
       background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 70%, #e5e7eb 70%, #e5e7eb 100%);
     }
 
+    /* ドットインジケーター */
     .dot-indicator {
       position: fixed;
       right: 2rem;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 50;
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background-color: #d1d5db;
+      background: #d1d5db;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
     }
 
     .dot.active {
-      background-color: #6366f1;
-      transform: scale(1.5);
+      background: #8b5cf6;
+      transform: scale(1.3);
     }
 
     .dot:hover {
-      transform: scale(1.3);
+      background: #8b5cf6;
+      transform: scale(1.2);
     }
 
     .dot-label {
       position: absolute;
-      right: 20px;
+      right: 24px;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(99, 102, 241, 0.9);
+      background: rgba(139, 92, 246, 0.95);
       color: white;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 14px;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
       white-space: nowrap;
+      font-size: 0.875rem;
+      font-weight: 600;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -111,6 +117,22 @@
 </head>
 <body class="smooth-scroll bg-gray-50">
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="dot" data-target="intro">
+      <div class="dot-label">イントロ</div>
+    </div>
+    <div class="dot" data-target="procedure">
+      <div class="dot-label">コピー・貼り付け・保存の手順</div>
+    </div>
+    <div class="dot" data-target="project-name">
+      <div class="dot-label">プロジェクト名の変更</div>
+    </div>
+    <div class="dot" data-target="next-step">
+      <div class="dot-label">次のステップへ</div>
+    </div>
+  </div>
+
   <!-- ナビゲーション -->
   <nav class="bg-white shadow-md sticky top-0 z-40">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -118,7 +140,7 @@
         <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
           ← トップページへ
         </a>
-        <div class="flex gap-4">
+        <div class="flex gap-4 items-center">
           <a href="practice-02-section-07.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
@@ -132,315 +154,332 @@
     </div>
   </nav>
 
-  <!-- ドットインジケーター -->
-  <div class="dot-indicator">
-    <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="open-editor">
-        <span class="dot-label">GASエディタを開く</span>
-      </div>
-      <div class="dot" data-section="paste-code">
-        <span class="dot-label">コードを貼り付け</span>
-      </div>
-      <div class="dot" data-section="rename-project">
-        <span class="dot-label">プロジェクト名を変更</span>
-      </div>
-      <div class="dot" data-section="summary">
-        <span class="dot-label">まとめ</span>
-      </div>
-    </div>
-  </div>
-
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
-      <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
-        <span class="font-bold">ステップ 3 / 5</span>
-      </div>
-      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-        コードをGASエディタに貼り付け
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        コードのコピー・貼り付け・保存
       </h1>
-      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
-        ChatGPTが生成したコードを実装します
+      <p class="text-lg md:text-xl text-gray-600">
+        ChatGPTが生成したコードをGASエディタにコピーして、保存しましょう
       </p>
     </header>
 
-    <!-- GASエディタを開く手順 -->
-    <section id="open-editor" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        📂 GASエディタを開く手順
-      </h2>
-
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        ChatGPTが生成したコードを実装するために、まずGoogle Apps Scriptエディタを開きましょう。スプレッドシートから簡単にアクセスできます。
-      </p>
-
+    <!-- イントロ -->
+    <section id="intro" class="mb-20">
       <div class="bg-white rounded-lg shadow-md p-8">
-        <div class="space-y-8">
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              1
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                Googleスプレッドシートを開く
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                ツールを作成したいGoogleスプレッドシートを開きます。既存のスプレッドシートでも、新しく作成したものでもOKです。
-              </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-open-spreadsheet.png</p>
-                <p class="text-sm mt-2">Googleスプレッドシートを開いた画面</p>
-              </div>
-            </div>
-          </div>
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          ChatGPTがGASコードを生成してくれたら、次はそのコードをGoogleのスクリプトエディタにコピーして保存します。
+          スクリプトエディタは、GASのコードを書いて実行するための専用環境です。
+        </p>
 
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              2
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                メニューから「拡張機能」をクリック
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                スプレッドシート上部のメニューバーにある<strong>「拡張機能」</strong>をクリックします。ここから、Google Apps Scriptのエディタにアクセスできます。
-              </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-extensions-menu.png</p>
-                <p class="text-sm mt-2">「拡張機能」メニューの位置</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              3
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                「Apps Script」を選択
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                開いたメニューの中から<strong>「Apps Script」</strong>を選択します。新しいタブでGASエディタが開きます。
-              </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-apps-script-menu.png</p>
-                <p class="text-sm mt-2">「Apps Script」メニュー項目</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
-          💡 初めてGASエディタを開く場合
-        </h3>
-        <p class="text-lg md:text-xl text-blue-900 leading-relaxed">
-          初めてApps Scriptを開くと、プロジェクト名を設定する画面が表示されることがあります。わかりやすい名前（例：「CSVインポートツール」）を付けておくと、後で管理しやすくなります。
+        <p class="text-lg md:text-xl leading-relaxed">
+          このステップでは、スクリプトエディタを開いてから、ChatGPTで生成したコードをコピーし、エディタに貼り付け、保存するまでの一連の流れを見ていきましょう。
+          初めての方でも迷わないように、動画とテキストで丁寧に説明していきます。
         </p>
       </div>
     </section>
 
-    <!-- コードを貼り付ける手順 -->
-    <section id="paste-code" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        📋 コードを貼り付ける手順
-      </h2>
+    <!-- 手順 -->
+    <section id="procedure" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">コードのコピー・貼り付け・保存の手順</h2>
 
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        GASエディタが開いたら、ChatGPTが生成したコードを貼り付けましょう。既にサンプルコードが書かれている場合は、それを削除してから貼り付けます。
-      </p>
+      <!-- テンプレートダウンロード -->
+      <div class="mb-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
+        <div class="text-center mb-8">
+          <div class="text-5xl md:text-6xl mb-4">📊</div>
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            スプレッドシートテンプレートはこちら
+          </h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+            まだテンプレートをコピーしていない方は、こちらからコピーしてください。<br/>
+            「ファイル」→「コピーを作成」でご自身のGoogleドライブに保存できます。
+          </p>
+          <a href="https://docs.google.com/spreadsheets/d/1WcW_RiMwFGxdxCnfVW1Qd11U8dRBJQpjRaP-zNu6gIU/edit?usp=sharing"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold text-lg md:text-xl rounded-xl shadow-lg hover:shadow-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1">
+            <span class="text-2xl">📊</span>
+            テンプレートをコピー
+          </a>
+          <p class="text-sm md:text-base text-gray-600 mt-6">
+            ※ コピーしたスプレッドシートから「拡張機能」→「Apps Script」を開いてください
+          </p>
+        </div>
+      </div>
 
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <div class="space-y-8">
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+      <div class="space-y-8">
+        <!-- ステップ1 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
               1
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                既存のコードをすべて選択して削除
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                GASエディタには、デフォルトで以下のようなサンプルコードが書かれています。
-              </p>
-              <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto mb-4">
-                <pre class="text-sm"><code>function myFunction() {
-
-}</code></pre>
-              </div>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-                このコードを<strong>すべて選択（Ctrl + A または Cmd + A）</strong>して、削除します。エディタが空っぽの状態になればOKです。
-              </p>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleスプレッドシートを開く</h3>
             </div>
           </div>
 
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+          <p class="text-lg md:text-xl leading-relaxed mb-4">
+            まず、CSVファイルをインポートしたいGoogleスプレッドシートを開きましょう。
+            すでにスプレッドシートがある場合はそれを使い、新しく作成する場合は「空白」から新規作成してください。
+          </p>
+
+          <p class="text-lg md:text-xl leading-relaxed">
+            スプレッドシートのシート名は、特に変更する必要はありませんが、
+            わかりやすい名前（例：「CSVインポート」など）に変更しておくと管理しやすくなります。
+          </p>
+        </div>
+
+        <!-- ステップ2 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
               2
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                ChatGPTが生成したコードをコピー
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                ChatGPTの画面に戻り、生成されたコード全体をコピーします。ChatGPTはコードをコードブロック形式で表示するので、右上の<strong>「コピー」ボタン</strong>をクリックすると簡単にコピーできます。
-              </p>
-              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                <p class="text-base md:text-lg text-yellow-900">
-                  <strong>注意:</strong> コードの一部だけをコピーしないように注意しましょう。関数全体をコピーしないと、エラーが発生する可能性があります。
-                </p>
-              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メニューから「拡張機能」→「Apps Script」をクリック</h3>
             </div>
           </div>
 
-          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
-            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            スプレッドシートの上部メニューバーから、<strong>「拡張機能」</strong>をクリックし、
+            ドロップダウンメニューから<strong>「Apps Script」</strong>を選択します。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ポイント</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              メニュー項目が見つからない場合は、スプレッドシートの画面幅を広げてみてください。
+              画面が狭いと、一部のメニューが「︙」（縦三点リーダー）の中に隠れていることがあります。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-open-apps-script.png"
+                 alt="「拡張機能」→「Apps Script」をクリックする様子"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-open-apps-script.png')">
+            <p class="text-sm text-gray-500 mt-2 text-center">
+              ※ スクリーンショットは実践編①のものですが、操作方法は同じです
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
               3
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                GASエディタに貼り付け
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                GASエディタに戻り、コピーしたコードを貼り付けます（<strong>Ctrl + V</strong> または <strong>Cmd + V</strong>）。エディタにコードが表示されたら成功です。
-              </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-paste-code.png</p>
-                <p class="text-sm mt-2">コードを貼り付けた状態のGASエディタ</p>
-              </div>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">スクリプトエディタが開く</h3>
             </div>
           </div>
 
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-              4
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            新しいタブで、GASのスクリプトエディタが開きます。
+            初めて開いた場合は、以下のようなデフォルトのサンプルコードが表示されていることがあります：
+          </p>
+
+          <div class="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm mb-6">
+            <pre>function myFunction() {
+
+}</pre>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-4">
+            このサンプルコードは、次のステップで削除して、ChatGPTが生成したコードに置き換えていきます。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 スクリプトエディタについて</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              スクリプトエディタは、GASのコードを書くための専用環境です。
+              ここでプログラムを作成し、実行することができます。
+              Web上で動作するため、特別なソフトウェアをインストールする必要はありません。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="mt-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-gas-editor-initial.png"
+                 alt="スクリプトエディタの初期画面"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-gas-editor-initial.png')">
+            <p class="text-sm text-gray-500 mt-2 text-center">
+              ※ スクリーンショットは実践編①のものですが、操作方法は同じです
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4-6: コードのコピー・貼り付け・保存 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+            ステップ4-6: コードのコピー・貼り付け・保存
+          </h3>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            ChatGPTが生成したコードをGASエディタにコピーして保存する一連の流れを、まず動画で確認しましょう。
+          </p>
+
+          <!-- 動画 -->
+          <div class="mt-6 mb-8">
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">📹 操作の流れ（動画）</h4>
+            <div class="relative rounded-lg overflow-hidden shadow-xl">
+              <video
+                id="copyPasteCodeVideo"
+                class="w-full"
+                controls
+                playsinline
+              >
+                <source src="../assets/videos/practice01-step04-copy-code.mp4" type="video/mp4">
+                お使いのブラウザは動画タグをサポートしていません。
+              </video>
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                コードを保存
-              </h3>
-              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                コードを貼り付けたら、必ず保存しましょう。エディタ上部の<strong>「保存」ボタン（フロッピーディスクのアイコン）</strong>をクリックするか、<strong>Ctrl + S</strong>（または <strong>Cmd + S</strong>）で保存できます。
+            <div class="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700">
+                💡 動画を見ながら、実際の操作の流れを確認しましょう。
               </p>
-              <div class="screenshot-placeholder">
-                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
-                <p class="text-sm">screenshot-practice02-save-button.png</p>
-                <p class="text-sm mt-2">保存ボタンの位置</p>
+            </div>
+          </div>
+
+          <!-- 詳細な手順説明 -->
+          <div class="mt-8 space-y-8">
+            <!-- ステップ4の詳細 -->
+            <div>
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  4
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">ChatGPTが生成したコードをすべて選択してコピー</h4>
               </div>
-              <div class="mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
-                <p class="text-base md:text-lg text-green-900">
-                  <strong>ヒント:</strong> 保存が成功すると、エディタ上部に「プロジェクトを保存しました」というメッセージが表示されます。
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                ChatGPTの画面に戻って、生成されたコードをすべて選択してコピーします。
+              </p>
+              <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ 注意</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  コードをコピーする際は、<strong>コードブロック全体</strong>を選択してください。
+                  ChatGPTの画面では、コードブロックの右上に「コピー」ボタンが表示されていることが多いので、
+                  それをクリックすると簡単にコピーできます。
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- プロジェクト名を変更する（オプション） -->
-    <section id="rename-project" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        ✏️ プロジェクト名を変更する（オプション）
-      </h2>
-
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        GASプロジェクトには、デフォルトで「無題のプロジェクト」という名前が付けられています。わかりやすい名前に変更しておくと、後で管理しやすくなります。
-      </p>
-
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
-              1
-            </div>
+            <!-- ステップ5の詳細 -->
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                エディタ上部のプロジェクト名をクリック
-              </h3>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                左上の「無題のプロジェクト」という部分をクリックすると、編集モードになります。
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  5
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">エディタに貼り付け</h4>
+              </div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                スクリプトエディタに戻って、コピーしたコードを貼り付けます。
+                既存のコード（<code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code>）がある場合は、
+                それをすべて削除してから貼り付けてください。
               </p>
-            </div>
-          </div>
-
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
-              2
-            </div>
-            <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                わかりやすい名前を入力
-              </h3>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
-                例：「CSVインポートツール」「注文データ自動転記」など
-              </p>
-              <div class="bg-gray-100 p-4 rounded">
-                <p class="text-sm text-gray-600">プロジェクト名の例:</p>
-                <ul class="list-disc pl-6 mt-2 text-base text-gray-700">
-                  <li>CSVインポートツール</li>
-                  <li>注文データ自動転記ツール</li>
-                  <li>ドライブファイル自動取り込み</li>
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  コードの貼り付けは、以下のショートカットキーで行えます：
+                </p>
+                <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+                  <li><strong>Windows:</strong> Ctrl + V</li>
+                  <li><strong>Mac:</strong> Cmd + V</li>
                 </ul>
               </div>
             </div>
-          </div>
 
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
-              3
-            </div>
+            <!-- ステップ6の詳細 -->
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                Enterキーで確定
-              </h3>
-              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                名前を入力したら、<strong>Enterキー</strong>を押して確定します。プロジェクト名が変更されます。
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  6
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">「保存」ボタンをクリック</h4>
+              </div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                コードを貼り付けたら、必ず<strong>「保存」</strong>してください。
+                スクリプトエディタの上部にある「💾 保存」ボタンをクリックするか、
+                ショートカットキーで保存できます。
               </p>
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg ml-13 mb-4">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  保存のショートカットキー：
+                </p>
+                <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+                  <li><strong>Windows:</strong> Ctrl + S</li>
+                  <li><strong>Mac:</strong> Cmd + S</li>
+                </ul>
+              </div>
+              <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 保存完了の確認</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  保存が完了すると、画面上部に「保存しました」というメッセージが表示されます。
+                  また、ファイル名の横に「*（アスタリスク）」が付いている場合は、まだ保存されていない状態です。
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- まとめ -->
-    <section id="summary" class="mb-16">
-      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          ✅ このステップのまとめ
-        </h2>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          お疲れ様でした！このステップでは、以下のことを完了しました。
+    <!-- プロジェクト名の変更（オプション） -->
+    <section id="project-name" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロジェクト名を変更する（オプション）</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          スクリプトエディタの左上に「無題のプロジェクト」という名前が表示されています。
+          このままでも動作には問題ありませんが、わかりやすい名前に変更することをおすすめします。
         </p>
-        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-gray-700">
-          <li>Googleスプレッドシートから「拡張機能」→「Apps Script」でGASエディタを開く</li>
-          <li>既存のサンプルコードを削除する</li>
-          <li>ChatGPTが生成したコードをコピーして貼り付ける</li>
-          <li>コードを保存する</li>
-          <li>プロジェクト名を変更する（オプション）</li>
-        </ul>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-6">
-          次のステップでは、このコードが正しく動作するか確認していきましょう。
+
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          例えば、「CSVインポートツール」や「ドライブファイル取り込み」など、
+          プロジェクトの内容がわかる名前に変更すると、後で複数のGASプロジェクトを作成した際に管理しやすくなります。
         </p>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 プロジェクト名の変更方法</h4>
+          <ol class="list-decimal pl-6 space-y-3 text-lg text-gray-700">
+            <li>スクリプトエディタの画面左上に表示されている「無題のプロジェクト」をクリック</li>
+            <li>新しい名前を入力します（例：「CSVインポートツール」）</li>
+            <li>Enterキーを押すか、入力欄の外をクリックして確定</li>
+          </ol>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ おすすめのプロジェクト名</h4>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li>CSVインポートツール</li>
+            <li>ドライブファイル取り込み</li>
+            <li>注文データ自動転記</li>
+            <li>売上データ管理ツール</li>
+          </ul>
+          <p class="text-lg leading-relaxed text-gray-700 mt-4">
+            プロジェクトの目的がひと目でわかる名前をつけると、後から見返した時に便利です。
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- 次へのリンク -->
-    <section class="mt-16 text-center">
-      <div class="bg-indigo-50 rounded-lg p-8">
-        <p class="text-lg md:text-xl text-gray-700 mb-6">
-          コードの貼り付けが完了したら、次は動作確認をしましょう。
+    <!-- 次のステップへの誘導 -->
+    <section id="next-step" class="mb-20">
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">コードの貼り付けができましたか？</h2>
+        <p class="text-lg md:text-xl mb-6">
+          コードを貼り付けて保存できたら、次は初回承認の手順を進めましょう。
+          GASを初めて実行する際は、Googleアカウントへの承認が必要です。
         </p>
-        <a href="practice-02-section-10.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
-          ステップ5へ進む →
+        <a href="practice-02-section-09.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
+          ステップ4へ進む →
         </a>
       </div>
     </section>
@@ -448,62 +487,49 @@
   </main>
 
   <!-- 画像拡大モーダル -->
-  <div id="imageModal">
-    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+  <div id="imageModal" onclick="closeModal()">
+    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
     <img id="modalImage" src="" alt="拡大画像">
   </div>
 
-  <!-- フッター -->
-  <footer class="bg-white border-t border-gray-200 mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <p class="text-center text-gray-600">
-        © 2025 生成AI×GAS 短期講座
-      </p>
-    </div>
-  </footer>
-
+  <!-- スクリプト -->
   <script>
-    // 画像拡大モーダル
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const closeModal = document.getElementById('closeModal');
+    function openModal(imagePath) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = '../assets/images/screenshots/' + imagePath;
+      modal.classList.add('active');
+    }
 
-    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
-      placeholder.addEventListener('click', function() {
-        const imgSrc = this.querySelector('img')?.src;
-        if (imgSrc) {
-          modalImage.src = imgSrc;
-          modal.classList.add('active');
-        }
-      });
-    });
-
-    closeModal.addEventListener('click', () => {
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
       modal.classList.remove('active');
-    });
+    }
 
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.classList.remove('active');
-      }
-    });
-
-    // ドットインジケーターのスクロール連動
-    const sections = document.querySelectorAll('section[id]');
+    // ドットインジケーターの機能
     const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    // Intersection Observer for active dot
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const sectionId = entry.target.getAttribute('id');
+          const id = entry.target.getAttribute('id');
           dots.forEach(dot => {
-            if (dot.getAttribute('data-section') === sectionId) {
+            if (dot.getAttribute('data-target') === id) {
               dot.classList.add('active');
             } else {
               dot.classList.remove('active');
@@ -511,23 +537,19 @@
           });
         }
       });
-    }, {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    });
+    }, observerOptions);
 
     sections.forEach(section => {
       observer.observe(section);
     });
 
-    // ドットクリックでスムーススクロール
+    // Smooth scroll on dot click
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const sectionId = dot.getAttribute('data-section');
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const targetId = dot.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });
