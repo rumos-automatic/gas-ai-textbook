@@ -129,7 +129,10 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="goal">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">導入</span>
+      </div>
+      <div class="dot" data-section="goal">
         <span class="dot-label">ゴール</span>
       </div>
       <div class="dot" data-section="mail-sample">
@@ -152,7 +155,7 @@
 
     <!-- タイトル -->
     <div class="text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
         📧 メールサンプル
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
@@ -160,17 +163,116 @@
       </p>
     </div>
 
+    <!-- 導入説明 -->
+    <section id="intro" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+          📖 このステップで学ぶこと
+        </h2>
+
+        <div class="space-y-6 max-w-4xl mx-auto">
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+            生成AIにGASのコードを作ってもらう前に、<strong class="text-indigo-600">「どんなメールを処理するのか」</strong>を確認しておくことが非常に重要です。
+            なぜなら、生成AIに正確な指示を出すためには、まず<strong>自分自身が対象のメールを理解している</strong>必要があるからです。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">💡 なぜメールサンプルを確認するのか？</h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-800 mb-2">メールの構造を把握できる</p>
+                  <p class="text-lg text-gray-700 leading-relaxed">
+                    実際のメールを見ることで、「どこに何の情報があるか」「どんな形式で書かれているか」が分かります。
+                    これにより、生成AIに「このメールからこのデータを取り出してください」と正確に伝えられるようになります。
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-800 mb-2">抽出したい項目を明確にできる</p>
+                  <p class="text-lg text-gray-700 leading-relaxed">
+                    メール本文を見ながら、「注文番号はここ」「商品名はここ」と確認することで、
+                    抽出項目の一覧を作成しやすくなります。これが次のステップで役立ちます。
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start">
+                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-800 mb-2">実際の業務に応用しやすくなる</p>
+                  <p class="text-lg text-gray-700 leading-relaxed">
+                    このサンプルを参考にすれば、あなたの業務で受け取る「問い合わせメール」「申込メール」「注文メール」なども、
+                    同じ手順で自動化できるようになります。まずは形式を理解することが第一歩です。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border-2 border-purple-200">
+            <p class="text-lg md:text-xl text-gray-800 leading-relaxed text-center">
+              <strong class="text-purple-700">このステップでは、サンプルメールを実際に受信して、内容を確認していきます。</strong><br/>
+              メールがどんな形式か把握できたら、次のステップで「どのデータをどこに転記するか」を設計しましょう。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ゴール -->
     <section id="goal" class="mb-16">
       <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
-        <div class="text-center">
+        <div class="text-center mb-6">
           <div class="text-5xl md:text-6xl mb-6">🎯</div>
           <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ゴール
+            このツールのゴール
           </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-            注文メールの内容を抽出して、1クリックでシートへ転記
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+            注文メールの内容を抽出して、<strong class="text-indigo-600">1クリックでスプレッドシートへ自動転記</strong>
           </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="text-3xl mb-3 text-center">⚡</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">作業時間を大幅削減</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              手動でメールを開いて、1件ずつコピー＆ペーストしていた作業が、<strong>ボタン1つで完了</strong>します。
+              10件の注文処理が数秒で終わるようになります。
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="text-3xl mb-3 text-center">✅</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">転記ミスをゼロに</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              人間が手作業で転記すると、どうしても見間違いや入力ミスが発生してしまいます。
+              GASによる自動化なら、<strong>常に正確</strong>に転記できます。
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="text-3xl mb-3 text-center">🔄</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">繰り返し作業から解放</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              毎日同じようなメール処理をしている方にとって、この自動化は大きな業務改善になると思います。
+              <strong>空いた時間を別の重要な仕事</strong>に使えるようになります。
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="text-3xl mb-3 text-center">🎨</div>
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">他の業務にも応用可能</h3>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              この仕組みを理解すれば、「問い合わせメール」「申込メール」「アンケート回答メール」など、
+              <strong>あらゆるメール処理</strong>を自動化できるようになります。
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -182,6 +284,35 @@
           <span class="text-3xl">📨</span>
           サンプル：注文メールの形式
         </h2>
+
+        <!-- メールの見方説明 -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg mb-8">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">👀 メール本文の見方</h3>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+            以下のサンプルメールを見ながら、<strong>「どこに何の情報があるか」</strong>を確認してみましょう。
+            生成AIにコードを作ってもらう際、このメール形式を参考にして指示を出します。
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg text-gray-700">
+                <strong>件名</strong>：「【注文完了】ご注文ありがとうございます」という形式で届きます
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg text-gray-700">
+                <strong>本文</strong>：注文番号、注文日時、商品情報、配送先などが含まれています
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg text-gray-700">
+                <strong>抽出項目</strong>：これらの情報を1つずつ抽出して、スプレッドシートの指定した列に転記します
+              </p>
+            </div>
+          </div>
+        </div>
 
         <!-- メール風デザイン -->
         <div class="bg-white border-2 border-gray-300 rounded-lg shadow-inner max-w-4xl mx-auto" style="font-family: 'Courier New', Courier, monospace;">

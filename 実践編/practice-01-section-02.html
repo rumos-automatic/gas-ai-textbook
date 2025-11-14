@@ -129,7 +129,10 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="worksheet-intro">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">導入</span>
+      </div>
+      <div class="dot" data-section="worksheet-intro">
         <span class="dot-label">ワークシート紹介</span>
       </div>
       <div class="dot" data-section="worksheet-merit">
@@ -146,13 +149,69 @@
 
     <!-- タイトル -->
     <div class="text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
         📝 自動化ワークシート
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
         実践編① - 注文メール → スプレッドシート転記
       </p>
     </div>
+
+    <!-- 導入説明 -->
+    <section id="intro" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📖 このページで学ぶこと
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          生成AIにコードを作ってもらう前に、<strong class="text-indigo-600">「作業を整理すること」</strong>が非常に重要です。
+          なぜなら、自分自身が作業内容を理解していないと、生成AIに正確な指示を出すことができないからです。
+        </p>
+
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl mb-6 border-2 border-blue-200">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 text-center">💡 なぜワークシートが必要なのか？</h3>
+          <div class="space-y-4">
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">1️⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">作業の見える化</p>
+                <p class="text-base text-gray-700">
+                  普段なんとなくやっている作業を、ステップごとに書き出すことで、
+                  「どこを自動化すべきか」「何をAIに伝えればいいか」が明確になります。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">2️⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">AIへの正確な指示</p>
+                <p class="text-base text-gray-700">
+                  ワークシートの5ステップに沿って書くことで、生成AIが理解しやすい形に情報が整理されます。
+                  結果として、1回目から高品質なコードが生成される確率が大幅に上がります。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">3️⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">他の業務にも応用可能</p>
+                <p class="text-base text-gray-700">
+                  このワークシートの使い方を覚えれば、メール転記以外のどんな自動化にも応用できます。
+                  「自動化の型」として、様々な場面で使える便利なテンプレートです。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
+          まずは、このワークシートをダウンロードして、実際に記入しながら進めていきましょう！
+        </p>
+      </div>
+    </section>
 
     <!-- ワークシート紹介 -->
     <section id="worksheet-intro" class="mb-16">

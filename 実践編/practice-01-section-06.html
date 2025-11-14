@@ -108,10 +108,13 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="intro">
-        <span class="dot-label">導入</span>
+      <div class="dot active" data-section="what-is-prompt">
+        <span class="dot-label">プロンプトとは</span>
       </div>
-      <div class="dot" data-section="prompt">
+      <div class="dot" data-section="prompt-structure">
+        <span class="dot-label">プロンプトの構成</span>
+      </div>
+      <div class="dot" data-section="prompt-example">
         <span class="dot-label">プロンプト例</span>
       </div>
       <div class="dot" data-section="next-step">
@@ -125,36 +128,150 @@
 
     <!-- タイトル -->
     <div class="text-center mb-12">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-        🤖 生成AIへのプロンプト例
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
+        🤖 生成AIへのプロンプト作成
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
         実践編① - 注文メール → スプレッドシート転記
       </p>
     </div>
 
-    <!-- 導入説明 -->
-    <section id="intro" class="mb-12">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
-        <div class="text-center">
-          <div class="text-5xl md:text-6xl mb-4">📝</div>
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ワークシートの5ステップに沿って指示を出します
-          </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-            これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！
-          </p>
+    <!-- プロンプトとは？ -->
+    <section id="what-is-prompt" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          💬 プロンプトとは？
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          <strong class="text-indigo-600">プロンプト</strong>とは、生成AIに対して送る「指示文」のことです。
+          プロンプトの書き方次第で、生成AIが作るコードの品質が大きく変わります。
+        </p>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          良いプロンプトの条件は、<strong class="text-indigo-600">具体的であること</strong>です。
+          これまでのステップで作業を詳しく整理したおかげで、具体的なプロンプトを書く材料が揃っています。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">❌ 悪いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-red-200 mb-3">
+              <p class="text-lg text-gray-700">
+                「メールをスプレッドシートに転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700">
+              これでは曖昧すぎて、生成AIは何をどうすればいいのかわかりません。
+              結果として、期待通りのコードが生成されない可能性が高いです。
+            </p>
+          </div>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">✅ 良いプロンプト例</h3>
+            <div class="bg-white p-4 rounded border border-green-200 mb-3">
+              <p class="text-lg text-gray-700">
+                「件名に『注文受付』を含むGmailを検索し、注文ID・日時・商品名をスプレッドシートのC, E, J列に転記するツールを作ってください」
+              </p>
+            </div>
+            <p class="text-base text-gray-700">
+              具体的な条件と出力先が明記されているので、生成AIは正確なコードを作れます。
+              1回目から実用的なコードが生成される確率が高くなります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトの構成 -->
+    <section id="prompt-structure" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📐 効果的なプロンプトの5つの要素
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          ワークシートの5ステップが、そのまま効果的なプロンプトの構成になります。<br/>
+          この構成を意識するだけで、生成AIからより良い回答を引き出せるようになります。
+        </p>
+
+        <div class="space-y-6">
+          <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500">
+            <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-3">1️⃣ やりたいこと（目的）</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              何を実現したいのかを一言で明確に書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-blue-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「Gmailの注文メールの内容を、既存のスプレッドシートに自動転記したい」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-purple-50 p-6 rounded-2xl border-l-4 border-purple-500">
+            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">2️⃣ 現在の手順（詳細）</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              ワークシートで整理した手作業の流れを、ステップバイステップで書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-purple-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「1. Gmailを開く → 2. 件名に『注文受付』を含むメールを検索 → 3. メール本文から注文情報を確認 → 4. スプレッドシートを開いて手動で転記」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-green-50 p-6 rounded-2xl border-l-4 border-green-500">
+            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">3️⃣ どんなデータを扱う？</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              対象のメール形式、抽出したいデータ項目、転記先の列を具体的に指定します。
+              前のステップで作成した転記項目表をそのまま貼り付けましょう。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-green-200">
+              <p class="text-base text-gray-700">
+                <strong>重要：</strong>メール本文のサンプルと転記項目表を必ず含めてください
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 p-6 rounded-2xl border-l-4 border-yellow-500">
+            <h3 class="text-lg md:text-xl font-bold text-yellow-800 mb-3">4️⃣ どこに保存する？</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              データをどこに保存するか明記します。シート名、追記方法、他の列への影響などを具体的に。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-yellow-200">
+              <p class="text-base text-gray-700">
+                <strong>例：</strong>「現在のスプレッドシートの『受注一覧』シートに追記。C列の最終行の次の行から追記」
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-500">
+            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">5️⃣ 重複防止とその他の要望</h3>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+              重複チェック機能、エラーハンドリング、ログ出力など、追加で実装してほしい機能を書きます。
+            </p>
+            <div class="bg-white p-4 rounded-lg border border-red-200">
+              <p class="text-base text-gray-700">
+                <strong>重要：</strong>重複防止の仕組み（メール側＋シート側）は必ず指定しましょう
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- プロンプト全体 -->
-    <section id="prompt" class="mb-12">
+    <section id="prompt-example" class="mb-12">
       <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
         <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-3">
           <span class="text-3xl">📋</span>
-          完全なプロンプト例
+          実際のプロンプト例
         </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+          これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！<br/>
+          5ステップの構成に沿って、具体的に書いていきましょう。
+        </p>
 
         <!-- 冒頭 -->
         <div class="bg-gray-100 p-6 rounded-xl mb-8 border-2 border-gray-300">
@@ -327,14 +444,14 @@
     <section id="next-step" class="mb-16">
       <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
         <h2 class="text-xl md:text-2xl font-bold mb-4">
-          📌 次はコードをGASに貼り付けましょう
+          📌 プロンプトができたら、ChatGPTに送信しましょう
         </h2>
         <p class="text-lg md:text-xl mb-6 leading-relaxed">
-          プロンプトをChatGPTに送信したら、生成されたコードをGASエディタに貼り付けて実行します。<br/>
-          実際の操作手順を確認していきましょう。
+          プロンプトの準備ができたら、次はChatGPTを開いてプロンプトを送信します。<br/>
+          送信方法と、コードが生成されるまでの流れを確認していきましょう。
         </p>
         <a href="practice-01-section-07.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          次へ：コード貼り付け →
+          次へ：ChatGPTでコード生成 →
         </a>
       </div>
     </section>

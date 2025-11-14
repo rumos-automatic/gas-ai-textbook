@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ステップ2: ChatGPTにプロンプトを送る | 実践編① | 生成AI×GAS 短期講座</title>
+  <title>ChatGPTでコードを生�E | 実践編① | 生�EAI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -107,7 +107,7 @@
       font-size: 0.95rem;
       line-height: 1.6;
     }
-  </style>  <!-- グローバル検索機能 -->
+  </style>  <!-- グローバル検索機�E -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
   <script src="../assets/js/highlightManager.js" defer></script>
@@ -120,14 +120,14 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
-          ← トップページへ
+          ↁEトップ�Eージへ
         </a>
         <div class="flex gap-4 items-center">
           <a href="practice-01-section-06.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
-            ← 前へ
+            ↁE前へ
           </a>
           <a href="practice-01-section-08.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
-            次へ →
+            次へ ↁE
           </a>
         </div>
       </div>
@@ -139,294 +139,285 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="what-is-prompt">
-        <span class="dot-label">プロンプトとは</span>
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">導�E</span>
       </div>
-      <div class="dot" data-section="prompt-structure">
-        <span class="dot-label">プロンプトの構成</span>
+      <div class="dot" data-section="access-chatgpt">
+        <span class="dot-label">ChatGPTを開ぁE/span>
       </div>
-      <div class="dot" data-section="prompt-example">
-        <span class="dot-label">実際のプロンプト例</span>
+      <div class="dot" data-section="send-prompt">
+        <span class="dot-label">プロンプト送信</span>
       </div>
-      <div class="dot" data-section="after-sending">
-        <span class="dot-label">送信後の流れ</span>
+      <div class="dot" data-section="generated-code">
+        <span class="dot-label">生�EされたコーチE/span>
+      </div>
+      <div class="dot" data-section="next-step">
+        <span class="dot-label">次のスチE��チE/span>
       </div>
     </div>
   </div>
 
-  <!-- メインコンテンツ -->
+  <!-- メインコンチE��チE-->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
-      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-        ChatGPTにプロンプトを送る
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
+        💬 ChatGPTでコードを生�E
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
-        作業の棚卸ができたら、ChatGPTにツール作成を依頼しましょう
+        実践編① - 注斁E��ール ↁEスプレチE��シート転訁E
       </p>
     </header>
 
-    <!-- プロンプトとは -->
-    <section id="what-is-prompt" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトとは？</h2>
+    <!-- 導�E -->
+    <section id="intro" class="mb-16">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
+        <div class="text-center mb-6">
+          <div class="text-5xl md:text-6xl mb-4">🚀</div>
+          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            プロンプトをChatGPTに送信してコードを生�EしましょぁE
+          </h2>
+        </div>
 
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          <strong>プロンプト</strong>とは、生成AIに対して送る「指示文」のことです。
-          プロンプトの書き方次第で、生成AIが作るコードの品質が大きく変わります。
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          前�EスチE��プでプロンプトの準備ができたら、次はChatGPTを開ぁE��プロンプトを送信します、E
+          ChatGPTが�E動的にGASのコードを生�Eしてくれます�Eで、その手頁E��確認してぁE��ましょぁE��E
         </p>
 
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          良いプロンプトの条件は、<strong>具体的であること</strong>です。
-          ステップ1で作業を詳しく棚卸したおかげで、具体的なプロンプトを書く材料が揃っています。
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
-            <h3 class="text-xl md:text-2xl font-bold text-red-800 mb-3">❌ 悪いプロンプト例</h3>
-            <div class="bg-white p-4 rounded border border-red-200">
-              <p class="text-lg text-gray-700">
-                「メールをスプレッドシートに転記するツールを作ってください」
-              </p>
+        <div class="bg-white p-6 rounded-xl shadow-md">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 text-center">📝 こ�EスチE��プで行うこと</h3>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">1</span>
+              <p class="text-lg md:text-xl text-gray-700">ChatGPTにアクセスする</p>
             </div>
-            <p class="text-base text-gray-700 mt-3">
-              これでは曖昧すぎて、生成AIは何をどうすればいいのかわかりません。
-            </p>
-          </div>
-
-          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">✅ 良いプロンプト例</h3>
-            <div class="bg-white p-4 rounded border border-green-200">
-              <p class="text-lg text-gray-700">
-                「件名に『注文』を含むGmailを検索し、受信日・件名・差出人・本文をスプレッドシートのA〜D列に転記するツールを作ってください」
-              </p>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">2</span>
+              <p class="text-lg md:text-xl text-gray-700">作�Eしたプロンプトを貼り付けて送信する</p>
             </div>
-            <p class="text-base text-gray-700 mt-3">
-              具体的な条件と出力先が明記されているので、生成AIは正確なコードを作れます。
-            </p>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">3</span>
+              <p class="text-lg md:text-xl text-gray-700">コードが生�Eされる�Eを征E��</p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">4</span>
+              <p class="text-lg md:text-xl text-gray-700">生�Eされたコードを確認すめE/p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- プロンプトの構成 -->
-    <section id="prompt-structure" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">効果的なプロンプトの構成</h2>
+    <!-- ChatGPTへのアクセス -->
+    <section id="access-chatgpt" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          🌐 スチE��チE: ChatGPTにアクセスする
+        </h2>
 
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          効果的なプロンプトは、以下の3つの要素で構成されます。
-          この構成を意識するだけで、生成AIからより良い回答を引き出せるようになります。
-        </p>
-
-        <div class="space-y-6">
-          <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500">
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">1️⃣ やりたいこと（目的）</h3>
-            <p class="text-lg leading-relaxed text-gray-700">
-              何を実現したいのかを明確に書きます。
-              例：「Gmailで特定のメールを検索し、内容をGoogleスプレッドシートに自動転記する」
-            </p>
-          </div>
-
-          <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">2️⃣ 現在の手順（詳細）</h3>
-            <p class="text-lg leading-relaxed text-gray-700">
-              ステップ1で棚卸した手作業の流れを、できるだけ具体的に書きます。
-              どのメールを検索するのか、どの列に何を転記するのかを明記します。
-            </p>
-          </div>
-
-          <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500">
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">3️⃣ その他の要望（オプション）</h3>
-            <p class="text-lg leading-relaxed text-gray-700">
-              重複チェック機能、エラーハンドリング、ログ出力など、追加で実装してほしい機能を書きます。
-              これがあると、より実用的なツールになります。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 実際のプロンプト例 -->
-    <section id="prompt-example" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">実際のプロンプト例</h2>
-
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          それでは、実際にChatGPTに送るプロンプトの例を見てみましょう。
-          以下のプロンプトをコピーして、自分の用途に合わせてカスタマイズして使ってください。
-        </p>
-
-        <div class="bg-gray-100 p-4 rounded-lg mb-6">
-          <p class="text-base text-gray-700 mb-2">
-            <strong>💡 ヒント：</strong>このプロンプトをコピーする際は、以下の部分を自分の状況に合わせて変更してください：
-          </p>
-          <ul class="list-disc pl-6 text-base text-gray-700 space-y-1">
-            <li>検索キーワード（「注文受付」の部分）</li>
-            <li>メール本文のサンプル</li>
-            <li>抽出したいデータと転記先の列（C列、E列など）</li>
-            <li>シート名（「受注一覧」の部分）</li>
-          </ul>
-        </div>
-
-        <div class="code-block">
-<pre>Google Apps Scriptで、以下の自動化ツールを作ってください。
-
-【1️⃣ やりたいこと】
-Gmailの注文メールの内容を、既存のスプレッドシートに自動転記したい
-
-【2️⃣ 現在の手順】
-1. Gmailを開く
-2. 件名に「注文受付」を含むメールを検索
-3. メール本文から注文情報を確認
-4. スプレッドシートを開いて手動で転記
-
-【3️⃣ どんなデータを扱う？】
-
-■ 対象メール：
-• 件名に「注文受付」が含まれるメール
-• 「処理済み」ラベルが付いていないメール
-• 最新50件まで取得
-
-■ メール本文のサンプル：
-━━━━━━━━━━━━━━━━━━
-ご注文ありがとうございます
-━━━━━━━━━━━━━━━━━━
-
-注文ID: 12345
-注文日時: 2025/10/28 14:30
-お客様名: 山田太郎
-メールアドレス: yamada@example.com
-電話番号: 090-1234-5678
-
-【ご注文内容】
-商品名: 有機りんご 5kg
-数量: 2箱
-小計: 5,600円
-
-配送先住所: 東京都渋谷区〇〇1-2-3
-配送希望日: 2025/11/01
-
-■ 抽出したいデータと転記先の列：
-
-項目名           列   抽出内容サンプル
-─────────────────────────────────────
-注文ID           C    12345
-注文日時         E    2025/10/28 14:30
-お客様名         G    山田太郎
-商品名           J    有機りんご 5kg
-金額             L    5600 ※カンマ・円記号除去
-配送希望日       N    2025/11/01
-
-【4️⃣ どこに保存する？】
-• 現在のスプレッドシートの「受注一覧」シートに追記
-• 注文IDの列（C列）の最終行を取得して、その次の行から追記してください
-• 指定した列（C, E, G, J, L, N列など）にのみ書き込む
-• 他の列のデータは変更しない
-
-【5️⃣ 重複防止とその他の要望】
-
-■ 重複防止の仕組み（超重要！）
-
-▼ メール側での防止：
-• 処理が完了したメールには「処理済み」ラベルを自動で付与
-• 「処理済み」ラベルが付いているメールは処理対象外にする
-• 検索条件に「-label:処理済み」を追加
-
-▼ シート側での防止：
-• 注文IDでシート内を検索し、すでに存在する場合はスキップ
-• 重複があった場合はログに記録する
-
-■ その他の要望：
-• メール本文から正規表現で各項目を抽出してください
-• エラーハンドリングを入れてください
-• 初心者向けに、コメント付きで分かりやすいコードをお願いします</pre>
-        </div>
-
-        <div class="mt-6 flex gap-4">
-          <button onclick="copyPrompt()" class="bg-indigo-600 text-white font-bold text-lg px-6 py-3 rounded-lg hover:bg-indigo-700 transition shadow-md">
-            📋 プロンプトをコピー
-          </button>
-          <span id="copyMessage" class="text-green-600 font-semibold self-center hidden">✅ コピーしました！</span>
-        </div>
-      </div>
-
-      <!-- スクリーンショット -->
-      <div class="mt-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">ChatGPTにプロンプトを送る画面</h3>
-        <img
-          src="../assets/images/screenshots/screenshot-practice01-chatgpt-prompt.png"
-          alt="ChatGPTにプロンプトを入力して送信する様子"
-          class="rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
-          onclick="openModal('screenshot-practice01-chatgpt-prompt.png')"
-        >
-        <p class="text-base text-gray-600 mt-3 text-center">クリックすると拡大表示されます</p>
-      </div>
-    </section>
-
-    <!-- プロンプトを送った後 -->
-    <section id="after-sending" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">プロンプトを送った後は？</h2>
-
-      <div class="bg-white rounded-lg shadow-md p-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          プロンプトを送ると、ChatGPTがこのプロンプトに基づいてGASコードを生成してくれます。
-          通常、数秒から数十秒でコードが表示されます。
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          まず、ChatGPTのウェブサイトにアクセスします、E
+          Googleアカウントでログインできます�Eで、�Eめての方でも簡単に始められます、E
         </p>
 
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 生成されるコードの例</h3>
-          <p class="text-lg leading-relaxed text-gray-700 mb-3">
-            ChatGPTは、以下のような関数を含むGASコードを生成します：
-          </p>
-          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
-            <li><code class="bg-gray-200 px-2 py-1 rounded">GmailApp.search()</code> - Gmailからメールを検索</li>
-            <li><code class="bg-gray-200 px-2 py-1 rounded">SpreadsheetApp.getActiveSheet()</code> - スプレッドシートを取得</li>
-            <li><code class="bg-gray-200 px-2 py-1 rounded">sheet.appendRow()</code> - データを追記</li>
-            <li>重複チェックのロジック</li>
-            <li>ログ出力機能</li>
-          </ul>
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">📌 ChatGPTへのアクセス方況E/h3>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">1.</span>
+              <p class="text-lg text-gray-700">
+                ブラウザで <strong class="text-indigo-600">https://chatgpt.com</strong> にアクセス
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">2.</span>
+              <p class="text-lg text-gray-700">
+                右上�E「ログイン」また�E「Sign up」をクリチE��
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">3.</span>
+              <p class="text-lg text-gray-700">
+                Googleアカウントでログイン�E�また�E新規登録�E�E
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">4.</span>
+              <p class="text-lg text-gray-700">
+                チャチE��画面が表示されたら準備完亁E��す！E
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">⚠️ 注意点</h3>
-          <p class="text-lg leading-relaxed text-gray-700 mb-3">
-            生成されたコードは、<strong>そのまま完璧に動くとは限りません</strong>。
-            以下の点を確認してください：
-          </p>
-          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
-            <li>スプレッドシートのシート名が正しいか</li>
-            <li>検索キーワードが意図通りか</li>
-            <li>列の配置が正しいか</li>
-          </ul>
-          <p class="text-lg leading-relaxed text-gray-700 mt-3">
-            もしエラーが出たり、期待通りに動かない場合は、
-            エラーメッセージをChatGPTに送って修正を依頼しましょう。
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">💡 無料版でOK</h3>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            ChatGPTは無料版�E�EhatGPT 3.5�E�でも十刁E��使えます、E
+            今回のようなコード生成であれば、無料版で問題なく実践できます�Eで、安忁E��てお使ぁE��ださい、E
           </p>
         </div>
       </div>
     </section>
 
-    <!-- 次のステップへの誘導 -->
-    <section class="mb-20">
-      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">コードが生成されましたか？</h2>
-        <p class="text-lg md:text-xl mb-6">
-          ChatGPTがコードを生成してくれたら、次はそのコードをGASエディタに貼り付けていきましょう。
+    <!-- プロンプトを送信 -->
+    <section id="send-prompt" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📤 スチE��チE: プロンプトを貼り付けて送信
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          ChatGPTが開ぁE��ら、前のスチE��プで作�Eしたプロンプトを�E力欁E��貼り付けて送信します、E
         </p>
-        <a href="practice-01-section-08.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
-          ステップ3へ進む →
+
+        <div class="bg-gray-50 p-6 rounded-xl mb-6 border-2 border-gray-300">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">📝 送信手頁E/h3>
+          <div class="space-y-4">
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">1�E�⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">プロンプトをコピ�E</p>
+                <p class="text-base text-gray-700">
+                  前�EスチE��プで作�Eした完�Eなプロンプトをコピ�Eします、E
+                  ワークシート�E5スチE��プがすべて含まれてぁE��か確認しましょぁE��E
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">2�E�⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">ChatGPTの入力欁E��貼り付け</p>
+                <p class="text-base text-gray-700">
+                  画面下部の「Message ChatGPT...」とぁE��入力欁E��プロンプトを貼り付けます、E
+                  長ぁE�Eロンプトでも問題ありません、E
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start bg-white p-4 rounded-lg shadow-sm">
+              <span class="text-2xl mr-4 flex-shrink-0">3�E�⃣</span>
+              <div>
+                <p class="text-lg font-semibold text-gray-800 mb-2">送信ボタンをクリチE��</p>
+                <p class="text-base text-gray-700">
+                  入力欁E�E右側にある送信ボタン�E��Eマ�Eク�E�をクリチE��します、E
+                  また�E、Estrong>Shift + Enter</strong>で改行、Estrong>Enter</strong>で送信できます、E
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- スクリーンショチE�� -->
+        <div class="mt-8">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">💻 ChatGPTの操作画面</h3>
+          <img
+            src="../assets/images/screenshots/screenshot-practice01-chatgpt-prompt.png"
+            alt="ChatGPTにプロンプトを�E力して送信する様孁E
+            class="rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition w-full"
+            onclick="openModal('screenshot-practice01-chatgpt-prompt.png')"
+          >
+          <p class="text-base text-gray-600 mt-3 text-center">クリチE��すると拡大表示されまぁE/p>
+        </div>
+      </div>
+    </section>
+
+    <!-- コードが生�EされめE-->
+    <section id="generated-code" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          ⏳ スチE��チE: コードが生�Eされる�Eを征E��
+        </h2>
+
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          プロンプトを送信すると、ChatGPTがコード�E生�Eを開始します、E
+          通常、数秒から数十秒でGASのコードが表示されます、E
+        </p>
+
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl mb-6 border-2 border-purple-200">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">🎯 生�Eされるコード�E冁E��</h3>
+          <p class="text-lg text-gray-700 leading-relaxed mb-4">
+            ChatGPTは、�Eロンプトに基づぁE��以下�Eような機�Eを持つGASコードを生�Eします！E
+          </p>
+          <div class="space-y-2">
+            <div class="flex items-start bg-white p-3 rounded-lg">
+              <span class="text-xl mr-3 flex-shrink-0">✁E/span>
+              <p class="text-lg text-gray-700">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm">GmailApp.search()</code> - Gmailからメールを検索
+              </p>
+            </div>
+            <div class="flex items-start bg-white p-3 rounded-lg">
+              <span class="text-xl mr-3 flex-shrink-0">✁E/span>
+              <p class="text-lg text-gray-700">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm">SpreadsheetApp.getActiveSheet()</code> - スプレチE��シートを取征E
+              </p>
+            </div>
+            <div class="flex items-start bg-white p-3 rounded-lg">
+              <span class="text-xl mr-3 flex-shrink-0">✁E/span>
+              <p class="text-lg text-gray-700">
+                <code class="bg-gray-200 px-2 py-1 rounded text-sm">sheet.getRange().setValue()</code> - チE�Eタを転訁E
+              </p>
+            </div>
+            <div class="flex items-start bg-white p-3 rounded-lg">
+              <span class="text-xl mr-3 flex-shrink-0">✁E/span>
+              <p class="text-lg text-gray-700">
+                重褁E��ェチE��のロジチE��、エラーハンドリングなど
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">⚠�E�E注意点</h3>
+          <p class="text-lg text-gray-700 leading-relaxed mb-3">
+            生�Eされたコード�E、Estrong>そ�Eまま完璧に動くとは限りません</strong>、E
+            以下�E点を確認してください�E�E
+          </p>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li>スプレチE��シート�Eシート名が正しいぁE/li>
+            <li>検索キーワードが意図通りぁE/li>
+            <li>列�E配置が正しいぁE/li>
+          </ul>
+          <p class="text-lg text-gray-700 leading-relaxed mt-3">
+            もしエラーが�Eたり、期征E��りに動かなぁE��合�E、E
+            <strong>エラーメチE��ージをChatGPTに送って修正を依頼</strong>しましょぁE��E
+            生�EAIは対話を重ねることで、より精度の高いコードを作ってくれます、E
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 次のスチE��プへ -->
+    <section id="next-step" class="mb-16">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-4">
+          ✁Eコードが生�Eされましたか！E
+        </h2>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          ChatGPTがコードを生�Eしてくれたら、次はそ�EコードをGASエチE��タに貼り付けて実行してぁE��ます、Ebr/>
+          ぁE��ぁE��自動化チE�Eルが動き�Eします！E
+        </p>
+        <a href="practice-01-section-08.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          次へ�E�GASエチE��タに貼り付け ↁE
         </a>
       </div>
     </section>
 
   </main>
 
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm md:text-base">&copy; 2025 生�EAI×GAS 短期講座 | 実践編①</p>
+    </div>
+  </footer>
+
   <!-- 画像拡大モーダル -->
   <div id="imageModal" onclick="closeModal()">
     <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
-    <img id="modalImage" src="" alt="拡大画像">
+    <img id="modalImage" src="" alt="拡大画僁E>
   </div>
 
   <!-- スクリプト -->
@@ -449,89 +440,6 @@ Gmailの注文メールの内容を、既存のスプレッドシートに自動
         closeModal();
       }
     });
-
-    // プロンプトをコピーする機能
-    function copyPrompt() {
-      const promptText = `Google Apps Scriptで、以下の自動化ツールを作ってください。
-
-【1️⃣ やりたいこと】
-Gmailの注文メールの内容を、既存のスプレッドシートに自動転記したい
-
-【2️⃣ 現在の手順】
-1. Gmailを開く
-2. 件名に「注文受付」を含むメールを検索
-3. メール本文から注文情報を確認
-4. スプレッドシートを開いて手動で転記
-
-【3️⃣ どんなデータを扱う？】
-
-■ 対象メール：
-• 件名に「注文受付」が含まれるメール
-• 「処理済み」ラベルが付いていないメール
-• 最新50件まで取得
-
-■ メール本文のサンプル：
-━━━━━━━━━━━━━━━━━━
-ご注文ありがとうございます
-━━━━━━━━━━━━━━━━━━
-
-注文ID: 12345
-注文日時: 2025/10/28 14:30
-お客様名: 山田太郎
-メールアドレス: yamada@example.com
-電話番号: 090-1234-5678
-
-【ご注文内容】
-商品名: 有機りんご 5kg
-数量: 2箱
-小計: 5,600円
-
-配送先住所: 東京都渋谷区〇〇1-2-3
-配送希望日: 2025/11/01
-
-■ 抽出したいデータと転記先の列：
-
-項目名           列   抽出内容サンプル
-─────────────────────────────────────
-注文ID           C    12345
-注文日時         E    2025/10/28 14:30
-お客様名         G    山田太郎
-商品名           J    有機りんご 5kg
-金額             L    5600 ※カンマ・円記号除去
-配送希望日       N    2025/11/01
-
-【4️⃣ どこに保存する？】
-• 現在のスプレッドシートの「受注一覧」シートに追記
-• 注文IDの列（C列）の最終行を取得して、その次の行から追記してください
-• 指定した列（C, E, G, J, L, N列など）にのみ書き込む
-• 他の列のデータは変更しない
-
-【5️⃣ 重複防止とその他の要望】
-
-■ 重複防止の仕組み（超重要！）
-
-▼ メール側での防止：
-• 処理が完了したメールには「処理済み」ラベルを自動で付与
-• 「処理済み」ラベルが付いているメールは処理対象外にする
-• 検索条件に「-label:処理済み」を追加
-
-▼ シート側での防止：
-• 注文IDでシート内を検索し、すでに存在する場合はスキップ
-• 重複があった場合はログに記録する
-
-■ その他の要望：
-• メール本文から正規表現で各項目を抽出してください
-• エラーハンドリングを入れてください
-• 初心者向けに、コメント付きで分かりやすいコードをお願いします`;
-
-      navigator.clipboard.writeText(promptText).then(() => {
-        const message = document.getElementById('copyMessage');
-        message.classList.remove('hidden');
-        setTimeout(() => {
-          message.classList.add('hidden');
-        }, 3000);
-      });
-    }
 
     // ドットインジケーター
     const sections = document.querySelectorAll('section[id]');
@@ -562,7 +470,7 @@ Gmailの注文メールの内容を、既存のスプレッドシートに自動
       observer.observe(section);
     });
 
-    // ドットクリックでセクションへスクロール
+    // ドットクリチE��でセクションへスクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
         const sectionId = dot.getAttribute('data-section');
