@@ -102,6 +102,9 @@
 
     .toggle-text {
       color: #6b7280;
+      min-width: 60px;
+      display: inline-block;
+      text-align: center;
     }
 
     /* 閉じている時：展開する */
@@ -123,16 +126,9 @@
       display: flex;
     }
 
-    /* カテゴリ説明文の折りたたみ */
+    /* カテゴリ説明文は常に表示 */
     .category-description {
-      transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
-      overflow: hidden;
-    }
-
-    .category-section.collapsed .category-description {
-      max-height: 0;
-      opacity: 0;
-      margin: 0;
+      /* 説明文は折りたたまない */
     }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="./assets/css/search-global.css">
@@ -302,7 +298,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">⚙️</span>
           GAS紹介
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">6セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -386,7 +385,7 @@
         </a>
 
         <!-- ステップ6 -->
-        <a href="GAS/section-06.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="GAS/section-06.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
               6
@@ -466,7 +465,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🔧</span>
           実践ウォーミングアップ
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">4セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -542,7 +544,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編① メール内容をスプシに自動転記
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">11セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -596,7 +601,7 @@
         </a>
 
         <!-- ステップ3 -->
-        <a href="実践編/practice-01-section-03.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-01-section-03.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
               3
@@ -731,7 +736,7 @@
         </a>
 
         <!-- まとめ -->
-        <a href="実践編/practice-01-section-12.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-01-section-12.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
               ✅
@@ -753,7 +758,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編② CSVファイルをスプシに自動転記
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">10セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -807,7 +815,7 @@
         </a>
 
         <!-- ステップ3 -->
-        <a href="実践編/practice-02-section-04.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-02-section-04.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
               3
@@ -912,7 +920,7 @@
         </a>
 
         <!-- まとめ -->
-        <a href="実践編/practice-02-section-11.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-02-section-11.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
               ✅
@@ -934,7 +942,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編③ Googleフォーム自動返信ボット
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">4セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1068,7 +1079,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編④ オリジナルツールを製作
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">5セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1122,7 +1136,7 @@
         </a>
 
         <!-- ステップ3 -->
-        <a href="実践編/practice-04-step3.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-04-step3.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
               3
@@ -1182,7 +1196,7 @@
         </a>
 
         <!-- まとめ -->
-        <a href="実践編/practice-04-summary.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <a href="実践編/practice-04-summary.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
             <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
               ✅
@@ -1204,7 +1218,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🔥</span>
           上級編
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">5セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
 
@@ -1304,7 +1321,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編⑤ GAS×チャットワークAPI連携
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">5セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1410,7 +1430,10 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編⑥ GAS×Gemini API連携
-          <span class="toggle-icon"></span>
+          <button class="toggle-button">
+            <span class="section-count">5セクション</span>
+            <span class="toggle-text"></span>
+          </button>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
