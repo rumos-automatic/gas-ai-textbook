@@ -123,7 +123,7 @@
       <div class="dot-label">イントロ</div>
     </div>
     <div class="dot" data-target="procedure">
-      <div class="dot-label">コードを貼り付ける手順</div>
+      <div class="dot-label">コピー・貼り付け・保存の手順</div>
     </div>
     <div class="dot" data-target="project-name">
       <div class="dot-label">プロジェクト名の変更</div>
@@ -161,10 +161,10 @@
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-        コードをGASエディタに貼り付け
+        コードのコピー・貼り付け・保存
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
-        ChatGPTが生成したコードを、GASエディタに貼り付けましょう
+        ChatGPTが生成したコードをGASエディタにコピーして、保存しましょう
       </p>
     </header>
 
@@ -172,20 +172,20 @@
     <section id="intro" class="mb-20">
       <div class="bg-white rounded-lg shadow-md p-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          ChatGPTがGASコードを生成してくれたら、次はそのコードをGoogleのスクリプトエディタに貼り付けます。
+          ChatGPTがGASコードを生成してくれたら、次はそのコードをGoogleのスクリプトエディタにコピーして保存します。
           スクリプトエディタは、GASのコードを書いて実行するための専用環境です。
         </p>
 
         <p class="text-lg md:text-xl leading-relaxed">
-          このステップでは、スクリプトエディタを開いて、コードを貼り付け、保存するまでの流れを見ていきましょう。
-          初めての方でも迷わないように、画面のスクリーンショットと一緒に丁寧に説明していきます。
+          このステップでは、スクリプトエディタを開いてから、ChatGPTで生成したコードをコピーし、エディタに貼り付け、保存するまでの一連の流れを見ていきましょう。
+          初めての方でも迷わないように、動画とテキストで丁寧に説明していきます。
         </p>
       </div>
     </section>
 
     <!-- 手順 -->
     <section id="procedure" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">コードを貼り付ける手順</h2>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">コードのコピー・貼り付け・保存の手順</h2>
 
       <!-- テンプレートダウンロード -->
       <div class="mb-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
@@ -311,108 +311,116 @@
           </div>
         </div>
 
-        <!-- ステップ4 -->
+        <!-- ステップ4-6: コードのコピー・貼り付け・保存 -->
         <div class="bg-white rounded-lg shadow-md p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-              4
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTが生成したコードをすべて選択してコピー</h3>
-            </div>
-          </div>
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+            ステップ4-6: コードのコピー・貼り付け・保存
+          </h3>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            ChatGPTの画面に戻って、生成されたコードをすべて選択してコピーします。
+            ChatGPTが生成したコードをGASエディタにコピーして保存する一連の流れを、まず動画で確認しましょう。
           </p>
 
-          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ 注意</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              コードをコピーする際は、<strong>コードブロック全体</strong>を選択してください。
-              ChatGPTの画面では、コードブロックの右上に「コピー」ボタンが表示されていることが多いので、
-              それをクリックすると簡単にコピーできます。
-            </p>
-          </div>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-copy-code.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">ChatGPTからコードをコピーする様子</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-copy-code.png</p>
-          </div>
-        </div>
-
-        <!-- ステップ5 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-              5
+          <!-- 動画 -->
+          <div class="mt-6 mb-8">
+            <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">📹 操作の流れ（動画）</h4>
+            <div class="relative rounded-lg overflow-hidden shadow-xl">
+              <video
+                id="copyPasteCodeVideo"
+                class="w-full"
+                controls
+                playsinline
+              >
+                <source src="../assets/videos/practice01-step04-copy-code.mp4" type="video/mp4">
+                お使いのブラウザは動画タグをサポートしていません。
+              </video>
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">エディタに貼り付け</h3>
+            <div class="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700">
+                💡 動画を見ながら、実際の操作の流れを確認しましょう。
+              </p>
             </div>
           </div>
 
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            スクリプトエディタに戻って、コピーしたコードを貼り付けます。
-            既存のコード（<code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code>）がある場合は、
-            それをすべて削除してから貼り付けてください。
-          </p>
-
-          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              コードの貼り付けは、以下のショートカットキーで行えます：
-            </p>
-            <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
-              <li><strong>Windows:</strong> Ctrl + V</li>
-              <li><strong>Mac:</strong> Cmd + V</li>
-            </ul>
-          </div>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-paste-code.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">スクリプトエディタにコードを貼り付けた様子</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-paste-code.png</p>
-          </div>
-        </div>
-
-        <!-- ステップ6 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-              6
+          <!-- 詳細な手順説明 -->
+          <div class="mt-8 space-y-8">
+            <!-- ステップ4の詳細 -->
+            <div>
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  4
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">ChatGPTが生成したコードをすべて選択してコピー</h4>
+              </div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                ChatGPTの画面に戻って、生成されたコードをすべて選択してコピーします。
+              </p>
+              <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ 注意</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  コードをコピーする際は、<strong>コードブロック全体</strong>を選択してください。
+                  ChatGPTの画面では、コードブロックの右上に「コピー」ボタンが表示されていることが多いので、
+                  それをクリックすると簡単にコピーできます。
+                </p>
+              </div>
             </div>
-            <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">「保存」ボタンをクリック</h3>
+
+            <!-- ステップ5の詳細 -->
+            <div>
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  5
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">エディタに貼り付け</h4>
+              </div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                スクリプトエディタに戻って、コピーしたコードを貼り付けます。
+                既存のコード（<code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code>）がある場合は、
+                それをすべて削除してから貼り付けてください。
+              </p>
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  コードの貼り付けは、以下のショートカットキーで行えます：
+                </p>
+                <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+                  <li><strong>Windows:</strong> Ctrl + V</li>
+                  <li><strong>Mac:</strong> Cmd + V</li>
+                </ul>
+              </div>
             </div>
-          </div>
 
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            コードを貼り付けたら、必ず<strong>「保存」</strong>してください。
-            スクリプトエディタの上部にある「💾 保存」ボタンをクリックするか、
-            ショートカットキーで保存できます。
-          </p>
-
-          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              保存のショートカットキー：
-            </p>
-            <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
-              <li><strong>Windows:</strong> Ctrl + S</li>
-              <li><strong>Mac:</strong> Cmd + S</li>
-            </ul>
-          </div>
-
-          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 保存完了の確認</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              保存が完了すると、画面上部に「保存しました」というメッセージが表示されます。
-              また、ファイル名の横に「*（アスタリスク）」が付いている場合は、まだ保存されていない状態です。
-            </p>
+            <!-- ステップ6の詳細 -->
+            <div>
+              <div class="flex items-start gap-3 mb-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+                  6
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-gray-900">「保存」ボタンをクリック</h4>
+              </div>
+              <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
+                コードを貼り付けたら、必ず<strong>「保存」</strong>してください。
+                スクリプトエディタの上部にある「💾 保存」ボタンをクリックするか、
+                ショートカットキーで保存できます。
+              </p>
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg ml-13 mb-4">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  保存のショートカットキー：
+                </p>
+                <ul class="list-disc pl-6 mt-3 space-y-2 text-lg text-gray-700">
+                  <li><strong>Windows:</strong> Ctrl + S</li>
+                  <li><strong>Mac:</strong> Cmd + S</li>
+                </ul>
+              </div>
+              <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg ml-13">
+                <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 保存完了の確認</h5>
+                <p class="text-lg leading-relaxed text-gray-700">
+                  保存が完了すると、画面上部に「保存しました」というメッセージが表示されます。
+                  また、ファイル名の横に「*（アスタリスク）」が付いている場合は、まだ保存されていない状態です。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -424,22 +432,43 @@
 
       <div class="bg-white rounded-lg shadow-md p-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          スクリプトエディタの左上に表示されている「無題のプロジェクト」という名前は、
-          わかりやすい名前に変更することができます。
+          テンプレートシートを使っていない場合、スクリプトエディタの左上に「無題のプロジェクト」という名前が表示されています。
+          このままでも動作には問題ありませんが、わかりやすい名前に変更することをおすすめします。
         </p>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">📌 テンプレートシートを使っている場合</h4>
+          <p class="text-lg leading-relaxed text-gray-700">
+            テンプレートシートを使っている方は、すでに「注文メール自動転記システム」という名前が付いているため、
+            この手順はスキップしても大丈夫です。必要に応じて名前を変更することもできます。
+          </p>
+        </div>
 
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          例えば、「メール転記ツール」という名前に変更すると、
-          後で複数のGASプロジェクトを管理する際に便利です。
+          例えば、「メール転記ツール」や「注文管理システム」など、
+          プロジェクトの内容がわかる名前に変更すると、後で複数のGASプロジェクトを作成した際に管理しやすくなります。
         </p>
 
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
           <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 プロジェクト名の変更方法</h4>
-          <ol class="list-decimal pl-6 space-y-2 text-lg text-gray-700">
-            <li>画面左上の「無題のプロジェクト」をクリック</li>
-            <li>新しい名前を入力（例：「メール転記ツール」）</li>
-            <li>Enterキーを押して確定</li>
+          <ol class="list-decimal pl-6 space-y-3 text-lg text-gray-700">
+            <li>スクリプトエディタの画面左上に表示されている「無題のプロジェクト」をクリック</li>
+            <li>新しい名前を入力します（例：「メール転記ツール」）</li>
+            <li>Enterキーを押すか、入力欄の外をクリックして確定</li>
           </ol>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ おすすめのプロジェクト名</h4>
+          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+            <li>メール転記ツール</li>
+            <li>注文管理システム</li>
+            <li>Gmail自動転記</li>
+            <li>受注管理ツール</li>
+          </ul>
+          <p class="text-lg leading-relaxed text-gray-700 mt-4">
+            プロジェクトの目的がひと目でわかる名前をつけると、後から見返した時に便利です。
+          </p>
         </div>
       </div>
     </section>
