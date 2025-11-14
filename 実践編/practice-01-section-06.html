@@ -76,6 +76,44 @@
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+    .copy-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+    }
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    .copy-toast {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: #10b981;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
@@ -268,10 +306,18 @@
           実際のプロンプト例
         </h2>
 
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-center">
           これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！<br/>
           5ステップの構成に沿って、具体的に書いていきましょう。
         </p>
+
+        <!-- プロンプト全体コピーボタン -->
+        <div class="text-center mb-8">
+          <button onclick="copyAllPrompt()" class="copy-btn text-lg md:text-xl px-8 py-4 shadow-xl hover:shadow-2xl transform hover:scale-105">
+            📋 プロンプト全体をコピー
+          </button>
+          <p class="text-sm text-gray-600 mt-3">↑ クリックで全文をコピーできます</p>
+        </div>
 
         <!-- 冒頭 -->
         <div class="bg-gray-100 p-6 rounded-xl mb-8 border-2 border-gray-300">
@@ -427,7 +473,7 @@
         </div>
 
         <!-- ポイント -->
-        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border-2 border-indigo-300">
+        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border-2 border-indigo-300 mb-8">
           <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
             <span class="text-2xl">💡</span>
             ポイント
@@ -436,6 +482,14 @@
             ワークシートの5ステップに沿って書くことで、<span class="font-bold text-indigo-700">AIが迷わず正確なコードを生成</span>できます！<br/>
             自分の業務に合わせて、各セクションをカスタマイズしてください。
           </p>
+        </div>
+
+        <!-- プロンプト全体コピーボタン（下部） -->
+        <div class="text-center">
+          <button onclick="copyAllPrompt()" class="copy-btn text-lg md:text-xl px-8 py-4 shadow-xl hover:shadow-2xl transform hover:scale-105">
+            📋 プロンプト全体をコピー
+          </button>
+          <p class="text-sm text-gray-600 mt-3">↑ クリックで全文をコピーできます</p>
         </div>
       </div>
     </section>
@@ -457,6 +511,11 @@
     </section>
 
   </main>
+
+  <!-- コピー成功トースト -->
+  <div id="copyToast" class="copy-toast">
+    ✓ プロンプトをコピーしました！
+  </div>
 
   <!-- フッター -->
   <footer class="bg-gray-800 text-white py-8 mt-16">
@@ -519,6 +578,96 @@
         }
       });
     });
+
+    // プロンプト全体をコピーする関数
+    function copyAllPrompt() {
+      const promptText = `Google Apps Scriptで、以下の自動化ツールを作ってください。
+
+【1️⃣ やりたいこと】
+Gmailの注文メールの内容を、既存のスプレッドシートに自動転記したい
+
+【2️⃣ 現在の手順】
+1. Gmailを開く
+2. 件名に「注文受付」を含むメールを検索
+3. メール本文から注文情報を確認
+4. スプレッドシートを開いて手動で転記
+
+【3️⃣ どんなデータを扱う？】
+
+■ 対象メール：
+• 件名に「注文受付」が含まれるメール
+• 「処理済み」ラベルが付いていないメール
+• 最新50件まで取得
+
+■ メール本文のサンプル：
+━━━━━━━━━━━━━━━━━━
+ご注文ありがとうございます
+━━━━━━━━━━━━━━━━━━
+
+注文ID: 12345
+注文日時: 2025/10/28 14:30
+お客様名: 山田太郎
+メールアドレス: yamada@example.com
+電話番号: 090-1234-5678
+
+【ご注文内容】
+商品名: 有機りんご 5kg
+数量: 2箱
+小計: 5,600円
+
+配送先住所: 東京都渋谷区〇〇1-2-3
+配送希望日: 2025/11/01
+
+■ 抽出したいデータと転記先の列：
+※ 前のステップで作成した転記項目表をここに貼り付けてください
+
+項目名           列   抽出内容サンプル
+─────────────────────────────────────
+注文ID           C    12345
+注文日時         E    2025/10/28 14:30
+お客様名         G    山田太郎
+商品名           J    有機りんご 5kg
+金額             L    5600 ※カンマ・円記号除去
+配送希望日       N    2025/11/01
+
+【4️⃣ どこに保存する？】
+• 現在のスプレッドシートの「受注一覧」シートに追記
+• 注文IDの列（C列）の最終行を取得して、その次の行から追記してください
+• 指定した列（C, E, G, J, L, N列など）にのみ書き込む
+• 他の列のデータは変更しない
+
+【5️⃣ 重複防止とその他の要望】
+
+■ 重複防止の仕組み（超重要！）
+
+▼ メール側での防止：
+• 処理が完了したメールには「処理済み」ラベルを自動で付与
+• 「処理済み」ラベルが付いているメールは処理対象外にする
+• 検索条件に「-label:処理済み」を追加
+
+▼ シート側での防止：
+• 注文IDでシート内を検索し、すでに存在する場合はスキップ
+• 重複があった場合はログに記録する
+
+■ その他の要望：
+• メール本文から正規表現で各項目を抽出してください
+• エラーハンドリングを入れてください
+• 初心者向けに、コメント付きで分かりやすいコードをお願いします`;
+
+      // クリップボードにコピー
+      navigator.clipboard.writeText(promptText).then(() => {
+        // トースト通知を表示
+        const toast = document.getElementById('copyToast');
+        toast.classList.add('show');
+
+        // 2秒後に非表示
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2000);
+      }).catch(err => {
+        alert('コピーに失敗しました: ' + err);
+      });
+    }
   </script>
 
 </body>

@@ -259,10 +259,11 @@
           </div>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-open-apps-script.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">「拡張機能」→「Apps Script」をクリックする様子</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-open-apps-script.png</p>
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-open-apps-script.png"
+                 alt="「拡張機能」→「Apps Script」をクリックする様子"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-open-apps-script.png')">
           </div>
         </div>
 
@@ -279,24 +280,34 @@
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
             新しいタブで、GASのスクリプトエディタが開きます。
-            初めて開く場合は、以下のようなサンプルコードが表示されているかもしれません：
+            テンプレートスプレッドシートを使用している場合は、以下のようなコメントが表示されています：
           </p>
 
           <div class="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm mb-6">
-            <pre>function myFunction() {
-
-}</pre>
+            <pre>// ここにGASコードを貼り付けてください
+// 実践編で生成AIを使ってコードを作成しましょう</pre>
           </div>
 
-          <p class="text-lg md:text-xl leading-relaxed">
-            このサンプルコードは削除して、ChatGPTが生成したコードに置き換えます。
+          <p class="text-lg md:text-xl leading-relaxed mb-4">
+            このコメントは、コードを貼り付ける場所を示す目印です。
+            次のステップで、ChatGPTが生成したコードをここに貼り付けていきます。
           </p>
 
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 テンプレートを使っていない場合</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              新しくスプレッドシートを作成して「拡張機能」→「Apps Script」を開いた場合は、
+              <code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code> というサンプルコードが表示されているかもしれません。
+              その場合は、このサンプルコードをすべて削除してから、ChatGPTが生成したコードを貼り付けてください。
+            </p>
+          </div>
+
           <!-- スクリーンショット -->
-          <div class="mt-6 screenshot-placeholder" onclick="openModal('screenshot-practice01-gas-editor-initial.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">スクリプトエディタの初期画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-gas-editor-initial.png</p>
+          <div class="mt-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-gas-editor-initial.png"
+                 alt="スクリプトエディタの初期画面"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-gas-editor-initial.png')">
           </div>
         </div>
 
