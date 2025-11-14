@@ -70,6 +70,42 @@
         display: none;
       }
     }
+
+    /* コピーボタンのスタイル */
+    .copy-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    /* トースト通知のスタイル */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #10b981;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
@@ -159,7 +195,7 @@
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
         効果的なプロンプトには、以下の<strong class="text-indigo-600">5つの要素</strong>が含まれていることが重要です。
-        これは<strong class="text-orange-600">section-03の自動化ワークシートの5つのステップ</strong>と完全に一致します。
+        実は、<strong class="text-orange-600">section-03で記入したワークシートの5つのステップ</strong>が、そのままプロンプトの構成になっています。
         ワークシートを埋めた内容をそのままプロンプトに反映させましょう。
       </p>
 
@@ -246,13 +282,21 @@
         <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
           <strong class="text-orange-600">section-03の自動化ワークシートを埋めた内容</strong>を基に、
           以下のようなプロンプトを作成します。<br/>
-          ワークシートの<strong>5つのステップが、プロンプトの構成にそのまま反映</strong>されています。
+          <strong>ワークシートの5つのステップが、そのままプロンプトになる</strong>んです。
         </p>
       </div>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
         実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
       </p>
+
+      <!-- プロンプト全体コピーボタン -->
+      <div class="text-center mb-6">
+        <button onclick="copyAllPrompt()" class="copy-btn text-lg md:text-xl px-8 py-4 shadow-xl hover:shadow-2xl transform hover:scale-105">
+          📋 プロンプト全体をコピー
+        </button>
+        <p class="text-sm text-gray-600 mt-3">↑ クリックで全文をコピーできます</p>
+      </div>
 
       <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto">
         <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
@@ -434,6 +478,76 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
         }
       });
     });
+
+    // プロンプト全体をコピーする関数
+    function copyAllPrompt() {
+      const promptText = `Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+【やりたいこと】
+Googleドライブの特定フォルダにあるCSVファイルを、Googleスプレッドシートに自動転記する
+
+【現在の手順】
+1. Googleドライブを開く
+2. フォルダID「XXXXXXXXXXXXX」の「未処理」フォルダを開く
+3. フォルダ内のすべてのCSVファイルを取得
+4. 各CSVファイルの内容を解析
+5. Googleスプレッドシートの「データ」シートに転記
+6. 処理済みのファイルは、フォルダID「YYYYYYYYYYYYY」の「処理済み」フォルダに移動
+
+【どんなデータを扱うか】
+- ファイル形式：CSV形式（カンマ区切り）
+- 文字コード：UTF-8
+- 1行目：ヘッダー行（注文者、住所、電話番号、商品名、個数、金額）
+- 2行目以降：実際のデータ
+- 各行に6つの項目が含まれる
+
+【どこに保存するか】
+- 保存先：Googleスプレッドシート
+- シート名：「データ」シート
+- 列の配置：
+  - A列：注文者
+  - B列：住所
+  - C列：電話番号
+  - D列：商品名
+  - E列：個数
+  - F列：金額
+- 保存方法：既存データに追記する形で転記
+
+【その他の要望】
+- CSVファイルの1行目はヘッダー行なのでスキップする
+- 複数ファイルの一括処理に対応する
+- 処理が完了したら、処理ファイル数と転記行数をログに出力する`;
+
+      navigator.clipboard.writeText(promptText).then(() => {
+        showToast('✓ プロンプトをコピーしました！');
+      }).catch(err => {
+        console.error('コピーに失敗しました:', err);
+      });
+    }
+
+    // トースト通知を表示する関数
+    function showToast(message) {
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
   </script>
 
 </body>
