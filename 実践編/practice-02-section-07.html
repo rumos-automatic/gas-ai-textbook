@@ -158,7 +158,9 @@
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        効果的なプロンプトには、以下の3つの要素が含まれていることが重要です。この構成に従って書くことで、AIが理解しやすいプロンプトになります。
+        効果的なプロンプトには、以下の<strong class="text-indigo-600">5つの要素</strong>が含まれていることが重要です。
+        これは<strong class="text-orange-600">section-03の自動化ワークシートの5つのステップ</strong>と完全に一致します。
+        ワークシートを埋めた内容をそのままプロンプトに反映させましょう。
       </p>
 
       <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
@@ -185,7 +187,7 @@
               【現在の手順】を具体的に書く
             </h3>
             <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-              ステップ1で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
+              section-02で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
             </p>
           </div>
         </div>
@@ -193,6 +195,34 @@
         <div class="flex items-start gap-4">
           <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
             3
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【どんなデータを扱うか】を説明する
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              CSVファイルの形式、ヘッダー行の有無、文字コード、区切り文字など、データの詳細を伝えます。この情報があることで、AIはデータ解析処理を正確に実装できます。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            4
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【どこに保存するか】を指定する
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              保存先のスプレッドシート名、シート名、列の配置、追記か上書きかなどを明確に指定します。保存先の情報が明確であれば、AIは確実にデータを転記できるコードを生成します。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            5
           </div>
           <div>
             <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
@@ -212,6 +242,14 @@
         💬 プロンプト例
       </h2>
 
+      <div class="bg-orange-50 border-l-4 border-orange-400 p-6 rounded-r-lg mb-8">
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          <strong class="text-orange-600">section-03の自動化ワークシートを埋めた内容</strong>を基に、
+          以下のようなプロンプトを作成します。<br/>
+          ワークシートの<strong>5つのステップが、プロンプトの構成にそのまま反映</strong>されています。
+        </p>
+      </div>
+
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
         実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
       </p>
@@ -224,33 +262,55 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
 
 <strong class="text-blue-400">【現在の手順】</strong>
 1. Googleドライブを開く
-2. フォルダID「XXXXXXXXXXXXX」のフォルダを開く
-3. 最新のCSVファイルを取得
-4. CSVファイルの内容を解析
+2. フォルダID「XXXXXXXXXXXXX」の「未処理」フォルダを開く
+3. フォルダ内のすべてのCSVファイルを取得
+4. 各CSVファイルの内容を解析
 5. Googleスプレッドシートの「データ」シートに転記
-   - A列：注文番号
-   - B列：顧客名
-   - C列：商品名
-   - D列：数量
-   - E列：金額
-6. 既存データに追記する形で転記
+6. 処理済みのファイルは、フォルダID「YYYYYYYYYYYYY」の「処理済み」フォルダに移動
+
+<strong class="text-purple-400">【どんなデータを扱うか】</strong>
+- ファイル形式：CSV形式（カンマ区切り）
+- 文字コード：UTF-8
+- 1行目：ヘッダー行（注文者、住所、電話番号、商品名、個数、金額）
+- 2行目以降：実際のデータ
+- 各行に6つの項目が含まれる
+
+<strong class="text-cyan-400">【どこに保存するか】</strong>
+- 保存先：Googleスプレッドシート
+- シート名：「データ」シート
+- 列の配置：
+  - A列：注文者
+  - B列：住所
+  - C列：電話番号
+  - D列：商品名
+  - E列：個数
+  - F列：金額
+- 保存方法：既存データに追記する形で転記
 
 <strong class="text-yellow-400">【その他の要望】</strong>
 - CSVファイルの1行目はヘッダー行なのでスキップする
-- 重複チェック機能を付けて、同じ注文番号は転記しないようにする
-- 処理が完了したら、処理件数をログに出力する</code></pre>
+- 複数ファイルの一括処理に対応する
+- 処理が完了したら、処理ファイル数と転記行数をログに出力する</code></pre>
       </div>
 
       <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
         <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
           📌 プロンプトのカスタマイズポイント
         </h3>
+        <p class="text-lg md:text-xl text-blue-900 mb-4 leading-relaxed">
+          上記のプロンプト例は、section-03の自動化ワークシートの5ステップに対応しています。
+          以下の点を、あなたの作業に合わせて書き換えましょう。
+        </p>
         <ul class="list-disc pl-6 space-y-3 text-lg md:text-xl text-blue-900">
-          <li><strong>フォルダID</strong>は、実際のGoogleドライブのフォルダIDに置き換えてください（後ほど説明します）</li>
-          <li><strong>シート名</strong>や<strong>列の配置</strong>は、あなたのスプレッドシートの構成に合わせて変更してください</li>
-          <li><strong>データ項目</strong>（注文番号、顧客名など）は、あなたのCSVファイルの内容に合わせて書き換えてください</li>
-          <li><strong>その他の要望</strong>は、必要に応じて追加・削除してOKです</li>
+          <li><strong>【やりたいこと】</strong>：あなたの自動化したい作業を一言で表現してください</li>
+          <li><strong>【現在の手順】</strong>：section-02で棚卸した作業フローをそのまま貼り付けてください</li>
+          <li><strong>【どんなデータを扱うか】</strong>：ファイル形式、ヘッダー行の有無、文字コード、区切り文字、データ項目（列名）を具体的に記入してください</li>
+          <li><strong>【どこに保存するか】</strong>：保存先のスプレッドシート、シート名、列の配置、追記/上書きの方法を明確に指定してください</li>
+          <li><strong>【その他の要望】</strong>：重複チェック、エラー処理、ログ出力など、必要な機能を追加してください</li>
         </ul>
+        <p class="text-base md:text-lg text-blue-800 mt-4 leading-relaxed">
+          💡 <strong>フォルダID</strong>は、section-05で取得したIDに置き換えてください。
+        </p>
       </div>
     </section>
 
