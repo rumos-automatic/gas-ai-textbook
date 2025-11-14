@@ -2,6 +2,54 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-14] - 実践編②：重複削除とリナンバリングによる一貫性改善
+
+### 🔧 修正内容
+
+- ✅ **section-07（プロンプト例）を削除**
+  - section-07とsection-08でプロンプト説明が重複していたため、section-07を削除
+  - section-08に内容を統合し、より包括的な「生成AIへのプロンプト作成と送信」セクションに改良
+
+- ✅ **section-08を強化（旧section-08を新section-07に）**
+  - H1タイトルを「ChatGPTにプロンプトを送る」→「生成AIへのプロンプト作成と送信」に変更
+  - フォルダID取得方法の重複説明を削除し、section-05への参照リンクに置き換え
+  - 初心者が迷わないよう、学習済み内容を参照する形に改善
+
+- ✅ **ファイルリナンバリング（全12セクション→全11セクション）**
+  - practice-02-section-08.html → practice-02-section-07.html
+  - practice-02-section-09.html → practice-02-section-08.html
+  - practice-02-section-10.html → practice-02-section-09.html
+  - practice-02-section-11.html → practice-02-section-10.html
+  - practice-02-section-12.html → practice-02-section-11.html
+
+- ✅ **全セクションのナビゲーションリンク更新**
+  - section-06～section-11の「前へ」「次へ」リンクを新しいファイル名に修正
+  - スムーズなページ遷移を実現
+
+- ✅ **section-04のリンク切れを修正**
+  - `practice-02-section-03-preparation.html` → `practice-02-section-05.html`
+  - `practice-02-section-04-data-format.html` → `practice-02-section-06.html`
+  - `practice-02-section-05-prompt.html` → `practice-02-section-07.html`
+  - `practice-02-section-09-merit.html` → `practice-02-section-10.html`
+
+- ✅ **section-02とsection-03の接続文を追加**
+  - section-03の冒頭に「section-02で棚卸した作業内容を、このワークシートに整理していきます」という接続文を追加
+  - セクション間の流れをより明確化
+
+- ✅ **index.htmlの実践編②カードを更新（12枚→11枚）**
+  - ステップ6「Part 3: プロンプト例」とステップ7「ChatGPTにプロンプトを送る」を統合
+  - 新ステップ6: 「Part 3: プロンプト作成と送信」として一本化
+  - ステップ7以降の番号を繰り下げ（8→7, 9→8, 10→9）
+  - 最終カード（まとめ）のリンクを `practice-02-section-12.html` → `practice-02-section-11.html` に修正
+
+### 📈 改善効果
+
+- **重複削除**: プロンプトに関する説明が1箇所にまとまり、初心者が混乱しなくなった
+- **矛盾解消**: プロンプト構成要素の説明（「5つの要素」vs「3つの要素」）の矛盾を解消
+- **リンク修正**: すべてのナビゲーションとカードリンクが正しく機能
+- **流れの明確化**: セクション間の接続が自然になり、学習体験が向上
+- **ページ数削減**: 12セクション→11セクションでより簡潔に
+
 ## [2025-11-14] - 実践編①section-08：動画埋め込みとUI改善
 
 ### 🎉 新規追加

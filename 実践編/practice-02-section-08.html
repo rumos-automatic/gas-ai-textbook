@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>実践編②-3: ステップ2 ChatGPTにプロンプトを送る | 生成AI×GAS 短期講座</title>
+  <title>実践編②-4: ステップ3 コードをGASエディタに貼り付け | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -13,9 +13,42 @@
     .smooth-scroll {
       scroll-behavior: smooth;
     }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 60%, #e5e7eb 60%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 70%, #e5e7eb 70%, #e5e7eb 100%);
     }
 
     .dot-indicator {
@@ -102,20 +135,17 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="importance">
-        <span class="dot-label">プロンプトの重要性</span>
+      <div class="dot active" data-section="open-editor">
+        <span class="dot-label">GASエディタを開く</span>
       </div>
-      <div class="dot" data-section="structure">
-        <span class="dot-label">プロンプトの基本構成</span>
+      <div class="dot" data-section="paste-code">
+        <span class="dot-label">コードを貼り付け</span>
       </div>
-      <div class="dot" data-section="example">
-        <span class="dot-label">プロンプト例</span>
+      <div class="dot" data-section="rename-project">
+        <span class="dot-label">プロジェクト名を変更</span>
       </div>
-      <div class="dot" data-section="folder-id">
-        <span class="dot-label">フォルダIDの取得方法</span>
-      </div>
-      <div class="dot" data-section="send">
-        <span class="dot-label">ChatGPTに送信</span>
+      <div class="dot" data-section="summary">
+        <span class="dot-label">まとめ</span>
       </div>
     </div>
   </div>
@@ -126,160 +156,218 @@
     <!-- セクションタイトル -->
     <header class="mb-16 text-center">
       <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
-        <span class="font-bold">ステップ 2 / 5</span>
+        <span class="font-bold">ステップ 3 / 5</span>
       </div>
       <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-        ChatGPTにプロンプトを送る
+        コードをGASエディタに貼り付け
       </h1>
       <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
-        作業内容を整理して、AIにツール作成を依頼します
+        ChatGPTが生成したコードを実装します
       </p>
     </header>
 
-    <!-- プロンプトの重要性 -->
-    <section id="importance" class="mb-16">
-      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
-        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
-          💡 良いプロンプトが良いツールを作る
-        </h2>
-        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed mb-4">
-          ステップ1で書き出した作業内容を、ChatGPTに分かりやすく伝えることが大切です。プロンプトが具体的であればあるほど、AIは正確なコードを生成してくれます。
-        </p>
-        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
-          逆に、曖昧な指示だと、AIが意図しない動作をするツールを作ってしまう可能性があります。ここでしっかり時間をかけて、プロンプトを作り込みましょう。
-        </p>
-      </div>
-    </section>
-
-    <!-- プロンプトの基本構成 -->
-    <section id="structure" class="mb-16">
+    <!-- GASエディタを開く手順 -->
+    <section id="open-editor" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        📝 プロンプトの基本構成
+        📂 GASエディタを開く手順
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        効果的なプロンプトには、以下の3つの要素が含まれていることが重要です。この構成に従って書くことで、AIが理解しやすいプロンプトになります。
+        ChatGPTが生成したコードを実装するために、まずGoogle Apps Scriptエディタを開きましょう。スプレッドシートから簡単にアクセスできます。
       </p>
 
-      <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-            1
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <div class="space-y-8">
+          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                Googleスプレッドシートを開く
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                ツールを作成したいGoogleスプレッドシートを開きます。既存のスプレッドシートでも、新しく作成したものでもOKです。
+              </p>
+              <div class="screenshot-placeholder">
+                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
+                <p class="text-sm">screenshot-practice02-open-spreadsheet.png</p>
+                <p class="text-sm mt-2">Googleスプレッドシートを開いた画面</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-              【やりたいこと】を明確に書く
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-              まず、「何を実現したいのか」を一言で表現します。例えば、「GoogleドライブのCSVファイルをスプレッドシートに転記する」というように、目的を簡潔に伝えましょう。
-            </p>
+
+          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                メニューから「拡張機能」をクリック
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                スプレッドシート上部のメニューバーにある<strong>「拡張機能」</strong>をクリックします。ここから、Google Apps Scriptのエディタにアクセスできます。
+              </p>
+              <div class="screenshot-placeholder">
+                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
+                <p class="text-sm">screenshot-practice02-extensions-menu.png</p>
+                <p class="text-sm mt-2">「拡張機能」メニューの位置</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                「Apps Script」を選択
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                開いたメニューの中から<strong>「Apps Script」</strong>を選択します。新しいタブでGASエディタが開きます。
+              </p>
+              <div class="screenshot-placeholder">
+                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
+                <p class="text-sm">screenshot-practice02-apps-script-menu.png</p>
+                <p class="text-sm mt-2">「Apps Script」メニュー項目</p>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-            2
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-              【現在の手順】を具体的に書く
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-              ステップ1で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4">
-          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
-            3
-          </div>
-          <div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-              【その他の要望】を追加する
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-              重複チェックや、エラー処理、ログ出力など、特別な機能が必要な場合はここに書きます。最初から完璧を求める必要はありませんが、必須の機能は最初から伝えておくとスムーズです。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- プロンプト例 -->
-    <section id="example" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        💬 プロンプト例
-      </h2>
-
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
-      </p>
-
-      <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto">
-        <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
-
-<strong class="text-green-400">【やりたいこと】</strong>
-Googleドライブの特定フォルダにあるCSVファイルを、Googleスプレッドシートに自動転記する
-
-<strong class="text-blue-400">【現在の手順】</strong>
-1. Googleドライブを開く
-2. フォルダID「XXXXXXXXXXXXX」のフォルダを開く
-3. 最新のCSVファイルを取得
-4. CSVファイルの内容を解析
-5. Googleスプレッドシートの「データ」シートに転記
-   - A列：注文番号
-   - B列：顧客名
-   - C列：商品名
-   - D列：数量
-   - E列：金額
-6. 既存データに追記する形で転記
-
-<strong class="text-yellow-400">【その他の要望】</strong>
-- CSVファイルの1行目はヘッダー行なのでスキップする
-- 重複チェック機能を付けて、同じ注文番号は転記しないようにする
-- 処理が完了したら、処理件数をログに出力する</code></pre>
       </div>
 
       <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
         <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
-          📌 プロンプトのカスタマイズポイント
+          💡 初めてGASエディタを開く場合
         </h3>
-        <ul class="list-disc pl-6 space-y-3 text-lg md:text-xl text-blue-900">
-          <li><strong>フォルダID</strong>は、実際のGoogleドライブのフォルダIDに置き換えてください（後ほど説明します）</li>
-          <li><strong>シート名</strong>や<strong>列の配置</strong>は、あなたのスプレッドシートの構成に合わせて変更してください</li>
-          <li><strong>データ項目</strong>（注文番号、顧客名など）は、あなたのCSVファイルの内容に合わせて書き換えてください</li>
-          <li><strong>その他の要望</strong>は、必要に応じて追加・削除してOKです</li>
-        </ul>
+        <p class="text-lg md:text-xl text-blue-900 leading-relaxed">
+          初めてApps Scriptを開くと、プロジェクト名を設定する画面が表示されることがあります。わかりやすい名前（例：「CSVインポートツール」）を付けておくと、後で管理しやすくなります。
+        </p>
       </div>
     </section>
 
-    <!-- フォルダIDの取得方法 -->
-    <section id="folder-id" class="mb-16">
+    <!-- コードを貼り付ける手順 -->
+    <section id="paste-code" class="mb-16">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        🔍 GoogleドライブのフォルダIDを取得する方法
+        📋 コードを貼り付ける手順
       </h2>
 
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        プロンプトに「フォルダID」を含める必要があります。フォルダIDは、Googleドライブで対象のフォルダを開いたときのURLから取得できます。
+        GASエディタが開いたら、ChatGPTが生成したコードを貼り付けましょう。既にサンプルコードが書かれている場合は、それを削除してから貼り付けます。
       </p>
 
       <div class="bg-white rounded-lg shadow-md p-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-          取得手順
-        </h3>
+        <div class="space-y-8">
+          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                既存のコードをすべて選択して削除
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                GASエディタには、デフォルトで以下のようなサンプルコードが書かれています。
+              </p>
+              <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto mb-4">
+                <pre class="text-sm"><code>function myFunction() {
 
+}</code></pre>
+              </div>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                このコードを<strong>すべて選択（Ctrl + A または Cmd + A）</strong>して、削除します。エディタが空っぽの状態になればOKです。
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                ChatGPTが生成したコードをコピー
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                ChatGPTの画面に戻り、生成されたコード全体をコピーします。ChatGPTはコードをコードブロック形式で表示するので、右上の<strong>「コピー」ボタン</strong>をクリックすると簡単にコピーできます。
+              </p>
+              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                <p class="text-base md:text-lg text-yellow-900">
+                  <strong>注意:</strong> コードの一部だけをコピーしないように注意しましょう。関数全体をコピーしないと、エラーが発生する可能性があります。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 pb-8 border-b border-gray-200">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                GASエディタに貼り付け
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                GASエディタに戻り、コピーしたコードを貼り付けます（<strong>Ctrl + V</strong> または <strong>Cmd + V</strong>）。エディタにコードが表示されたら成功です。
+              </p>
+              <div class="screenshot-placeholder">
+                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
+                <p class="text-sm">screenshot-practice02-paste-code.png</p>
+                <p class="text-sm mt-2">コードを貼り付けた状態のGASエディタ</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                コードを保存
+              </h3>
+              <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+                コードを貼り付けたら、必ず保存しましょう。エディタ上部の<strong>「保存」ボタン（フロッピーディスクのアイコン）</strong>をクリックするか、<strong>Ctrl + S</strong>（または <strong>Cmd + S</strong>）で保存できます。
+              </p>
+              <div class="screenshot-placeholder">
+                <p class="font-bold text-lg mb-2">📸 スクリーンショットプレースホルダー</p>
+                <p class="text-sm">screenshot-practice02-save-button.png</p>
+                <p class="text-sm mt-2">保存ボタンの位置</p>
+              </div>
+              <div class="mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                <p class="text-base md:text-lg text-green-900">
+                  <strong>ヒント:</strong> 保存が成功すると、エディタ上部に「プロジェクトを保存しました」というメッセージが表示されます。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロジェクト名を変更する（オプション） -->
+    <section id="rename-project" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        ✏️ プロジェクト名を変更する（オプション）
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        GASプロジェクトには、デフォルトで「無題のプロジェクト」という名前が付けられています。わかりやすい名前に変更しておくと、後で管理しやすくなります。
+      </p>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
         <div class="space-y-6">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">
               1
             </div>
             <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                Googleドライブで対象のフォルダを開く
-              </h4>
+              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                エディタ上部のプロジェクト名をクリック
+              </h3>
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                CSVファイルが保存されているフォルダを開きます。
+                左上の「無題のプロジェクト」という部分をクリックすると、編集モードになります。
               </p>
             </div>
           </div>
@@ -289,14 +377,19 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
               2
             </div>
             <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                ブラウザのアドレスバーを確認
-              </h4>
+              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                わかりやすい名前を入力
+              </h3>
               <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
-                URLは以下のような形式になっています。
+                例：「CSVインポートツール」「注文データ自動転記」など
               </p>
-              <div class="bg-gray-100 p-4 rounded font-mono text-sm break-all">
-                https://drive.google.com/drive/folders/<strong class="text-red-600">1AbCdEfGhIjKlMnOpQrStUvWxYz</strong>
+              <div class="bg-gray-100 p-4 rounded">
+                <p class="text-sm text-gray-600">プロジェクト名の例:</p>
+                <ul class="list-disc pl-6 mt-2 text-base text-gray-700">
+                  <li>CSVインポートツール</li>
+                  <li>注文データ自動転記ツール</li>
+                  <li>ドライブファイル自動取り込み</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -306,11 +399,11 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
               3
             </div>
             <div>
-              <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                「folders/」の後ろの文字列をコピー
-              </h4>
+              <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                Enterキーで確定
+              </h3>
               <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-                この赤字部分が<strong>フォルダID</strong>です。これをコピーして、プロンプトの「XXXXXXXXXXXXX」の部分に貼り付けましょう。
+                名前を入力したら、<strong>Enterキー</strong>を押して確定します。プロジェクト名が変更されます。
               </p>
             </div>
           </div>
@@ -318,45 +411,24 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
       </div>
     </section>
 
-    <!-- ChatGPTにプロンプトを送る -->
-    <section id="send" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        🚀 ChatGPTにプロンプトを送信
-      </h2>
-
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-        プロンプトの準備ができたら、ChatGPTに送信しましょう。ChatGPTが、プロンプトに基づいてGoogle Apps Scriptのコードを生成してくれます。
-      </p>
-
-      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-          送信後の流れ
-        </h3>
-
-        <div class="space-y-4 text-lg md:text-xl text-gray-700">
-          <p class="leading-relaxed">
-            <strong>1. ChatGPTがコードを生成</strong><br>
-            数秒〜数十秒で、GASのコードが表示されます。コード全体をコピーできるように、コードブロックで表示されることが多いです。
-          </p>
-
-          <p class="leading-relaxed">
-            <strong>2. コードの説明を確認</strong><br>
-            ChatGPTは、コードと一緒に「このコードの使い方」や「各関数の説明」も提示してくれることがあります。後で見返せるように、メモしておくと便利です。
-          </p>
-
-          <p class="leading-relaxed">
-            <strong>3. 次のステップへ</strong><br>
-            生成されたコードを、GASエディタに貼り付けて実装します。次のセクションで詳しく説明しますので、コードをコピーした状態で進みましょう。
-          </p>
-        </div>
-      </div>
-
-      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
-        <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">
-          ✨ ワンポイントアドバイス
-        </h3>
-        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
-          もし生成されたコードが思っていたものと違っていても、焦らずにChatGPTに追加で指示を出せばOKです。「○○の部分を△△に変更してください」と伝えれば、修正してくれます。何度でもやり取りできるので、理想のツールになるまで調整しましょう。
+    <!-- まとめ -->
+    <section id="summary" class="mb-16">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          ✅ このステップのまとめ
+        </h2>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          お疲れ様でした！このステップでは、以下のことを完了しました。
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-lg md:text-xl text-gray-700">
+          <li>Googleスプレッドシートから「拡張機能」→「Apps Script」でGASエディタを開く</li>
+          <li>既存のサンプルコードを削除する</li>
+          <li>ChatGPTが生成したコードをコピーして貼り付ける</li>
+          <li>コードを保存する</li>
+          <li>プロジェクト名を変更する（オプション）</li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mt-6">
+          次のステップでは、このコードが正しく動作するか確認していきましょう。
         </p>
       </div>
     </section>
@@ -365,15 +437,21 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
     <section class="mt-16 text-center">
       <div class="bg-indigo-50 rounded-lg p-8">
         <p class="text-lg md:text-xl text-gray-700 mb-6">
-          ChatGPTがコードを生成してくれたら、次はGASエディタに貼り付けて実装しましょう。
+          コードの貼り付けが完了したら、次は動作確認をしましょう。
         </p>
-        <a href="practice-02-section-09.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
-          ステップ4へ進む →
+        <a href="practice-02-section-10.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ5へ進む →
         </a>
       </div>
     </section>
 
   </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
 
   <!-- フッター -->
   <footer class="bg-white border-t border-gray-200 mt-16">
@@ -385,6 +463,37 @@ Googleドライブの特定フォルダにあるCSVファイルを、Googleス�
   </footer>
 
   <script>
+    // 画像拡大モーダル
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModal = document.getElementById('closeModal');
+
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', function() {
+        const imgSrc = this.querySelector('img')?.src;
+        if (imgSrc) {
+          modalImage.src = imgSrc;
+          modal.classList.add('active');
+        }
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('active');
+      }
+    });
+
     // ドットインジケーターのスクロール連動
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');

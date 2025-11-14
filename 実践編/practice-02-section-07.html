@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プロンプト例 | 実践編② | 生成AI×GAS 短期講座</title>
+  <title>実践編②-3: ステップ2 ChatGPTにプロンプトを送る | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -15,20 +15,9 @@
     }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 50%, #e5e7eb 50%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 60%, #e5e7eb 60%, #e5e7eb 100%);
     }
-    .code-block {
-      background-color: #1e1e1e;
-      color: #d4d4d4;
-      padding: 1.5rem;
-      border-radius: 0.75rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
+
     .dot-indicator {
       position: fixed;
       right: 2rem;
@@ -36,11 +25,7 @@
       transform: translateY(-50%);
       z-index: 50;
     }
-    @media (max-width: 768px) {
-      .dot-indicator {
-        display: none;
-      }
-    }
+
     .dot {
       width: 12px;
       height: 12px;
@@ -50,31 +35,40 @@
       transition: all 0.3s ease;
       position: relative;
     }
-    .dot:hover {
-      background-color: #8b9dc3;
-      transform: scale(1.3);
-    }
+
     .dot.active {
-      background-color: #667eea;
+      background-color: #6366f1;
       transform: scale(1.5);
     }
+
+    .dot:hover {
+      transform: scale(1.3);
+    }
+
     .dot-label {
       position: absolute;
-      right: 24px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(99, 102, 241, 0.9);
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 14px;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
-      font-size: 0.875rem;
     }
+
     .dot:hover .dot-label {
       opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
     }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
@@ -100,6 +94,7 @@
           </a>
         </div>
       </div>
+      <!-- 進捗バー -->
       <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
@@ -107,331 +102,225 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="intro">
-        <span class="dot-label">導入</span>
+      <div class="dot active" data-section="importance">
+        <span class="dot-label">プロンプトの重要性</span>
       </div>
-      <div class="dot" data-section="what-is-prompt">
-        <span class="dot-label">プロンプトとは</span>
+      <div class="dot" data-section="structure">
+        <span class="dot-label">プロンプトの基本構成</span>
       </div>
-      <div class="dot" data-section="prompt-structure">
-        <span class="dot-label">プロンプトの構成</span>
-      </div>
-      <div class="dot" data-section="prompt-example">
+      <div class="dot" data-section="example">
         <span class="dot-label">プロンプト例</span>
       </div>
-      <div class="dot" data-section="next-step">
-        <span class="dot-label">次のステップ</span>
+      <div class="dot" data-section="folder-id">
+        <span class="dot-label">フォルダIDの取得方法</span>
+      </div>
+      <div class="dot" data-section="send">
+        <span class="dot-label">ChatGPTに送信</span>
       </div>
     </div>
   </div>
 
   <!-- メインコンテンツ -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-    <!-- タイトル -->
-    <div class="text-center mb-12">
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
-        🤖 生成AIへのプロンプト例
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <div class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-full mb-4">
+        <span class="font-bold">ステップ 2 / 5</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        生成AIへのプロンプト作成と送信
       </h1>
-      <p class="text-lg md:text-xl text-gray-600">
-        実践編② - 注文データ自動転記
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+        作業内容を整理して、AIにツール作成を依頼します
       </p>
-    </div>
+    </header>
 
-    <!-- 導入説明 -->
-    <section id="intro" class="mb-12">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
-        <div class="text-center">
-          <div class="text-5xl md:text-6xl mb-4">📝</div>
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ワークシートの5ステップに沿って指示を出します
-          </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-            これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！
-          </p>
-        </div>
+    <!-- プロンプトの重要性 -->
+    <section id="importance" class="mb-16">
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-yellow-800 mb-3">
+          💡 良いプロンプトが良いツールを作る
+        </h2>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed mb-4">
+          ステップ1で書き出した作業内容を、ChatGPTに分かりやすく伝えることが大切です。プロンプトが具体的であればあるほど、AIは正確なコードを生成してくれます。
+        </p>
+        <p class="text-lg md:text-xl text-yellow-900 leading-relaxed">
+          逆に、曖昧な指示だと、AIが意図しない動作をするツールを作ってしまう可能性があります。ここでしっかり時間をかけて、プロンプトを作り込みましょう。
+        </p>
       </div>
     </section>
 
-    <!-- プロンプトとは？ -->
-    <section id="what-is-prompt" class="mb-16">
-      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
-          💬 プロンプトとは？
-        </h2>
+    <!-- プロンプトの基本構成 -->
+    <section id="structure" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📝 プロンプトの基本構成
+      </h2>
 
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          <strong class="text-indigo-600">プロンプト</strong>とは、生成AIに対して送る「指示文」のことです。
-          プロンプトの書き方次第で、生成AIが作るコードの品質が大きく変わります。
-        </p>
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        効果的なプロンプトには、以下の3つの要素が含まれていることが重要です。この構成に従って書くことで、AIが理解しやすいプロンプトになります。
+      </p>
 
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-          良いプロンプトの条件は、<strong class="text-indigo-600">具体的であること</strong>です。
-          これまでのステップで作業を詳しく整理したおかげで、具体的なプロンプトを書く材料が揃っています。
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
-            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">❌ 悪いプロンプト例</h3>
-            <div class="bg-white p-4 rounded border border-red-200 mb-3">
-              <p class="text-lg text-gray-700">
-                「CSVファイルをスプレッドシートに転記するツールを作ってください」
-              </p>
-            </div>
-            <p class="text-base text-gray-700">
-              これでは曖昧すぎて、生成AIは何をどうすればいいのかわかりません。
-              結果として、期待通りのコードが生成されない可能性が高いです。
-            </p>
+      <div class="bg-white rounded-lg shadow-md p-8 space-y-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            1
           </div>
-
-          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">✅ 良いプロンプト例</h3>
-            <div class="bg-white p-4 rounded border border-green-200 mb-3">
-              <p class="text-lg text-gray-700">
-                「Google Driveの指定フォルダ内のCSVファイルを読み込み、注文者・住所・電話番号をスプレッドシートのA, B, C列に転記するツールを作ってください」
-              </p>
-            </div>
-            <p class="text-base text-gray-700">
-              具体的な条件と出力先が明記されているので、生成AIは正確なコードを作れます。
-              1回目から実用的なコードが生成される確率が高くなります。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- プロンプトの構成 -->
-    <section id="prompt-structure" class="mb-16">
-      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
-          📐 効果的なプロンプトの5つの要素
-        </h2>
-
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
-          ワークシートの5ステップが、そのまま効果的なプロンプトの構成になります。<br/>
-          この構成を意識するだけで、生成AIからより良い回答を引き出せるようになります。
-        </p>
-
-        <div class="space-y-6">
-          <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500">
-            <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-3">1️⃣ やりたいこと（目的）</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-3">
-              何を実現したいのかを一言で明確に書きます。
-            </p>
-            <div class="bg-white p-4 rounded-lg border border-blue-200">
-              <p class="text-base text-gray-700">
-                <strong>例：</strong>「Google Driveの指定フォルダにあるCSVファイルを、既存のスプレッドシートに自動転記したい」
-              </p>
-            </div>
-          </div>
-
-          <div class="bg-purple-50 p-6 rounded-2xl border-l-4 border-purple-500">
-            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">2️⃣ 現在の手順（詳細）</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-3">
-              ワークシートで整理した手作業の流れを、ステップバイステップで書きます。
-            </p>
-            <div class="bg-white p-4 rounded-lg border border-purple-200">
-              <p class="text-base text-gray-700">
-                <strong>例：</strong>「1. ファイルを開く → 2. ファイル内から情報を確認 → 3. スプレッドシートを開いて手動で転記 → 4. ファイルを別フォルダに移動」
-              </p>
-            </div>
-          </div>
-
-          <div class="bg-green-50 p-6 rounded-2xl border-l-4 border-green-500">
-            <h3 class="text-lg md:text-xl font-bold text-green-800 mb-3">3️⃣ どんなデータを扱う？</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-3">
-              対象のファイル形式、フォルダID、抽出したいデータ項目、転記先の列を具体的に指定します。
-              前のステップで作成した転記項目表をそのまま貼り付けましょう。
-            </p>
-            <div class="bg-white p-4 rounded-lg border border-green-200">
-              <p class="text-base text-gray-700">
-                <strong>重要：</strong>CSVファイルのサンプルデータと転記項目表を必ず含めてください
-              </p>
-            </div>
-          </div>
-
-          <div class="bg-orange-50 p-6 rounded-2xl border-l-4 border-orange-500">
-            <h3 class="text-lg md:text-xl font-bold text-orange-800 mb-3">4️⃣ どこに保存する？</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-3">
-              データをどこに保存するか明記します。シート名、追記方法、他の列への影響などを具体的に。
-            </p>
-            <div class="bg-white p-4 rounded-lg border border-orange-200">
-              <p class="text-base text-gray-700">
-                <strong>例：</strong>「現在のスプレッドシートの『受注管理』シートに追記。A列の最終行の次の行から追記」
-              </p>
-            </div>
-          </div>
-
-          <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-500">
-            <h3 class="text-lg md:text-xl font-bold text-red-800 mb-3">5️⃣ その他の要望</h3>
-            <p class="text-lg text-gray-700 leading-relaxed mb-3">
-              複数ファイル処理、ファイルの移動、エラーハンドリング、ログ出力など、追加で実装してほしい機能を書きます。
-            </p>
-            <div class="bg-white p-4 rounded-lg border border-red-200">
-              <p class="text-base text-gray-700">
-                <strong>重要：</strong>初心者向けにコメント付きのコードを依頼すると、理解しやすいコードが生成されます
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- プロンプト全体 -->
-    <section id="prompt-example" class="mb-12">
-      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-3">
-          <span class="text-3xl">📋</span>
-          実際のプロンプト例
-        </h2>
-
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 text-center">
-          これまで整理した内容を、以下のフォーマットでChatGPTに渡すだけでOKです！<br/>
-          5ステップの構成に沿って、具体的に書いていきましょう。
-        </p>
-
-        <!-- 冒頭 -->
-        <div class="bg-gray-100 p-6 rounded-xl mb-8 border-2 border-gray-300">
-          <p class="text-lg md:text-xl text-gray-800 font-bold">
-            Google Apps Scriptで、以下の自動化ツールを作ってください。
-          </p>
-        </div>
-
-        <!-- 1️⃣ やりたいこと -->
-        <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500 mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-blue-800 mb-4">【1️⃣ やりたいこと】</h3>
-          <p class="text-lg md:text-xl text-gray-700">
-            Google Driveの指定フォルダにあるテキストファイル（CSVまたはTXT形式）を、既存のスプレッドシートに自動転記したい
-          </p>
-        </div>
-
-        <!-- 2️⃣ 現在の手順 -->
-        <div class="bg-purple-50 p-6 rounded-2xl border-l-4 border-purple-500 mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-4">【2️⃣ 現在の手順】</h3>
-          <div class="space-y-2">
-            <p class="text-lg md:text-xl text-gray-700">1. テキストファイルを開く</p>
-            <p class="text-lg md:text-xl text-gray-700">2. ファイル内から転記したい情報（注文者、住所、電話番号など）を確認</p>
-            <p class="text-lg md:text-xl text-gray-700">3. スプレッドシートを開く</p>
-            <p class="text-lg md:text-xl text-gray-700">4. 一個ずつ手動でコピペして転記</p>
-          </div>
-        </div>
-
-        <!-- 3️⃣ どんなデータを扱う？ -->
-        <div class="bg-green-50 p-6 rounded-2xl border-l-4 border-green-500 mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-green-800 mb-6">【3️⃣ どんなデータを扱う？】</h3>
-
-          <!-- フォルダID -->
-          <div class="mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3">■ フォルダID：</h4>
-            <div class="bg-white p-6 rounded-xl border-2 border-gray-300 space-y-2">
-              <p class="text-lg md:text-xl text-gray-700">
-                未処理フォルダID: <span class="font-mono text-orange-600 font-bold">1A2B3C4D5E6F7G8H9I0J</span> (← Part 1で取得したIDに置き換え)
-              </p>
-              <p class="text-lg md:text-xl text-gray-700">
-                処理済みフォルダID: <span class="font-mono text-orange-600 font-bold">9Z8Y7X6W5V4U3T2S1R0Q</span> (← Part 1で取得したIDに置き換え)
-              </p>
-            </div>
-          </div>
-
-          <!-- ファイル形式 -->
-          <div class="mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3">■ ファイル形式：</h4>
-            <div class="space-y-2 ml-4">
-              <p class="text-lg md:text-xl text-gray-700">• カンマ区切り（CSV形式またはTXT形式）</p>
-              <p class="text-lg md:text-xl text-gray-700">• 1行目がヘッダー</p>
-            </div>
-          </div>
-
-          <!-- サンプルデータ -->
-          <div class="mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3">■ サンプルデータ：</h4>
-            <div class="code-block">注文者,住所,電話番号,商品名,個数,金額
-山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000</div>
-          </div>
-
-          <!-- 抽出したいデータと転記先の列 -->
           <div>
-            <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3">■ 抽出したいデータと転記先の列：</h4>
-            <p class="text-sm md:text-base text-gray-600 mb-3 ml-4 italic">
-              ※ 前のステップで作成した転記項目表をここに貼り付けてください
-            </p>
-            <div class="bg-gray-100 p-6 rounded-xl border-2 border-gray-300">
-              <pre class="text-base text-gray-700 overflow-x-auto whitespace-pre" style="font-family: monospace;">項目名       列   抽出内容サンプル
-───────────────────────────────────
-注文者       A    山田太郎
-住所         B    東京都渋谷区〇〇1-2-3
-電話番号     C    090-1234-5678
-商品名       D    りんご
-個数         E    10
-金額         F    1000</pre>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4️⃣ どこに保存する？ -->
-        <div class="bg-orange-50 p-6 rounded-2xl border-l-4 border-orange-500 mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-orange-800 mb-4">【4️⃣ どこに保存する？】</h3>
-          <div class="space-y-2">
-            <p class="text-lg md:text-xl text-gray-700">
-              • <span class="font-bold">現在のスプレッドシート</span>の「受注管理」シートに追記
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • <span class="font-bold">A列（注文者）の最終行を取得して、その次の行から追記</span>してください
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • 指定した列（A, B, C, D, E, F列）にのみ書き込む
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • 他の列のデータは変更しない
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【やりたいこと】を明確に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              まず、「何を実現したいのか」を一言で表現します。例えば、「GoogleドライブのCSVファイルをスプレッドシートに転記する」というように、目的を簡潔に伝えましょう。
             </p>
           </div>
         </div>
 
-        <!-- 5️⃣ その他の要望 -->
-        <div class="bg-red-50 p-6 rounded-2xl border-l-4 border-red-500 mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-red-800 mb-4">【5️⃣ その他の要望】</h3>
-          <div class="space-y-2">
-            <p class="text-lg md:text-xl text-gray-700">
-              • 複数ファイル処理もできるようにしてください
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • 処理後にファイルを「処理済みフォルダID」に移動してください
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • エラーハンドリングを入れてください
-            </p>
-            <p class="text-lg md:text-xl text-gray-700">
-              • 初心者向けに、コメント付きで分かりやすいコードをお願いします
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            2
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【現在の手順】を具体的に書く
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              ステップ1で書き出した作業フローをそのまま貼り付けます。「どのフォルダから」「どのシートに」「どの列に」など、できるだけ詳細に書くことで、AIが正確なコードを生成できます。
             </p>
           </div>
         </div>
 
-        <!-- ポイント -->
-        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border-2 border-indigo-300">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
-            <span class="text-2xl">💡</span>
-            ポイント
-          </h3>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-            フォルダIDを指定することで、同じ名前のフォルダがあっても正確に処理できます。<br/>
-            Part 1で取得したIDをコピペして使いましょう！
-          </p>
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            3
+          </div>
+          <div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              【その他の要望】を追加する
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              重複チェックや、エラー処理、ログ出力など、特別な機能が必要な場合はここに書きます。最初から完璧を求める必要はありませんが、必須の機能は最初から伝えておくとスムーズです。
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 次のステップへ -->
-    <section id="next-step" class="mb-16">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
-        <h2 class="text-xl md:text-2xl font-bold mb-4">
-          📌 次はコードをGASに貼り付けましょう
-        </h2>
-        <p class="text-lg md:text-xl mb-6 leading-relaxed">
-          プロンプトをChatGPTに送信したら、生成されたコードをGASエディタに貼り付けて実行します。<br/>
-          実際の操作手順を確認していきましょう。
+    <!-- プロンプト例 -->
+    <section id="example" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        💬 プロンプト例
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        実践編②（CSVファイル転記ツール）の場合、以下のようなプロンプトを送ります。このテンプレートをコピーして、あなたの作業に合わせて書き換えてみましょう。
+      </p>
+
+      <div class="bg-gray-900 text-gray-100 rounded-lg p-8 overflow-x-auto">
+        <pre class="text-sm md:text-base leading-relaxed whitespace-pre-wrap"><code>Google Apps Scriptで、以下の機能を持つツールを作成してください。
+
+<strong class="text-green-400">【やりたいこと】</strong>
+Googleドライブの特定フォルダにあるCSVファイルを、Googleスプレッドシートに自動転記する
+
+<strong class="text-blue-400">【現在の手順】</strong>
+1. Googleドライブを開く
+2. フォルダID「XXXXXXXXXXXXX」のフォルダを開く
+3. 最新のCSVファイルを取得
+4. CSVファイルの内容を解析
+5. Googleスプレッドシートの「データ」シートに転記
+   - A列：注文番号
+   - B列：顧客名
+   - C列：商品名
+   - D列：数量
+   - E列：金額
+6. 既存データに追記する形で転記
+
+<strong class="text-yellow-400">【その他の要望】</strong>
+- CSVファイルの1行目はヘッダー行なのでスキップする
+- 重複チェック機能を付けて、同じ注文番号は転記しないようにする
+- 処理が完了したら、処理件数をログに出力する</code></pre>
+      </div>
+
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          📌 プロンプトのカスタマイズポイント
+        </h3>
+        <ul class="list-disc pl-6 space-y-3 text-lg md:text-xl text-blue-900">
+          <li><strong>フォルダID</strong>は、実際のGoogleドライブのフォルダIDに置き換えてください（後ほど説明します）</li>
+          <li><strong>シート名</strong>や<strong>列の配置</strong>は、あなたのスプレッドシートの構成に合わせて変更してください</li>
+          <li><strong>データ項目</strong>（注文番号、顧客名など）は、あなたのCSVファイルの内容に合わせて書き換えてください</li>
+          <li><strong>その他の要望</strong>は、必要に応じて追加・削除してOKです</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- フォルダIDの参照 -->
+    <section id="folder-id" class="mb-16">
+      <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-blue-800 mb-3">
+          🔑 フォルダIDについて
+        </h3>
+        <p class="text-lg md:text-xl text-blue-900 leading-relaxed">
+          プロンプトに含める「フォルダID」は、
+          <a href="practice-02-section-05.html#folder-id" class="text-indigo-600 hover:text-indigo-800 underline font-bold">
+            section-05の準備編で取得したフォルダID
+          </a>
+          を使用します。もし取得していない場合は、section-05に戻って確認してください。
         </p>
-        <a href="practice-02-section-08.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          次へ：ChatGPTに送信 →
+      </div>
+    </section>
+
+    <!-- ChatGPTにプロンプトを送る -->
+    <section id="send" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🚀 ChatGPTにプロンプトを送信
+      </h2>
+
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        プロンプトの準備ができたら、ChatGPTに送信しましょう。ChatGPTが、プロンプトに基づいてGoogle Apps Scriptのコードを生成してくれます。
+      </p>
+
+      <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          送信後の流れ
+        </h3>
+
+        <div class="space-y-4 text-lg md:text-xl text-gray-700">
+          <p class="leading-relaxed">
+            <strong>1. ChatGPTがコードを生成</strong><br>
+            数秒〜数十秒で、GASのコードが表示されます。コード全体をコピーできるように、コードブロックで表示されることが多いです。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>2. コードの説明を確認</strong><br>
+            ChatGPTは、コードと一緒に「このコードの使い方」や「各関数の説明」も提示してくれることがあります。後で見返せるように、メモしておくと便利です。
+          </p>
+
+          <p class="leading-relaxed">
+            <strong>3. 次のステップへ</strong><br>
+            生成されたコードを、GASエディタに貼り付けて実装します。次のセクションで詳しく説明しますので、コードをコピーした状態で進みましょう。
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+        <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">
+          ✨ ワンポイントアドバイス
+        </h3>
+        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
+          もし生成されたコードが思っていたものと違っていても、焦らずにChatGPTに追加で指示を出せばOKです。「○○の部分を△△に変更してください」と伝えれば、修正してくれます。何度でもやり取りできるので、理想のツールになるまで調整しましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次へのリンク -->
+    <section class="mt-16 text-center">
+      <div class="bg-indigo-50 rounded-lg p-8">
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          ChatGPTがコードを生成してくれたら、次はGASエディタに貼り付けて実装しましょう。
+        </p>
+        <a href="practice-02-section-09.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg transition transform hover:scale-105">
+          ステップ4へ進む →
         </a>
       </div>
     </section>
@@ -439,36 +328,18 @@
   </main>
 
   <!-- フッター -->
-  <footer class="bg-gray-800 text-white py-8 mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編②</p>
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p class="text-center text-gray-600">
+        © 2025 生成AI×GAS 短期講座
+      </p>
     </div>
   </footer>
 
   <script>
-    // スムーススクロール
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // ドットインジケーター機能
+    // ドットインジケーターのスクロール連動
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -483,19 +354,23 @@
           });
         }
       });
-    }, observerOptions);
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
 
     sections.forEach(section => {
       observer.observe(section);
     });
 
-    // ドットクリックでセクションへスクロール
+    // ドットクリックでスムーススクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
         const sectionId = dot.getAttribute('data-section');
         const section = document.getElementById(sectionId);
         if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
