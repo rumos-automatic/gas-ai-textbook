@@ -274,13 +274,29 @@
         </div>
       </div>
 
-      <!-- 完成イメージのプレースホルダー -->
+      <!-- 完成イメージの動画 -->
       <div class="mt-8">
         <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">完成イメージ</h3>
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-overview.png')">
-          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-          <p class="text-lg">完成したツールの動作イメージ</p>
-          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-overview.png</p>
+        <div class="relative rounded-lg overflow-hidden shadow-xl">
+          <video
+            id="demoVideo"
+            class="w-full"
+            autoplay
+            loop
+            muted
+            playsinline
+          >
+            <source src="../assets/videos/practice01-order-email-demo.mp4" type="video/mp4">
+            お使いのブラウザは動画タグをサポートしていません。
+          </video>
+        </div>
+        <div class="mt-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 border-l-4 border-indigo-500">
+          <p class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            ✨ 毎日の転記作業からおさらば！
+          </p>
+          <p class="text-lg leading-relaxed text-gray-700">
+            これからは24時間365日、ツールが自動でメール情報を転記してくれます。
+          </p>
         </div>
       </div>
     </section>
