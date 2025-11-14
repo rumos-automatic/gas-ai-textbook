@@ -2,6 +2,16 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-14] - 実践編②全セクションのH1フォントサイズをCLAUDE.mdルールに統一
+
+### 🔧 修正内容
+
+- ✅ **practice-02全12ファイルのH1フォントサイズをチェック＆修正**
+  - practice-02-section-03.html: `text-3xl md:text-4xl` → `text-5xl md:text-6xl`
+  - practice-02-section-11.html: `text-3xl md:text-4xl` → `text-5xl md:text-6xl`
+  - 残り10ファイルは既に準拠済みを確認
+  - CLAUDE.mdルール（特大タイトル: `text-5xl md:text-6xl`）に完全準拠
+
 ## [2025-11-14] - 実践編②セクション5・6・7のテキスト量大幅拡充
 
 ### 📝 変更内容
