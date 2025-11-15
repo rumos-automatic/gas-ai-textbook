@@ -142,6 +142,62 @@ function incrementEmailCount() {
 }
 
 /**
+ * 7つの商品パターン定義
+ * 実践編①と②で使用する固定の注文データ
+ */
+const PRODUCT_PATTERNS = [
+  {
+    orderId: 'ORD-12345',
+    productName: '有機りんご 5kg',
+    quantity: '2箱',
+    price: '5,600円',
+    customerName: '山田太郎'
+  },
+  {
+    orderId: 'ORD-12346',
+    productName: 'ノートパソコン HP Pavilion 15',
+    quantity: '1台',
+    price: '89,800円',
+    customerName: '佐藤花子'
+  },
+  {
+    orderId: 'ORD-12347',
+    productName: 'コーヒーメーカー DeLonghi',
+    quantity: '1台',
+    price: '24,800円',
+    customerName: '鈴木一郎'
+  },
+  {
+    orderId: 'ORD-12348',
+    productName: 'ビジネス書籍セット（5冊）',
+    quantity: '1セット',
+    price: '12,500円',
+    customerName: '田中次郎'
+  },
+  {
+    orderId: 'ORD-12349',
+    productName: 'ワイヤレスイヤホン Sony WF-1000XM5',
+    quantity: '1個',
+    price: '36,300円',
+    customerName: '高橋三郎'
+  },
+  {
+    orderId: 'ORD-12350',
+    productName: 'オーガニックコーヒー豆 1kg',
+    quantity: '3袋',
+    price: '8,400円',
+    customerName: '伊藤四郎'
+  },
+  {
+    orderId: 'ORD-12351',
+    productName: 'アロマディフューザー',
+    quantity: '2個',
+    price: '15,600円',
+    customerName: '渡辺五郎'
+  }
+];
+
+/**
  * ランダムな注文番号を生成
  * 形式: YYYYMMDD-XXXXX（例: 20250102-87435）
  */
@@ -187,45 +243,86 @@ function generateDeliveryDate() {
 }
 
 /**
- * サンプルメールを送信
+ * サンプルメールを送信（単一パターン）
+ * @param {string} toEmail - 送信先メールアドレス
+ * @param {number} patternIndex - 使用する商品パターンのインデックス（0-6）。未指定の場合はランダム
  */
-function sendSampleEmail(toEmail) {
-  const orderNumber = generateOrderNumber();
+function sendSampleEmail(toEmail, patternIndex) {
+  // パターンインデックスが未指定の場合はランダムに選択
+  if (patternIndex === undefined || patternIndex === null) {
+    patternIndex = Math.floor(Math.random() * PRODUCT_PATTERNS.length);
+  }
+
+  // インデックスの範囲チェック
+  if (patternIndex < 0 || patternIndex >= PRODUCT_PATTERNS.length) {
+    throw new Error(`Invalid pattern index: ${patternIndex}. Must be 0-${PRODUCT_PATTERNS.length - 1}`);
+  }
+
+  const pattern = PRODUCT_PATTERNS[patternIndex];
   const orderDateTime = generateOrderDateTime();
   const deliveryDate = generateDeliveryDate();
 
-  const subject = '【注文完了】ご注文ありがとうございます';
+  const subject = '【注文受付】ご注文ありがとうございます';
 
   const body = `━━━━━━━━━━━━━━━━━━━━━
   ご注文ありがとうございます
 ━━━━━━━━━━━━━━━━━━━━━
 
-注文番号: ${orderNumber}
+注文ID: ${pattern.orderId}
 注文日時: ${orderDateTime}
+お客様名: ${pattern.customerName}
 
-【商品情報】
-商品名: ノートパソコン HP Pavilion 15
-数量: 1個
-価格: 89,800円
+【ご注文内容】
+商品名: ${pattern.productName}
+数量: ${pattern.quantity}
+小計: ${pattern.price}
 
-お届け予定日: ${deliveryDate}
-配送先: ご登録住所
+配送希望日: ${deliveryDate}
+
+※ 発送先情報は別途CSVファイルで提供されます
 
 ━━━━━━━━━━━━━━━━━━━━━
 ※このメールはGAS講座の練習用サンプルです
 `;
 
   GmailApp.sendEmail(toEmail, subject, body);
-  Logger.log(`Sample email sent to ${toEmail} with order number ${orderNumber}`);
+  Logger.log(`Sample email sent to ${toEmail} - Order ID: ${pattern.orderId}, Product: ${pattern.productName}`);
 }
 
 /**
- * テスト用関数: 自分宛にメールを送信
+ * 7つすべてのサンプルメールを送信
+ * @param {string} toEmail - 送信先メールアドレス
+ */
+function sendAllSampleEmails(toEmail) {
+  Logger.log(`Sending all ${PRODUCT_PATTERNS.length} sample emails to ${toEmail}`);
+
+  for (let i = 0; i < PRODUCT_PATTERNS.length; i++) {
+    sendSampleEmail(toEmail, i);
+    // Gmail APIのレート制限を避けるため、各メール間に1秒の遅延を入れる
+    if (i < PRODUCT_PATTERNS.length - 1) {
+      Utilities.sleep(1000);
+    }
+  }
+
+  Logger.log(`Successfully sent all ${PRODUCT_PATTERNS.length} sample emails`);
+}
+
+/**
+ * テスト用関数: 自分宛にランダムなサンプルメールを1通送信
  */
 function testSendEmail() {
   const myEmail = Session.getActiveUser().getEmail();
   sendSampleEmail(myEmail);
   Logger.log('Test email sent to: ' + myEmail);
+}
+
+/**
+ * テスト用関数: 自分宛に7つすべてのサンプルメールを送信
+ */
+function testSendAllEmails() {
+  const myEmail = Session.getActiveUser().getEmail();
+  sendAllSampleEmails(myEmail);
+  Logger.log('All 7 test emails sent to: ' + myEmail);
 }
 
 /**
