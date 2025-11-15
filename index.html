@@ -52,19 +52,6 @@
     }
 
     /* カテゴリヘッダー */
-    .category-header {
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
-      margin: -0.5rem;
-      user-select: none;
-    }
-
-    .category-header:hover {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-
     .category-header h2 {
       display: flex;
       align-items: center;
@@ -73,37 +60,13 @@
       position: relative;
     }
 
-    /* 折りたたみボタン */
-    .toggle-button {
+    /* セクション数表示 */
+    .section-count {
       margin-left: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem 1rem;
-      background: transparent;
-      border: 1px solid #d1d5db;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
       font-size: 0.875rem;
-      color: #6b7280;
+      color: #9ca3af;
+      font-weight: 400;
       flex-shrink: 0;
-    }
-
-    .toggle-button:hover {
-      background: #f3f4f6;
-      border-color: #9ca3af;
-    }
-
-    .toggle-text {
-      color: #6b7280;
-      min-width: 70px;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .toggle-text::before {
-      content: '全て展開';
     }
 
     /* 折りたたみ可能なカード */
@@ -118,6 +81,76 @@
     /* カテゴリ説明文は常に表示 */
     .category-description {
       /* 説明文は折りたたまない */
+    }
+
+    /* さらに表示ボタン */
+    .show-more-button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      border: 2px dashed #d1d5db;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .show-more-button:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+      color: #4b5563;
+      transform: translateY(-2px);
+    }
+
+    /* 展開時は「さらに表示」ボタンを非表示 */
+    .category-section:not(.collapsed) .show-more-button {
+      display: none;
+    }
+
+    /* 折りたたみボタン */
+    .hide-more-button {
+      display: none;
+      margin: 2rem auto 0;
+      padding: 0.875rem 2rem;
+      background: transparent;
+      border: 2px dashed #d1d5db;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 500;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .hide-more-button:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+      color: #4b5563;
+      transform: translateY(-2px);
+    }
+
+    /* 展開時は「折りたたむ」ボタンを表示 */
+    .category-section:not(.collapsed) .hide-more-button {
+      display: block;
+    }
+
+    .show-more-icon {
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .show-more-count {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-left: 0.25rem;
     }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="./assets/css/search-global.css">
@@ -159,13 +192,11 @@
 
     <!-- カテゴリ1: 生成AI紹介 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🤖</span>
           生成AI紹介
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全7セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -278,17 +309,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(4)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ2: GAS紹介 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">⚙️</span>
           GAS紹介
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全6セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -386,6 +428,19 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(3)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ3: 基本的な考え方 -->
@@ -448,13 +503,11 @@
 
     <!-- カテゴリ4: 実践ウォーミングアップ -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🔧</span>
           実践ウォーミングアップ
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全4セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -522,17 +575,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(1)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ5: 実践編① メール内容をスプシに自動転記 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編① メール内容をスプシに自動転記
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全13セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -735,17 +799,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(9)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ5: 実践編② CSVファイルをスプシに自動転記 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編② CSVファイルをスプシに自動転記
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全11セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -918,17 +993,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(8)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ6: 実践編③ Googleフォーム自動返信ボット -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編③ Googleフォーム自動返信ボット
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全4セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -996,6 +1082,19 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(1)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ7: トラブルシューティング -->
@@ -1058,13 +1157,11 @@
 
     <!-- カテゴリ8: 実践編④ オリジナルツールを製作 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編④ オリジナルツールを製作
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全8セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1192,17 +1289,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(5)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ9: 上級編 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🔥</span>
           上級編
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全5セクション</span>
         </h2>
       </div>
 
@@ -1294,17 +1402,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(2)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ10: 実践編⑤ GAS×チャットワークAPI連携 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編⑤ GAS×チャットワークAPI連携
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全6セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1402,17 +1521,28 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(3)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ11: 実践編⑥ GAS×Gemini API連携 -->
     <section class="mb-16 category-section collapsed">
-      <div class="category-header" onclick="toggleCategory(this)">
+      <div class="category-header">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
           <span class="text-5xl mr-4">🚀</span>
           実践編⑥ GAS×Gemini API連携
-          <button class="toggle-button">
-            <span class="toggle-text"></span>
-          </button>
+          <span class="section-count">全5セクション</span>
         </h2>
       </div>
       <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
@@ -1495,6 +1625,19 @@
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(2)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
   </main>
@@ -1513,7 +1656,16 @@
     // カテゴリ折りたたみ機能
     function toggleCategory(headerElement) {
       const section = headerElement.closest('.category-section');
+      const isCurrentlyExpanded = !section.classList.contains('collapsed');
+
       section.classList.toggle('collapsed');
+
+      // 折りたたむ時だけスムーススクロール
+      if (isCurrentlyExpanded) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
     }
 
   </script>
