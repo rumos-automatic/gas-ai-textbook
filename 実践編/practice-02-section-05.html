@@ -158,6 +158,9 @@
       <div class="dot" data-section="spreadsheet-template">
         <span class="dot-label">スプレッドシート</span>
       </div>
+      <div class="dot" data-section="matching-key">
+        <span class="dot-label">マッチングキー</span>
+      </div>
       <div class="dot" data-section="next-step">
         <span class="dot-label">次のステップ</span>
       </div>
@@ -185,7 +188,8 @@
         </h2>
 
         <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-          このツールは、<strong class="text-indigo-600">Googleドライブのフォルダを監視して、CSVファイルを自動的にスプレッドシートに転記する</strong>仕組みです。
+          実践編②では、<strong class="text-indigo-600">実践編①で作成したスプレッドシートに注文データを追加する</strong>仕組みを作ります。
+          発送情報はCSVファイルで提供されるため、Googleドライブのフォルダを監視して、CSVファイルから発送先のデータを取得します。
           実践編①のメール転記とは違い、今回は「ファイル」を扱うため、どのフォルダを監視するかを事前に決めておく必要があります。
         </p>
 
@@ -199,10 +203,10 @@
           </div>
 
           <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500">
-            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">📁 実践編②（ファイル転記）</h3>
+            <h3 class="text-lg md:text-xl font-bold text-purple-800 mb-3">📁 実践編②（注文データ自動転記）</h3>
             <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-              Googleドライブの<strong>特定のフォルダ</strong>を監視するため、<strong>フォルダを事前に作成</strong>しておく必要があります。
-              ファイルを置く場所を決めることで、GASが自動的に処理してくれます。
+              Googleドライブの<strong>特定のフォルダ</strong>を監視するため、<strong>注文データ用のフォルダを事前に作成</strong>しておく必要があります。
+              CSVファイルを置く場所を決めることで、GASが自動的に注文データを実践編①のスプレッドシートに追加してくれます。
             </p>
           </div>
         </div>
@@ -215,9 +219,9 @@
             <div class="flex items-start">
               <span class="text-3xl mr-4 flex-shrink-0">1️⃣</span>
               <div>
-                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">「未処理」フォルダにファイルを入れる</p>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">「未処理」フォルダに注文データCSVを入れる</p>
                 <p class="text-base md:text-lg text-gray-700">
-                  毎日ダウンロードしたCSVファイルを、このフォルダに入れるだけです。
+                  発送先のデータが記載されたCSVファイルを、このフォルダに入れるだけです。
                 </p>
               </div>
             </div>
@@ -225,9 +229,9 @@
             <div class="flex items-start">
               <span class="text-3xl mr-4 flex-shrink-0">2️⃣</span>
               <div>
-                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">GASを実行すると自動転記</p>
+                <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">GASを実行すると自動追加</p>
                 <p class="text-base md:text-lg text-gray-700">
-                  ボタン1つで、フォルダ内の全ファイルがスプレッドシートに転記されます。
+                  ボタン1つで、注文IDをキーにマッチングして、実践編①のスプレッドシートに注文データが追加されます。
                 </p>
               </div>
             </div>
@@ -237,7 +241,7 @@
               <div>
                 <p class="text-lg md:text-xl font-semibold text-gray-800 mb-2">処理済みファイルは自動的に移動</p>
                 <p class="text-base md:text-lg text-gray-700">
-                  転記が完了したファイルは、「処理済み」フォルダに自動的に移動されます。
+                  注文データの追加が完了したファイルは、「処理済み」フォルダに自動的に移動されます。
                   これにより、同じファイルを2回処理してしまうミスを防げます。
                 </p>
               </div>
@@ -262,7 +266,7 @@
             ゴール
           </h2>
           <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-            CSV形式またはテキスト形式の注文データファイルを、自動でスプレッドシートに転記。<br/>
+            CSV形式の発送情報ファイルから、注文IDでマッチングして実践編①のスプレッドシートに発送先データを追加。<br/>
             処理済みファイルは別フォルダへ自動移動。
           </p>
           <div class="bg-white rounded-xl p-6 shadow-md max-w-3xl mx-auto">
@@ -270,11 +274,11 @@
             <div class="space-y-3 text-left">
               <div class="flex items-start">
                 <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">「未処理」フォルダに注文データを入れる</p>
+                <p class="text-lg md:text-xl text-gray-700">「未処理」フォルダに発送情報CSVを入れる</p>
               </div>
               <div class="flex items-start">
                 <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">GASを実行すると、全ファイルが自動転記</p>
+                <p class="text-lg md:text-xl text-gray-700">GASを実行すると、注文IDでマッチングして発送情報を追加</p>
               </div>
               <div class="flex items-start">
                 <span class="text-xl mr-3 flex-shrink-0">✓</span>
@@ -306,7 +310,7 @@
               <h3 class="text-lg md:text-xl font-bold text-blue-700">注文データ_未処理</h3>
             </div>
             <p class="text-lg md:text-xl text-gray-700 ml-14">
-              ← ここに注文データファイルを入れる
+              ← ここに発送情報CSVファイルを入れる
             </p>
           </div>
           <div class="bg-green-50 p-6 rounded-xl border-2 border-green-300 shadow-md">
@@ -687,7 +691,7 @@
 
           <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
             ダウンロードしたフォルダには、以下の3つのサンプルCSVファイルが含まれています。
-            これらはすべて同じ形式のファイルで、GASがまとめて処理できます。
+            これらは<strong>発送情報</strong>（注文ID、発送先氏名、住所、電話番号）が記載されており、実践編①のスプレッドシートの注文データとマッチングして追加されます。
           </p>
 
           <div class="space-y-4">
@@ -695,15 +699,15 @@
             <div class="bg-gray-50 p-4 rounded-lg">
               <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
                 <span class="text-xl">📝</span>
-                orders_20250128_morning.csv
+                shipping_20250128_morning.csv
               </h4>
               <p class="text-sm md:text-base text-gray-600 mb-2">
-                午前中に受け取った注文データ（2件のデータ）
+                午前中に届いた発送情報（2件のデータ）
               </p>
               <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
-山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
-佐藤花子,大阪府大阪市△△2-3-4,080-9876-5432,みかん,5,500</pre>
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
+ORD-12345,山田太郎,東京都渋谷区〇〇1-2-3 マンション101号室,090-1234-5678
+ORD-12346,佐藤花子,大阪府大阪市△△2-3-4 ビル5F,080-9876-5432</pre>
               </div>
             </div>
 
@@ -711,16 +715,16 @@
             <div class="bg-gray-50 p-4 rounded-lg">
               <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
                 <span class="text-xl">📝</span>
-                orders_20250128_afternoon.csv
+                shipping_20250128_afternoon.csv
               </h4>
               <p class="text-sm md:text-base text-gray-600 mb-2">
-                午後に受け取った注文データ（3件のデータ）
+                午後に届いた発送情報（3件のデータ）
               </p>
               <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
-鈴木一郎,愛知県名古屋市◇◇3-4-5,070-1111-2222,バナナ,20,2000
-田中次郎,福岡県福岡市◎◎4-5-6,090-3333-4444,ぶどう,8,800
-高橋三郎,北海道札幌市〒〒5-6-7,080-5555-6666,メロン,3,3000</pre>
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
+ORD-12347,鈴木一郎,神奈川県横浜市◇◇3-4-5,070-5555-4444
+ORD-12348,田中次郎,福岡県福岡市◎◎4-5-6 アパート201,090-3333-4444
+ORD-12349,高橋三郎,北海道札幌市〒〒5-6-7,080-5555-6666</pre>
               </div>
             </div>
 
@@ -728,15 +732,15 @@
             <div class="bg-gray-50 p-4 rounded-lg">
               <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
                 <span class="text-xl">📝</span>
-                orders_20250129_morning.csv
+                shipping_20250129_morning.csv
               </h4>
               <p class="text-sm md:text-base text-gray-600 mb-2">
-                翌日の注文データ（2件のデータ）
+                翌日の発送情報（2件のデータ）
               </p>
               <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文者,住所,電話番号,商品名,個数,金額
-伊藤四郎,京都府京都市☆☆6-7-8,090-7777-8888,いちご,15,1500
-渡辺五郎,広島県広島市★★7-8-9,080-9999-0000,桃,12,1200</pre>
+                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
+ORD-12350,伊藤四郎,京都府京都市☆☆6-7-8 マンション303,090-7777-8888
+ORD-12351,渡辺五郎,広島県広島市★★7-8-9,080-9999-0000</pre>
               </div>
             </div>
           </div>
@@ -751,7 +755,7 @@
               <div class="flex items-start">
                 <span class="text-base mr-2 flex-shrink-0">✓</span>
                 <p class="text-sm md:text-base text-gray-700">
-                  <strong>1行目はヘッダー</strong>：項目名が書かれています（注文者、住所、電話番号...）
+                  <strong>1行目はヘッダー</strong>：項目名が書かれています（注文ID、発送先氏名、発送先住所、発送先電話番号）
                 </p>
               </div>
               <div class="flex items-start">
@@ -763,13 +767,19 @@
               <div class="flex items-start">
                 <span class="text-base mr-2 flex-shrink-0">✓</span>
                 <p class="text-sm md:text-base text-gray-700">
+                  <strong>注文IDでマッチング</strong>：注文IDを使って、実践編①のスプレッドシートの該当行を検索し、発送情報を追加します
+                </p>
+              </div>
+              <div class="flex items-start">
+                <span class="text-base mr-2 flex-shrink-0">✓</span>
+                <p class="text-sm md:text-base text-gray-700">
                   <strong>ファイル名は自由</strong>：ファイル名は何でもOKです。GASはフォルダ内のすべてのファイルを処理します
                 </p>
               </div>
               <div class="flex items-start">
                 <span class="text-base mr-2 flex-shrink-0">✓</span>
                 <p class="text-sm md:text-base text-gray-700">
-                  <strong>合計7件のデータ</strong>：3つのファイルを合わせて、7件の注文データが転記されます
+                  <strong>合計7件のデータ</strong>：3つのファイルを合わせて、7件の発送情報が追加されます
                 </p>
               </div>
             </div>
@@ -778,54 +788,349 @@
       </div>
     </section>
 
-    <!-- スプレッドシートテンプレート -->
+    <!-- スプレッドシートについて -->
     <section id="spreadsheet-template" class="mb-16">
       <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-blue-400">
         <div class="text-center mb-8">
           <div class="text-5xl md:text-6xl mb-4">📊</div>
           <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            転記先スプレッドシートのテンプレート
+            転記先スプレッドシートについて
           </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-            CSV注文データを転記するスプレッドシートのテンプレートを用意しました。<br/>
-            「ファイル」→「コピーを作成」でご自身のGoogleドライブに保存してください。
-          </p>
-          <a href="https://docs.google.com/spreadsheets/d/1WcW_RiMwFGxdxCnfVW1Qd11U8dRBJQpjRaP-zNu6gIU/edit?usp=sharing"
-             target="_blank"
-             rel="noopener noreferrer"
-             class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg md:text-xl rounded-xl shadow-lg hover:shadow-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:-translate-y-1">
-            <span class="text-2xl">📊</span>
-            テンプレートをコピー
-          </a>
-          <p class="text-sm md:text-base text-gray-600 mt-6">
-            ※ Googleスプレッドシートが開きます。「ファイル」→「コピーを作成」でご自身のドライブに保存してください
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+            実践編②では、<strong class="text-indigo-600">実践編①で作成したスプレッドシート</strong>をそのまま使用します。<br/>
+            新しいスプレッドシートを作成する必要はありません。
           </p>
         </div>
-        <div class="bg-white rounded-xl p-6 shadow-md">
-          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">📝 テンプレートの構成</h3>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            このテンプレートには、注文データ転記用のシートが含まれています：
+
+        <div class="bg-white rounded-xl p-6 shadow-md max-w-3xl mx-auto">
+          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">📋 実践編①のスプレッドシート構成</h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            実践編①で作成した「受注一覧」シートには、すでに以下のデータが入っています：
           </p>
-          <ul class="space-y-2">
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">A列：注文者</span>
-            </li>
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">B列：住所</span>
-            </li>
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">C列：電話番号</span>
-            </li>
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">D列：商品名</span>
-            </li>
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">E列：個数</span>
-            </li>
-            <li class="text-lg text-gray-700">
-              <span class="font-bold">F列：金額</span>
-            </li>
-          </ul>
+          <div class="grid md:grid-cols-2 gap-3 mb-6">
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>C列：</strong>注文ID</p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>E列：</strong>注文日時</p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>G列：</strong>お客様名</p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>J列：</strong>商品名</p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>L列：</strong>金額</p>
+            </div>
+            <div class="bg-blue-50 p-3 rounded">
+              <p class="text-base text-gray-700"><strong>N列：</strong>配送希望日</p>
+            </div>
+          </div>
+
+          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 mt-6">➕ 実践編②で追加する列</h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
+            今回のCSVファイルから、以下の発送情報を追加します：
+          </p>
+          <div class="grid md:grid-cols-3 gap-3">
+            <div class="bg-green-50 p-3 rounded border-2 border-green-300">
+              <p class="text-base text-gray-700 font-bold"><strong>P列：</strong>発送先氏名</p>
+            </div>
+            <div class="bg-green-50 p-3 rounded border-2 border-green-300">
+              <p class="text-base text-gray-700 font-bold"><strong>R列：</strong>発送先住所</p>
+            </div>
+            <div class="bg-green-50 p-3 rounded border-2 border-green-300">
+              <p class="text-base text-gray-700 font-bold"><strong>T列：</strong>発送先電話番号</p>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-indigo-50 p-4 rounded-lg border-2 border-indigo-300">
+            <p class="text-base md:text-lg text-gray-700">
+              <strong class="text-indigo-700">💡 ポイント：</strong>
+              注文ID（C列）をキーにして、該当する行のP列・R列・T列に発送情報を追加していきます。
+              これにより、注文情報と発送情報が1つのシートで管理できるようになります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- マッチングキーの説明 -->
+    <section id="matching-key" class="mb-16">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-purple-400">
+        <div class="text-center mb-8">
+          <div class="text-5xl md:text-6xl mb-4">🔍</div>
+          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+            マッチングキーとは？
+          </h2>
+          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+            注文IDを使って、スプレッドシートの中から該当する注文を探し出すための「目印」です
+          </p>
+        </div>
+
+        <!-- マッチングキーの基本概念 -->
+        <div class="bg-white rounded-xl p-6 md:p-8 mb-8 shadow-lg">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6">💡 何をするの？</h3>
+
+          <!-- 身近な例え -->
+          <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 mb-6">
+            <h4 class="text-base md:text-lg font-bold text-blue-800 mb-3">📖 例えで理解する</h4>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+              住所録で「山田太郎」という名前を探して、電話番号を追記するシーンを想像してください。
+            </p>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>1.</strong> 「山田太郎」という名前で住所録を検索<br/>
+                <strong>2.</strong> 「山田太郎」の行を発見<br/>
+                <strong>3.</strong> その行の電話番号欄に番号を書き込む
+              </p>
+            </div>
+            <p class="text-sm md:text-base text-gray-600 mt-3">
+              この場合、<strong class="text-blue-700">「名前」が検索のための目印</strong>になります。
+            </p>
+          </div>
+
+          <!-- 実践編②での動作 -->
+          <div class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200">
+            <h4 class="text-base md:text-lg font-bold text-purple-800 mb-4">📌 実践編②では「注文ID」が検索の目印</h4>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-5">
+              実践編②でも、同じことをします。ただし、名前の代わりに<strong class="text-purple-700">注文ID</strong>を使います。
+            </p>
+
+            <div class="bg-white p-5 rounded-lg space-y-3">
+              <div class="flex items-start">
+                <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">1</div>
+                <p class="text-base md:text-lg text-gray-700 mt-1">
+                  CSVファイルから注文ID「<strong class="text-orange-600">ORD-12345</strong>」を読み取る
+                </p>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">2</div>
+                <p class="text-base md:text-lg text-gray-700 mt-1">
+                  スプレッドシートのC列で「<strong class="text-orange-600">ORD-12345</strong>」を検索する
+                </p>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</div>
+                <p class="text-base md:text-lg text-gray-700 mt-1">
+                  見つかった行のP列・R列・T列に発送情報を書き込む
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-5 bg-purple-100 p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-800 leading-relaxed">
+                <strong>「マッチング」</strong>という言葉は、<strong class="text-purple-700">「一致するものを探す」</strong>という意味です。<br/>
+                注文IDが一致する行を探して、そこに情報を追加することを「マッチング」と呼びます。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- なぜ注文IDがマッチングキーに適しているのか -->
+        <div class="bg-white rounded-xl p-6 md:p-8 mb-8 shadow-lg">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6">✅ なぜ注文IDがマッチングキーに適しているのか</h3>
+
+          <div class="space-y-4">
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+              <h4 class="text-base md:text-lg font-bold text-green-800 mb-2">1. ユニーク性（一意性）</h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                注文IDは各注文に固有のIDです。<strong>同じ注文IDが2つ存在することはありません</strong>。
+                これにより、確実に正しい注文を特定できます。
+              </p>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <h4 class="text-base md:text-lg font-bold text-blue-800 mb-2">2. 変更されない</h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                注文IDは一度発行されたら変更されません。氏名や住所は変更される可能性がありますが、
+                注文IDは<strong>注文時に確定した情報</strong>として安定しています。
+              </p>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+              <h4 class="text-base md:text-lg font-bold text-yellow-800 mb-2">3. 重複がない</h4>
+              <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                氏名（例：山田太郎）や住所は、たまたま同じお客様が複数回注文する可能性があります。
+                しかし、注文IDなら<strong>異なる注文は必ず異なるID</strong>を持つので、間違いがありません。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- マッチングの仕組み（図解） -->
+        <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 text-center">
+            🔄 実際の動作を見てみよう
+          </h3>
+
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-8 text-center">
+            注文ID「ORD-12345」を例に、<strong class="text-purple-700">検索→発見→追記</strong>の流れを確認しましょう
+          </p>
+
+          <!-- 2つのデータソースを並べて表示 -->
+          <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- 実践①のスプレッドシート -->
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border-2 border-blue-300">
+              <h4 class="text-base md:text-lg font-bold text-blue-800 mb-4 text-center">
+                📊 実践編①のスプレッドシート
+              </h4>
+              <div class="bg-white rounded-lg p-4 overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b-2 border-gray-300">
+                      <th class="px-2 py-2 text-left bg-blue-100">C列</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">E列</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">G列</th>
+                      <th class="px-2 py-2 text-left bg-green-100">P列</th>
+                    </tr>
+                    <tr class="border-b border-gray-200 text-xs text-gray-600">
+                      <th class="px-2 py-1 font-semibold">注文ID</th>
+                      <th class="px-2 py-1 font-semibold">注文日時</th>
+                      <th class="px-2 py-1 font-semibold">お客様名</th>
+                      <th class="px-2 py-1 font-semibold">発送先氏名</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-yellow-50 border-l-4 border-yellow-400">
+                      <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
+                      <td class="px-2 py-2 text-gray-700">2025-01-28</td>
+                      <td class="px-2 py-2 text-gray-700">田中商店</td>
+                      <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
+                    </tr>
+                    <tr>
+                      <td class="px-2 py-2 text-gray-600">ORD-12346</td>
+                      <td class="px-2 py-2 text-gray-600">2025-01-28</td>
+                      <td class="px-2 py-2 text-gray-600">佐藤企画</td>
+                      <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-xs md:text-sm text-gray-600 mt-3 text-center">
+                ⬅️ ここのC列から「ORD-12345」を検索します
+              </p>
+            </div>
+
+            <!-- CSVファイル -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-300">
+              <h4 class="text-base md:text-lg font-bold text-green-800 mb-4 text-center">
+                📁 CSVファイル（発送情報）
+              </h4>
+              <div class="bg-white rounded-lg p-4 overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b-2 border-gray-300">
+                      <th class="px-2 py-2 text-left bg-green-100">注文ID</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">発送先氏名</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">住所</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-yellow-50 border-l-4 border-yellow-400">
+                      <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
+                      <td class="px-2 py-2 text-gray-700">山田太郎</td>
+                      <td class="px-2 py-2 text-gray-700">東京都...</td>
+                    </tr>
+                    <tr>
+                      <td class="px-2 py-2 text-gray-600">ORD-12346</td>
+                      <td class="px-2 py-2 text-gray-600">佐藤花子</td>
+                      <td class="px-2 py-2 text-gray-600">大阪府...</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-xs md:text-sm text-gray-600 mt-3 text-center">
+                ➡️ この情報を取得します
+              </p>
+            </div>
+          </div>
+
+          <!-- マッチング後の結果 -->
+          <div class="text-center mb-6">
+            <div class="inline-flex items-center gap-4 bg-purple-100 px-6 py-4 rounded-xl border-2 border-purple-400">
+              <span class="text-3xl">⬇️</span>
+              <div class="text-left">
+                <p class="text-base md:text-lg font-bold text-purple-800">GASが自動で実行</p>
+                <p class="text-sm md:text-base text-gray-700">注文ID「ORD-12345」の行を発見 → P列・R列・T列に追記</p>
+              </div>
+              <span class="text-3xl">⬇️</span>
+            </div>
+          </div>
+
+          <!-- マッチング後のスプレッドシート -->
+          <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-xl border-2 border-indigo-300">
+            <h4 class="text-base md:text-lg font-bold text-indigo-800 mb-4 text-center">
+              ✅ 追記完了！
+            </h4>
+            <div class="bg-white rounded-lg p-4 overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b-2 border-gray-300">
+                    <th class="px-2 py-2 text-left bg-blue-100">C列</th>
+                    <th class="px-2 py-2 text-left bg-gray-100">E列</th>
+                    <th class="px-2 py-2 text-left bg-gray-100">G列</th>
+                    <th class="px-2 py-2 text-left bg-green-100">P列</th>
+                    <th class="px-2 py-2 text-left bg-green-100">R列</th>
+                  </tr>
+                  <tr class="border-b border-gray-200 text-xs text-gray-600">
+                    <th class="px-2 py-1 font-semibold">注文ID</th>
+                    <th class="px-2 py-1 font-semibold">注文日時</th>
+                    <th class="px-2 py-1 font-semibold">お客様名</th>
+                    <th class="px-2 py-1 font-semibold">発送先氏名</th>
+                    <th class="px-2 py-1 font-semibold">発送先住所</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-green-50 border-l-4 border-green-500">
+                    <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
+                    <td class="px-2 py-2 text-gray-700">2025-01-28</td>
+                    <td class="px-2 py-2 text-gray-700">田中商店</td>
+                    <td class="px-2 py-2 font-bold text-green-700">山田太郎</td>
+                    <td class="px-2 py-2 font-bold text-green-700">東京都...</td>
+                  </tr>
+                  <tr>
+                    <td class="px-2 py-2 text-gray-600">ORD-12346</td>
+                    <td class="px-2 py-2 text-gray-600">2025-01-28</td>
+                    <td class="px-2 py-2 text-gray-600">佐藤企画</td>
+                    <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
+                    <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs md:text-sm text-green-700 font-semibold mt-3 text-center">
+              ✅ 注文ID「ORD-12345」の行に、発送情報が追加されました！
+            </p>
+          </div>
+        </div>
+
+        <!-- ポイントのまとめ -->
+        <div class="mt-8 bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 border-2 border-yellow-300">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">💡</span>
+            まとめ
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>マッチングキー = 検索の目印</strong>：注文IDを使って、スプレッドシートの該当する行を探します
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>注文IDはユニーク</strong>：重複がないので、間違った行に書き込むことがありません
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-base md:text-lg text-gray-700">
+                <strong>検索→発見→追記</strong>：この3ステップで、自動的にデータが統合されます
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
