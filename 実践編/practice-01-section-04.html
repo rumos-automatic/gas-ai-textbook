@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メールサンプル | 実践編① | 生成AI×GAS 短期講座</title>
+  <title>転記項目の設計 | 実践編① | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -13,42 +13,9 @@
     .smooth-scroll {
       scroll-behavior: smooth;
     }
-    .screenshot-placeholder {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 0.5rem;
-      padding: 3rem;
-      text-align: center;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .screenshot-placeholder:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    #imageModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
-    #imageModal.active {
-      display: flex;
-    }
-    #imageModal img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 38%, #e5e7eb 38%, #e5e7eb 100%);
+      background: linear-gradient(to right, #667eea 0%, #667eea 42%, #e5e7eb 42%, #e5e7eb 100%);
     }
     .dot-indicator {
       position: fixed;
@@ -97,6 +64,24 @@
     .dot:hover .dot-label {
       opacity: 1;
     }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: bold;
+      padding: 1rem;
+      text-align: left;
+    }
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
@@ -132,17 +117,11 @@
       <div class="dot active" data-section="intro">
         <span class="dot-label">導入</span>
       </div>
-      <div class="dot" data-section="goal">
-        <span class="dot-label">ゴール</span>
+      <div class="dot" data-section="transfer-table">
+        <span class="dot-label">転記項目表</span>
       </div>
-      <div class="dot" data-section="mail-sample">
-        <span class="dot-label">メールサンプル</span>
-      </div>
-      <div class="dot" data-section="send-mail">
-        <span class="dot-label">メール送信</span>
-      </div>
-      <div class="dot" data-section="data-to-extract">
-        <span class="dot-label">抽出項目</span>
+      <div class="dot" data-section="key-point">
+        <span class="dot-label">重要ポイント</span>
       </div>
       <div class="dot" data-section="next-step">
         <span class="dot-label">次のステップ</span>
@@ -151,12 +130,12 @@
   </div>
 
   <!-- メインコンテンツ -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <!-- タイトル -->
     <div class="text-center mb-12">
       <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
-        📧 メールサンプル
+        📊 転記項目の設計
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
         実践編① - 注文メール → スプレッドシート転記
@@ -165,300 +144,174 @@
 
     <!-- 導入説明 -->
     <section id="intro" class="mb-16">
-      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
         <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
-          📖 このステップで学ぶこと
+          💡 なぜ転記項目表を作るの?
         </h2>
 
-        <div class="space-y-6 max-w-4xl mx-auto">
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-            生成AIにGASのコードを作ってもらう前に、<strong class="text-indigo-600">「どんなメールを処理するのか」</strong>を確認しておくことが非常に重要です。
-            なぜなら、生成AIに正確な指示を出すためには、まず<strong>自分自身が対象のメールを理解している</strong>必要があるからです。
-          </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 text-center">
+          メールから<span class="font-bold text-blue-700">取得したい項目</span>と<span class="font-bold text-blue-700">転記したい列</span>を、<br/>
+          事前に表にしておくことで、生成AIに正確な指示を出せるようになります。
+        </p>
 
-          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">💡 なぜメールサンプルを確認するのか？</h3>
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
-                <div>
-                  <p class="text-lg font-semibold text-gray-800 mb-2">メールの構造を把握できる</p>
-                  <p class="text-lg text-gray-700 leading-relaxed">
-                    実際のメールを見ることで、「どこに何の情報があるか」「どんな形式で書かれているか」が分かります。
-                    これにより、生成AIに「このメールからこのデータを取り出してください」と正確に伝えられるようになります。
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start">
-                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
-                <div>
-                  <p class="text-lg font-semibold text-gray-800 mb-2">抽出したい項目を明確にできる</p>
-                  <p class="text-lg text-gray-700 leading-relaxed">
-                    メール本文を見ながら、「注文番号はここ」「商品名はここ」と確認することで、
-                    抽出項目の一覧を作成しやすくなります。これが次のステップで役立ちます。
-                  </p>
-                </div>
-              </div>
-
-              <div class="flex items-start">
-                <span class="text-2xl mr-4 flex-shrink-0">✓</span>
-                <div>
-                  <p class="text-lg font-semibold text-gray-800 mb-2">実際の業務に応用しやすくなる</p>
-                  <p class="text-lg text-gray-700 leading-relaxed">
-                    このサンプルを参考にすれば、あなたの業務で受け取る「問い合わせメール」「申込メール」「注文メール」なども、
-                    同じ手順で自動化できるようになります。まずは形式を理解することが第一歩です。
-                  </p>
-                </div>
-              </div>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          これまでのステップで、「どんなメールを処理するか」を確認しました。
+          次は、「<strong>そのメールのどのデータを、スプレッドシートのどの列に入れるか</strong>」を設計していきます。
+          この設計がしっかりできていると、生成AIが非常に正確なコードを作ってくれます。
+        </p>
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                生成AIが<span class="font-bold">何を抽出すればいいか</span>明確に理解できる
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                サンプルデータがあることで、<span class="font-bold">出力形式も正確に</span>
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-2xl mr-4 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                自分でも整理できるので、<span class="font-bold">後から修正しやすい</span>
+              </p>
             </div>
           </div>
-
-          <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl border-2 border-purple-200">
-            <p class="text-lg md:text-xl text-gray-800 leading-relaxed text-center">
-              <strong class="text-purple-700">このステップでは、サンプルメールを実際に受信して、内容を確認していきます。</strong><br/>
-              メールがどんな形式か把握できたら、次のステップで「どのデータをどこに転記するか」を設計しましょう。
-            </p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- ゴール -->
-    <section id="goal" class="mb-16">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
-        <div class="text-center mb-6">
-          <div class="text-5xl md:text-6xl mb-6">🎯</div>
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            このツールのゴール
-          </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-            注文メールの内容を抽出して、<strong class="text-indigo-600">1クリックでスプレッドシートへ自動転記</strong>
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <div class="text-3xl mb-3 text-center">⚡</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">作業時間を大幅削減</h3>
-            <p class="text-lg text-gray-700 leading-relaxed">
-              手動でメールを開いて、1件ずつコピー＆ペーストしていた作業が、<strong>ボタン1つで完了</strong>します。
-              10件の注文処理が数秒で終わるようになります。
-            </p>
-          </div>
-
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <div class="text-3xl mb-3 text-center">✅</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">転記ミスをゼロに</h3>
-            <p class="text-lg text-gray-700 leading-relaxed">
-              人間が手作業で転記すると、どうしても見間違いや入力ミスが発生してしまいます。
-              GASによる自動化なら、<strong>常に正確</strong>に転記できます。
-            </p>
-          </div>
-
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <div class="text-3xl mb-3 text-center">🔄</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">繰り返し作業から解放</h3>
-            <p class="text-lg text-gray-700 leading-relaxed">
-              毎日同じようなメール処理をしている方にとって、この自動化は大きな業務改善になると思います。
-              <strong>空いた時間を別の重要な仕事</strong>に使えるようになります。
-            </p>
-          </div>
-
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <div class="text-3xl mb-3 text-center">🎨</div>
-            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 text-center">他の業務にも応用可能</h3>
-            <p class="text-lg text-gray-700 leading-relaxed">
-              この仕組みを理解すれば、「問い合わせメール」「申込メール」「アンケート回答メール」など、
-              <strong>あらゆるメール処理</strong>を自動化できるようになります。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- サンプル注文メール -->
-    <section id="mail-sample" class="mb-16">
-      <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center gap-3">
-          <span class="text-3xl">📨</span>
-          サンプル：注文メールの形式
+    <!-- 転記項目表 -->
+    <section id="transfer-table" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border-4 border-orange-400">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📋 転記先シートの転記項目
         </h2>
 
-        <!-- メールの見方説明 -->
-        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg mb-8">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4">👀 メール本文の見方</h3>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            以下のサンプルメールを見ながら、<strong>「どこに何の情報があるか」</strong>を確認してみましょう。
-            生成AIにコードを作ってもらう際、このメール形式を参考にして指示を出します。
+        <div class="overflow-x-auto mb-8">
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th class="text-lg md:text-xl">項目名</th>
+                <th class="text-lg md:text-xl">列</th>
+                <th class="text-lg md:text-xl">抽出内容サンプル</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">注文ID</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">C</td>
+                <td class="text-lg text-gray-700">12345</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">注文日時</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">E</td>
+                <td class="text-lg text-gray-700">2025/10/28 14:30</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">お客様名</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">G</td>
+                <td class="text-lg text-gray-700">山田太郎</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">商品名</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">J</td>
+                <td class="text-lg text-gray-700">有機りんご 5kg</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">数量</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">H</td>
+                <td class="text-lg text-gray-700">2箱</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">金額</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">L</td>
+                <td class="text-lg text-gray-700">5600 ※カンマ・円記号除去</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">配送希望日</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">N</td>
+                <td class="text-lg text-gray-700">2025/11/01</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 応用メッセージ -->
+        <div class="bg-orange-50 p-6 rounded-2xl mb-6 border-2 border-orange-200">
+          <p class="text-lg md:text-xl text-center text-gray-800 leading-relaxed">
+            <span class="font-bold text-orange-600">💡 この対応表を真似して、</span><br/>
+            自分の業務に合わせた自動化ツールが作れます！
           </p>
-          <div class="space-y-3">
+        </div>
+
+        <!-- 応用方法 -->
+        <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-200">
+          <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 text-center">
+            📝 自分の業務に応用するには
+          </h3>
+          <div class="space-y-3 max-w-3xl mx-auto">
             <div class="flex items-start">
               <span class="text-xl mr-3 flex-shrink-0">✓</span>
-              <p class="text-lg text-gray-700">
-                <strong>件名</strong>：「【注文完了】ご注文ありがとうございます」という形式で届きます
+              <p class="text-lg md:text-xl text-gray-700">
+                「項目名」欄を自分が抽出したいデータに置き換える
               </p>
             </div>
             <div class="flex items-start">
               <span class="text-xl mr-3 flex-shrink-0">✓</span>
-              <p class="text-lg text-gray-700">
-                <strong>本文</strong>：注文番号、注文日時、商品情報、配送先などが含まれています
+              <p class="text-lg md:text-xl text-gray-700">
+                「列」は<span class="font-bold text-blue-700">既存シートで使いたい列を指定</span>（C列、E列、J列など飛び飛びでもOK）
               </p>
             </div>
             <div class="flex items-start">
               <span class="text-xl mr-3 flex-shrink-0">✓</span>
-              <p class="text-lg text-gray-700">
-                <strong>抽出項目</strong>：これらの情報を1つずつ抽出して、スプレッドシートの指定した列に転記します
+              <p class="text-lg md:text-xl text-gray-700">
+                「抽出内容サンプル」に実際のデータ例を書く
+              </p>
+            </div>
+            <div class="flex items-start">
+              <span class="text-xl mr-3 flex-shrink-0">✓</span>
+              <p class="text-lg md:text-xl text-gray-700">
+                この表をそのまま生成AIへのプロンプトに貼り付ければOK！
               </p>
             </div>
           </div>
         </div>
-
-        <!-- メール風デザイン -->
-        <div class="bg-white border-2 border-gray-300 rounded-lg shadow-inner max-w-4xl mx-auto" style="font-family: 'Courier New', Courier, monospace;">
-          <!-- メールヘッダー -->
-          <div class="p-6 border-b-2 border-gray-300">
-            <div class="space-y-3">
-              <div>
-                <p class="text-base text-gray-600 mb-1"><strong>差出人：</strong></p>
-                <p class="text-lg text-gray-900">aisapo1.ru4@gmail.com</p>
-              </div>
-              <div>
-                <p class="text-base text-gray-600 mb-1"><strong>件名：</strong></p>
-                <p class="text-lg text-gray-900">【注文完了】ご注文ありがとうございます</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- メール本文 -->
-          <div class="p-6 text-base text-gray-800 whitespace-pre-line leading-relaxed">━━━━━━━━━━━━━━━━━━━━━
-  ご注文ありがとうございます
-━━━━━━━━━━━━━━━━━━━━━
-
-注文ID: ORD-12346
-注文日時: 2025年11月16日 14:30
-お客様名: 佐藤花子
-
-【ご注文内容】
-商品名: ノートパソコン HP Pavilion 15
-数量: 1台
-小計: 89,800円
-
-配送希望日: 2025年11月19日
-
-━━━━━━━━━━━━━━━━━━━━━
-※このメールはGAS講座の練習用サンプルです</div>
-        </div>
-
-        <p class="text-sm text-gray-600 mt-4 text-center">
-          ※ 注文IDと日時は送信時に自動生成されます。お客様名・商品情報は7つのパターンからランダムに選ばれます。
-        </p>
       </div>
     </section>
 
-    <!-- サンプルメール送信セクション -->
-    <section id="send-mail" class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">📧 サンプルメールを受信しましょう</h2>
-
-      <!-- プライバシー保護に関する注意 -->
-      <div class="bg-gray-50 border-l-4 border-gray-400 p-6 rounded-lg mb-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🔒 個人情報の取り扱いについて</h3>
-        <p class="text-lg leading-relaxed text-gray-700">
-          こちらで入力いただいたメールアドレスは、<strong>サンプルメールの送信のみに使用</strong>いたします。
-          それ以外の目的で使用することは一切ありませんので、ご安心ください。
-        </p>
-      </div>
-
-      <!-- フォーム -->
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-8">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">サンプルメールを送信</h3>
-
-        <div class="mb-6">
-          <label for="emailInput" class="block text-lg font-semibold text-gray-700 mb-2">
-            あなたのメールアドレス
-          </label>
-          <input
-            type="email"
-            id="emailInput"
-            placeholder="your-email@gmail.com"
-            class="w-full px-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition"
-          >
-        </div>
-
-        <button
-          id="sendButton"
-          onclick="sendSampleEmail()"
-          class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-6 py-4 rounded-lg transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-        >
-          <span id="buttonText">サンプルメールを送信</span>
-          <span id="buttonSpinner" class="hidden">
-            <svg class="animate-spin inline-block h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            送信中...
-          </span>
-        </button>
-
-        <!-- ステータスメッセージ -->
-        <div id="statusMessage" class="mt-6 hidden"></div>
-      </div>
-
-      <!-- 補足説明 -->
-      <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 このメールの使い方</h3>
-        <p class="text-lg leading-relaxed text-gray-700 mb-4">
-          サンプルメールには、「注文番号」「商品名」「価格」「配送予定日」などの情報が含まれています。
-          次のステップでは、このメールの情報をGASで自動的にスプレッドシートに転記する方法を学びます。
-          何度でも送信できますので、練習用にお使いください。
-        </p>
-
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-6">
-          <p class="text-base leading-relaxed text-gray-800">
-            <strong>⚠️ 注意：</strong>
-            メールが迷惑メールフォルダに振り分けられる可能性があります。
-            届かない場合は、迷惑メールフォルダもご確認ください。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- このメールから取得したいデータ -->
-    <section id="data-to-extract" class="mb-16">
+    <!-- 重要ポイント -->
+    <section id="key-point" class="mb-16">
       <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-purple-300">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
-          💡 このメールから取得したいデータ
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center flex items-center justify-center gap-3">
+          <span class="text-3xl">⚡</span>
+          列指定のポイント
         </h2>
-        <p class="text-lg md:text-xl text-gray-700 mb-4 text-center leading-relaxed">
-          メール本文の中から、以下の<strong>基本的な注文情報</strong>を自動で抽出してスプレッドシートに転記します
-        </p>
-        <div class="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-6">
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 注文ID</p>
+        <div class="space-y-6 max-w-3xl mx-auto">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 飛び飛びの列でもOK</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              既存のシートに列が存在している場合、A,B,C列と連続していなくても大丈夫です。
+              例えば「C列、E列、G列、J列、L列、N列」のように飛び飛びでも指定できます。
+            </p>
           </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 注文日時</p>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 既存の列は変更されない</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              指定した列以外のデータは一切変更されません。
+              既にデータが入っているシートでも、安全に追記できます。
+            </p>
           </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ お客様名</p>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-3">✅ 最終行の次に追記される</h3>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+              GASは自動的にシートの最終行を検出し、その次の行にデータを追記します。
+              手動でデータが入っていても、自動転記のデータと混在させずに管理できます。
+            </p>
           </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 商品名</p>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 数量</p>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 小計</p>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow">
-            <p class="text-lg md:text-xl font-bold text-gray-800">✓ 配送希望日</p>
-          </div>
-        </div>
-        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-          <p class="text-base md:text-lg text-gray-700">
-            📌 <strong>実践編②では</strong>、メールアドレス・電話番号・配送先住所などの詳細情報をCSVファイルから抽出する方法を学びます。
-          </p>
         </div>
       </div>
     </section>
@@ -467,14 +320,14 @@
     <section id="next-step" class="mb-16">
       <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
         <h2 class="text-xl md:text-2xl font-bold mb-4">
-          📌 次は転記項目を設計しましょう
+          📌 次は生成AIへのプロンプト例を確認しましょう
         </h2>
         <p class="text-lg md:text-xl mb-6 leading-relaxed">
-          メールの形式が分かったら、次は「どのデータをどの列に転記するか」を設計します。<br/>
-          この設計がしっかりできていると、生成AIが正確なコードを作ってくれます。
+          転記項目が設計できたら、次は実際に生成AIに渡すプロンプトの例を見ていきます。<br/>
+          ワークシートの5ステップに沿って、どう書けばいいかを確認しましょう。
         </p>
         <a href="practice-01-section-05.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          次へ：転記項目の設計 →
+          次へ：プロンプト例 →
         </a>
       </div>
     </section>
@@ -488,133 +341,7 @@
     </div>
   </footer>
 
-  <!-- 画像拡大モーダル -->
-  <div id="imageModal">
-    <span id="closeModal" style="position: absolute; top: 20px; right: 40px; font-size: 40px; color: white; cursor: pointer;">&times;</span>
-    <img id="modalImage" src="" alt="拡大画像">
-  </div>
-
   <script>
-    // サンプルメール送信機能（JSONP対応）
-    const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzJpGcttRHsG3hSJrBHEMwpD7Oz9LtB6bLlPuQWWcUPcBfbBPW32o61cUZ0sRI3j0X6/exec';
-
-    function sendSampleEmail() {
-      const emailInput = document.getElementById('emailInput');
-      const sendButton = document.getElementById('sendButton');
-      const buttonText = document.getElementById('buttonText');
-      const buttonSpinner = document.getElementById('buttonSpinner');
-      const statusMessage = document.getElementById('statusMessage');
-
-      const email = emailInput.value.trim();
-
-      // バリデーション
-      if (!email) {
-        showStatus('error', 'メールアドレスを入力してください');
-        return;
-      }
-
-      if (!isValidEmail(email)) {
-        showStatus('error', 'メールアドレスの形式が正しくありません');
-        return;
-      }
-
-      // ローディング状態
-      sendButton.disabled = true;
-      buttonText.classList.add('hidden');
-      buttonSpinner.classList.remove('hidden');
-      statusMessage.classList.add('hidden');
-
-      // JSONP リクエスト
-      const callbackName = 'jsonpCallback_' + Date.now();
-
-      // コールバック関数を定義
-      window[callbackName] = function(data) {
-        if (data.success) {
-          showStatus('success', data.message);
-          emailInput.value = ''; // 入力欄をクリア
-        } else {
-          showStatus('error', data.message);
-        }
-
-        // クリーンアップ
-        delete window[callbackName];
-        document.body.removeChild(script);
-
-        // ローディング解除
-        sendButton.disabled = false;
-        buttonText.classList.remove('hidden');
-        buttonSpinner.classList.add('hidden');
-      };
-
-      // エラーハンドリング
-      const handleError = function() {
-        showStatus('error', 'ネットワークエラーが発生しました。時間をおいて再度お試しください。');
-        delete window[callbackName];
-        document.body.removeChild(script);
-
-        // ローディング解除
-        sendButton.disabled = false;
-        buttonText.classList.remove('hidden');
-        buttonSpinner.classList.add('hidden');
-      };
-
-      // scriptタグを動的に作成
-      const script = document.createElement('script');
-      script.src = GAS_WEB_APP_URL +
-        '?callback=' + callbackName +
-        '&email=' + encodeURIComponent(email);
-      script.onerror = handleError;
-      script.onabort = handleError;
-      document.body.appendChild(script);
-    }
-
-    function isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    }
-
-    function showStatus(type, message) {
-      const statusMessage = document.getElementById('statusMessage');
-      statusMessage.classList.remove('hidden');
-
-      if (type === 'success') {
-        statusMessage.className = 'mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg';
-        statusMessage.innerHTML = `<strong>✅ ${message}</strong>`;
-      } else {
-        statusMessage.className = 'mt-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg';
-        statusMessage.innerHTML = `<strong>❌ ${message}</strong>`;
-      }
-    }
-
-    // 画像拡大機能
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const closeModal = document.getElementById('closeModal');
-
-    document.querySelectorAll('.screenshot-placeholder').forEach(img => {
-      img.addEventListener('click', function() {
-        modal.classList.add('active');
-        modalImage.src = this.dataset.src || '';
-      });
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.classList.remove('active');
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('active');
-      }
-    });
-
-    // Escキーでモーダルを閉じる
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.classList.remove('active');
-      }
-    });
-
     // スムーススクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {

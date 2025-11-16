@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ステップ5: カスタムメニュー設定 | 実践編② | 生成AI×GAS 短期講座</title>
+  <title>メリット | 実践編② | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -13,129 +13,71 @@
     .smooth-scroll {
       scroll-behavior: smooth;
     }
-    .screenshot-placeholder {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 0.5rem;
-      padding: 3rem;
-      text-align: center;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .screenshot-placeholder:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    #imageModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
-    #imageModal.active {
-      display: flex;
-    }
-    #imageModal img {
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 92%, #e5e7eb 92%, #e5e7eb 100%);
+      background: linear-gradient(to right, #667eea 0%, #667eea 91%, #e5e7eb 91%, #e5e7eb 100%);
     }
-
-    /* ドットインジケーター */
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
     .dot-indicator {
       position: fixed;
       right: 2rem;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 30;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      z-index: 50;
     }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #d1d5db;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .dot.active {
-      background: #667eea;
-      transform: scale(1.3);
-    }
-
-    .dot:hover {
-      background: #667eea;
-      transform: scale(1.2);
-    }
-
-    .dot-label {
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(102, 126, 234, 0.95);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      white-space: nowrap;
-      font-size: 0.875rem;
-      font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .dot:hover .dot-label {
-      opacity: 1;
-    }
-
     @media (max-width: 768px) {
       .dot-indicator {
         display: none;
       }
     }
-  </style>
-  <!-- グローバル検索機能 -->
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #8b9dc3;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #667eea;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+  </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
   <script src="../assets/js/searchGlobal.js" defer></script>
   <script src="../assets/js/highlightManager.js" defer></script>
 
 </head>
 <body class="smooth-scroll bg-gray-50">
-
-  <!-- ドットインジケーター -->
-  <div class="dot-indicator">
-    <div class="dot" data-target="what-is-custom-menu">
-      <div class="dot-label">カスタムメニューとは？</div>
-    </div>
-    <div class="dot" data-target="ai-instruction">
-      <div class="dot-label">生成AIに追加指示</div>
-    </div>
-    <div class="dot" data-target="paste-code">
-      <div class="dot-label">コードを貼り付け</div>
-    </div>
-    <div class="dot" data-target="test-menu">
-      <div class="dot-label">動作確認</div>
-    </div>
-    <div class="dot" data-target="next-step">
-      <div class="dot-label">次のステップへ</div>
-    </div>
-  </div>
 
   <!-- ナビゲーション -->
   <nav class="bg-white shadow-md sticky top-0 z-40">
@@ -144,7 +86,7 @@
         <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
           ← トップページへ
         </a>
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-4">
           <a href="practice-02-section-09.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
@@ -153,346 +95,254 @@
           </a>
         </div>
       </div>
-      <!-- 進捗バー -->
       <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
 
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="merits">
+        <span class="dot-label">メリット</span>
+      </div>
+      <div class="dot" data-section="concrete-effect">
+        <span class="dot-label">具体的な効果</span>
+      </div>
+      <div class="dot" data-section="next-step">
+        <span class="dot-label">次のステップ</span>
+      </div>
+    </div>
+  </div>
+
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-    <!-- セクションタイトル -->
-    <header class="mb-16 text-center">
-      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-        カスタムメニュー設定
+    <!-- タイトル -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
+        💡 このツールのメリット
       </h1>
       <p class="text-lg md:text-xl text-gray-600">
-        ツールが正しく動作することを確認したら、カスタムメニューを追加して使いやすくしましょう
+        実践編② - 注文データ自動転記
       </p>
-    </header>
+    </div>
 
-    <!-- カスタムメニューとは -->
-    <section id="what-is-custom-menu" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📋 カスタムメニューとは？</h2>
+    <!-- メリット一覧 -->
+    <section id="merits" class="mb-16">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          🎉 自動化で得られる10のメリット
+        </h2>
 
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          <strong>カスタムメニュー</strong>とは、スプレッドシートのメニューバーに<strong>独自のメニューを追加</strong>して、ボタンをクリックするだけでGASを実行できる機能です。
-        </p>
-
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          カスタムメニューを追加すれば、スクリプトエディタを開かなくても、スプレッドシート上から直接ツールを実行できるようになります。
-          好きなタイミングで、ボタン1つで簡単に実行できるので、とても便利だと思います。
-        </p>
-
-        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-8 mb-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">実践編①と実践編②の違い</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-lg p-6 shadow">
-              <p class="text-4xl mb-3">⏰</p>
-              <p class="text-lg font-semibold text-gray-900 mb-2">実践編①：トリガー設定</p>
-              <p class="text-base text-gray-600 mb-3">指定した時間に<strong>自動実行</strong></p>
-              <ul class="text-base text-gray-600 space-y-1">
-                <li>・毎日午前9時に自動実行</li>
-                <li>・完全放置でOK</li>
-                <li>・パソコンが閉じていても動く</li>
-              </ul>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow">
-              <p class="text-4xl mb-3">📋</p>
-              <p class="text-lg font-semibold text-gray-900 mb-2">実践編②：カスタムメニュー</p>
-              <p class="text-base text-gray-600 mb-3">好きなタイミングで<strong>手動実行</strong></p>
-              <ul class="text-base text-gray-600 space-y-1">
-                <li>・ボタンをクリックして実行</li>
-                <li>・実行タイミングを自分で決められる</li>
-                <li>・スプレッドシートから直接実行</li>
-              </ul>
-            </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 技術的メリット -->
+          <div class="bg-green-50 p-6 rounded-xl hover-lift border-2 border-green-200">
+            <h3 class="text-lg md:text-xl font-bold text-green-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              実践①のデータに自動追加
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              発送情報CSVをフォルダに入れるだけ
+            </p>
           </div>
-        </div>
 
-        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎯 こんなときに便利</h3>
-          <p class="text-lg leading-relaxed text-gray-700">
-            発送情報のCSVファイルは、毎日決まった時間に届くわけではないかもしれません。
-            そんなときは、カスタムメニューから手動で実行する方が便利ですよね。
-            CSVファイルが届いたタイミングで、ボタン1つで発送情報を追加できます。
-          </p>
+          <div class="bg-blue-50 p-6 rounded-xl hover-lift border-2 border-blue-200">
+            <h3 class="text-lg md:text-xl font-bold text-blue-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              複数ファイル一括処理
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              50件でも100件でも同じ時間
+            </p>
+          </div>
+
+          <div class="bg-purple-50 p-6 rounded-xl hover-lift border-2 border-purple-200">
+            <h3 class="text-lg md:text-xl font-bold text-purple-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              処理履歴が残る
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              処理済みフォルダで管理しやすい
+            </p>
+          </div>
+
+          <div class="bg-orange-50 p-6 rounded-xl hover-lift border-2 border-orange-200">
+            <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">✓</span>
+              実務に近い
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              ECサイト、POSなどに応用可能
+            </p>
+          </div>
+
+          <!-- 手作業との比較 -->
+          <div class="bg-red-50 p-6 rounded-xl hover-lift border-4 border-red-300">
+            <h3 class="text-lg md:text-xl font-bold text-red-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">⏰</span>
+              作業時間 96%削減
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              月8時間 → 20分に短縮
+            </p>
+          </div>
+
+          <div class="bg-yellow-50 p-6 rounded-xl hover-lift border-4 border-yellow-300">
+            <h3 class="text-lg md:text-xl font-bold text-yellow-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">🎯</span>
+              転記ミス 0%
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              手作業2-3% → 完全自動で0%
+            </p>
+          </div>
+
+          <!-- ビジネスメリット -->
+          <div class="bg-pink-50 p-6 rounded-xl hover-lift border-4 border-pink-300">
+            <h3 class="text-lg md:text-xl font-bold text-pink-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">💰</span>
+              外注不要
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              年間120万円のコスト削減
+            </p>
+          </div>
+
+          <div class="bg-indigo-50 p-6 rounded-xl hover-lift border-4 border-indigo-300">
+            <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">🌙</span>
+              24時間365日稼働
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              深夜注文も翌朝には転記完了
+            </p>
+          </div>
+
+          <div class="bg-teal-50 p-6 rounded-xl hover-lift border-4 border-teal-300">
+            <h3 class="text-lg md:text-xl font-bold text-teal-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">📈</span>
+              少人数運営でもスケール
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              売上2倍でも工数は同じ
+            </p>
+          </div>
+
+          <div class="bg-emerald-50 p-6 rounded-xl hover-lift border-4 border-emerald-300">
+            <h3 class="text-lg md:text-xl font-bold text-emerald-700 mb-2 flex items-center gap-2">
+              <span class="text-2xl">😊</span>
+              本業に集中できる
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700">
+              単純作業から解放される
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 生成AIに追加指示を送る -->
-    <section id="ai-instruction" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">🤖 生成AIに追加指示を送る</h2>
+    <!-- 具体的な効果 -->
+    <section id="concrete-effect" class="mb-16">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
+          📊 具体的な効果（1ヶ月あたり）
+        </h2>
 
-      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          それでは、先ほど使ったChatGPTのチャット（ステップ2で使ったチャット）を開きましょう。
-        </p>
+        <div class="space-y-6 max-w-3xl mx-auto">
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">⏱️ 時間削減</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-red-600">手作業：</span> 注文IDを探して発送情報をコピーする作業 - 1件3分 × 100件 = 300分（約5時間）
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-green-600">自動化：</span> 100件を一括処理 = 約10分
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → 月に約4時間50分の削減！
+              </p>
+            </div>
+          </div>
 
-        <p class="text-lg md:text-xl leading-relaxed mb-6">
-          同じチャットで会話を続けることで、生成AIは既に作成した関数の内容を理解しているため、
-          簡単な一言を追加するだけで、カスタムメニューのコードを作成してくれます。
-        </p>
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">💵 コスト削減</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                時給2,000円の人件費と仮定
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                月8時間 × 2,000円 = <span class="font-bold text-red-600">16,000円</span>
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                年間では <span class="font-bold text-red-600">192,000円</span> の削減
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → GAS利用料は無料！
+              </p>
+            </div>
+          </div>
 
-        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8 mb-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">追加で送る指示</h3>
-          <div class="bg-white rounded-lg p-6 shadow-md">
-            <p class="text-lg text-gray-900 font-semibold mb-3">ChatGPTに以下のように伝えましょう：</p>
-            <div class="bg-gray-100 rounded-lg p-4 border-l-4 border-indigo-500">
-              <p class="text-lg text-gray-800 leading-relaxed">
-                「この関数をシートのカスタムメニューから実行できるようにしたいです」
+          <div class="bg-white p-6 rounded-xl shadow-md">
+            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">✨ 品質向上</h3>
+            <div class="space-y-2">
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-red-600">手作業：</span> 100件中2-3件のミス（2-3%）
+              </p>
+              <p class="text-lg md:text-xl text-gray-700">
+                <span class="font-bold text-green-600">自動化：</span> ミス率 0%
+              </p>
+              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
+                → クレーム削減、信頼性向上
               </p>
             </div>
           </div>
         </div>
-
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
-          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 なぜこれだけで済むの？</h4>
-          <p class="text-lg leading-relaxed text-gray-700 mb-3">
-            同じチャットで会話を続けることで、生成AIは以下の情報を覚えています：
-          </p>
-          <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
-            <li>既に作成した関数の名前と機能</li>
-            <li>どんな処理を行うツールなのか</li>
-            <li>どのように動作するのか</li>
-          </ul>
-          <p class="text-lg leading-relaxed text-gray-700 mt-3">
-            そのため、詳しいプロンプトを書かなくても、文脈を理解して適切なコードを作成してくれます。
-          </p>
-        </div>
-
-        <!-- スクリーンショット -->
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-practice02-custom-menu-prompt.png')">
-          <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-          <p class="text-lg">ChatGPTに追加指示を送る画面</p>
-          <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice02-custom-menu-prompt.png</p>
-        </div>
-
-        <div class="mt-8 bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 生成AIの回答例</h4>
-          <p class="text-lg leading-relaxed text-gray-700 mb-3">
-            ChatGPTは、<code class="bg-gray-200 px-2 py-1 rounded">onOpen</code>関数を含むコードを作成してくれます。
-            この関数は、スプレッドシートを開いたときに自動的に実行され、カスタムメニューを追加する役割を持っています。
-          </p>
-          <p class="text-lg leading-relaxed text-gray-700">
-            生成されたコードをコピーして、次のステップでGASエディタに貼り付けましょう。
-          </p>
-        </div>
       </div>
     </section>
 
-    <!-- コードを貼り付け -->
-    <section id="paste-code" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📋 コードをGASエディタに貼り付け</h2>
-
-      <div class="space-y-8">
-        <!-- ステップ1 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">1️⃣ 生成されたコードをコピー</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-4">
-            ChatGPTが生成した<code class="bg-gray-200 px-2 py-1 rounded">onOpen</code>関数のコードをコピーします。
-          </p>
-
-          <p class="text-lg md:text-xl leading-relaxed">
-            コードブロックの右上にある<strong>「コピー」</strong>アイコンをクリックすると、簡単にコピーできます。
-          </p>
-
-          <!-- スクリーンショット -->
-          <div class="mt-6 screenshot-placeholder" onclick="openModal('screenshot-practice02-copy-menu-code.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">ChatGPTの回答からコードをコピー</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice02-copy-menu-code.png</p>
-          </div>
-        </div>
-
-        <!-- ステップ2 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">2️⃣ GASエディタに貼り付け</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            スクリプトエディタを開き、既存のコードの<strong>下に</strong>貼り付けます。
-          </p>
-
-          <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ 注意</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              既存のコードを削除せず、<strong>追加で貼り付ける</strong>ようにしましょう。
-              既に作成した関数の下に、<code class="bg-gray-200 px-2 py-1 rounded">onOpen</code>関数を追加するイメージです。
-            </p>
-          </div>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice02-paste-menu-code.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">GASエディタにonOpen関数を貼り付け</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice02-paste-menu-code.png</p>
-          </div>
-        </div>
-
-        <!-- ステップ3 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">3️⃣ 保存する</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            コードを貼り付けたら、<strong>保存</strong>ボタン（💾アイコン）をクリックして保存しましょう。
-          </p>
-
-          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 保存完了</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              これで、カスタムメニューのコードが追加されました。
-              次は、実際にカスタムメニューが表示されるか確認しましょう。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 動作確認 -->
-    <section id="test-menu" class="mb-20">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">✅ 動作確認</h2>
-
-      <div class="space-y-8">
-        <!-- ステップ1 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">1️⃣ スプレッドシートをリロード</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-4">
-            カスタムメニューは、スプレッドシートを開いたときに表示されます。
-            そのため、一度スプレッドシートを<strong>リロード</strong>（再読み込み）する必要があります。
-          </p>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            スプレッドシートのタブに移動して、<strong>F5キー</strong>を押すか、ブラウザの再読み込みボタンをクリックしましょう。
-          </p>
-
-          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 リロードの方法</h4>
-            <ul class="space-y-2 text-lg text-gray-700">
-              <li>・<strong>Windowsの場合</strong>：F5キー または Ctrl + R</li>
-              <li>・<strong>Macの場合</strong>：Command + R</li>
-              <li>・<strong>ブラウザのボタン</strong>：アドレスバーの左にある再読み込みボタン</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ステップ2 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">2️⃣ カスタムメニューが表示されることを確認</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            スプレッドシートをリロードすると、メニューバー（「ファイル」「編集」「表示」などが並んでいる場所）に、
-            <strong>カスタムメニュー</strong>が追加されているはずです。
-          </p>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            メニュー名は、生成AIが自動で決めてくれた名前（例：「発送先情報」「ツール」など）が表示されます。
-          </p>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice02-menu-displayed.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">カスタムメニューが表示された画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice02-menu-displayed.png</p>
-          </div>
-
-          <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">⚠️ メニューが表示されない場合</h4>
-            <p class="text-lg leading-relaxed text-gray-700 mb-3">
-              もしカスタムメニューが表示されない場合は、以下を確認してみましょう：
-            </p>
-            <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
-              <li>コードを保存したか確認</li>
-              <li>スプレッドシートを完全にリロードしたか確認</li>
-              <li>スクリプトエディタでエラーが出ていないか確認</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ステップ3 -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">3️⃣ カスタムメニューから実行</h3>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            カスタムメニューをクリックすると、メニュー項目が表示されます。
-            その中から、<strong>「発送先情報を追加」</strong>（または生成AIが設定した項目名）をクリックしましょう。
-          </p>
-
-          <p class="text-lg md:text-xl leading-relaxed mb-6">
-            クリックすると、ステップ3で作成した関数が実行され、
-            Googleドライブから発送先情報のCSVファイルを取得して、スプレッドシートに転記されます。
-          </p>
-
-          <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice02-menu-execution.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">カスタムメニューから実行する様子</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice02-menu-execution.png</p>
-          </div>
-
-          <div class="mt-6 bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">🎉 動作確認完了！</h4>
-            <p class="text-lg leading-relaxed text-gray-700">
-              カスタムメニューから正しく実行できれば、動作確認は完了です。
-              これで、スプレッドシートを開いて、ボタン1つで発送情報を追加できるようになりました。
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 次のステップへの誘導 -->
-    <section id="next-step" class="mb-20">
-      <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-8 text-white text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">🎉 カスタムメニュー設定完了！</h2>
-        <p class="text-lg md:text-xl mb-6">
-          カスタムメニューの設定が完了しました。
-          これで、好きなタイミングでボタン1つで発送情報を追加できます。
-          次は、このツールのメリットと活用方法を確認しましょう。
+    <!-- 次のステップへ -->
+    <section id="next-step" class="mb-16">
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
+        <h2 class="text-xl md:text-2xl font-bold mb-4">
+          📌 次はまとめを確認しましょう
+        </h2>
+        <p class="text-lg md:text-xl mb-6 leading-relaxed">
+          実践編②で学んだことを振り返り、次のステップに進む準備をしましょう。
         </p>
-        <a href="practice-02-section-11.html" class="inline-block bg-white text-green-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
-          メリットを確認する →
+        <a href="practice-02-section-11.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          次へ：まとめ →
         </a>
       </div>
     </section>
 
   </main>
 
-  <!-- 画像拡大モーダル -->
-  <div id="imageModal" onclick="closeModal()">
-    <span style="position: absolute; top: 2rem; right: 2rem; font-size: 3rem; color: white; cursor: pointer;">&times;</span>
-    <img id="modalImage" src="" alt="拡大画像">
-  </div>
+  <!-- フッター -->
+  <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編②</p>
+    </div>
+  </footer>
 
-  <!-- スクリプト -->
   <script>
-    function openModal(imagePath) {
-      const modal = document.getElementById('imageModal');
-      const modalImage = document.getElementById('modalImage');
-      modalImage.src = '../assets/images/screenshots/' + imagePath;
-      modal.classList.add('active');
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('imageModal');
-      modal.classList.remove('active');
-    }
-
-    // Escキーでモーダルを閉じる
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
     });
 
-    // ドットインジケーターの機能
-    const dots = document.querySelectorAll('.dot');
+    // ドットインジケーター機能
     const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
 
-    // Intersection Observer for active dot
     const observerOptions = {
       root: null,
       rootMargin: '-50% 0px -50% 0px',
@@ -502,9 +352,9 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
+          const sectionId = entry.target.getAttribute('id');
           dots.forEach(dot => {
-            if (dot.getAttribute('data-target') === id) {
+            if (dot.getAttribute('data-section') === sectionId) {
               dot.classList.add('active');
             } else {
               dot.classList.remove('active');
@@ -518,13 +368,13 @@
       observer.observe(section);
     });
 
-    // Smooth scroll on dot click
+    // ドットクリックでセクションへスクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
-        const targetId = dot.getAttribute('data-target');
-        const targetSection = document.getElementById(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       });
     });

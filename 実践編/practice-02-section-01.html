@@ -68,7 +68,7 @@
 
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 10%, #e5e7eb 10%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 9%, #e5e7eb 9%, #e5e7eb 100%);
     }
 
     @media (max-width: 768px) {
@@ -111,6 +111,9 @@
       </div>
       <div class="dot" data-section="overview">
         <span class="dot-label">作業の概要</span>
+      </div>
+      <div class="dot" data-section="workflow">
+        <span class="dot-label">全体の流れ</span>
       </div>
     </div>
   </div>
@@ -353,6 +356,150 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 全体の流れ -->
+    <section id="workflow" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📌 全体の流れ</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-8">
+          この実践編は、以下の10のステップで進めていきます。
+          順番に進めることで、無理なく自動化ツールを完成させることができます。
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- ステップ1: 作業の棚卸 -->
+          <a href="practice-02-section-02.html" class="block bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                1
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">作業の棚卸</h3>
+                <p class="text-base text-gray-700">現在の作業を具体的に書き出します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ2: 自動化ワークシート -->
+          <a href="practice-02-section-03.html" class="block bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                2
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">自動化ワークシート</h3>
+                <p class="text-base text-gray-700">自動化の計画を立てます</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ3: 準備編 -->
+          <a href="practice-02-section-04.html" class="block bg-gradient-to-br from-green-50 to-emerald-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                3
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">準備編</h3>
+                <p class="text-base text-gray-700">GoogleDriveでフォルダを作成し、フォルダIDを取得します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ4: データ形式と転記項目 -->
+          <a href="practice-02-section-05.html" class="block bg-gradient-to-br from-green-50 to-emerald-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                4
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">データ形式と転記項目</h3>
+                <p class="text-base text-gray-700">CSVファイルのデータ形式と転記先を確認します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ5: ChatGPTにプロンプトを送る -->
+          <a href="practice-02-section-06.html" class="block bg-gradient-to-br from-green-50 to-emerald-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                5
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">ChatGPTにプロンプトを送る</h3>
+                <p class="text-base text-gray-700">生成AIにコード生成を依頼します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ6: コードをGASエディタに貼り付け -->
+          <a href="practice-02-section-07.html" class="block bg-gradient-to-br from-purple-50 to-pink-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                6
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">コードをGASエディタに貼り付け</h3>
+                <p class="text-base text-gray-700">生成されたコードをGASに追加します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ7: 動作確認 -->
+          <a href="practice-02-section-08.html" class="block bg-gradient-to-br from-purple-50 to-pink-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                7
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">動作確認</h3>
+                <p class="text-base text-gray-700">テストデータで動作を確認します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ8: カスタムメニュー設定 -->
+          <a href="practice-02-section-09.html" class="block bg-gradient-to-br from-purple-50 to-pink-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                8
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">カスタムメニュー設定</h3>
+                <p class="text-base text-gray-700">メニューからワンクリックで実行できるようにします</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ9: メリット -->
+          <a href="practice-02-section-10.html" class="block bg-gradient-to-br from-yellow-50 to-orange-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                9
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">メリット</h3>
+                <p class="text-base text-gray-700">この自動化ツールの効果を確認します</p>
+              </div>
+            </div>
+          </a>
+
+          <!-- ステップ10: まとめ -->
+          <a href="practice-02-section-11.html" class="block bg-gradient-to-br from-yellow-50 to-orange-100 rounded-lg p-6 shadow hover:shadow-xl transition transform hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                10
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">まとめ</h3>
+                <p class="text-base text-gray-700">実践編②の総まとめと次のステップへ</p>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

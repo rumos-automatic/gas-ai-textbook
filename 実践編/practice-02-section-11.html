@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>メリット | 実践編② | 生成AI×GAS 短期講座</title>
+  <title>実践編②-7: まとめ | 生成AI×GAS 短期講座</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -15,15 +15,9 @@
     }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 90%, #e5e7eb 90%, #e5e7eb 100%);
+      background: linear-gradient(to right, #8b5cf6 0%, #8b5cf6 100%, #e5e7eb 100%, #e5e7eb 100%);
     }
-    .hover-lift {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    }
+
     .dot-indicator {
       position: fixed;
       right: 2rem;
@@ -31,11 +25,7 @@
       transform: translateY(-50%);
       z-index: 50;
     }
-    @media (max-width: 768px) {
-      .dot-indicator {
-        display: none;
-      }
-    }
+
     .dot {
       width: 12px;
       height: 12px;
@@ -45,31 +35,40 @@
       transition: all 0.3s ease;
       position: relative;
     }
-    .dot:hover {
-      background-color: #8b9dc3;
-      transform: scale(1.3);
-    }
+
     .dot.active {
-      background-color: #667eea;
+      background-color: #6366f1;
       transform: scale(1.5);
     }
+
+    .dot:hover {
+      transform: scale(1.3);
+    }
+
     .dot-label {
       position: absolute;
-      right: 24px;
+      right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(99, 102, 241, 0.9);
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 14px;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
-      font-size: 0.875rem;
     }
+
     .dot:hover .dot-label {
       opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
     }
   </style>  <!-- グローバル検索機能 -->
   <link rel="stylesheet" href="../assets/css/search-global.css">
@@ -90,11 +89,10 @@
           <a href="practice-02-section-10.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
             ← 前へ
           </a>
-          <a href="practice-02-section-12.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
-            次へ →
-          </a>
+          <span class="text-base md:text-lg text-gray-400">次へ</span>
         </div>
       </div>
+      <!-- 進捗バー -->
       <div class="progress-bar mt-3 rounded-full"></div>
     </div>
   </nav>
@@ -102,14 +100,17 @@
   <!-- ドットインジケーター -->
   <div class="dot-indicator">
     <div class="flex flex-col gap-4">
-      <div class="dot active" data-section="merits">
-        <span class="dot-label">メリット</span>
+      <div class="dot active" data-section="achievements">
+        <span class="dot-label">達成したこと</span>
       </div>
-      <div class="dot" data-section="concrete-effect">
-        <span class="dot-label">具体的な効果</span>
+      <div class="dot" data-section="skills">
+        <span class="dot-label">学んだスキル</span>
       </div>
-      <div class="dot" data-section="next-step">
-        <span class="dot-label">次のステップ</span>
+      <div class="dot" data-section="applications">
+        <span class="dot-label">応用できる場面</span>
+      </div>
+      <div class="dot" data-section="reflection">
+        <span class="dot-label">振り返りと次のステップ</span>
       </div>
     </div>
   </div>
@@ -117,200 +118,257 @@
   <!-- メインコンテンツ -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-    <!-- タイトル -->
-    <div class="text-center mb-12">
-      <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
-        💡 このツールのメリット
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <div class="inline-block bg-green-600 text-white px-6 py-2 rounded-full mb-4">
+        <span class="font-bold">✅ 完了</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        お疲れ様でした！
       </h1>
-      <p class="text-lg md:text-xl text-gray-600">
-        実践編② - 注文データ自動転記
+      <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+        実践編②: CSVファイル自動転記ツールが完成しました
       </p>
-    </div>
+    </header>
 
-    <!-- メリット一覧 -->
-    <section id="merits" class="mb-16">
-      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
-          🎉 自動化で得られる10のメリット
+    <!-- 達成したこと -->
+    <section id="achievements" class="mb-16">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-8 mb-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+          🎉 あなたが達成したこと
         </h2>
 
+        <div class="space-y-6">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl">
+                ✅
+              </div>
+              <div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  実践①のスプレッドシートに発送情報を追加できるようになった
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  実践①で作成した注文管理スプレッドシートに、発送情報を自動追記できるようになりました。
+                  Googleドライブから発送情報CSVを取得し、注文IDでマッチングして該当行に発送先データを追加する仕組みを習得しました。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center text-2xl">
+                ✅
+              </div>
+              <div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  注文IDでマッチングして、P・R・T列に発送情報を追記
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  CSVの注文IDで既存データをマッチングし、該当行のP・R・T列に発送情報を追記する仕組みを理解しました。
+                  手動で注文IDを探してコピー＆ペーストする必要がなくなり、データの取り込みミスも防げます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center text-2xl">
+                ✅
+              </div>
+              <div>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                  実践①と同じスプレッドシートに、新しい機能を追加できた
+                </h3>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                  実践①で作成したGASプロジェクトに、新しい.gsファイルを追加して機能を拡張できるようになりました。
+                  カスタムメニューからボタン1つで発送情報を追加できるので、業務効率化につながります。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 学んだスキルまとめ -->
+    <section id="skills" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        📚 この実践で学んだスキル
+      </h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
         <div class="grid md:grid-cols-2 gap-6">
-          <!-- 技術的メリット -->
-          <div class="bg-green-50 p-6 rounded-xl hover-lift border-2 border-green-200">
-            <h3 class="text-lg md:text-xl font-bold text-green-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">✓</span>
-              実践①のデータに自動追加
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              1️⃣ 作業の棚卸
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              発送情報CSVをフォルダに入れるだけ
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              現在の手作業を具体的に書き出すことで、自動化すべき範囲を明確にする方法を学びました。
             </p>
           </div>
 
-          <div class="bg-blue-50 p-6 rounded-xl hover-lift border-2 border-blue-200">
-            <h3 class="text-lg md:text-xl font-bold text-blue-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">✓</span>
-              複数ファイル一括処理
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              2️⃣ 効果的なプロンプト作成
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              50件でも100件でも同じ時間
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              「やりたいこと」「現在の手順」「その他の要望」を含めた、AIに伝わりやすいプロンプトの書き方を習得しました。
             </p>
           </div>
 
-          <div class="bg-purple-50 p-6 rounded-xl hover-lift border-2 border-purple-200">
-            <h3 class="text-lg md:text-xl font-bold text-purple-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">✓</span>
-              処理履歴が残る
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              3️⃣ GASエディタの操作
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              処理済みフォルダで管理しやすい
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              スプレッドシートからGASエディタを開いて、コードを貼り付けて保存する基本操作を身につけました。
             </p>
           </div>
 
-          <div class="bg-orange-50 p-6 rounded-xl hover-lift border-2 border-orange-200">
-            <h3 class="text-lg md:text-xl font-bold text-orange-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">✓</span>
-              実務に近い
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              4️⃣ 動作確認とエラー対処
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              ECサイト、POSなどに応用可能
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              ツールが正しく動作するかチェックする方法と、エラーが出た場合の対処法を学びました。
             </p>
           </div>
 
-          <!-- 手作業との比較 -->
-          <div class="bg-red-50 p-6 rounded-xl hover-lift border-4 border-red-300">
-            <h3 class="text-lg md:text-xl font-bold text-red-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">⏰</span>
-              作業時間 96%削減
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              5️⃣ カスタムメニュー設定
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              月8時間 → 20分に短縮
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              スプレッドシートのメニューバーにオリジナルのボタンを追加して、ワンクリックでツールを実行できるようにする方法を習得しました。
             </p>
           </div>
 
-          <div class="bg-yellow-50 p-6 rounded-xl hover-lift border-4 border-yellow-300">
-            <h3 class="text-lg md:text-xl font-bold text-yellow-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">🎯</span>
-              転記ミス 0%
+          <div class="bg-indigo-50 rounded-lg p-6">
+            <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3">
+              6️⃣ 重複チェック機能
             </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              手作業2-3% → 完全自動で0%
-            </p>
-          </div>
-
-          <!-- ビジネスメリット -->
-          <div class="bg-pink-50 p-6 rounded-xl hover-lift border-4 border-pink-300">
-            <h3 class="text-lg md:text-xl font-bold text-pink-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">💰</span>
-              外注不要
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              年間120万円のコスト削減
-            </p>
-          </div>
-
-          <div class="bg-indigo-50 p-6 rounded-xl hover-lift border-4 border-indigo-300">
-            <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">🌙</span>
-              24時間365日稼働
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              深夜注文も翌朝には転記完了
-            </p>
-          </div>
-
-          <div class="bg-teal-50 p-6 rounded-xl hover-lift border-4 border-teal-300">
-            <h3 class="text-lg md:text-xl font-bold text-teal-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">📈</span>
-              少人数運営でもスケール
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              売上2倍でも工数は同じ
-            </p>
-          </div>
-
-          <div class="bg-emerald-50 p-6 rounded-xl hover-lift border-4 border-emerald-300">
-            <h3 class="text-lg md:text-xl font-bold text-emerald-700 mb-2 flex items-center gap-2">
-              <span class="text-2xl">😊</span>
-              本業に集中できる
-            </h3>
-            <p class="text-lg md:text-xl text-gray-700">
-              単純作業から解放される
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+              同じデータが重複して転記されないようにする仕組みを理解しました。
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 具体的な効果 -->
-    <section id="concrete-effect" class="mb-16">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
-        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-8 text-center">
-          📊 具体的な効果（1ヶ月あたり）
-        </h2>
+    <!-- 応用できること -->
+    <section id="applications" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🚀 このスキルを応用できる場面
+      </h2>
 
-        <div class="space-y-6 max-w-3xl mx-auto">
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">⏱️ 時間削減</h3>
-            <div class="space-y-2">
-              <p class="text-lg md:text-xl text-gray-700">
-                <span class="font-bold text-red-600">手作業：</span> 注文IDを探して発送情報をコピーする作業 - 1件3分 × 100件 = 300分（約5時間）
-              </p>
-              <p class="text-lg md:text-xl text-gray-700">
-                <span class="font-bold text-green-600">自動化：</span> 100件を一括処理 = 約10分
-              </p>
-              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
-                → 月に約4時間50分の削減！
-              </p>
-            </div>
-          </div>
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+        今回学んだスキルは、CSVファイルの転記だけでなく、さまざまな業務に応用できます。以下のような場面で活用してみましょう。
+      </p>
 
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">💵 コスト削減</h3>
-            <div class="space-y-2">
-              <p class="text-lg md:text-xl text-gray-700">
-                時給2,000円の人件費と仮定
-              </p>
-              <p class="text-lg md:text-xl text-gray-700">
-                月8時間 × 2,000円 = <span class="font-bold text-red-600">16,000円</span>
-              </p>
-              <p class="text-lg md:text-xl text-gray-700">
-                年間では <span class="font-bold text-red-600">192,000円</span> の削減
-              </p>
-              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
-                → GAS利用料は無料！
-              </p>
-            </div>
-          </div>
+      <div class="space-y-4">
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            📊 売上データの自動集計
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            複数の店舗から届いた売上CSVを自動で取り込み、集計シートに転記する
+          </p>
+        </div>
 
-          <div class="bg-white p-6 rounded-xl shadow-md">
-            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">✨ 品質向上</h3>
-            <div class="space-y-2">
-              <p class="text-lg md:text-xl text-gray-700">
-                <span class="font-bold text-red-600">手作業：</span> 100件中2-3件のミス（2-3%）
-              </p>
-              <p class="text-lg md:text-xl text-gray-700">
-                <span class="font-bold text-green-600">自動化：</span> ミス率 0%
-              </p>
-              <p class="text-xl md:text-2xl font-bold text-orange-600 mt-4">
-                → クレーム削減、信頼性向上
-              </p>
-            </div>
-          </div>
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            📋 在庫管理データの取り込み
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            倉庫システムから出力された在庫CSVを、在庫管理スプレッドシートに自動転記する
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            📧 顧客データの一元管理
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            複数のシステムから出力された顧客情報CSVを、1つのスプレッドシートに統合する
+          </p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            📈 アクセスログの分析
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+            Webサイトのアクセスログをスプレッドシートに取り込み、グラフ化して可視化する
+          </p>
         </div>
       </div>
-    </section>
 
-    <!-- 次のステップへ -->
-    <section id="next-step" class="mb-16">
-      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-xl p-8 md:p-10 text-white text-center">
-        <h2 class="text-xl md:text-2xl font-bold mb-4">
-          📌 次はまとめを確認しましょう
-        </h2>
-        <p class="text-lg md:text-xl mb-6 leading-relaxed">
-          実践編②で学んだことを振り返り、次のステップに進む準備をしましょう。
+      <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+        <p class="text-lg md:text-xl text-green-900 leading-relaxed">
+          <strong>ポイント:</strong> 今回学んだ「作業の棚卸 → プロンプト作成 → 実装 → 動作確認 → メニュー化」という流れは、あらゆる自動化ツール作成に応用できます。ぜひ他の業務でも試してみてください。
         </p>
-        <a href="practice-02-section-12.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          次へ：まとめ →
+      </div>
+    </section>
+
+    <!-- 振り返りと次のステップ -->
+    <section id="reflection" class="mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        🤔 振り返りと次のステップ
+      </h2>
+
+      <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg p-8 mb-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          皆さん、理解できましたでしょうか？
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          この実践を通して、Googleドライブからファイルを自動で取得し、スプレッドシートに転記するツールを作成できるようになりましたね。手作業で5〜10分かかっていた作業が、ボタン1つでわずか数秒で完了するようになったはずです。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          もし分からない部分があれば、何度でも読み返してくださいね。実際に手を動かして試してみることが、理解を深める一番の方法です。
+        </p>
+      </div>
+
+      <div class="bg-indigo-50 rounded-lg p-8">
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+          次のステップへ
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          次の実践では、<strong>Googleフォームの自動返信ボット</strong>を作成します。フォームに回答があったら、自動的にメールを送信するツールを作成していきましょう。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          今回学んだスキルをさらに発展させて、より実践的なツールを作成できるようになります。楽しみにしていてくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 最後のメッセージ -->
+    <section class="mb-16">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-10 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          ✨ 本当にお疲れ様でした！
+        </h2>
+        <p class="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
+          実践編②を完了したあなたは、もう立派な<br>
+          <strong class="text-indigo-600">「生成AI × GAS」実践者</strong>です。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          ここで学んだスキルを活かして、<br>
+          あなたの業務をどんどん効率化していきましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- トップページへのリンク -->
+    <section class="mt-16 text-center">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          実践編③に進む準備ができたら、トップページから次のセクションを選んでください。
+        </p>
+        <a href="../index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-10 py-5 rounded-lg transition transform hover:scale-105">
+          トップページに戻る
         </a>
       </div>
     </section>
@@ -318,36 +376,18 @@
   </main>
 
   <!-- フッター -->
-  <footer class="bg-gray-800 text-white py-8 mt-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-sm md:text-base">&copy; 2025 生成AI×GAS 短期講座 | 実践編②</p>
+  <footer class="bg-white border-t border-gray-200 mt-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p class="text-center text-gray-600">
+        © 2025 生成AI×GAS 短期講座
+      </p>
     </div>
   </footer>
 
   <script>
-    // スムーススクロール
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // ドットインジケーター機能
+    // ドットインジケーターのスクロール連動
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -362,19 +402,23 @@
           });
         }
       });
-    }, observerOptions);
+    }, {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
 
     sections.forEach(section => {
       observer.observe(section);
     });
 
-    // ドットクリックでセクションへスクロール
+    // ドットクリックでスムーススクロール
     dots.forEach(dot => {
       dot.addEventListener('click', () => {
         const sectionId = dot.getAttribute('data-section');
         const section = document.getElementById(sectionId);
         if (section) {
-          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
