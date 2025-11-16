@@ -130,19 +130,28 @@
 
     <!-- 実践編①からの繋ぎ -->
     <section class="mb-16">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          🔄 実践編①から実践編②へ
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl shadow-lg p-8 md:p-10 border-2 border-blue-300">
+        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6 text-center">
+          🔄 実践編①からの続き
         </h2>
-        <p class="text-lg md:text-xl text-gray-600">
-          メール転記の次は、ファイル転記に挑戦しましょう
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+          実践編①では、Gmailから注文の基本情報（注文ID、注文日時、お客様名、商品名、金額、配送希望日）を
+          スプレッドシートに転記する仕組みを作りました。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
+          しかし、<strong class="text-blue-700">発送先の詳細情報（住所や電話番号）は、別途CSVファイルで提供される</strong>ため、
+          まだスプレッドシートには登録されていません。
+        </p>
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+          実践編②では、このCSVファイルから発送先情報を取得し、注文IDをキーにマッチングして、
+          実践編①で作成したスプレッドシートに追加していきます。
         </p>
       </div>
 
       <!-- 実践編①と②の対比 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 mt-8">
         <!-- 実践編① -->
-        <div class="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-xl shadow-lg p-8 border-2 border-blue-200 transform transition hover:scale-105">
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-xl shadow-lg p-8 border-2 border-blue-200">
           <div class="text-center mb-4">
             <div class="text-6xl mb-4">📧</div>
             <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-3">
@@ -152,13 +161,18 @@
               Gmail → スプレッドシート
             </p>
           </div>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            Gmailから特定のキーワードを含むメールを検索して、その内容を自動でスプレッドシートに転記するツールを作成しました。
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+            Gmailから注文の<strong>基本情報</strong>を取得してスプレッドシートに転記
           </p>
+          <ul class="list-disc pl-6 text-sm md:text-base text-gray-600 space-y-1">
+            <li>注文ID、注文日時</li>
+            <li>お客様名、商品名、金額</li>
+            <li>配送希望日</li>
+          </ul>
         </div>
 
         <!-- 実践編② -->
-        <div class="bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl shadow-lg p-8 border-2 border-purple-200 transform transition hover:scale-105">
+        <div class="bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl shadow-lg p-8 border-2 border-purple-200">
           <div class="text-center mb-4">
             <div class="text-6xl mb-4">📁</div>
             <h3 class="text-2xl md:text-3xl font-bold text-purple-900 mb-3">
@@ -168,9 +182,14 @@
               CSVファイル → スプレッドシート
             </p>
           </div>
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed">
-            Googleドライブに保存されているCSVファイルを取得して、同じようにスプレッドシートに転記する方法を学びます。
+          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-3">
+            CSVファイルから<strong>発送先情報</strong>を取得して、実践編①のデータに追加
           </p>
+          <ul class="list-disc pl-6 text-sm md:text-base text-gray-600 space-y-1">
+            <li>注文ID（マッチングキー）</li>
+            <li>発送先氏名、発送先住所</li>
+            <li>発送先電話番号</li>
+          </ul>
         </div>
       </div>
 

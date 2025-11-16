@@ -152,7 +152,7 @@
           📦 実践② 注文データ自動転記
         </h1>
         <p class="text-lg md:text-xl text-gray-600">
-          この実践の流れ
+          実践①のスプレッドシートに注文データを追記
         </p>
       </header>
     </section>
@@ -161,7 +161,7 @@
     <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
       <p class="text-lg md:text-xl text-gray-700 leading-relaxed text-center">
         これから、<span class="font-bold text-green-600">5つのパート</span>に分けて、<br class="hidden md:block"/>
-        CSVファイル自動転記ツールを作成していきます。
+        実践編①で作成したスプレッドシートに注文データを追加する仕組みを作成していきます。
       </p>
     </div>
 
@@ -178,8 +178,8 @@
                 Part 1: 準備編
               </h3>
               <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-                GoogleDriveでフォルダを作成し、フォルダIDを取得します。<br/>
-                このフォルダIDがGASでファイルを操作する際に必要になります。
+                GoogleDriveで発送情報用のフォルダを作成し、フォルダIDを取得します。<br/>
+                実践編①で作成したスプレッドシートを開き、発送情報を追加する準備をします。
               </p>
             </div>
           </div>
@@ -196,8 +196,8 @@
                 Part 2: データ形式と転記項目
               </h3>
               <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-                CSVファイルのサンプルデータと転記項目を確認します。<br/>
-                どのデータをどの列に転記するか設計しましょう。
+                CSVファイルに含まれる発送情報（注文ID、発送先氏名、住所、電話番号）と、<br/>
+                どの列に追記するか（P, R, T列）を確認します。
               </p>
             </div>
           </div>
@@ -232,8 +232,8 @@
                 Part 4: 実行編
               </h3>
               <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
-                ChatGPTが生成したコードをGASエディタに貼り付けて実行します。<br/>
-                カスタムメニューを作成して、ボタン1つで実行できるようにします。
+                ChatGPTが生成したコードを実践編①のGASプロジェクトに新しいファイルとして追加します。<br/>
+                カスタムメニューを作成して、ボタン1つで発送情報を追加できるようにします。
               </p>
             </div>
           </div>

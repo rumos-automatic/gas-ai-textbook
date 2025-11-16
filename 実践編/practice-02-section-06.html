@@ -215,9 +215,10 @@
             実際にCSVファイルをメモ帳で開くと、以下のようなテキストが表示されます：
           </p>
           <div class="bg-gray-900 text-green-400 p-6 rounded-lg overflow-x-auto" style="font-family: 'Courier New', monospace;">
-            <pre class="text-sm md:text-base">注文者,住所,電話番号,商品名,個数,金額
-山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
-佐藤花子,大阪府大阪市△△2-3-4,080-9876-5432,みかん,5,500</pre>
+            <pre class="text-sm md:text-base">注文ID,発送先氏名,発送先住所,発送先電話番号
+ORD-12345,山田太郎,東京都渋谷区〇〇1-2-3 マンション101号室,090-1234-5678
+ORD-12346,佐藤花子,大阪府大阪市△△2-3-4 ビル5F,080-9876-5432
+ORD-12347,鈴木一郎,神奈川県横浜市××3-4-5,070-5555-4444</pre>
           </div>
           <p class="text-sm md:text-base text-gray-600 mt-3">
             ※ 各項目がカンマで区切られていることが分かります
@@ -291,30 +292,30 @@
           <table class="w-full">
             <thead>
               <tr>
-                <th class="text-lg md:text-xl">注文者</th>
-                <th class="text-lg md:text-xl">住所</th>
-                <th class="text-lg md:text-xl">電話番号</th>
-                <th class="text-lg md:text-xl">商品名</th>
-                <th class="text-lg md:text-xl">個数</th>
-                <th class="text-lg md:text-xl">金額</th>
+                <th class="text-lg md:text-xl">注文ID</th>
+                <th class="text-lg md:text-xl">発送先氏名</th>
+                <th class="text-lg md:text-xl">発送先住所</th>
+                <th class="text-lg md:text-xl">発送先電話番号</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td class="text-lg">ORD-12345</td>
                 <td class="text-lg">山田太郎</td>
-                <td class="text-lg">東京都渋谷区〇〇1-2-3</td>
+                <td class="text-lg">東京都渋谷区〇〇1-2-3 マンション101号室</td>
                 <td class="text-lg">090-1234-5678</td>
-                <td class="text-lg">りんご</td>
-                <td class="text-lg">10</td>
-                <td class="text-lg">1000</td>
               </tr>
               <tr>
+                <td class="text-lg">ORD-12346</td>
                 <td class="text-lg">佐藤花子</td>
-                <td class="text-lg">大阪府大阪市△△2-3-4</td>
+                <td class="text-lg">大阪府大阪市△△2-3-4 ビル5F</td>
                 <td class="text-lg">080-9876-5432</td>
-                <td class="text-lg">みかん</td>
-                <td class="text-lg">5</td>
-                <td class="text-lg">500</td>
+              </tr>
+              <tr>
+                <td class="text-lg">ORD-12347</td>
+                <td class="text-lg">鈴木一郎</td>
+                <td class="text-lg">神奈川県横浜市××3-4-5</td>
+                <td class="text-lg">070-5555-4444</td>
               </tr>
             </tbody>
           </table>
@@ -367,7 +368,7 @@
           </h3>
           <div class="bg-white p-4 rounded-lg mb-4 overflow-x-auto">
             <code class="text-base md:text-lg text-gray-800" style="font-family: 'Courier New', monospace;">
-              山田太郎,東京都渋谷区〇〇1-2-3,090-1234-5678,りんご,10,1000
+              ORD-12345,山田太郎,東京都渋谷区〇〇1-2-3 マンション101号室,090-1234-5678
             </code>
           </div>
           <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
@@ -423,11 +424,11 @@
             <h4 class="text-base md:text-lg font-bold text-gray-900 mb-4">🔧 GASがデータを分割する仕組み</h4>
             <div class="space-y-3">
               <div class="flex items-center">
+                <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">ORD-12345</span>
+                <span class="text-2xl mx-2 text-purple-600">,</span>
                 <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">山田太郎</span>
                 <span class="text-2xl mx-2 text-purple-600">,</span>
                 <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">東京都...</span>
-                <span class="text-2xl mx-2 text-purple-600">,</span>
-                <span class="bg-purple-200 px-3 py-2 rounded font-mono text-sm md:text-base">090-...</span>
               </div>
               <p class="text-sm md:text-base text-gray-600">
                 ↓ GASが自動的に分割
@@ -435,15 +436,15 @@
               <div class="grid grid-cols-3 gap-2">
                 <div class="bg-indigo-100 p-2 rounded text-center">
                   <p class="text-xs font-bold text-indigo-700">列1</p>
-                  <p class="text-sm">山田太郎</p>
+                  <p class="text-sm">ORD-12345</p>
                 </div>
                 <div class="bg-indigo-100 p-2 rounded text-center">
                   <p class="text-xs font-bold text-indigo-700">列2</p>
-                  <p class="text-sm">東京都...</p>
+                  <p class="text-sm">山田太郎</p>
                 </div>
                 <div class="bg-indigo-100 p-2 rounded text-center">
                   <p class="text-xs font-bold text-indigo-700">列3</p>
-                  <p class="text-sm">090-...</p>
+                  <p class="text-sm">東京都...</p>
                 </div>
               </div>
             </div>
@@ -537,34 +538,24 @@
             </thead>
             <tbody>
               <tr>
-                <td class="text-lg font-bold text-gray-800">注文者</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">A</td>
+                <td class="text-lg font-bold text-gray-800">注文ID</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">-</td>
+                <td class="text-lg text-gray-700">ORD-12345（マッチングキー）</td>
+              </tr>
+              <tr>
+                <td class="text-lg font-bold text-gray-800">発送先氏名</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">P</td>
                 <td class="text-lg text-gray-700">山田太郎</td>
               </tr>
               <tr>
-                <td class="text-lg font-bold text-gray-800">住所</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">B</td>
-                <td class="text-lg text-gray-700">東京都渋谷区〇〇1-2-3</td>
+                <td class="text-lg font-bold text-gray-800">発送先住所</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">R</td>
+                <td class="text-lg text-gray-700">東京都渋谷区〇〇1-2-3 マンション101号室</td>
               </tr>
               <tr>
-                <td class="text-lg font-bold text-gray-800">電話番号</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">C</td>
+                <td class="text-lg font-bold text-gray-800">発送先電話番号</td>
+                <td class="text-xl md:text-2xl font-black text-orange-600">T</td>
                 <td class="text-lg text-gray-700">090-1234-5678</td>
-              </tr>
-              <tr>
-                <td class="text-lg font-bold text-gray-800">商品名</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">D</td>
-                <td class="text-lg text-gray-700">りんご</td>
-              </tr>
-              <tr>
-                <td class="text-lg font-bold text-gray-800">個数</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">E</td>
-                <td class="text-lg text-gray-700">10</td>
-              </tr>
-              <tr>
-                <td class="text-lg font-bold text-gray-800">金額</td>
-                <td class="text-xl md:text-2xl font-black text-orange-600">F</td>
-                <td class="text-lg text-gray-700">1000</td>
               </tr>
             </tbody>
           </table>
@@ -664,11 +655,11 @@
                 </p>
                 <div class="bg-green-50 p-4 rounded-lg">
                   <p class="text-sm md:text-base text-gray-700 mb-2">
-                    <strong>例</strong>：CSVに10項目あっても、必要なのは6項目だけ
+                    <strong>例</strong>：CSVに10項目あっても、必要なのは4項目だけ
                   </p>
                   <p class="text-xs md:text-sm text-gray-600">
-                    必要：注文者、住所、電話番号、商品名、個数、金額<br/>
-                    不要：注文番号（内部管理用）、備考（未使用）など
+                    必要：注文ID、発送先氏名、発送先住所、発送先電話番号<br/>
+                    不要：在庫状況（内部管理用）、備考（未使用）など
                   </p>
                 </div>
               </div>
@@ -713,14 +704,12 @@
                   この表をそのままプロンプトにコピー＆ペーストできます。
                 </p>
                 <div class="bg-gray-100 p-6 rounded-lg overflow-x-auto">
-                  <pre class="text-sm md:text-base text-gray-800" style="font-family: monospace; white-space: pre;">項目名       列   抽出内容サンプル
+                  <pre class="text-sm md:text-base text-gray-800" style="font-family: monospace; white-space: pre;">項目名           列   抽出内容サンプル
 ───────────────────────────────────
-注文者       A    山田太郎
-住所         B    東京都渋谷区〇〇1-2-3
-電話番号     C    090-1234-5678
-商品名       D    りんご
-個数         E    10
-金額         F    1000</pre>
+注文ID           -    ORD-12345（マッチングキー）
+発送先氏名       P    山田太郎
+発送先住所       R    東京都渋谷区〇〇1-2-3 マンション101号室
+発送先電話番号   T    090-1234-5678</pre>
                 </div>
               </div>
             </div>

@@ -194,10 +194,11 @@
             スプレッドシートテンプレートはこちら
           </h3>
           <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-            まだテンプレートをコピーしていない方は、こちらからコピーしてください。<br/>
+            実践編①で作成したスプレッドシートを使います。<br/>
+            まだ作成していない方は、こちらのテンプレートをコピーしてください。<br/>
             「ファイル」→「コピーを作成」でご自身のGoogleドライブに保存できます。
           </p>
-          <a href="https://docs.google.com/spreadsheets/d/1WcW_RiMwFGxdxCnfVW1Qd11U8dRBJQpjRaP-zNu6gIU/edit?usp=sharing"
+          <a href="https://docs.google.com/spreadsheets/d/1N5ig61EzRiuVUhWC48hctSQJkZNk3-X_rO6klVyB7_0/edit?usp=sharing"
              target="_blank"
              rel="noopener noreferrer"
              class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold text-lg md:text-xl rounded-xl shadow-lg hover:shadow-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 transform hover:-translate-y-1">
@@ -223,13 +224,13 @@
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-4">
-            まず、CSVファイルをインポートしたいGoogleスプレッドシートを開きましょう。
-            すでにスプレッドシートがある場合はそれを使い、新しく作成する場合は「空白」から新規作成してください。
+            実践編①で作成したGoogleスプレッドシートを開きましょう。
+            このスプレッドシートには、すでにGmailからの注文情報が転記されています。
           </p>
 
           <p class="text-lg md:text-xl leading-relaxed">
-            スプレッドシートのシート名は、特に変更する必要はありませんが、
-            わかりやすい名前（例：「CSVインポート」など）に変更しておくと管理しやすくなります。
+            今回は、このスプレッドシートに新しい機能（CSVファイルからの発送先情報取り込み）を追加していきます。
+            シート名は「受注一覧」のままで大丈夫です。
           </p>
         </div>
 
@@ -281,18 +282,19 @@
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            新しいタブで、GASのスクリプトエディタが開きます。
-            初めて開いた場合は、以下のようなデフォルトのサンプルコードが表示されていることがあります：
+            実践編①で作成したGASプロジェクトが開きます。
+            Code.gsファイルには、実践編①で作成したメール転記のコードが表示されています：
           </p>
 
           <div class="bg-gray-900 text-gray-100 p-6 rounded-lg font-mono text-sm mb-6">
-            <pre>function myFunction() {
-
+            <pre>function transferEmailsToSheet() {
+  // Gmailからメールを取得して転記する処理
+  ...
 }</pre>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-4">
-            このサンプルコードは、次のステップで削除して、ChatGPTが生成したコードに置き換えていきます。
+            このコードはそのまま残しておき、次のステップで<strong>新しい.gsファイルを追加</strong>していきます。
           </p>
 
           <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
@@ -313,6 +315,57 @@
             <p class="text-sm text-gray-500 mt-2 text-center">
               ※ スクリーンショットは実践編①のものですが、操作方法は同じです
             </p>
+          </div>
+        </div>
+
+        <!-- ステップ3.5: 新しい.gsファイルを追加 -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              3.5
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">新しい.gsファイルを追加する</h3>
+            </div>
+          </div>
+
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
+            実践編①で作成したCode.gsはそのまま残し、新しい機能用の.gsファイルを追加します。
+            これにより、機能ごとにファイルを分けて管理できるようになります。
+          </p>
+
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 .gsファイルを分ける利点</h4>
+            <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+              <li>機能ごとにコードを整理できる</li>
+              <li>コードの見通しが良くなる</li>
+              <li>複数の自動化ツールを1つのスプレッドシートで管理できる</li>
+            </ul>
+          </div>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">新しいファイルの追加手順</h4>
+          <ol class="list-decimal pl-6 space-y-3 text-lg text-gray-700 mb-6">
+            <li>スクリプトエディタの左側、ファイルリストの上部にある<strong>「＋」ボタン</strong>をクリック</li>
+            <li>メニューから<strong>「スクリプト」</strong>を選択</li>
+            <li>ファイル名を入力（例：<code class="bg-gray-200 px-2 py-1 rounded">CSVImport</code>）</li>
+            <li>Enterキーを押して確定</li>
+          </ol>
+
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg mb-6">
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">✅ 確認</h4>
+            <p class="text-lg leading-relaxed text-gray-700">
+              新しいファイル（CSVImport.gs）が左側のファイルリストに追加され、
+              エディタ画面には空のコードエリアが表示されます。
+              Code.gsは残ったままになっています。
+            </p>
+          </div>
+
+          <!-- スクリーンショット -->
+          <div class="mt-6">
+            <img src="../assets/images/screenshots/screenshot-practice02-add-new-gs-file.png"
+                 alt="新しい.gsファイルを追加する様子"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice02-add-new-gs-file.png')">
           </div>
         </div>
 
@@ -379,10 +432,14 @@
                 <h4 class="text-xl md:text-2xl font-bold text-gray-900">エディタに貼り付け</h4>
               </div>
               <p class="text-lg md:text-xl leading-relaxed mb-4 pl-13">
-                スクリプトエディタに戻って、コピーしたコードを貼り付けます。
-                既存のコード（<code class="bg-gray-200 px-2 py-1 rounded">function myFunction() { }</code>）がある場合は、
-                それをすべて削除してから貼り付けてください。
+                新しく追加したCSVImport.gsファイルに、コピーしたコードを貼り付けます。
               </p>
+              <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg ml-13 mb-4">
+                <p class="text-lg leading-relaxed text-gray-700">
+                  <strong>重要</strong>：Code.gsファイル（実践編①のコード）はそのまま残しておいてください。
+                  新しく追加したCSVImport.gsファイルの方に貼り付けます。
+                </p>
+              </div>
               <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg ml-13">
                 <h5 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ショートカットキー</h5>
                 <p class="text-lg leading-relaxed text-gray-700">
@@ -437,13 +494,13 @@
 
       <div class="bg-white rounded-lg shadow-md p-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          スクリプトエディタの左上に「無題のプロジェクト」という名前が表示されています。
-          このままでも動作には問題ありませんが、わかりやすい名前に変更することをおすすめします。
+          実践編①で既にプロジェクト名（例：「注文メール自動転記システム」）をつけているため、
+          この手順はスキップして構いません。
         </p>
 
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          例えば、「CSVインポートツール」や「ドライブファイル取り込み」など、
-          プロジェクトの内容がわかる名前に変更すると、後で複数のGASプロジェクトを作成した際に管理しやすくなります。
+          もし、より包括的な名前に変更したい場合は、左上のプロジェクト名をクリックして、
+          「注文管理システム」や「受注データ統合ツール」などに変更することもできます。
         </p>
 
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
