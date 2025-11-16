@@ -2,6 +2,26 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-17] - 実践編Gemini APIキー取得にスクリーンショット追加と手順簡略化
+
+### 🎉 新規追加
+
+- ✅ **実践編/practice-gemini-02.html: Google AI Studio関連のスクリーンショット2枚を追加**
+  - Google AI Studioホーム画面: `screenshot-google-ai-studio-home.png` (99KB、元110KB、10%圧縮)
+  - アクセス後の画面全体と「Get API key」ボタンの位置を視覚化
+  - Get API Keyボタン: `screenshot-get-api-key-button.png` (14KB、元20KB、30%圧縮)
+  - 左サイドバーの「Get API key」ボタンをクローズアップで視覚化
+
+### 🔧 修正内容
+
+- ✅ **practice-gemini-02.html: 実際のGoogle AI Studio UIに合わせてステップを簡略化**
+  - APIキー取得手順を6ステップ→5ステップに簡略化
+  - 不要なステップを削除：「Googleアカウントでログイン」（既にログイン済みのため）
+  - ステップ番号を再調整（2→削除、3→2、4→3、5→4、6→5）
+  - 画像拡大モーダル機能を追加（クリックで拡大表示、Escキーで閉じる）
+
+---
+
 ## [2025-11-17] - 実践編Chatwork API連携にスクリーンショット追加と実際のUIに合わせた修正
 
 ### 🎉 新規追加

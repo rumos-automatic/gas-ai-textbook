@@ -172,9 +172,15 @@
                 </p>
               </div>
             </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-top.png</p>
+            <!-- スクリーンショット -->
+            <div class="mt-4">
+              <img
+                src="../assets/images/screenshots/screenshot-google-ai-studio-home.png"
+                alt="Google AI Studioのホーム画面"
+                class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                onclick="openModal(this.src)"
+              >
+              <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
             </div>
           </div>
 
@@ -186,37 +192,10 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  Googleアカウントでログイン
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
-                  Google AI Studioにアクセスしたら、<strong>「Sign in」</strong>ボタンをクリックして、
-                  Googleアカウントでログインします。
-                </p>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                  普段使っているGoogleアカウント（Gmailなど）でログインできますよ。
-                  もし、ビジネス用とプライベート用のアカウントを持っている場合は、
-                  用途に応じて選択してくださいね。
-                </p>
-              </div>
-            </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-signin.png</p>
-            </div>
-          </div>
-
-          <!-- ステップ3 -->
-          <div class="mb-8">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                3
-              </div>
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                   「Get API Key」をクリック
                 </h3>
                 <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
-                  ログインすると、画面左側のメニューに<strong>「Get API Key」</strong>という項目が表示されます。
+                  画面左側のメニューに<strong>「Get API Key」</strong>という項目が表示されます。
                   このボタンをクリックして、APIキーの発行画面に進みましょう。
                 </p>
                 <p class="text-base md:text-lg text-gray-600 leading-relaxed">
@@ -225,17 +204,23 @@
                 </p>
               </div>
             </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-get-api-key.png</p>
+            <!-- スクリーンショット -->
+            <div class="mt-4">
+              <img
+                src="../assets/images/screenshots/screenshot-get-api-key-button.png"
+                alt="Get API Keyボタンの位置"
+                class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                onclick="openModal(this.src)"
+              >
+              <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
             </div>
           </div>
 
-          <!-- ステップ4 -->
+          <!-- ステップ3 -->
           <div class="mb-8">
             <div class="flex items-start gap-4 mb-4">
               <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                4
+                3
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
@@ -257,11 +242,11 @@
             </div>
           </div>
 
-          <!-- ステップ5 -->
+          <!-- ステップ4 -->
           <div class="mb-8">
             <div class="flex items-start gap-4 mb-4">
               <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                5
+                4
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
@@ -284,11 +269,11 @@
             </div>
           </div>
 
-          <!-- ステップ6 -->
+          <!-- ステップ5 -->
           <div class="mb-8">
             <div class="flex items-start gap-4 mb-4">
               <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                6
+                5
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
@@ -434,7 +419,7 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="text-purple-600 font-bold">✓</span>
-            <span>取得手順は6ステップで、数分で完了します</span>
+            <span>取得手順は5ステップで、数分で完了します</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-purple-600 font-bold">✓</span>
@@ -461,8 +446,38 @@
 
   </main>
 
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50" onclick="closeModal()">
+    <div class="max-w-7xl max-h-screen p-4">
+      <img id="modalImage" src="" alt="拡大画像" class="max-w-full max-h-screen object-contain rounded-lg">
+    </div>
+    <button class="absolute top-4 right-4 text-white text-4xl font-bold hover:text-gray-300 transition" onclick="closeModal()">&times;</button>
+  </div>
+
   <!-- JavaScript -->
   <script>
+    // 画像拡大モーダル
+    function openModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = src;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
     // ドットインジケーターのアクティブ状態を更新
     const sections = document.querySelectorAll('section[id]');
     const dots = document.querySelectorAll('.dot');
