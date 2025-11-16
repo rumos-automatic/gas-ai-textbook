@@ -207,11 +207,15 @@
               このアイコンをクリックすると、フォームの回答をスプレッドシートに自動的に記録する設定ができます。
               初めて設定する場合は、「新しいスプレッドシートを作成」を選択することをおすすめします。
             </p>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="screenshot-placeholder" onclick="alert('実際のスクリーンショットが表示されます')">
-              <p class="text-xl md:text-2xl font-bold mb-2">📸 スクリーンショット</p>
-              <p class="text-base md:text-lg">form-spreadsheet-link.png</p>
-              <p class="text-sm mt-2 opacity-80">フォームの回答タブとスプレッドシートアイコンの位置</p>
+            <!-- スクリーンショット -->
+            <div class="mt-4">
+              <img
+                src="../assets/images/screenshots/screenshot-form-responses-spreadsheet-link.png"
+                alt="フォームの回答タブとスプレッドシートアイコンの位置"
+                class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                onclick="openModal(this.src)"
+              >
+              <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
             </div>
           </div>
         </div>
@@ -228,7 +232,7 @@
           </div>
           <div class="ml-14">
             <p class="text-lg md:text-xl text-gray-700 mb-3">
-              設定を完了すると、<strong class="text-orange-600">「フォームの回答 1」</strong>という名前のシートが自動的に作成されます。
+              設定を完了すると、<strong class="text-orange-600">「無題のフォーム（回答）」</strong>という名前のシートが自動的に作成されます。
               フォームに回答があると、このシートに1行ずつデータが自動的に追加されていきますよ。
             </p>
             <p class="text-base md:text-lg text-gray-600">
@@ -309,11 +313,15 @@
               <p class="text-lg md:text-xl text-gray-700"><strong class="text-orange-600">「メールアドレスを収集する」</strong>をONにします</p>
             </li>
           </ol>
-          <!-- スクリーンショットプレースホルダー -->
-          <div class="screenshot-placeholder mt-6" onclick="alert('実際のスクリーンショットが表示されます')">
-            <p class="text-xl md:text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-base md:text-lg">form-email-setting.png</p>
-            <p class="text-sm mt-2 opacity-80">メールアドレス収集設定の画面</p>
+          <!-- スクリーンショット -->
+          <div class="mt-6">
+            <img
+              src="../assets/images/screenshots/screenshot-form-email-collection-settings.png"
+              alt="メールアドレス収集設定の画面"
+              class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+              onclick="openModal(this.src)"
+            >
+            <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
           </div>
         </div>
       </div>

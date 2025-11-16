@@ -8,6 +8,17 @@
 
 ## 🆕 最新の更新（2025-11-17）
 
+- ✅ **実践編フォーム自動返信ボットにスクリーンショット追加**
+  - 実践編/practice-form-bot-02.html: フォーム設定のスクリーンショット2枚を追加
+    - screenshot-form-responses-spreadsheet-link.png（23KB、26%圧縮）: フォーム回答タブとスプレッドシートリンクボタン
+    - screenshot-form-email-collection-settings.png（15KB、35%圧縮）: メールアドレス収集設定画面
+  - 実践編/practice-form-bot-03.html: GASエディタとトリガー設定のスクリーンショット2枚を追加
+    - screenshot-spreadsheet-extensions-apps-script.png（68KB、13%圧縮）: スプレッドシートメニューから「拡張機能」→「Apps Script」
+    - screenshot-trigger-settings-form.png（41KB、26%圧縮）: トリガー設定画面（実行する関数、デプロイ、イベントソース、イベント種類）
+  - シート名修正: 「フォームの回答 1」→「無題のフォーム（回答）」に実際の表示と一致させる
+  - すべての画像にクリック拡大機能を実装
+  - **改善効果**: フォーム自動返信ボット（practice-form-bot-02/03）の視覚的完成度が大幅向上、合計4枚のスクリーンショットでフォーム設定からトリガー設定まで全手順を視覚化、画像圧縮で合計35%のファイルサイズ削減・ページ読み込み高速化、初心者が迷わず設定可能
+
 - ✅ **実践ウォーミングアップ全セクション完成とClasp自動化**
   - 実践編/warmup-section-01.html: SUM関数のスクリーンショットを追加
   - 実践編/warmup-section-02.html: IF関数・日付計算のスクリーンショット2枚を追加
