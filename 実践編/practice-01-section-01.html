@@ -218,14 +218,10 @@
               2
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">検索ボックスでキーワード検索</h3>
-              <p class="text-lg leading-relaxed text-gray-700 mb-3">
-                Gmailの検索ボックスに「注文」「請求書」などのキーワードを入力して、
-                対象のメールを絞り込みます。
-              </p>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">注文メールを探す</h3>
               <p class="text-lg leading-relaxed text-gray-700">
-                例えば、「subject:注文」と検索すると、件名に「注文」を含むメールだけが表示されます。
-                この検索条件を明確にすることが、自動化の第一歩になります。
+                受信トレイから、件名に「【注文完了】」「注文受付」などが含まれる注文メールを探します。
+                毎日複数の注文メールが届く場合、1つずつ開いて確認する必要があります。
               </p>
             </div>
           </div>
@@ -236,10 +232,9 @@
               3
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールを1つずつ開く</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールを開く</h3>
               <p class="text-lg leading-relaxed text-gray-700">
-                検索結果に表示されたメールを、1つずつクリックして開きます。
-                この作業は、メールの件数が多いと非常に時間がかかりますよね。
+                注文メールをクリックして開きます。この作業は、メールの件数が多いと非常に時間がかかりますよね。
                 自動化すれば、この手間を完全に省くことができます。
               </p>
             </div>
@@ -251,15 +246,18 @@
               4
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メールの内容を確認</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メール本文から注文情報を確認</h3>
               <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                開いたメールから、必要な情報を確認します。主に以下の項目をチェックすることが多いと思います：
+                開いたメールから、必要な情報を確認します。主に以下の項目をチェックします：
               </p>
               <ul class="list-disc pl-6 space-y-2">
-                <li class="text-lg text-gray-700"><strong>件名</strong>：メールのタイトル</li>
-                <li class="text-lg text-gray-700"><strong>差出人</strong>：送信元のメールアドレスまたは名前</li>
-                <li class="text-lg text-gray-700"><strong>受信日</strong>：メールを受け取った日時</li>
-                <li class="text-lg text-gray-700"><strong>本文</strong>：メールの内容（全文または一部）</li>
+                <li class="text-lg text-gray-700"><strong>注文ID</strong>：ORD-12345 のような注文番号</li>
+                <li class="text-lg text-gray-700"><strong>注文日時</strong>：2025年11月16日 14:30 のような日時</li>
+                <li class="text-lg text-gray-700"><strong>お客様名</strong>：山田太郎 のような顧客名</li>
+                <li class="text-lg text-gray-700"><strong>商品名</strong>：有機りんご 5kg のような商品情報</li>
+                <li class="text-lg text-gray-700"><strong>数量</strong>：2箱 のような数量</li>
+                <li class="text-lg text-gray-700"><strong>金額</strong>：5,600円 のような価格（カンマと円記号含む）</li>
+                <li class="text-lg text-gray-700"><strong>配送希望日</strong>：2025年11月19日 のような日付</li>
               </ul>
             </div>
           </div>
@@ -272,20 +270,23 @@
             <div class="flex-1">
               <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleスプレッドシートに手動で転記</h3>
               <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                確認した情報を、別タブで開いたGoogleスプレッドシートに手動で入力していきます。
-                列の配置は以下のようになっていることが多いでしょう：
+                確認した情報を、別タブで開いたGoogleスプレッドシート「受注一覧」シートに手動で入力していきます。
+                列の配置は以下のようになっています：
               </p>
               <div class="bg-white border-2 border-gray-300 rounded-lg p-4">
                 <ul class="space-y-2">
-                  <li class="text-lg text-gray-700"><strong>A列：受信日</strong>（例：2025/10/30）</li>
-                  <li class="text-lg text-gray-700"><strong>B列：件名</strong>（例：【注文完了】ご注文ありがとうございます）</li>
-                  <li class="text-lg text-gray-700"><strong>C列：差出人</strong>（例：example@company.com）</li>
-                  <li class="text-lg text-gray-700"><strong>D列：本文</strong>（または本文の一部）</li>
+                  <li class="text-lg text-gray-700"><strong>C列：注文ID</strong>（例：ORD-12345）</li>
+                  <li class="text-lg text-gray-700"><strong>E列：注文日時</strong>（例：2025/11/16 14:30）</li>
+                  <li class="text-lg text-gray-700"><strong>G列：お客様名</strong>（例：山田太郎）</li>
+                  <li class="text-lg text-gray-700"><strong>J列：商品名</strong>（例：有機りんご 5kg）</li>
+                  <li class="text-lg text-gray-700"><strong>H列：数量</strong>（例：2箱）</li>
+                  <li class="text-lg text-gray-700"><strong>L列：金額</strong>（例：5600 ※カンマと円記号を除去して数値のみ）</li>
+                  <li class="text-lg text-gray-700"><strong>N列：配送希望日</strong>（例：2025/11/19）</li>
                 </ul>
               </div>
               <p class="text-lg leading-relaxed text-gray-700 mt-4">
                 この手動入力作業が、一番時間のかかる部分です。
-                毎日10件のメールを転記するだけでも、10分以上かかることがあります。
+                毎日10件の注文メールを転記するだけでも、10分以上かかることがあります。
               </p>
             </div>
           </div>
@@ -296,11 +297,10 @@
               6
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ステータス列に「未対応」と入力</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">次のメールへ</h3>
               <p class="text-lg leading-relaxed text-gray-700">
-                最後に、E列に「未対応」というステータスを入力して、
-                まだ処理していないメールであることを管理します。
-                後で対応が完了したら「対応済み」に変更する、という使い方ができますね。
+                転記が完了したら、次の注文メールを開いて、同じ作業を繰り返します。
+                すべてのメールを処理し終えるまで、この作業が続きます。
               </p>
             </div>
           </div>
@@ -377,8 +377,8 @@
       <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">作業の棚卸ができましたか？</h2>
         <p class="text-lg md:text-xl mb-6">
-          現在の手作業の流れを理解できたら、次はChatGPTにプロンプトを送って、
-          実際にGASコードを生成してもらいましょう。
+          現在の手作業の流れを理解できたら、次はこの内容を「自動化ワークシート」に整理して、
+          生成AIに伝えやすい形にしていきましょう。
         </p>
         <a href="practice-01-section-02.html" class="inline-block bg-white text-indigo-600 font-bold text-lg md:text-xl px-8 py-4 rounded-full hover:bg-gray-100 transition shadow-md">
           ステップ2へ進む →
