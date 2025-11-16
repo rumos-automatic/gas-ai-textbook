@@ -476,6 +476,14 @@
               <p class="text-base mt-1">→ コードの一部に誤りがある可能性があります。エラーメッセージをChatGPTに送って修正を依頼しましょう。</p>
             </li>
           </ul>
+
+          <!-- エラー例スクリーンショット -->
+          <div class="mt-6 cursor-pointer" onclick="openModal('screenshot-practice01-error-example.png')">
+            <img src="../assets/images/screenshots/screenshot-practice01-error-example.png"
+                 alt="GASエディタでエラーが表示された例（シート '受注一覧' が見つかりませんというエラー）"
+                 class="w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <p class="text-center text-sm text-gray-600 mt-2">📸 クリックして拡大表示</p>
+          </div>
         </div>
 
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
@@ -488,15 +496,15 @@
             エラーメッセージをコピーして、このようにChatGPTに送ると、
             原因と修正方法を教えてくれます。
           </p>
-        </div>
-      </div>
 
-      <!-- スクリーンショット -->
-      <div class="mb-6 cursor-pointer" onclick="openModal('screenshot-practice01-error-example.png')">
-        <img src="../assets/images/screenshots/screenshot-practice01-error-example.png"
-             alt="GASエディタでエラーが表示された例（シート '受注一覧' が見つかりませんというエラー）"
-             class="w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-        <p class="text-center text-sm text-gray-600 mt-2">📸 クリックして拡大表示</p>
+          <!-- ChatGPTでの質問例スクリーンショット -->
+          <div class="mt-6 cursor-pointer" onclick="openModal('screenshot-chatgpt-error-question-example.png')">
+            <img src="../assets/images/screenshots/screenshot-chatgpt-error-question-example.png"
+                 alt="ChatGPTにエラーメッセージを質問して修正提案を受け取っている例（TypeError: message.hasLabel is not a function エラーの修正方法が表示されている）"
+                 class="w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <p class="text-center text-sm text-gray-600 mt-2">📸 クリックして拡大表示</p>
+          </div>
+        </div>
       </div>
     </section>
 
