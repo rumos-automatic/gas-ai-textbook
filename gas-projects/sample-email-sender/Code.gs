@@ -279,8 +279,6 @@ function sendSampleEmail(toEmail, patternIndex) {
 
 配送希望日: ${deliveryDate}
 
-※ 発送先情報は別途CSVファイルで提供されます
-
 ━━━━━━━━━━━━━━━━━━━━━
 ※このメールはGAS講座の練習用サンプルです
 `;
