@@ -376,11 +376,16 @@
           複雑に見えますが、ChatGPTが状況に応じて最適な関数を提案してくれるので、安心してください。
         </p>
 
-        <!-- スクリーンショットプレースホルダー -->
-        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
-          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
-          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-multi-sheet.png</p>
-          <p class="text-gray-500 text-sm mt-2">内容: 注文管理シートから月次売上シートへデータが自動反映されている様子</p>
+        <!-- スクリーンショット: 複数シート間のデータ連携 -->
+        <div class="mb-6 max-w-[800px] mx-auto">
+          <img
+            src="../assets/images/screenshots/screenshot-warmup-multi-sheet.png"
+            alt="複数シート間のデータ連携例。月次売上シートのB2セルにSUMIFS関数が入力されており、注文管理シートから2025年1月のデータを自動集計して¥145,000と表示している様子。下部のタブに「注文管理」と「月次売上」の2つのシートが見える。"
+            class="zoomable-image w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">
+            複数シート間のデータ連携：SUMIFS関数で注文管理シートから月次売上シートへ自動集計
+          </p>
         </div>
       </div>
 
@@ -449,11 +454,30 @@
           </li>
         </ul>
 
-        <!-- スクリーンショットプレースホルダー -->
-        <div class="bg-gray-200 rounded-lg p-12 text-center mt-8">
-          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
-          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-importrange.png</p>
-          <p class="text-gray-500 text-sm mt-2">内容: IMPORTRANGE関数で別スプレッドシートからデータを取得している様子</p>
+        <!-- スクリーンショット1: アクセス許可前 -->
+        <div class="mb-8 max-w-[800px] mx-auto mt-8">
+          <h4 class="text-lg font-bold mb-3 text-gray-700">ステップ1: アクセス許可が必要</h4>
+          <img
+            src="../assets/images/screenshots/screenshot-warmup-importrange-before.png"
+            alt="IMPORTRANGE関数の初回実行時。A3セルに#REF!エラーが表示され、右側にアクセス許可のダイアログが表示されている様子。"
+            class="zoomable-image w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">
+            初回実行時：#REF!エラーが表示され、アクセス許可のダイアログが表示されます
+          </p>
+        </div>
+
+        <!-- スクリーンショット2: アクセス許可後 -->
+        <div class="mb-6 max-w-[800px] mx-auto">
+          <h4 class="text-lg font-bold mb-3 text-gray-700">ステップ2: データが自動取得される</h4>
+          <img
+            src="../assets/images/screenshots/screenshot-warmup-importrange-after.png"
+            alt="IMPORTRANGE関数でアクセス許可後。別スプレッドシートの注文管理シートからデータが正しくインポートされ、注文ID、注文日、商品名などの情報が表示されている様子。"
+            class="zoomable-image w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">
+            アクセス許可後：別スプレッドシートからデータが自動的にインポートされます
+          </p>
         </div>
       </div>
 

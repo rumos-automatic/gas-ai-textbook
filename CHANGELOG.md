@@ -2,6 +2,46 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-17] - 実践ウォーミングアップ全セクション完成とClasp自動化
+
+### 🎉 新規追加
+
+- ✅ **実践編/warmup-section-03.html: SUMIF関数のスクリーンショット2枚を追加**
+  - SUMIF関数で条件付き合計を視覚化: `screenshot-warmup-sumif-function.png` (52KB)
+  - 「=SUMIF(G:G,"入金済み",H:H)」で入金済みのデータだけを抽出して売上を合計
+  - 商品別集計を視覚化: `screenshot-warmup-product-sumif.png` (61KB)
+  - 「=SUMIF(D:D,M2,H:H)」で商品名を条件にして売上合計を自動表示
+  - 画像サイズ: 800px（数式が明確に見える）
+
+- ✅ **実践編/warmup-section-04.html: 複数シート連携とIMPORTRANGE関数のスクリーンショット3枚を追加**
+  - 複数シート間のデータ連携: `screenshot-warmup-multi-sheet.png` (33KB)
+  - SUMIFS関数で注文管理シートから月次売上シートへ自動集計（¥145,000）
+  - IMPORTRANGE関数（アクセス許可前）: `screenshot-warmup-importrange-before.png` (実サイズ)
+  - #REF!エラーとアクセス許可ダイアログが表示された初回実行時の様子
+  - IMPORTRANGE関数（アクセス許可後）: `screenshot-warmup-importrange-after.png` (実サイズ)
+  - 別スプレッドシートから注文データが正しくインポートされた様子
+  - ステップバイステップで理解できる構成
+
+- ✅ **Claspプロジェクト作成: warmup-04-sample-sheet-generator**
+  - gas-projects/warmup-04-sample/にGASプロジェクトを作成
+  - Code.gs: スプレッドシート自動生成機能を実装
+  - `createAllSamples()`: メインスプレッドシートとIMPORTRANGEサンプルを一括作成
+  - 注文管理シート・月次売上シート・IMPORTRANGEサンプルを自動生成
+  - スクリーンショット撮影用のサンプルデータを完全自動化
+
+### 🔧 修正内容
+
+- ✅ **warmup-section-04.html: HTMLエラーを修正**
+  - alt属性内のダブルクォートがHTMLを破壊していた問題を修正
+  - 画像下に変なテキストが表示される不具合を解消
+
+**改善効果**:
+- 実践ウォーミングアップの全4セクション（warmup-section-01〜04）が完成
+- 合計8枚のスクリーンショットで、SUM、IF、SUMIF、SUMIFS、IMPORTRANGEの5つの関数を視覚的に説明
+- Clasp自動化により、サンプルシート作成が完全自動化され、スクリーンショット撮影が大幅に効率化
+- IMPORTRANGE関数はアクセス許可前・後の2段階で説明し、初心者が迷わない構成
+- すべてのプレースホルダーが実際の画像に置き換わり、視覚的な完成度が100%に到達
+
 ## [2025-11-17] - 実践ウォーミングアップに関数のスクリーンショットを追加
 
 ### 🎉 新規追加

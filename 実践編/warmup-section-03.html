@@ -365,11 +365,16 @@
           すると、自動的に「入金済み」の注文だけの合計金額が表示されます。
         </p>
 
-        <!-- スクリーンショットプレースホルダー -->
-        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
-          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
-          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-sumif-function.png</p>
-          <p class="text-gray-500 text-sm mt-2">内容: SUMIF関数で「入金済み」だけの合計が表示されている様子</p>
+        <!-- スクリーンショット: SUMIF関数で入金済みの合計 -->
+        <div class="mb-6 max-w-[800px] mx-auto">
+          <img
+            src="../assets/images/screenshots/screenshot-warmup-sumif-function.png"
+            alt="SUMIF関数の使用例。I2セルに「=SUMIF(G:G,"入金済み",H:H)」という数式が入力されており、G列（入金状況）が「入金済み」のデータだけを条件として、H列（売上）の合計を自動計算している様子。"
+            class="zoomable-image w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">
+            SUMIF関数で条件付き合計：「入金済み」のデータだけを抽出して売上を合計します
+          </p>
         </div>
       </div>
 
@@ -472,11 +477,16 @@
           この方法を使えば、商品リストを作って、それぞれの商品の売上合計を一気に出すことができます。
         </p>
 
-        <!-- スクリーンショットプレースホルダー -->
-        <div class="bg-gray-200 rounded-lg p-12 text-center mb-6">
-          <p class="text-gray-600 text-lg mb-2">📷 スクリーンショット予定</p>
-          <p class="text-gray-500 text-base">ファイル名: screenshot-warmup-product-sumif.png</p>
-          <p class="text-gray-500 text-sm mt-2">内容: 商品名ごとの売上合計が表示されている様子</p>
+        <!-- スクリーンショット: 商品名ごとの売上合計 -->
+        <div class="mb-6 max-w-[800px] mx-auto">
+          <img
+            src="../assets/images/screenshots/screenshot-warmup-product-sumif.png"
+            alt="SUMIF関数を使った商品別集計の例。M3セルに「=SUMIF(D:D,M2,H:H)」という数式が入力されており、D列（商品名）がM2セル（商品A）と一致するデータを条件として、H列（売上）の合計を自動計算している様子。"
+            class="zoomable-image w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">
+            商品別の売上集計：SUMIF関数で商品名を条件にして、該当商品の売上合計を自動表示します
+          </p>
         </div>
       </div>
 
