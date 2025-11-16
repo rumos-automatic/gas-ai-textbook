@@ -2,6 +2,46 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-16] - 生成AI紹介section-05に画像・動画を追加してUI説明を実際の表示に修正
+
+### 🎉 新規追加
+
+- ✅ **生成AI/section-05.html: スクリーンショット4枚を追加**
+  - メッセージ入力欄と送信ボタン: `screenshot-chatgpt-message-input.png`
+  - コピーボタン: `screenshot-chatgpt-copy-button.png`
+  - 再生成ボタン: `screenshot-chatgpt-regenerate-button.png`
+  - Editボタン: `screenshot-chatgpt-edit-button.png`
+
+- ✅ **生成AI/section-05.html: 操作手順を動画で説明（3本の動画を圧縮・追加）**
+  - 設定ページへのアクセス方法: `video-chatgpt-settings-access.mp4` (45MB → 525KB)
+  - 現在のプラン確認方法: `video-chatgpt-my-plan.mp4` (24MB → 353KB)
+  - プラン変更・アップグレード方法: `video-chatgpt-upgrade.mp4` (22MB → 250KB)
+
+- ✅ **生成AI/section-05.html: 次回請求日の確認方法を補足情報として追加**
+  - 設定 → アカウント → 支払い → 管理する の手順を明記
+
+### 📝 変更内容
+
+- ✅ **生成AI/section-05.html: メッセージ入力欄の説明を実際のUIに合わせて修正**
+  - 位置: 「画面下部」→「画面中央」に変更
+  - プレースホルダー: 「Message ChatGPT」→「質問してみましょう」に変更
+
+- ✅ **生成AI/section-05.html: 設定アクセスの説明を実際のUIに合わせて修正**
+  - 「Settings」→「⚙設定」に変更（絵文字を使用）
+
+- ✅ **生成AI/section-05.html: プラン確認方法を2つの方法に明確化**
+  - 方法1: 設定 → アカウント
+  - 方法2: 左下メニュー → プランをアップグレードする
+
+- ✅ **生成AI/section-05.html: アップグレードボタンの名称を実際のUIに合わせて修正**
+  - 「Upgrade to Plus」「Upgrade plan」→「Plusを始める」「Proを始める」に変更
+
+**改善効果**:
+- 実際のChatGPT UIと説明が完全に一致し、初心者が迷わない
+- 動画による視覚的な説明で操作手順が理解しやすくなった
+- 動画を大幅に圧縮（合計91MB → 1.1MB）してページ読み込みが高速化
+- プラン確認や請求日確認など、複数の方法を明示して利便性向上
+
 ## [2025-11-16] - GAS紹介section-02にスクリーンショットを追加
 
 ### 🎉 新規追加
