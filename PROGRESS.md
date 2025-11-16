@@ -8,6 +8,13 @@
 
 ## 🆕 最新の更新（2025-11-16）
 
+- ✅ **GAS紹介section-02にスクリーンショットを追加**
+  - GAS/section-02.html: GASの始め方にスクリーンショットを3箇所追加
+  - ステップ2「メニューから『拡張機能』→『Apps Script』をクリック」: screenshot-practice01-open-apps-script.png（実践編から流用）
+  - ステップ3「スクリプトエディタが開く」: screenshot-practice01-gas-editor-initial.png（実践編から流用）
+  - ステップ4「エディタにコードを書いて保存する」: screenshot-gas-code-save.png（動画から抽出・保存ボタンを赤枠で明示）
+  - **改善効果**: 初心者がGASの始め方を視覚的に理解しやすく、実践編と同じスクリーンショットを流用で一貫性確保、保存ボタンの位置が明確
+
 - ✅ **実践編②に全工程デモンストレーション動画を追加**
   - practice-02-section-01.html: 全工程デモンストレーション動画セクションを追加（50分）
   - YouTube動画埋め込み: https://youtu.be/IAnSiBlzNpI（16:9レスポンシブ対応）
