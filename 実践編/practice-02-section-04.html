@@ -149,9 +149,6 @@
       <div class="dot" data-section="troubleshooting">
         <span class="dot-label">よくあるトラブル</span>
       </div>
-      <div class="dot" data-section="sample-data">
-        <span class="dot-label">サンプルデータ</span>
-      </div>
       <div class="dot" data-section="spreadsheet-template">
         <span class="dot-label">スプレッドシート</span>
       </div>
@@ -438,7 +435,7 @@
               1
             </div>
             <p class="text-lg md:text-xl text-gray-700 mt-2">
-              作成したフォルダを右クリック → 「リンクを取得」
+              作成したフォルダをダブルクリックで開く
             </p>
           </div>
           <div class="flex items-start bg-white p-6 rounded-xl shadow-md">
@@ -447,7 +444,7 @@
             </div>
             <div class="mt-2">
               <p class="text-lg md:text-xl text-gray-700 mb-2">
-                URLをコピー（例）：
+                ブラウザのアドレスバーに表示されるURLをコピー（例）：
               </p>
               <code class="bg-gray-100 px-3 py-2 rounded text-sm md:text-base text-gray-800 block overflow-x-auto">
                 https://drive.google.com/drive/folders/<span class="font-bold text-orange-600">1A2B3C4D5E6F7G8H9I0J</span>
@@ -459,19 +456,76 @@
               3
             </div>
             <p class="text-lg md:text-xl text-gray-700 mt-2">
-              最後の「<span class="font-bold text-orange-600">1A2B3C4D5E6F7G8H9I0J</span>」部分がフォルダID
+              URLの最後の「<span class="font-bold text-orange-600">1A2B3C4D5E6F7G8H9I0J</span>」部分がフォルダID
             </p>
           </div>
         </div>
 
-        <!-- スクショプレースホルダー -->
-        <div class="screenshot-placeholder mb-8" data-src="/assets/images/screenshots/drive_folder_id.png">
-          <div class="text-6xl mb-4">🖼️</div>
-          <p class="text-xl md:text-2xl font-bold mb-2">スクリーンショット予定地</p>
-          <p class="text-base md:text-lg">drive_folder_id.png</p>
-          <p class="text-sm md:text-base mt-2 opacity-80">
-            （GoogleDriveのフォルダ右クリック→リンク取得→URLからID抽出の画面）
-          </p>
+        <!-- 動画：操作の流れ -->
+        <div class="mt-8 mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">📹</span>
+            操作の流れ（動画）
+          </h3>
+          <div class="relative mb-6" style="padding-top: 56.25%;">
+            <video
+              controls
+              class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+              preload="metadata"
+            >
+              <source src="../assets/videos/practice02-folder-creation-demo.mp4" type="video/mp4">
+              お使いのブラウザは動画タグをサポートしていません。
+            </video>
+          </div>
+          <div class="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+            <p class="text-base md:text-lg text-gray-700">
+              💡 動画では、Googleドライブでフォルダを作成し、リンクを取得してフォルダIDを抽出する流れを確認できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- スクリーンショット：操作手順 -->
+        <div class="mb-8">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4">📸 画面で確認</h4>
+
+          <!-- フォルダ作成 -->
+          <div class="mb-6">
+            <p class="text-base md:text-lg text-gray-700 mb-3 font-semibold">
+              1. 新規ボタンでフォルダ名を入力
+            </p>
+            <img
+              src="../assets/images/screenshots/drive-folder-creation.png"
+              alt="新規ボタンでフォルダ名を入力"
+              class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              onclick="openImageModal(this.src)"
+            >
+          </div>
+
+          <!-- フォルダを開いた後 -->
+          <div class="mb-6">
+            <p class="text-base md:text-lg text-gray-700 mb-3 font-semibold">
+              2. フォルダをダブルクリックで開いた後、アドレスバーからURLをコピー
+            </p>
+            <img
+              src="../assets/images/screenshots/drive-folder-url-bar.png"
+              alt="フォルダを開いてアドレスバーからURLをコピー"
+              class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              onclick="openImageModal(this.src)"
+            >
+          </div>
+
+          <!-- URLからID抽出 -->
+          <div class="mb-6">
+            <p class="text-base md:text-lg text-gray-700 mb-3 font-semibold">
+              3. URLの最後の部分がフォルダID
+            </p>
+            <img
+              src="../assets/images/screenshots/drive-folder-id-url.png"
+              alt="URLからフォルダIDを確認"
+              class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+              onclick="openImageModal(this.src)"
+            >
+          </div>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md">
@@ -614,135 +668,6 @@
               <code class="bg-white px-2 py-1 rounded text-sm">https://drive.google.com/drive/folders/【取得したフォルダID】</code><br/>
               正しいフォルダが開けば、IDは正しいです。エラーが出る場合は、IDが間違っているか、アクセス権限がありません。
             </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- サンプルデータダウンロード -->
-    <section id="sample-data" class="mb-16">
-      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-xl p-8 md:p-10 border-4 border-green-400">
-        <div class="text-center mb-8">
-          <div class="text-5xl md:text-6xl mb-4">📦</div>
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            サンプルデータをダウンロード
-          </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-            フォルダを作ったら、サンプルデータを下記からダウンロードして入れておきましょう
-          </p>
-          <a href="https://drive.google.com/drive/folders/1DBwsVraCl8ssm9Oh7_VDB3qwtJxHnjkk?usp=sharing"
-             target="_blank"
-             rel="noopener noreferrer"
-             class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold text-lg md:text-xl rounded-xl shadow-lg hover:shadow-xl hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:-translate-y-1">
-            <span class="text-2xl">📥</span>
-            サンプルデータをダウンロード
-          </a>
-          <p class="text-sm md:text-base text-gray-600 mt-6">
-            ※ GoogleDriveフォルダから3つのサンプルファイルをダウンロードして、<br/>
-            「注文データ_未処理」フォルダに入れてください
-          </p>
-        </div>
-
-        <!-- サンプルファイルの詳細説明 -->
-        <div class="mt-8 bg-white rounded-xl p-6 shadow-md">
-          <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 text-center">
-            📄 サンプルファイルの内容
-          </h3>
-
-          <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-            ダウンロードしたフォルダには、以下の3つのサンプルCSVファイルが含まれています。
-            これらは<strong>発送情報</strong>（注文ID、発送先氏名、住所、電話番号）が記載されており、実践編①のスプレッドシートの注文データとマッチングして追加されます。
-          </p>
-
-          <div class="space-y-4">
-            <!-- ファイル1 -->
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                <span class="text-xl">📝</span>
-                shipping_20250128_morning.csv
-              </h4>
-              <p class="text-sm md:text-base text-gray-600 mb-2">
-                午前中に届いた発送情報（2件のデータ）
-              </p>
-              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
-ORD-12345,山田太郎,東京都渋谷区〇〇1-2-3 マンション101号室,090-1234-5678
-ORD-12346,佐藤花子,大阪府大阪市△△2-3-4 ビル5F,080-9876-5432</pre>
-              </div>
-            </div>
-
-            <!-- ファイル2 -->
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                <span class="text-xl">📝</span>
-                shipping_20250128_afternoon.csv
-              </h4>
-              <p class="text-sm md:text-base text-gray-600 mb-2">
-                午後に届いた発送情報（3件のデータ）
-              </p>
-              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
-ORD-12347,鈴木一郎,神奈川県横浜市◇◇3-4-5,070-5555-4444
-ORD-12348,田中次郎,福岡県福岡市◎◎4-5-6 アパート201,090-3333-4444
-ORD-12349,高橋三郎,北海道札幌市〒〒5-6-7,080-5555-6666</pre>
-              </div>
-            </div>
-
-            <!-- ファイル3 -->
-            <div class="bg-gray-50 p-4 rounded-lg">
-              <h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
-                <span class="text-xl">📝</span>
-                shipping_20250129_morning.csv
-              </h4>
-              <p class="text-sm md:text-base text-gray-600 mb-2">
-                翌日の発送情報（2件のデータ）
-              </p>
-              <div class="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
-                <pre class="text-xs md:text-sm text-gray-700" style="font-family: monospace; white-space: pre;">注文ID,発送先氏名,発送先住所,発送先電話番号
-ORD-12350,伊藤四郎,京都府京都市☆☆6-7-8 マンション303,090-7777-8888
-ORD-12351,渡辺五郎,広島県広島市★★7-8-9,080-9999-0000</pre>
-              </div>
-            </div>
-          </div>
-
-          <!-- 重要ポイント -->
-          <div class="mt-6 bg-indigo-50 p-4 rounded-lg border-2 border-indigo-300">
-            <h4 class="text-base md:text-lg font-bold text-indigo-800 mb-3 flex items-center gap-2">
-              <span class="text-xl">📌</span>
-              重要ポイント
-            </h4>
-            <div class="space-y-2">
-              <div class="flex items-start">
-                <span class="text-base mr-2 flex-shrink-0">✓</span>
-                <p class="text-sm md:text-base text-gray-700">
-                  <strong>1行目はヘッダー</strong>：項目名が書かれています（注文ID、発送先氏名、発送先住所、発送先電話番号）
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-base mr-2 flex-shrink-0">✓</span>
-                <p class="text-sm md:text-base text-gray-700">
-                  <strong>カンマ区切り</strong>：各データはカンマ（,）で区切られています
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-base mr-2 flex-shrink-0">✓</span>
-                <p class="text-sm md:text-base text-gray-700">
-                  <strong>注文IDでマッチング</strong>：注文IDを使って、実践編①のスプレッドシートの該当行を検索し、発送情報を追加します
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-base mr-2 flex-shrink-0">✓</span>
-                <p class="text-sm md:text-base text-gray-700">
-                  <strong>ファイル名は自由</strong>：ファイル名は何でもOKです。GASはフォルダ内のすべてのファイルを処理します
-                </p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-base mr-2 flex-shrink-0">✓</span>
-                <p class="text-sm md:text-base text-gray-700">
-                  <strong>合計7件のデータ</strong>：3つのファイルを合わせて、7件の発送情報が追加されます
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -1132,6 +1057,13 @@ ORD-12351,渡辺五郎,広島県広島市★★7-8-9,080-9999-0000</pre>
     const modalImage = document.getElementById('modalImage');
     const closeModal = document.getElementById('closeModal');
 
+    // 画像モーダルを開く関数
+    function openImageModal(src) {
+      modal.classList.add('active');
+      modalImage.src = src;
+    }
+
+    // プレースホルダー画像のクリック
     document.querySelectorAll('.screenshot-placeholder').forEach(img => {
       img.addEventListener('click', function() {
         modal.classList.add('active');
