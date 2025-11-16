@@ -236,9 +236,15 @@
                 </p>
               </div>
             </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-create-api-key.png</p>
+            <!-- スクリーンショット -->
+            <div class="mt-4">
+              <img
+                src="../assets/images/screenshots/screenshot-create-api-key-button.png"
+                alt="Create API Keyボタンの位置"
+                class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                onclick="openModal(this.src)"
+              >
+              <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
             </div>
           </div>
 
@@ -250,35 +256,17 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  プロジェクトを選択または新規作成
+                  プロジェクトを選択してAPIキーを取得
                 </h3>
                 <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
                   APIキーは、Google Cloudプロジェクトに紐付けられます。
                   既存のプロジェクトを選択するか、<strong>「Create a new project」</strong>を選んで新規作成しましょう。
                 </p>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-3">
                   初めての方は、新しいプロジェクトを作成することをお勧めします。
                   プロジェクト名は、「My Gemini Project」や「GAS Automation」など、
                   わかりやすい名前にしておくと良いですよ。
                 </p>
-              </div>
-            </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-select-project.png</p>
-            </div>
-          </div>
-
-          <!-- ステップ5 -->
-          <div class="mb-8">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                5
-              </div>
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  APIキーが表示されたら、コピーして安全に保存
-                </h3>
                 <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-3">
                   プロジェクトを選択すると、すぐにAPIキーが表示されます。
                   この長い文字列が、あなた専用のAPIキーです。
@@ -299,9 +287,17 @@
                 </p>
               </div>
             </div>
-            <!-- スクリーンショットプレースホルダー -->
-            <div class="image-placeholder rounded-lg h-64 mt-4">
-              <p class="text-lg">📸 screenshot-google-ai-studio-api-key-displayed.png</p>
+            <!-- 動画 -->
+            <div class="mt-4">
+              <video
+                controls
+                class="w-full rounded-lg shadow-lg"
+                preload="metadata"
+              >
+                <source src="../assets/videos/video-gemini-api-key-creation.mp4" type="video/mp4">
+                お使いのブラウザは動画タグをサポートしていません。
+              </video>
+              <p class="text-sm text-gray-500 mt-2 text-center">プロジェクト選択からAPIキー取得までの流れ</p>
             </div>
           </div>
         </div>
@@ -419,7 +415,7 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="text-purple-600 font-bold">✓</span>
-            <span>取得手順は5ステップで、数分で完了します</span>
+            <span>取得手順は4ステップで、数分で完了します</span>
           </li>
           <li class="flex items-start gap-3">
             <span class="text-purple-600 font-bold">✓</span>

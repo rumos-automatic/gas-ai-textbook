@@ -8,15 +8,19 @@
 
 ## 🆕 最新の更新（2025-11-17）
 
-- ✅ **実践編Gemini APIキー取得にスクリーンショット追加と手順簡略化**
-  - 実践編/practice-gemini-02.html: Google AI Studio関連のスクリーンショット2枚を追加
+- ✅ **実践編Gemini APIキー取得にスクリーンショットと動画追加、手順最適化**
+  - 実践編/practice-gemini-02.html: Google AI Studio関連のスクリーンショット3枚と動画1本を追加
     - screenshot-google-ai-studio-home.png（99KB、元110KB、10%圧縮）: Google AI Studioホーム画面
     - screenshot-get-api-key-button.png（14KB、元20KB、30%圧縮）: Get API Keyボタンのクローズアップ
-  - APIキー取得手順を6ステップ→5ステップに簡略化（実際のUIに合わせて）
-  - 不要なステップを削除：「Googleアカウントでログイン」（既にログイン済みのため）
-  - ステップ番号を再調整（2→削除、3→2、4→3、5→4、6→5）
+    - screenshot-create-api-key-button.png（72KB、元103KB、30%圧縮）: Create API Keyボタンを赤枠で強調表示
+    - video-gemini-api-key-creation.mp4（1.9MB、元12MB、84%圧縮）: プロジェクト選択からAPIキー取得までの一連の流れ
+  - 手順を2段階で最適化：6ステップ→5ステップ→4ステップに簡略化
+    - 第1段階：「Googleアカウントでログイン」を削除
+    - 第2段階：「プロジェクト選択」と「APIキー取得」を動画に統合
+  - 動画により操作の流れが直感的に理解できるよう改善
+  - 動画は大幅圧縮（84%削減）でページ読み込み速度を維持
   - 画像拡大モーダル機能を追加（クリックで拡大表示、Escキーで閉じる）
-  - **改善効果**: Gemini APIキー取得（practice-gemini-02）の視覚的完成度が向上、合計2枚のスクリーンショットでGoogle AI Studioアクセスからボタン位置まで明確化、画像圧縮で合計17%のファイルサイズ削減、実際のGoogle AI Studio UIと説明が完全に一致し初心者が迷わずAPIキー取得可能
+  - **改善効果**: Gemini APIキー取得（practice-gemini-02）の完成度が大幅向上、合計3枚のスクリーンショット+1本の動画でGoogle AI Studioアクセスから APIキー取得まで完全視覚化、動画84%圧縮でページ読み込み速度を維持しつつ高品質な視覚教材を提供、4ステップに簡略化で初心者でも短時間でAPIキー取得可能
 
 - ✅ **実践編Chatwork API連携にスクリーンショット追加と実際のUIに合わせた修正**
   - 実践編/practice-chatwork-03.html: APIトークン取得のスクリーンショット2枚を追加
