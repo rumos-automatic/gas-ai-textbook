@@ -122,6 +122,9 @@
     <div class="dot" data-target="what-is-auth">
       <div class="dot-label">初回承認とは？</div>
     </div>
+    <div class="dot" data-target="auth-video">
+      <div class="dot-label">デモ動画</div>
+    </div>
     <div class="dot" data-target="auth-procedure">
       <div class="dot-label">承認手順</div>
     </div>
@@ -193,6 +196,39 @@
       </div>
     </section>
 
+    <!-- デモ動画 -->
+    <section id="auth-video" class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">デモ動画で確認</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          初回承認の流れを動画で確認してみましょう。
+          実際の画面を見ながら、どのように承認を進めるかイメージできます。
+        </p>
+
+        <!-- 動画プレイヤー -->
+        <div class="relative mb-6" style="padding-top: 56.25%;">
+          <video
+            controls
+            class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+            preload="metadata"
+          >
+            <source src="../assets/videos/初回承認_compressed.mp4" type="video/mp4">
+            お使いのブラウザは動画タグをサポートしていません。
+          </video>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💡 動画のポイント</h3>
+          <ul class="space-y-2 text-lg text-gray-700">
+            <li>✅ 実行ボタンをクリックすると承認ダイアログが表示されます</li>
+            <li>✅ 「権限を確認」→ アカウント選択 → 警告画面 → 権限許可の流れです</li>
+            <li>✅ 「このアプリは確認されていません」は正常な動作です</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- 承認手順 -->
     <section id="auth-procedure" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">承認手順</h2>
@@ -223,10 +259,19 @@
             実行したい関数を選択します。
           </p>
 
-          <p class="text-lg md:text-xl leading-relaxed">
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
             ChatGPTが生成したコードには、通常<code class="bg-gray-200 px-2 py-1 rounded">transferEmailsToSheet</code>のような
-            関数名が付いています。この関数名をプルダウンから選択してください。
+            関数名が付いています。今回は<code class="bg-gray-200 px-2 py-1 rounded">importOrderEmails</code>という
+            関数名になっていますので、この関数名をプルダウンから選択してください。
           </p>
+
+          <!-- スクリーンショット -->
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-function-select.png"
+                 alt="関数選択プルダウンメニューでimportOrderEmailsを選択"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-function-select.png')">
+          </div>
         </div>
 
         <!-- ステップ2 -->
@@ -244,9 +289,17 @@
             関数を選択したら、その横にある<strong>「▶️ 実行」</strong>ボタンをクリックします。
           </p>
 
-          <p class="text-lg md:text-xl leading-relaxed">
+          <p class="text-lg md:text-xl leading-relaxed mb-6">
             初めて実行する場合、すぐに承認ダイアログが表示されます。
           </p>
+
+          <!-- スクリーンショット -->
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-run-button.png"
+                 alt="実行ボタンをクリック"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-run-button.png')">
+          </div>
         </div>
 
         <!-- ステップ3 -->
@@ -266,10 +319,11 @@
           </p>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-auth-dialog1.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">「権限を確認」ダイアログ</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-auth-dialog1.png</p>
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-auth-dialog1.png"
+                 alt="「権限を確認」ダイアログ"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-auth-dialog1.png')">
           </div>
         </div>
 
@@ -290,10 +344,11 @@
           </p>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-account-select.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">Googleアカウント選択画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-account-select.png</p>
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-account-select.png"
+                 alt="Googleアカウント選択画面"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-account-select.png')">
           </div>
         </div>
 
@@ -331,10 +386,11 @@
           </p>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-unverified-warning.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">「このアプリは確認されていません」警告画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-unverified-warning.png</p>
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-unverified-warning.png"
+                 alt="「このアプリは確認されていません」警告画面"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-unverified-warning.png')">
           </div>
         </div>
 
@@ -367,10 +423,11 @@
           </p>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-permission-allow.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">権限許可画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-permission-allow.png</p>
+          <div class="mb-6">
+            <img src="../assets/images/screenshots/screenshot-practice01-permission-allow.png"
+                 alt="権限許可画面"
+                 class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition"
+                 onclick="openModal('screenshot-practice01-permission-allow.png')">
           </div>
         </div>
 

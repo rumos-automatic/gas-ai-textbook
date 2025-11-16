@@ -252,46 +252,61 @@
               <li class="flex items-start gap-3">
                 <span class="text-green-600 text-xl">✓</span>
                 <div>
-                  <p class="text-lg font-semibold text-gray-900">A列：受信日</p>
-                  <p class="text-base text-gray-700">日付が「YYYY/MM/DD」形式で入力されているか</p>
+                  <p class="text-lg font-semibold text-gray-900">C列：注文ID</p>
+                  <p class="text-base text-gray-700">注文IDが正しく抽出されているか（例：ORD-12346）</p>
                 </div>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-green-600 text-xl">✓</span>
                 <div>
-                  <p class="text-lg font-semibold text-gray-900">B列：件名</p>
-                  <p class="text-base text-gray-700">メールの件名が正しく入力されているか</p>
+                  <p class="text-lg font-semibold text-gray-900">E列：注文日時</p>
+                  <p class="text-base text-gray-700">注文日時が入力されているか（例：2025/11/16 14:30）</p>
                 </div>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-green-600 text-xl">✓</span>
                 <div>
-                  <p class="text-lg font-semibold text-gray-900">C列：差出人</p>
-                  <p class="text-base text-gray-700">差出人のメールアドレスが入力されているか</p>
+                  <p class="text-lg font-semibold text-gray-900">G列：お客様名</p>
+                  <p class="text-base text-gray-700">お客様名が正しく入力されているか（例：佐藤花子）</p>
                 </div>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-green-600 text-xl">✓</span>
                 <div>
-                  <p class="text-lg font-semibold text-gray-900">D列：本文</p>
-                  <p class="text-base text-gray-700">本文の冒頭200文字程度が入力されているか</p>
+                  <p class="text-lg font-semibold text-gray-900">J列：商品名</p>
+                  <p class="text-base text-gray-700">商品名が入力されているか（例：ノートパソコン HP Pavilion 15）</p>
                 </div>
               </li>
               <li class="flex items-start gap-3">
                 <span class="text-green-600 text-xl">✓</span>
                 <div>
-                  <p class="text-lg font-semibold text-gray-900">E列：ステータス</p>
-                  <p class="text-base text-gray-700">「未対応」と入力されているか</p>
+                  <p class="text-lg font-semibold text-gray-900">H列：数量</p>
+                  <p class="text-base text-gray-700">数量が入力されているか（例：1台）</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">L列：金額</p>
+                  <p class="text-base text-gray-700">金額が数値で入力されているか（例：89800 ※カンマ・円記号除去）</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 text-xl">✓</span>
+                <div>
+                  <p class="text-lg font-semibold text-gray-900">N列：配送希望日</p>
+                  <p class="text-base text-gray-700">配送希望日が入力されているか（例：2025/11/19）</p>
                 </div>
               </li>
             </ul>
           </div>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-result-correct.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">正しく転記されたスプレッドシートの例</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-result-correct.png</p>
+          <div class="mb-6 cursor-pointer" onclick="openModal('screenshot-practice01-result-correct.png')">
+            <img src="../assets/images/screenshots/screenshot-practice01-result-correct.png"
+                 alt="注文情報が正しく転記されたスプレッドシートの例（C, E, G, J, H, L, N列に注文データが入力されている）"
+                 class="w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <p class="text-center text-sm text-gray-600 mt-2">📸 クリックして拡大表示</p>
           </div>
         </div>
 
@@ -331,20 +346,25 @@
               4
             </div>
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ステータスが正しく付いているか</h3>
+              <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">金額が正しく数値化されているか</h3>
             </div>
           </div>
 
           <p class="text-lg md:text-xl leading-relaxed mb-6">
-            最後に、E列のステータス欄に「未対応」と正しく入力されているか確認します。
+            最後に、L列の金額が数値として正しく変換されているか確認します。
+            メール本文では「89,800円」のように書かれていますが、
+            スプレッドシートには「89800」と数値のみで入力されているはずです。
           </p>
 
           <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 ステータスの活用方法</h4>
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 金額の数値化について</h4>
+            <p class="text-lg leading-relaxed text-gray-700 mb-3">
+              金額をカンマや円記号を除いた数値にすることで、
+              スプレッドシートで計算や集計ができるようになります。
+            </p>
             <p class="text-lg leading-relaxed text-gray-700">
-              ステータス欄を使えば、メールの対応状況を管理できます。
-              例えば、対応が完了したら「対応済み」に手動で変更することで、
-              まだ対応していないメールを一目で確認できるようになります。
+              例えば、SUM関数を使って合計金額を計算したり、
+              条件付き書式で一定金額以上の注文をハイライトしたりできます。
             </p>
           </div>
         </div>
@@ -393,10 +413,11 @@
       </div>
 
       <!-- スクリーンショット -->
-      <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-error-example.png')">
-        <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-        <p class="text-lg">エラーが表示された例</p>
-        <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-error-example.png</p>
+      <div class="mb-6 cursor-pointer" onclick="openModal('screenshot-practice01-error-example.png')">
+        <img src="../assets/images/screenshots/screenshot-practice01-error-example.png"
+             alt="GASエディタでエラーが表示された例（シート '受注一覧' が見つかりませんというエラー）"
+             class="w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+        <p class="text-center text-sm text-gray-600 mt-2">📸 クリックして拡大表示</p>
       </div>
     </section>
 
@@ -427,10 +448,14 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-md p-6">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❓ 本文が文字化けする</h3>
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❓ 注文情報が正しく抽出されない</h3>
+          <p class="text-lg text-gray-700 mb-3">
+            注文ID、お客様名、商品名などの情報が正しく抽出されない場合、
+            メールのフォーマットとプロンプトの指示内容が合っていない可能性があります。
+          </p>
           <p class="text-lg text-gray-700">
-            メール本文にHTMLタグが含まれている場合、文字化けして表示されることがあります。
-            この場合は、ChatGPTに「HTML タグを除去して本文を取得する方法を教えてください」と質問しましょう。
+            この場合は、ChatGPTに実際のメール本文とエラー内容を送って、
+            「メールから注文情報を正しく抽出できません。修正してください」と質問しましょう。
           </p>
         </div>
       </div>
