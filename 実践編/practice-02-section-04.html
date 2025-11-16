@@ -48,7 +48,7 @@
     }
     .progress-bar {
       height: 4px;
-      background: linear-gradient(to right, #667eea 0%, #667eea 36%, #e5e7eb 36%, #e5e7eb 100%);
+      background: linear-gradient(to right, #667eea 0%, #667eea 40%, #e5e7eb 40%, #e5e7eb 100%);
     }
     .dot-indicator {
       position: fixed;
@@ -136,9 +136,6 @@
     <div class="flex flex-col gap-4">
       <div class="dot active" data-section="intro">
         <span class="dot-label">導入</span>
-      </div>
-      <div class="dot" data-section="goal">
-        <span class="dot-label">ゴール</span>
       </div>
       <div class="dot" data-section="folder-setup">
         <span class="dot-label">フォルダ作成</span>
@@ -254,43 +251,6 @@
           <strong class="text-indigo-600">フォルダIDを取得</strong>します。
           難しい作業ではありませんので、一緒に進めていきましょう。
         </p>
-      </div>
-    </section>
-
-    <!-- ゴール -->
-    <section id="goal" class="mb-16">
-      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-xl p-8 md:p-10 border-2 border-blue-300">
-        <div class="text-center">
-          <div class="text-5xl md:text-6xl mb-6">🎯</div>
-          <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-            ゴール
-          </h2>
-          <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-            CSV形式の発送情報ファイルから、注文IDでマッチングして実践編①のスプレッドシートに発送先データを追加。<br/>
-            処理済みファイルは別フォルダへ自動移動。
-          </p>
-          <div class="bg-white rounded-xl p-6 shadow-md max-w-3xl mx-auto">
-            <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4">できること：</h3>
-            <div class="space-y-3 text-left">
-              <div class="flex items-start">
-                <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">「未処理」フォルダに発送情報CSVを入れる</p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">GASを実行すると、注文IDでマッチングして発送情報を追加</p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">処理済みファイルは「処理済み」フォルダへ自動移動</p>
-              </div>
-              <div class="flex items-start">
-                <span class="text-xl mr-3 flex-shrink-0">✓</span>
-                <p class="text-lg md:text-xl text-gray-700">複数ファイルの一括処理に対応</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
