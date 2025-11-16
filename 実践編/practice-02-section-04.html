@@ -717,22 +717,19 @@
           <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
             今回のCSVファイルから、以下の発送情報を追加します：
           </p>
-          <div class="grid md:grid-cols-3 gap-3">
+          <div class="grid md:grid-cols-2 gap-3">
             <div class="bg-green-50 p-3 rounded border-2 border-green-300">
-              <p class="text-base text-gray-700 font-bold"><strong>P列：</strong>発送先氏名</p>
+              <p class="text-base text-gray-700 font-bold"><strong>I列：</strong>発送先住所</p>
             </div>
             <div class="bg-green-50 p-3 rounded border-2 border-green-300">
-              <p class="text-base text-gray-700 font-bold"><strong>R列：</strong>発送先住所</p>
-            </div>
-            <div class="bg-green-50 p-3 rounded border-2 border-green-300">
-              <p class="text-base text-gray-700 font-bold"><strong>T列：</strong>発送先電話番号</p>
+              <p class="text-base text-gray-700 font-bold"><strong>F列：</strong>発送先電話番号</p>
             </div>
           </div>
 
           <div class="mt-6 bg-indigo-50 p-4 rounded-lg border-2 border-indigo-300">
             <p class="text-base md:text-lg text-gray-700">
               <strong class="text-indigo-700">💡 ポイント：</strong>
-              注文ID（C列）をキーにして、該当する行のP列・R列・T列に発送情報を追加していきます。
+              注文ID（C列）をキーにして、該当する行のI列・F列に発送情報を追加していきます。
               これにより、注文情報と発送情報が1つのシートで管理できるようになります。
             </p>
           </div>
@@ -798,7 +795,7 @@
               <div class="flex items-start">
                 <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-3 flex-shrink-0">3</div>
                 <p class="text-base md:text-lg text-gray-700 mt-1">
-                  見つかった行のP列・R列・T列に発送情報を書き込む
+                  見つかった行のI列・F列に発送情報を書き込む
                 </p>
               </div>
             </div>
@@ -866,26 +863,30 @@
                     <tr class="border-b-2 border-gray-300">
                       <th class="px-2 py-2 text-left bg-blue-100">C列</th>
                       <th class="px-2 py-2 text-left bg-gray-100">E列</th>
+                      <th class="px-2 py-2 text-left bg-green-100">F列</th>
                       <th class="px-2 py-2 text-left bg-gray-100">G列</th>
-                      <th class="px-2 py-2 text-left bg-green-100">P列</th>
+                      <th class="px-2 py-2 text-left bg-green-100">I列</th>
                     </tr>
                     <tr class="border-b border-gray-200 text-xs text-gray-600">
                       <th class="px-2 py-1 font-semibold">注文ID</th>
                       <th class="px-2 py-1 font-semibold">注文日時</th>
+                      <th class="px-2 py-1 font-semibold">発送先電話番号</th>
                       <th class="px-2 py-1 font-semibold">お客様名</th>
-                      <th class="px-2 py-1 font-semibold">発送先氏名</th>
+                      <th class="px-2 py-1 font-semibold">発送先住所</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="bg-yellow-50 border-l-4 border-yellow-400">
                       <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
                       <td class="px-2 py-2 text-gray-700">2025-01-28</td>
+                      <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
                       <td class="px-2 py-2 text-gray-700">田中商店</td>
                       <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
                     </tr>
                     <tr>
                       <td class="px-2 py-2 text-gray-600">ORD-12346</td>
                       <td class="px-2 py-2 text-gray-600">2025-01-28</td>
+                      <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
                       <td class="px-2 py-2 text-gray-600">佐藤企画</td>
                       <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
                     </tr>
@@ -908,19 +909,22 @@
                     <tr class="border-b-2 border-gray-300">
                       <th class="px-2 py-2 text-left bg-green-100">注文ID</th>
                       <th class="px-2 py-2 text-left bg-gray-100">発送先氏名</th>
-                      <th class="px-2 py-2 text-left bg-gray-100">住所</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">発送先住所</th>
+                      <th class="px-2 py-2 text-left bg-gray-100">発送先電話番号</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="bg-yellow-50 border-l-4 border-yellow-400">
                       <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
                       <td class="px-2 py-2 text-gray-700">山田太郎</td>
-                      <td class="px-2 py-2 text-gray-700">東京都...</td>
+                      <td class="px-2 py-2 text-gray-700">東京都渋谷区...</td>
+                      <td class="px-2 py-2 text-gray-700">090-1234-5678</td>
                     </tr>
                     <tr>
                       <td class="px-2 py-2 text-gray-600">ORD-12346</td>
                       <td class="px-2 py-2 text-gray-600">佐藤花子</td>
-                      <td class="px-2 py-2 text-gray-600">大阪府...</td>
+                      <td class="px-2 py-2 text-gray-600">大阪府大阪市...</td>
+                      <td class="px-2 py-2 text-gray-600">080-9876-5432</td>
                     </tr>
                   </tbody>
                 </table>
@@ -937,7 +941,7 @@
               <span class="text-3xl">⬇️</span>
               <div class="text-left">
                 <p class="text-base md:text-lg font-bold text-purple-800">GASが自動で実行</p>
-                <p class="text-sm md:text-base text-gray-700">注文ID「ORD-12345」の行を発見 → P列・R列・T列に追記</p>
+                <p class="text-sm md:text-base text-gray-700">注文ID「ORD-12345」の行を発見 → I列・F列に追記</p>
               </div>
               <span class="text-3xl">⬇️</span>
             </div>
@@ -954,15 +958,15 @@
                   <tr class="border-b-2 border-gray-300">
                     <th class="px-2 py-2 text-left bg-blue-100">C列</th>
                     <th class="px-2 py-2 text-left bg-gray-100">E列</th>
+                    <th class="px-2 py-2 text-left bg-green-100">F列</th>
                     <th class="px-2 py-2 text-left bg-gray-100">G列</th>
-                    <th class="px-2 py-2 text-left bg-green-100">P列</th>
-                    <th class="px-2 py-2 text-left bg-green-100">R列</th>
+                    <th class="px-2 py-2 text-left bg-green-100">I列</th>
                   </tr>
                   <tr class="border-b border-gray-200 text-xs text-gray-600">
                     <th class="px-2 py-1 font-semibold">注文ID</th>
                     <th class="px-2 py-1 font-semibold">注文日時</th>
+                    <th class="px-2 py-1 font-semibold">発送先電話番号</th>
                     <th class="px-2 py-1 font-semibold">お客様名</th>
-                    <th class="px-2 py-1 font-semibold">発送先氏名</th>
                     <th class="px-2 py-1 font-semibold">発送先住所</th>
                   </tr>
                 </thead>
@@ -970,15 +974,15 @@
                   <tr class="bg-green-50 border-l-4 border-green-500">
                     <td class="px-2 py-2 font-bold text-orange-700">ORD-12345</td>
                     <td class="px-2 py-2 text-gray-700">2025-01-28</td>
+                    <td class="px-2 py-2 font-bold text-green-700">090-1234-5678</td>
                     <td class="px-2 py-2 text-gray-700">田中商店</td>
-                    <td class="px-2 py-2 font-bold text-green-700">山田太郎</td>
-                    <td class="px-2 py-2 font-bold text-green-700">東京都...</td>
+                    <td class="px-2 py-2 font-bold text-green-700">東京都渋谷区...</td>
                   </tr>
                   <tr>
                     <td class="px-2 py-2 text-gray-600">ORD-12346</td>
                     <td class="px-2 py-2 text-gray-600">2025-01-28</td>
-                    <td class="px-2 py-2 text-gray-600">佐藤企画</td>
                     <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
+                    <td class="px-2 py-2 text-gray-600">佐藤企画</td>
                     <td class="px-2 py-2 text-gray-400 italic">（未入力）</td>
                   </tr>
                 </tbody>

@@ -8,6 +8,17 @@
 
 ## 🆕 最新の更新（2025-11-16）
 
+- ✅ **実践編②の転記先列を変更（P・R・T列 → I・F列）**
+  - 転記項目を3項目から2項目に変更：発送先氏名（P列）の転記を削除、発送先住所をI列、発送先電話番号をF列に変更
+  - practice-02-section-02.html: 手作業フローの列番号を更新
+  - practice-02-section-03.html: 次ステップの説明文を更新
+  - practice-02-section-04.html: スプレッドシート説明と図解を大幅更新（Before/CSV/After表をすべて修正）
+  - practice-02-section-05.html: 転記項目表（テーブル版・テキスト版）を更新
+  - practice-02-section-06.html: プロンプト例を全面更新（HTMLとJavaScript両方）
+  - practice-02-section-08.html: 動作確認の説明を更新
+  - practice-02-section-11.html: まとめページの達成項目を更新
+  - **改善効果**: CSVの4項目のうち必要な2項目のみを転記、スプレッドシートの列構成が論理的に、すべてのセクション間で説明が一貫
+
 - ✅ **実践編②の不要な要素を削除してコンテンツを整理**
   - practice-02-section-07.html: 「新しい.gsファイルを追加する様子」のプレースホルダー画像を削除
   - practice-02-section-08.html: 「ステップ 4 / 5」のバッジを削除
