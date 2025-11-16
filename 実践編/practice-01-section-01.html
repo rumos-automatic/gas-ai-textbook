@@ -247,18 +247,9 @@
             </div>
             <div class="flex-1">
               <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">メール本文から注文情報を確認</h3>
-              <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                開いたメールから、必要な情報を確認します。主に以下の項目をチェックします：
+              <p class="text-lg leading-relaxed text-gray-700">
+                メール本文から、注文ID・日時・お客様名・商品名・金額などの情報を確認します。
               </p>
-              <ul class="list-disc pl-6 space-y-2">
-                <li class="text-lg text-gray-700"><strong>注文ID</strong>：ORD-12345 のような注文番号</li>
-                <li class="text-lg text-gray-700"><strong>注文日時</strong>：2025年11月16日 14:30 のような日時</li>
-                <li class="text-lg text-gray-700"><strong>お客様名</strong>：山田太郎 のような顧客名</li>
-                <li class="text-lg text-gray-700"><strong>商品名</strong>：有機りんご 5kg のような商品情報</li>
-                <li class="text-lg text-gray-700"><strong>数量</strong>：2箱 のような数量</li>
-                <li class="text-lg text-gray-700"><strong>金額</strong>：5,600円 のような価格（カンマと円記号含む）</li>
-                <li class="text-lg text-gray-700"><strong>配送希望日</strong>：2025年11月19日 のような日付</li>
-              </ul>
             </div>
           </div>
 
@@ -270,23 +261,11 @@
             <div class="flex-1">
               <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">Googleスプレッドシートに手動で転記</h3>
               <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                確認した情報を、別タブで開いたGoogleスプレッドシート「受注一覧」シートに手動で入力していきます。
-                列の配置は以下のようになっています：
+                確認した情報を、Googleスプレッドシートに手動で入力していきます。
               </p>
-              <div class="bg-white border-2 border-gray-300 rounded-lg p-4">
-                <ul class="space-y-2">
-                  <li class="text-lg text-gray-700"><strong>C列：注文ID</strong>（例：ORD-12345）</li>
-                  <li class="text-lg text-gray-700"><strong>E列：注文日時</strong>（例：2025/11/16 14:30）</li>
-                  <li class="text-lg text-gray-700"><strong>G列：お客様名</strong>（例：山田太郎）</li>
-                  <li class="text-lg text-gray-700"><strong>J列：商品名</strong>（例：有機りんご 5kg）</li>
-                  <li class="text-lg text-gray-700"><strong>H列：数量</strong>（例：2箱）</li>
-                  <li class="text-lg text-gray-700"><strong>L列：金額</strong>（例：5600 ※カンマと円記号を除去して数値のみ）</li>
-                  <li class="text-lg text-gray-700"><strong>N列：配送希望日</strong>（例：2025/11/19）</li>
-                </ul>
-              </div>
-              <p class="text-lg leading-relaxed text-gray-700 mt-4">
+              <p class="text-lg leading-relaxed text-gray-700">
                 この手動入力作業が、一番時間のかかる部分です。
-                毎日10件の注文メールを転記するだけでも、10分以上かかることがあります。
+                毎日10件以上になると、10分～15分程度かかることも多いですね。
               </p>
             </div>
           </div>
