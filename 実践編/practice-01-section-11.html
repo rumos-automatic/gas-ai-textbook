@@ -217,6 +217,35 @@
       </div>
     </section>
 
+    <!-- 動作デモ動画 -->
+    <section class="mb-20">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">📹 トリガー設定のデモ動画</h2>
+
+      <div class="bg-white rounded-lg shadow-md p-8">
+        <p class="text-lg md:text-xl leading-relaxed mb-6">
+          実際のトリガー設定の流れを動画で確認しましょう。
+          以下の動画では、トリガー画面を開いてから設定を完了するまでの一連の手順を紹介しています。
+        </p>
+
+        <div class="relative rounded-lg overflow-hidden shadow-lg mb-6" style="max-width: 100%;">
+          <video
+            controls
+            class="w-full"
+            style="max-height: 600px; object-fit: contain; background-color: #000;"
+            poster="../assets/images/screenshots/screenshot-practice01-trigger-open.png">
+            <source src="../assets/videos/trigger-setup-demo.mp4" type="video/mp4">
+            お使いのブラウザは動画タグをサポートしていません。
+          </video>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+          <p class="text-lg leading-relaxed text-gray-700">
+            💡 動画で全体の流れを確認したら、次の詳細手順で各ステップを確認しながら設定を進めましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- トリガー設定の手順 -->
     <section id="trigger-setup" class="mb-20">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">トリガー設定の手順</h2>
@@ -237,10 +266,13 @@
             </div>
 
             <!-- スクリーンショット -->
-            <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-open.png')">
-              <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-              <p class="text-lg">トリガー画面の開き方と「+ トリガーを追加」ボタン</p>
-              <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-open.png</p>
+            <div class="cursor-pointer" onclick="openModal('screenshot-practice01-trigger-open.png')">
+              <img
+                src="../assets/images/screenshots/screenshot-practice01-trigger-open.png"
+                alt="トリガー画面の開き方と「+ トリガーを追加」ボタン"
+                class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              />
+              <p class="text-center text-sm text-gray-600 mt-3">📸 クリックで拡大表示</p>
             </div>
           </div>
         </div>
@@ -266,7 +298,7 @@
               <tbody>
                 <tr>
                   <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">実行する関数を選択</td>
-                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700"><code class="bg-gray-200 px-2 py-1 rounded">transferEmailsToSheet</code></td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700"><code class="bg-gray-200 px-2 py-1 rounded">importOrderEmails</code></td>
                   <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">実行したい関数名を選択</td>
                 </tr>
                 <tr class="bg-gray-50">
@@ -276,36 +308,38 @@
                 </tr>
                 <tr>
                   <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">時間ベースのトリガーのタイプを選択</td>
-                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">日付ベースのタイマー</td>
-                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">毎日実行する場合は「日付ベースのタイマー」</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">時間ベースのタイマー</td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">定期的に実行する場合は「時間ベースのタイマー」</td>
                 </tr>
                 <tr class="bg-gray-50">
-                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">時刻を選択</td>
-                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">午前9時〜10時</td>
-                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">実行したい時間帯を選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg font-semibold text-gray-900">時間の間隔を選択</td>
+                  <td class="border border-gray-300 px-4 py-3 text-lg text-gray-700">30分おき</td>
+                  <td class="border border-gray-300 px-4 py-3 text-base text-gray-700">30分ごとに自動実行されます</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-6">
-            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 時刻の選択について</h4>
+            <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">💡 時間間隔について</h4>
             <p class="text-lg leading-relaxed text-gray-700 mb-3">
-              時刻は「9時〜10時」のように<strong>1時間の幅</strong>で選択します。
-              これは、Googleのサーバーの負荷分散のため、正確な時刻ではなく、
-              指定した時間帯の中のランダムな時刻に実行されます。
+              <strong>「30分おき」</strong>を選択すると、30分ごとに自動実行されます。
+              これにより、注文メールが届いたら比較的すぐにスプレッドシートに転記されるようになります。
             </p>
             <p class="text-lg leading-relaxed text-gray-700">
-              例えば、「午前9時〜10時」を選択すると、9時5分や9時42分など、
-              その時間帯のどこかで実行されます。
+              例えば、10時に設定した場合、10時00分、10時30分、11時00分、11時30分...と
+              30分間隔で継続的に実行されます。
             </p>
           </div>
 
           <!-- スクリーンショット -->
-          <div class="screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-settings.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">トリガー設定画面の入力例</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-settings.png</p>
+          <div class="cursor-pointer" onclick="openModal('screenshot-practice01-trigger-settings.png')">
+            <img
+              src="../assets/images/screenshots/screenshot-practice01-trigger-settings.png"
+              alt="トリガー設定画面の入力例"
+              class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+            />
+            <p class="text-center text-sm text-gray-600 mt-3">📸 クリックで拡大表示</p>
           </div>
         </div>
 
@@ -326,10 +360,13 @@
           </div>
 
           <!-- スクリーンショット -->
-          <div class="mt-6 screenshot-placeholder" onclick="openModal('screenshot-practice01-trigger-complete.png')">
-            <p class="text-2xl font-bold mb-2">📸 スクリーンショット</p>
-            <p class="text-lg">トリガー設定が完了した画面</p>
-            <p class="text-sm mt-4 opacity-80">ファイル名: screenshot-practice01-trigger-complete.png</p>
+          <div class="mt-6 cursor-pointer" onclick="openModal('screenshot-practice01-trigger-complete.png')">
+            <img
+              src="../assets/images/screenshots/screenshot-practice01-trigger-complete.png"
+              alt="トリガー設定が完了した画面"
+              class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+            />
+            <p class="text-center text-sm text-gray-600 mt-3">📸 クリックで拡大表示</p>
           </div>
         </div>
       </div>
@@ -341,7 +378,7 @@
 
       <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg shadow-md p-8">
         <p class="text-lg md:text-xl leading-relaxed mb-6">
-          実践①（メール転記ツール）を毎朝自動実行する場合の推奨設定をまとめました。
+          実践①（メール転記ツール）を30分ごとに自動実行する場合の推奨設定をまとめました。
         </p>
 
         <div class="bg-white rounded-lg p-6 shadow-md">
@@ -357,20 +394,20 @@
               <span class="text-indigo-600 text-xl font-bold">●</span>
               <div>
                 <p class="text-lg font-semibold text-gray-900">タイプ：</p>
-                <p class="text-lg text-gray-700">日付ベースのタイマー</p>
+                <p class="text-lg text-gray-700">時間ベースのタイマー</p>
               </div>
             </li>
             <li class="flex items-start gap-3">
               <span class="text-indigo-600 text-xl font-bold">●</span>
               <div>
-                <p class="text-lg font-semibold text-gray-900">時刻：</p>
-                <p class="text-lg text-gray-700">午前9時〜10時</p>
+                <p class="text-lg font-semibold text-gray-900">時間の間隔：</p>
+                <p class="text-lg text-gray-700">30分おき</p>
               </div>
             </li>
           </ul>
           <div class="mt-6 bg-green-50 border-l-4 border-green-500 p-4 rounded">
             <p class="text-lg text-gray-700">
-              <strong>これで、毎朝9時に注文メールを自動転記できます！</strong>
+              <strong>これで、30分ごとに注文メールを自動転記できます！</strong>
             </p>
           </div>
         </div>
@@ -387,10 +424,25 @@
           GASには実行時間の制限があり、制限を超えるとエラーが発生します。
         </p>
 
-        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-8">
-          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❌ 分ベースのタイマーは要注意</h3>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">✅ 30分おきは問題なし</h3>
           <p class="text-lg leading-relaxed text-gray-700 mb-4">
-            <strong>分ベースのタイマー</strong>（例：5分おき、10分おき）は、
+            <strong>30分おき</strong>のトリガー設定は、GASの実行時間制限内で十分動作します。
+          </p>
+          <div class="bg-white p-4 rounded border border-blue-200">
+            <p class="text-lg text-gray-700 mb-2"><strong>計算例：</strong></p>
+            <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+              <li>30分おき = 1日48回実行</li>
+              <li>1回の実行時間を約30秒と仮定すると、1日あたり約24分</li>
+              <li>無料枠の<strong>1日90分</strong>の制限内に収まります</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">❌ 5分・10分おきは要注意</h3>
+          <p class="text-lg leading-relaxed text-gray-700 mb-4">
+            ただし、<strong>5分おき・10分おき</strong>など、あまりに短い間隔は
             実行回数が多すぎて制限に引っかかる可能性があります。
           </p>
           <div class="bg-white p-4 rounded border border-red-200">
@@ -407,15 +459,16 @@
           <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-lg">
             <h3 class="text-xl md:text-2xl font-bold text-green-800 mb-3">✅ 推奨設定</h3>
             <ul class="space-y-2 text-lg text-gray-700">
-              <li>✓ <strong>日付ベースのタイマー</strong>（毎日1回）</li>
-              <li>✓ <strong>時間ベースのタイマー</strong>（1時間以上の間隔）</li>
+              <li>✓ <strong>30分おき</strong>（1日48回、リアルタイム性と制限のバランス◎）</li>
+              <li>✓ <strong>1時間おき</strong>（1日24回、より安全）</li>
+              <li>✓ <strong>日付ベースのタイマー</strong>（毎日1回、制限の心配なし）</li>
             </ul>
           </div>
 
           <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
             <h3 class="text-xl md:text-2xl font-bold text-red-800 mb-3">❌ 避けるべき設定</h3>
             <ul class="space-y-2 text-lg text-gray-700">
-              <li>✗ 5分おき、10分おきなどの短い間隔</li>
+              <li>✗ 5分おき、10分おきなどの極端に短い間隔</li>
               <li>✗ 複数のトリガーを同時に大量に設定</li>
             </ul>
           </div>
