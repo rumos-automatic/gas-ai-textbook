@@ -219,10 +219,13 @@
           </ol>
         </div>
 
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-project.png')">
-          <p class="text-lg font-semibold mb-2">📸 プロジェクト作成画面</p>
-          <p class="text-sm">screenshot-chatgpt-project.png</p>
-          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        <div class="mb-8">
+          <p class="text-lg font-semibold mb-3 text-gray-700">📹 プロジェクト作成方法のデモンストレーション</p>
+          <video controls class="w-full rounded-lg shadow-lg" style="max-width: 1280px;">
+            <source src="../assets/videos/chatgpt-project-create.mp4" type="video/mp4">
+            お使いのブラウザは動画タグに対応していません。
+          </video>
+          <p class="text-sm text-gray-600 mt-2">実際のChatGPTの画面でプロジェクトを作成する手順を確認できます。</p>
         </div>
 
         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
@@ -569,10 +572,15 @@
           </div>
         </div>
 
-        <div class="screenshot-placeholder" onclick="openModal('screenshot-chatgpt-file-upload.png')">
-          <p class="text-lg font-semibold mb-2">📸 ファイルアップロード画面</p>
-          <p class="text-sm">screenshot-chatgpt-file-upload.png</p>
-          <p class="text-xs mt-2 opacity-75">クリックで拡大（実装時）</p>
+        <div class="my-8">
+          <p class="text-lg font-semibold mb-3 text-gray-700">📸 ファイルアップロードメニューの表示</p>
+          <img
+            src="../assets/images/screenshots/screenshot-chatgpt-file-upload-menu.png"
+            alt="ChatGPTのファイルアップロードメニュー"
+            class="rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
+            onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-file-upload-menu.png')"
+          />
+          <p class="text-sm text-gray-600 mt-2">入力欄の「+」ボタンをクリックすると、「写真とファイルを追加」メニューが表示されます。（クリックで拡大）</p>
         </div>
       </div>
     </section>
