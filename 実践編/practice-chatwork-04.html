@@ -211,9 +211,15 @@
           </ol>
         </div>
 
-        <div class="screenshot-placeholder" data-img="screenshot-gas-properties-service.png">
-          <p>📸 スクリーンショット：GASエディタでプロパティサービスのコードを実行</p>
-          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-gas-properties-service.png</p>
+        <!-- スクリーンショット -->
+        <div class="mt-4">
+          <img
+            src="../assets/images/screenshots/screenshot-gas-properties-service.png"
+            alt="GASエディタでプロパティサービスのコードを実行"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+            onclick="openModal(this.src)"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
 
         <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mt-6">
@@ -238,13 +244,14 @@
           ルームIDは、送信先のグループチャットを特定するための番号です。
         </p>
         <p class="text-lg md:text-xl leading-relaxed text-gray-700">
-          ルームIDの確認方法は非常に簡単です。
-          チャットワークのURLから取得できますよ。
+          ルームIDの確認方法は2つあります。
+          URLから取得する方法と、グループチャット設定画面から確認する方法です。
+          どちらも簡単なので、やりやすい方法を選んでくださいね。
         </p>
 
         <div class="bg-white p-8 rounded-lg shadow-lg mt-8">
           <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-            📋 ルームIDの確認方法
+            📋 方法1：URLからルームIDを確認
           </h3>
 
           <div class="space-y-6">
@@ -301,9 +308,67 @@
           </div>
         </div>
 
-        <div class="screenshot-placeholder" data-img="screenshot-chatwork-room-url.png">
-          <p>📸 スクリーンショット：チャットワークのURLからルームIDを確認</p>
-          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-room-url.png</p>
+        <div class="bg-white p-8 rounded-lg shadow-lg mt-8">
+          <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">
+            📋 方法2：グループチャット設定画面から確認（おすすめ）
+          </h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  グループチャットを開く
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  メッセージを送信したいグループチャットを開きます。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  グループチャットの設定を開く
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  グループチャット画面の右上にある設定アイコン（歯車マーク）をクリックして、
+                  <strong class="text-pink-600">「グループチャットの設定」</strong>を選択します。
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  「チャット情報」タブでルームIDを確認
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                  設定ダイアログが開いたら、<strong class="text-pink-600">「チャット情報」</strong>タブを選択します。
+                  画面下部に<strong class="text-pink-600">「ルームID」</strong>が表示されているので、この数字をメモしておきましょう。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- スクリーンショット -->
+        <div class="mt-6">
+          <img
+            src="../assets/images/screenshots/screenshot-chatwork-room-id.png"
+            alt="グループチャット設定からルームIDを確認"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+            onclick="openModal(this.src)"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
 
         <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mt-6">
@@ -492,14 +557,26 @@
           </ol>
         </div>
 
-        <div class="screenshot-placeholder" data-img="screenshot-gas-chatwork-function.png">
-          <p>📸 スクリーンショット：GASエディタでメッセージ送信コードを実行</p>
-          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-gas-chatwork-function.png</p>
+        <!-- スクリーンショット -->
+        <div class="mt-4">
+          <img
+            src="../assets/images/screenshots/screenshot-gas-chatwork-code-execution.png"
+            alt="GASエディタでメッセージ送信コードを実行"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+            onclick="openModal(this.src)"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
 
-        <div class="screenshot-placeholder mt-6" data-img="screenshot-chatwork-message-received.png">
-          <p>📸 スクリーンショット：チャットワークで受信したメッセージ</p>
-          <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-message-received.png</p>
+        <!-- スクリーンショット -->
+        <div class="mt-6">
+          <img
+            src="../assets/images/screenshots/screenshot-chatwork-message-received.png"
+            alt="チャットワークで受信したメッセージ"
+            class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+            onclick="openModal(this.src)"
+          >
+          <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
         </div>
 
         <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">

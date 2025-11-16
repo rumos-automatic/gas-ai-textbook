@@ -198,7 +198,7 @@
       <div class="space-y-6">
         <p class="text-lg md:text-xl leading-relaxed text-gray-800">
           それでは、実際にチャットワークのAPIトークンを取得してみましょう。
-          以下の7つのステップで簡単に取得できますよ。
+          以下の4つのステップで簡単に取得できますよ。
         </p>
 
         <div class="space-y-8 mt-8">
@@ -242,9 +242,15 @@
                   「サービス連携」は、チャットワークと外部サービス（GASなど）を連携させるための設定画面です。
                   ここでAPIトークンを発行・管理できます。
                 </p>
-                <div class="screenshot-placeholder" data-img="screenshot-chatwork-service-integration.png">
-                  <p>📸 スクリーンショット：サービス連携メニューの場所</p>
-                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-service-integration.png</p>
+                <!-- スクリーンショット -->
+                <div class="mt-4">
+                  <img
+                    src="../assets/images/screenshots/screenshot-chatwork-service-integration.png"
+                    alt="サービス連携メニューの場所"
+                    class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                    onclick="openModal(this.src)"
+                  >
+                  <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
                 </div>
               </div>
             </div>
@@ -265,11 +271,16 @@
                 </p>
                 <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
                   このタブでは、あなたのアカウントに紐付いたAPIトークンを管理できます。
-                  複数のトークンを発行して、用途ごとに使い分けることも可能ですよ。
                 </p>
-                <div class="screenshot-placeholder" data-img="screenshot-chatwork-api-token-tab.png">
-                  <p>📸 スクリーンショット：API Tokenタブ</p>
-                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-api-token-tab.png</p>
+                <!-- スクリーンショット -->
+                <div class="mt-4">
+                  <img
+                    src="../assets/images/screenshots/screenshot-chatwork-api-token-tab.png"
+                    alt="API Tokenタブ"
+                    class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition"
+                    onclick="openModal(this.src)"
+                  >
+                  <p class="text-sm text-gray-500 mt-2 text-center">クリックで拡大表示</p>
                 </div>
               </div>
             </div>
@@ -283,97 +294,38 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  「新しいトークンを発行」をクリック
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                  API Tokenタブの画面で、<strong class="text-pink-600">「新しいトークンを発行」</strong>ボタンをクリックします。
-                </p>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
-                  このボタンを押すと、新しいAPIトークンを作成するための入力フォームが表示されます。
-                </p>
-                <div class="screenshot-placeholder" data-img="screenshot-chatwork-create-token.png">
-                  <p>📸 スクリーンショット：新しいトークンを発行ボタン</p>
-                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-create-token.png</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ステップ5 -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                5
-              </div>
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  トークン名を入力（例：「GAS連携用」）
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                  トークン名の入力欄に、わかりやすい名前を入力します。
-                  例えば、<strong class="text-pink-600">「GAS連携用」</strong>や<strong class="text-pink-600">「スプレッドシート通知用」</strong>など、
-                  用途がわかる名前を付けると良いでしょう。
-                </p>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                  トークン名は後から見たときに、「これは何のために発行したトークンか？」がわかるようにするためのものです。
-                  複数のトークンを管理する場合に便利ですよ。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ステップ6 -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                6
-              </div>
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  「作成」をクリック
-                </h3>
-                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                  トークン名を入力したら、<strong class="text-pink-600">「作成」</strong>ボタンをクリックします。
-                </p>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                  これで、あなた専用のAPIトークンが発行されます。
-                  次のステップでトークンが表示されるので、必ずコピーして保存してくださいね。
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ステップ7 -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-12 h-12 bg-pink-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                7
-              </div>
-              <div class="flex-1">
-                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                   表示されたAPIトークンをコピーして安全に保存
                 </h3>
                 <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-                  トークンが作成されると、画面に<strong class="text-pink-600">APIトークンの文字列</strong>が表示されます。
+                  API Tokenタブを開くと、画面に<strong class="text-pink-600">APIトークンの文字列</strong>が表示されています。
                   この文字列を<strong>必ずコピー</strong>して、安全な場所に保存してください。
                 </p>
                 <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
                   コピーしたトークンは、後でGASのコードで使用します。
                   メモ帳やパスワード管理ツールなど、安全な場所に保存しておきましょう。
                 </p>
-                <div class="screenshot-placeholder" data-img="screenshot-chatwork-token-display.png">
-                  <p>📸 スクリーンショット：発行されたAPIトークン（トークン部分はぼかし）</p>
-                  <p class="text-sm text-gray-600 mt-2">画像ファイル名: screenshot-chatwork-token-display.png</p>
+                <p class="text-base md:text-lg text-gray-600 leading-relaxed mb-4">
+                  トークンの右側にある<strong class="text-pink-600">「コピー」</strong>ボタンをクリックすると、簡単にクリップボードにコピーできます。
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-6">
+                  <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">
+                    💡 トークンがまだ発行されていない場合
+                  </p>
+                  <p class="text-base md:text-lg text-yellow-800 leading-relaxed">
+                    もしトークンが表示されていない場合は、<strong>「新しいトークンを発行」</strong>ボタンをクリックしてトークンを発行してください。
+                    発行すると、すぐにトークンが表示されます。
+                  </p>
                 </div>
 
                 <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mt-6">
                   <p class="text-lg md:text-xl font-semibold text-red-900 mb-2">
-                    ⚠️ 超重要：APIトークンは一度しか表示されません
+                    ⚠️ 超重要：APIトークンは絶対に他人に見せないでください
                   </p>
                   <p class="text-base md:text-lg text-red-800 leading-relaxed">
-                    APIトークンは、この画面で<strong>一度しか表示されません</strong>。
-                    画面を閉じてしまうと二度と確認できないので、必ずコピーして保存してください。
-                    もし保存し忘れてしまった場合は、新しいトークンを再発行する必要があります。
+                    APIトークンは、あなたのチャットワークアカウントにアクセスするための重要な鍵です。
+                    他人に見せたり、公開したりしないように十分注意してください。
+                    もしトークンが漏洩してしまった場合は、すぐに<strong>「再発行」</strong>ボタンから新しいトークンを発行して、古いトークンを無効化しましょう。
                   </p>
                 </div>
               </div>
