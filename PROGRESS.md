@@ -8,6 +8,17 @@
 
 ## 🆕 最新の更新（2025-11-17）
 
+- ✅ **index.htmlカードのテキスト配置を完全に中央寄せに修正**
+  - 全カードの説明文を中央寄せに統一（74箇所）
+  - `text-base text-gray-600 text-left w-full` → `text-base text-gray-600 text-center w-full` に一括変更
+  - カード内のすべての要素（番号バッジ、タイトル、説明文）を中央寄せで統一
+  - 番号バッジの中央寄せを強化（`.number-badge` CSSに `text-align: center` と `line-height: 1` を追加）
+  - 絵文字（📘、✅）や数字のずれを最小化
+  - collapsible-cardの配置を修正（`justify-content: center` と `align-items: center` を追加）
+  - 折りたたみ可能なカードが展開時に左寄りになる問題を解決
+  - 実践編①セクション4、実践編②セクション3・7などが正しく中央寄せに
+  - **改善効果**: カード内のすべての要素が完全に中央配置され視覚的に美しく統一、1行でも2行でも一貫した中央寄せの見た目、折りたたみカードも含めて全カードで配置の一貫性を確保、プロフェッショナルで洗練されたUIに
+
 - ✅ **index.htmlヘッダータイトルにファビコンアイコンを追加**
   - index.htmlのヘッダータイトルにファビコンアイコンを左右に配置
   - `<h1>` タグに `flex items-center justify-center` クラスを追加
