@@ -1,10 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command:*)",
-      "Bash(for file in practice-01-section-{01,10,11,12}.html practice-02-section-{01,12}.html)",
-      "Bash(do [ -f \"$file\" ])",
-      "Bash(echo:*)"
+      "Bash(dir:*)",
+      "Bash(ren:*)",
+      "Bash(for ts in 4 6 10 13 16 24)",
+      "Bash(do ffmpeg -i \"..\\assets\\videos\\practice02-folder-creation-demo.mp4\" -ss $ts -vframes 1 frame_$tss.png -y)",
+      "Bash(ffmpeg:*)",
+      "Bash(while read f)",
+      "Bash(do ls -lh $f)"
     ],
     "deny": [],
     "ask": []
