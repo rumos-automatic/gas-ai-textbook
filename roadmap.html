@@ -426,7 +426,7 @@
                   <span class="inline-block bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">実践①</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">実践① メール内容をスプシに自動転記（1日目）</h3>
-                <p class="text-base text-gray-600 mb-3">イントロダクション、作業の棚卸、自動化ワークシート、この実践の流れ、メールサンプル、プロンプト作成、コード貼り付け、初回承認</p>
+                <p class="text-base text-gray-600 mb-3">イントロダクション、作業の棚卸、自動化ワークシート、メールサンプル、転記項目の設計、プロンプト例、ChatGPTでコード生成、GASエディタに貼り付け、初回承認</p>
                 <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm memo-toggle" data-day="9">📝 メモを開く</button>
                 <div class="memo-area collapsed mt-3" data-day="9">
                   <textarea class="w-full border border-gray-300 rounded-lg p-3 text-base memo-input" data-day="9" placeholder="今日の学びや気づきをメモしましょう..." rows="4"></textarea>
@@ -446,18 +446,21 @@
                     自動化ワークシート
                   </a>
                   <a href="実践編/practice-01-section-03.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
-                    この実践の流れ
-                  </a>
-                  <a href="実践編/practice-01-section-04.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     メールサンプル
                   </a>
-                  <a href="実践編/practice-01-section-07.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
-                    プロンプトを送る
+                  <a href="実践編/practice-01-section-04.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    転記項目の設計
                   </a>
-                  <a href="実践編/practice-01-section-08.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-01-section-05.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    プロンプト例
+                  </a>
+                  <a href="実践編/practice-01-section-06.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    ChatGPTでコード生成
+                  </a>
+                  <a href="実践編/practice-01-section-07.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     GASエディタに貼り付け
                   </a>
-                  <a href="実践編/practice-01-section-09.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-01-section-08.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     初回承認
                   </a>
                 </div>
@@ -480,7 +483,7 @@
                   <span class="inline-block bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">実践①</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">実践① メール内容をスプシに自動転記（2日目）</h3>
-                <p class="text-base text-gray-600 mb-3">動作確認</p>
+                <p class="text-base text-gray-600 mb-3">動作確認、トリガー設定で自動実行、まとめ</p>
                 <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm memo-toggle" data-day="10">📝 メモを開く</button>
                 <div class="memo-area collapsed mt-3" data-day="10">
                   <textarea class="w-full border border-gray-300 rounded-lg p-3 text-base memo-input" data-day="10" placeholder="今日の学びや気づきをメモしましょう..." rows="4"></textarea>
@@ -490,8 +493,14 @@
               <div class="flex-shrink-0 w-56 hidden md:block">
                 <p class="text-sm font-bold text-gray-700 mb-3">📖 学習コンテンツ</p>
                 <div class="space-y-2">
-                  <a href="実践編/practice-01-section-10.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-01-section-09.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     動作確認
+                  </a>
+                  <a href="実践編/practice-01-section-10.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    トリガー設定で自動実行
+                  </a>
+                  <a href="実践編/practice-01-section-11.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    まとめ
                   </a>
                 </div>
               </div>
@@ -523,10 +532,10 @@
               <div class="flex-shrink-0 w-56 hidden md:block">
                 <p class="text-sm font-bold text-gray-700 mb-3">📖 学習コンテンツ</p>
                 <div class="space-y-2">
-                  <a href="実践編/practice-01-section-11.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-01-section-10.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     トリガー設定で自動実行
                   </a>
-                  <a href="実践編/practice-01-section-12.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-01-section-11.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     まとめ
                   </a>
                 </div>
@@ -549,7 +558,7 @@
                   <span class="inline-block bg-teal-100 text-teal-800 text-sm font-semibold px-3 py-1 rounded-full">実践②</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">実践② CSVファイルをスプシに自動転記（1日目）</h3>
-                <p class="text-base text-gray-600 mb-3">イントロダクション、作業の棚卸、自動化ワークシート、この実践の流れ、準備編、プロンプト作成、コード貼り付け</p>
+                <p class="text-base text-gray-600 mb-3">イントロダクション、作業の棚卸、自動化ワークシート、準備編、データ形式と転記項目、プロンプト作成と送信、コードをGASエディタに貼り付け</p>
                 <button class="text-teal-600 hover:text-teal-800 font-semibold text-sm memo-toggle" data-day="12">📝 メモを開く</button>
                 <div class="memo-area collapsed mt-3" data-day="12">
                   <textarea class="w-full border border-gray-300 rounded-lg p-3 text-base memo-input" data-day="12" placeholder="今日の学びや気づきをメモしましょう..." rows="4"></textarea>
@@ -569,16 +578,16 @@
                     自動化ワークシート
                   </a>
                   <a href="実践編/practice-02-section-04.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
-                    この実践の流れ
-                  </a>
-                  <a href="実践編/practice-02-section-05.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     準備編
                   </a>
-                  <a href="実践編/practice-02-section-08.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
-                    プロンプトを送る
+                  <a href="実践編/practice-02-section-05.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    データ形式と転記項目
                   </a>
-                  <a href="実践編/practice-02-section-09.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
-                    コード貼り付け
+                  <a href="実践編/practice-02-section-06.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    プロンプト作成と送信
+                  </a>
+                  <a href="実践編/practice-02-section-07.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    コードをGASエディタに貼り付け
                   </a>
                 </div>
               </div>
@@ -600,7 +609,7 @@
                   <span class="inline-block bg-teal-100 text-teal-800 text-sm font-semibold px-3 py-1 rounded-full">実践②</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-2">実践② CSVファイルをスプシに自動転記（2日目）</h3>
-                <p class="text-base text-gray-600 mb-3">動作確認</p>
+                <p class="text-base text-gray-600 mb-3">動作確認、カスタムメニュー設定</p>
                 <button class="text-teal-600 hover:text-teal-800 font-semibold text-sm memo-toggle" data-day="13">📝 メモを開く</button>
                 <div class="memo-area collapsed mt-3" data-day="13">
                   <textarea class="w-full border border-gray-300 rounded-lg p-3 text-base memo-input" data-day="13" placeholder="今日の学びや気づきをメモしましょう..." rows="4"></textarea>
@@ -610,8 +619,11 @@
               <div class="flex-shrink-0 w-56 hidden md:block">
                 <p class="text-sm font-bold text-gray-700 mb-3">📖 学習コンテンツ</p>
                 <div class="space-y-2">
-                  <a href="実践編/practice-02-section-10.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-02-section-08.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     動作確認
+                  </a>
+                  <a href="実践編/practice-02-section-09.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                    カスタムメニュー設定
                   </a>
                 </div>
               </div>
@@ -643,10 +655,10 @@
               <div class="flex-shrink-0 w-56 hidden md:block">
                 <p class="text-sm font-bold text-gray-700 mb-3">📖 学習コンテンツ</p>
                 <div class="space-y-2">
-                  <a href="実践編/practice-02-section-11.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-02-section-10.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     このツールのメリット
                   </a>
-                  <a href="実践編/practice-02-section-12.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
+                  <a href="実践編/practice-02-section-11.html" class="block bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-2 px-4 rounded-lg transition text-center shadow-sm hover:shadow-md">
                     まとめ
                   </a>
                 </div>
