@@ -8,6 +8,19 @@
 
 ## 🆕 最新の更新（2025-11-17）
 
+- ✅ **実践編④のナビゲーションバーを統一**
+  - 実践編④の全8ファイルのナビゲーションバーから不要なテキストを削除
+  - practice-04-intro.html: 「イントロ」を削除
+  - practice-04-step1.html: 「ステップ1」を削除
+  - practice-04-step2.html: 「ステップ2」を削除
+  - practice-04-step3.html: 「ステップ3」を削除
+  - practice-04-step4.html: 「ステップ4」を削除
+  - practice-04-step5.html: 「ステップ5」を削除
+  - practice-04-step6.html: 「ステップ6」を削除
+  - practice-04-summary.html: 「まとめ」を削除
+  - ナビゲーションバーを「前へ」「次へ」リンクのみのシンプルな構成に統一
+  - **改善効果**: 実践編④のナビゲーションバーが他のセクション（実践編①②③）と完全に統一、不要な情報を削除しナビゲーション領域がすっきりと見やすく、プロジェクト全体で一貫したナビゲーション体験を実現、全HTMLページで同じナビゲーションパターンに統一されメンテナンス性が向上
+
 - ✅ **全セクション「前へ」リンクを統一しナビゲーションを完全整備**
   - 全11ファイルのナビゲーション「前へ」リンクを統一
   - **実践編セクション（7ファイル）**: practice-01-intro、warmup-section-01、practice-02-section-01、practice-form-bot-01、practice-04-intro、practice-chatwork-01、practice-gemini-01
