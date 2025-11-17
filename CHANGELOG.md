@@ -2,6 +2,27 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-17] - 全セクションの「次へ」ナビゲーションリンクを修正
+
+### 🔧 修正内容
+
+- ✅ **セクション終端の「次へ」ナビゲーションを全て修正**
+  - 実践編/practice-02-section-11.html: グレーアウト → practice-form-bot-01.htmlへリンク追加
+  - 実践編/practice-form-bot-04.html: 誤ったリンク修正 → トラブルシューティング/troubleshooting-01.htmlへ
+  - トラブルシューティング/troubleshooting-03.html: グレーアウト → 実践編/practice-04-intro.htmlへリンク追加
+  - 実践編/practice-04-summary.html: リンクなし → 上級編/api-introduction.htmlへリンク追加
+  - 上級編/api-precautions.html: グレーアウト → 実践編/practice-chatwork-01.htmlへリンク追加
+  - 実践編/practice-chatwork-06.html: グレーアウト → practice-gemini-01.htmlへリンク追加
+  - 実践編/practice-gemini-05.html: グレーアウト「次へ」 → 「完了！」に変更（コース最終セクション）
+
+**改善効果**:
+- 全12カテゴリ間のナビゲーションが完全に繋がり、学習者がセクション間をシームレスに移動可能
+- トップページに戻らずに、セクションを順番に進められる
+- 最終セクション（practice-gemini-05.html）は明確に「完了！」と表示され、コース完了を視覚的に示す
+- index.htmlで定義された正しいセクション順序に従った導線を実現
+
+---
+
 ## [2025-11-17] - index.htmlのセクションタイトル表示を統一
 
 ### 🔧 修正内容

@@ -8,6 +8,17 @@
 
 ## 🆕 最新の更新（2025-11-17）
 
+- ✅ **全セクションの「次へ」ナビゲーションリンクを修正**
+  - セクション終端の「次へ」ナビゲーションを全て修正し、コース全体のシームレスな学習フローを確立
+  - **実践編/practice-02-section-11.html**: グレーアウト → practice-form-bot-01.htmlへリンク追加
+  - **実践編/practice-form-bot-04.html**: 誤ったリンク修正 → トラブルシューティング/troubleshooting-01.htmlへ
+  - **トラブルシューティング/troubleshooting-03.html**: グレーアウト → 実践編/practice-04-intro.htmlへリンク追加
+  - **実践編/practice-04-summary.html**: リンクなし → 上級編/api-introduction.htmlへリンク追加
+  - **上級編/api-precautions.html**: グレーアウト → 実践編/practice-chatwork-01.htmlへリンク追加
+  - **実践編/practice-chatwork-06.html**: グレーアウト → practice-gemini-01.htmlへリンク追加
+  - **実践編/practice-gemini-05.html**: グレーアウト「次へ」 → 「完了！」に変更（コース最終セクション）
+  - **改善効果**: 全12カテゴリ間のナビゲーションが完全に繋がり学習者がセクション間をシームレスに移動可能、トップページに戻らずにセクションを順番に進められる、最終セクションは明確に「完了！」と表示されコース完了を視覚的に示す、index.htmlで定義された正しいセクション順序に従った導線を実現
+
 - ✅ **index.htmlのセクションタイトル表示を統一**
   - 「基本的な考え方」と「トラブルシューティング」のタイトルにセクション数を追加
   - index.html 「基本的な考え方」セクション（行451）に「全3セクション」を追加
