@@ -7,7 +7,11 @@
       "Bash(do ffmpeg -i \"..\\assets\\videos\\practice02-folder-creation-demo.mp4\" -ss $ts -vframes 1 frame_$tss.png -y)",
       "Bash(ffmpeg:*)",
       "Bash(while read f)",
-      "Bash(do ls -lh $f)"
+      "Bash(do ls -lh $f)",
+      "Bash(gh api:*)",
+      "Bash(gh run list:*)",
+      "Bash(find:*)",
+      "Bash(git remote:*)"
     ],
     "deny": [],
     "ask": []
