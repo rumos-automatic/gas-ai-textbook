@@ -2,6 +2,33 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-11-17] - 全セクション「前へ」リンクを統一しナビゲーションを完全整備
+
+### 🔧 修正内容
+
+- ✅ **全11ファイルのナビゲーション「前へ」リンクを統一**
+  - **実践編セクション（7ファイル）**:
+    - practice-01-intro.html → warmup-section-04.htmlへ
+    - warmup-section-01.html → 基本的な考え方/section-03.htmlへ
+    - practice-02-section-01.html → practice-01-section-11.htmlへ
+    - practice-form-bot-01.html → practice-02-section-11.htmlへ
+    - practice-04-intro.html → トラブルシューティング/troubleshooting-03.htmlへ
+    - practice-chatwork-01.html → 上級編/api-precautions.htmlへ
+    - practice-gemini-01.html → practice-chatwork-06.htmlへ
+  - **その他のカテゴリ（4ファイル）**:
+    - GAS/section-01.html → 生成AI/section-07.htmlへ
+    - 基本的な考え方/section-01.html → GAS/section-06.htmlへ
+    - トラブルシューティング/troubleshooting-01.html → 実践編/practice-form-bot-04.htmlへ
+    - 上級編/api-introduction.html → 実践編/practice-04-summary.htmlへ
+
+**改善効果**:
+- すべての大セクション先頭ページで「前へ」リンクがクリック可能に
+- カテゴリ間の移動が完全にシームレス化（トップページに戻らず連続学習可能）
+- 学習者が前後のセクションを自由に行き来でき、復習しやすい環境を実現
+- ナビゲーション体験が全セクションで統一され、迷いなく学習を進められる
+
+---
+
 ## [2025-11-17] - ナビゲーションリンクを修正し学習フローを改善
 
 ### 🔧 修正内容
