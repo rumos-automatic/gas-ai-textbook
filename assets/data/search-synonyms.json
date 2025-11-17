@@ -44,37 +44,37 @@
 
   "suggestions": {
     "popular": [
-      {"text": "メール自動送信", "category": "実践編"},
+      {"text": "メール送信", "category": "実践編"},
       {"text": "トリガー設定", "category": "GAS"},
       {"text": "初回承認", "category": "トラブルシューティング"},
-      {"text": "ChatGPTの使い方", "category": "生成AI"},
-      {"text": "エラーが出た", "category": "トラブルシューティング"},
-      {"text": "スプレッドシート自動化", "category": "実践編"},
-      {"text": "GASとは", "category": "GAS"},
-      {"text": "無料プラン", "category": "生成AI"}
+      {"text": "ChatGPT", "category": "生成AI"},
+      {"text": "エラー", "category": "トラブルシューティング"},
+      {"text": "スプレッドシート", "category": "実践編"},
+      {"text": "GAS", "category": "GAS"},
+      {"text": "無料", "category": "生成AI"}
     ],
     "goalOriented": [
-      {"text": "メールを自動で送りたい", "category": "実践編"},
-      {"text": "フォームに自動返信したい", "category": "実践編"},
-      {"text": "CSVを自動アップロードしたい", "category": "実践編"},
-      {"text": "毎週レポートを自動作成したい", "category": "実践編"},
-      {"text": "コードを生成したい", "category": "生成AI"},
-      {"text": "データを自動転記したい", "category": "実践編"}
+      {"text": "自動送信", "category": "実践編"},
+      {"text": "自動返信", "category": "実践編"},
+      {"text": "CSV", "category": "実践編"},
+      {"text": "レポート 自動", "category": "実践編"},
+      {"text": "コード生成", "category": "生成AI"},
+      {"text": "データ転記", "category": "実践編"}
     ],
     "troubleshooting": [
-      {"text": "エラーが出て進めない", "category": "トラブルシューティング"},
-      {"text": "承認画面で止まってる", "category": "トラブルシューティング"},
-      {"text": "動いたけど思った通りじゃない", "category": "トラブルシューティング"},
-      {"text": "6分制限に引っかかる", "category": "GAS"},
-      {"text": "メールが100通以上送れない", "category": "GAS"},
-      {"text": "トリガーが動かない", "category": "GAS"}
+      {"text": "エラー", "category": "トラブルシューティング"},
+      {"text": "承認", "category": "トラブルシューティング"},
+      {"text": "動かない", "category": "トラブルシューティング"},
+      {"text": "6分", "category": "GAS"},
+      {"text": "100通", "category": "GAS"},
+      {"text": "トリガー", "category": "GAS"}
     ],
     "beginner": [
-      {"text": "何から始めればいい", "category": "生成AI"},
-      {"text": "GASの始め方", "category": "GAS"},
-      {"text": "ChatGPTの登録方法", "category": "生成AI"},
-      {"text": "無料で使える範囲", "category": "生成AI"},
-      {"text": "プログラミング初心者", "category": "基本的な考え方"}
+      {"text": "始め方", "category": "生成AI"},
+      {"text": "GAS 始め方", "category": "GAS"},
+      {"text": "ChatGPT 登録", "category": "生成AI"},
+      {"text": "無料", "category": "生成AI"},
+      {"text": "初心者", "category": "基本的な考え方"}
     ]
   },
 
