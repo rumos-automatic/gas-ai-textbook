@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お申し込み - 生成AI×GAS短期講座</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Stripe設定 -->
+    <script src="./assets/js/stripe-config.js"></script>
+    <!-- Stripe Checkout処理 -->
+    <script src="./assets/js/stripe-checkout.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .price-tag {
+            position: relative;
+            display: inline-block;
+        }
+        .price-tag::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダー -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">生成AI×GAS短期講座</h1>
+                    <p class="text-lg md:text-xl opacity-90">初心者から実践者へ</p>
+                </div>
+                <a href="index.html" class="bg-white text-purple-600 px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition">
+                    <i class="fas fa-home mr-2"></i>ホームに戻る
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <!-- 講座概要セクション -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <div class="text-center mb-12">
+                <div class="inline-block bg-purple-100 text-purple-700 px-6 py-2 rounded-full font-bold mb-4">
+                    🎓 短期集中型オンライン講座
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+                    生成AI×GAS短期講座
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-600 leading-relaxed">
+                    初心者でも大丈夫！生成AIとGoogle Apps Scriptを使って、<br class="hidden md:block">
+                    業務を自動化できる実践スキルを短期間で身につけられます。
+                </p>
+            </div>
+
+            <!-- 価格表示 -->
+            <div class="text-center mb-12 py-8 bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl">
+                <p class="text-lg md:text-xl text-gray-600 mb-4">受講料</p>
+                <div class="price-tag">
+                    <p class="text-5xl md:text-6xl font-bold text-purple-600 mb-2">
+                        ¥30,000
+                    </p>
+                </div>
+                <p class="text-base md:text-lg text-gray-500 mt-6">（税込）</p>
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    <span class="bg-white px-4 py-2 rounded-lg shadow text-gray-700">
+                        <i class="fas fa-credit-card text-purple-600 mr-2"></i>一括払い対応
+                    </span>
+                    <span class="bg-white px-4 py-2 rounded-lg shadow text-gray-700">
+                        <i class="fas fa-calendar-alt text-purple-600 mr-2"></i>分割払い対応（3回・6回・12回）
+                    </span>
+                </div>
+            </div>
+
+            <!-- 申し込みボタン -->
+            <div class="text-center mb-12">
+                <button class="checkout-button inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xl md:text-2xl font-bold px-12 py-6 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 cursor-pointer border-0">
+                    <i class="fas fa-shopping-cart mr-3"></i>今すぐ申し込む
+                </button>
+                <p class="text-sm text-gray-500 mt-4">
+                    <i class="fas fa-lock mr-1"></i>安全なStripe決済ページに移動します（分割払い対応）
+                </p>
+            </div>
+        </section>
+
+        <!-- 講座内容セクション -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+                <i class="fas fa-book-open text-purple-600 mr-3"></i>講座内容
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- カテゴリ1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4">
+                            1
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-800">生成AI紹介</h4>
+                    </div>
+                    <ul class="text-lg space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>生成AIとは？基本概念</li>
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>ChatGPT・Geminiの使い方</li>
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>プロンプトエンジニアリング</li>
+                    </ul>
+                </div>
+
+                <!-- カテゴリ2 -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4">
+                            2
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-800">GAS紹介</h4>
+                    </div>
+                    <ul class="text-lg space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-600 mr-2"></i>Google Apps Scriptの基礎</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i>スプレッドシート操作</li>
+                        <li><i class="fas fa-check text-green-600 mr-2"></i>自動化の仕組み</li>
+                    </ul>
+                </div>
+
+                <!-- カテゴリ3 -->
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4">
+                            3
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-800">実践編</h4>
+                    </div>
+                    <ul class="text-lg space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-yellow-600 mr-2"></i>メール自動転記ツール</li>
+                        <li><i class="fas fa-check text-yellow-600 mr-2"></i>CSV自動処理</li>
+                        <li><i class="fas fa-check text-yellow-600 mr-2"></i>フォーム自動返信</li>
+                    </ul>
+                </div>
+
+                <!-- カテゴリ4 -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4">
+                            4
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-800">上級編</h4>
+                    </div>
+                    <ul class="text-lg space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-purple-600 mr-2"></i>Chatwork API連携</li>
+                        <li><i class="fas fa-check text-purple-600 mr-2"></i>Gemini API連携</li>
+                        <li><i class="fas fa-check text-purple-600 mr-2"></i>オリジナルツール製作</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- こんな方におすすめセクション -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+                <i class="fas fa-users text-purple-600 mr-3"></i>こんな方におすすめ
+            </h3>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="text-5xl mb-4">👨‍💼</div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">業務効率化したい方</h4>
+                    <p class="text-lg text-gray-600">
+                        日々の繰り返し作業を自動化して、本当に重要な仕事に集中したい方
+                    </p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="text-5xl mb-4">🎓</div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">プログラミング初心者</h4>
+                    <p class="text-lg text-gray-600">
+                        プログラミング経験がなくても、実践的なスキルを身につけたい方
+                    </p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-xl">
+                    <div class="text-5xl mb-4">🚀</div>
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">生成AIを活用したい方</h4>
+                    <p class="text-lg text-gray-600">
+                        ChatGPTやGeminiを業務に活かしたいけれど、方法がわからない方
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 受講後に得られるものセクション -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+                <i class="fas fa-trophy text-purple-600 mr-3"></i>受講後に得られるもの
+            </h3>
+
+            <div class="space-y-4">
+                <div class="flex items-start bg-purple-50 p-6 rounded-xl">
+                    <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        ✓
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">生成AIを使いこなすスキル</h4>
+                        <p class="text-lg text-gray-600">
+                            ChatGPTやGeminiを業務に活かせる実践的なプロンプト技術が身につきます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-blue-50 p-6 rounded-xl">
+                    <div class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        ✓
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">Google Apps Scriptの実践力</h4>
+                        <p class="text-lg text-gray-600">
+                            スプレッドシート、Gmail、フォームなどを自動化できるようになります。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-green-50 p-6 rounded-xl">
+                    <div class="bg-green-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        ✓
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">即戦力ツールの作成能力</h4>
+                        <p class="text-lg text-gray-600">
+                            実際の業務で使える自動化ツールを自分で作れるようになります。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start bg-yellow-50 p-6 rounded-xl">
+                    <div class="bg-yellow-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        ✓
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2 text-gray-800">業務効率化の実現</h4>
+                        <p class="text-lg text-gray-600">
+                            日々の繰り返し作業を自動化し、本当に重要な仕事に集中できるようになります。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最終CTA -->
+        <section class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-2xl p-12 text-center text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-6">
+                今すぐ始めて、業務を劇的に効率化しましょう
+            </h3>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                初心者でも安心！実践的なスキルが短期間で身につきます
+            </p>
+            <button class="checkout-button inline-block bg-white text-purple-600 text-xl md:text-2xl font-bold px-12 py-6 rounded-full shadow-2xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 cursor-pointer border-0">
+                <i class="fas fa-shopping-cart mr-3"></i>今すぐ申し込む
+            </button>
+            <p class="text-sm mt-6 opacity-75">
+                <i class="fas fa-lock mr-1"></i>安全なStripe決済ページに移動します（分割払い対応）
+            </p>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-lg mb-2">© 2025 生成AI×GAS短期講座 All rights reserved.</p>
+            <p class="text-gray-400">
+                <a href="index.html" class="hover:text-white transition">ホーム</a> |
+                <a href="roadmap.html" class="hover:text-white transition ml-4">ロードマップ</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

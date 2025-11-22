@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お申し込み完了 - 生成AI×GAS短期講座</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3;
+            stroke: #4CAF50;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #4CAF50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+            position: relative;
+            margin: 0 auto;
+        }
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke-miterlimit: 10;
+            stroke: #4CAF50;
+            fill: #fff;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 50px #4CAF50;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- ヘッダー -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold mb-2">生成AI×GAS短期講座</h1>
+                    <p class="text-lg md:text-xl opacity-90">お申し込みありがとうございます</p>
+                </div>
+                <a href="index.html" class="bg-white text-purple-600 px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition">
+                    <i class="fas fa-home mr-2"></i>ホームに戻る
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <!-- 成功メッセージ -->
+        <section class="bg-white rounded-2xl shadow-xl p-12 mb-8 text-center">
+            <!-- チェックマークアニメーション -->
+            <svg class="checkmark mb-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            </svg>
+
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
+                お申し込み完了しました！
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-600 leading-relaxed mb-8">
+                この度は「生成AI×GAS短期講座」にお申し込みいただき、<br class="hidden md:block">
+                誠にありがとうございます。
+            </p>
+            <div class="inline-block bg-green-100 text-green-800 px-8 py-4 rounded-xl text-lg font-bold">
+                <i class="fas fa-check-circle mr-2"></i>決済が正常に完了しました
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+                <i class="fas fa-list-ol text-purple-600 mr-3"></i>今後の流れ
+            </h3>
+
+            <div class="space-y-6">
+                <!-- ステップ1 -->
+                <div class="flex items-start bg-purple-50 p-6 rounded-xl">
+                    <div class="bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        1
+                    </div>
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">確認メールの受信</h4>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            ご登録いただいたメールアドレス宛に、決済完了の確認メールが届きます。
+                            メールが届かない場合は、迷惑メールフォルダもご確認ください。
+                        </p>
+                        <div class="mt-4 bg-white p-4 rounded-lg border-2 border-purple-200">
+                            <p class="text-base text-gray-700">
+                                <i class="fas fa-envelope text-purple-600 mr-2"></i>
+                                <strong>送信元：</strong>Stripe（noreply@stripe.com）
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ステップ2 -->
+                <div class="flex items-start bg-blue-50 p-6 rounded-xl">
+                    <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        2
+                    </div>
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">アクセス情報の送付</h4>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            24時間以内に、講座へのアクセス情報をメールでお送りします。
+                            メールには以下の情報が含まれます：
+                        </p>
+                        <ul class="mt-4 space-y-2 text-lg text-gray-700">
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i>講座資料へのアクセスURL</li>
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i>受講者専用ページのログイン情報</li>
+                            <li><i class="fas fa-check text-blue-600 mr-2"></i>サポート窓口の連絡先</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ステップ3 -->
+                <div class="flex items-start bg-green-50 p-6 rounded-xl">
+                    <div class="bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mr-4 flex-shrink-0">
+                        3
+                    </div>
+                    <div>
+                        <h4 class="text-xl md:text-2xl font-bold mb-2 text-gray-800">学習開始</h4>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            アクセス情報が届いたら、すぐに学習を開始できます。
+                            自分のペースで進めていきましょう！
+                        </p>
+                        <div class="mt-4 bg-white p-4 rounded-lg border-2 border-green-200">
+                            <p class="text-base text-gray-700">
+                                <i class="fas fa-lightbulb text-green-600 mr-2"></i>
+                                <strong>ヒント：</strong>まずは「ロードマップ」ページで全体像を把握することをおすすめします。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- よくある質問 -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-8">
+            <h3 class="text-3xl md:text-4xl font-bold mb-8 text-center text-gray-800">
+                <i class="fas fa-question-circle text-purple-600 mr-3"></i>よくある質問
+            </h3>
+
+            <div class="space-y-6">
+                <div class="border-b border-gray-200 pb-6">
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">
+                        <i class="fas fa-question text-purple-600 mr-2"></i>メールが届かない場合はどうすればいいですか？
+                    </h4>
+                    <p class="text-lg text-gray-600 leading-relaxed pl-8">
+                        まず迷惑メールフォルダをご確認ください。それでも届かない場合は、
+                        お手数ですがサポート窓口（support@example.com）までご連絡ください。
+                    </p>
+                </div>
+
+                <div class="border-b border-gray-200 pb-6">
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">
+                        <i class="fas fa-question text-purple-600 mr-2"></i>いつから学習を開始できますか？
+                    </h4>
+                    <p class="text-lg text-gray-600 leading-relaxed pl-8">
+                        アクセス情報のメールが届き次第、すぐに学習を開始できます。
+                        通常、決済完了後24時間以内にメールをお送りしています。
+                    </p>
+                </div>
+
+                <div class="border-b border-gray-200 pb-6">
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">
+                        <i class="fas fa-question text-purple-600 mr-2"></i>領収書は発行されますか？
+                    </h4>
+                    <p class="text-lg text-gray-600 leading-relaxed pl-8">
+                        はい。Stripeから送信される確認メールに、領収書のリンクが含まれています。
+                        そちらからPDF形式でダウンロードできます。
+                    </p>
+                </div>
+
+                <div class="pb-6">
+                    <h4 class="text-xl font-bold mb-3 text-gray-800">
+                        <i class="fas fa-question text-purple-600 mr-2"></i>学習期間に制限はありますか？
+                    </h4>
+                    <p class="text-lg text-gray-600 leading-relaxed pl-8">
+                        いいえ、学習期間に制限はありません。一度ご購入いただければ、
+                        いつでも何度でも講座資料にアクセスできます。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- サポート情報 -->
+        <section class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-2xl p-12 text-center text-white">
+            <h3 class="text-3xl md:text-4xl font-bold mb-6">
+                <i class="fas fa-headset mr-3"></i>サポートについて
+            </h3>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                ご不明な点やご質問がございましたら、<br class="hidden md:block">
+                お気軽にサポート窓口までお問い合わせください。
+            </p>
+            <div class="bg-white text-gray-800 p-6 rounded-xl inline-block">
+                <p class="text-lg mb-2">
+                    <i class="fas fa-envelope text-purple-600 mr-2"></i>
+                    <strong>メール：</strong>support@example.com
+                </p>
+                <p class="text-base text-gray-600">
+                    営業時間：平日 10:00〜18:00（土日祝を除く）
+                </p>
+            </div>
+        </section>
+
+        <!-- CTAボタン -->
+        <div class="text-center mt-12">
+            <a href="index.html" class="inline-block bg-white border-2 border-purple-600 text-purple-600 text-xl font-bold px-12 py-4 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-300">
+                <i class="fas fa-home mr-2"></i>ホームページに戻る
+            </a>
+            <a href="roadmap.html" class="inline-block bg-purple-600 text-white text-xl font-bold px-12 py-4 rounded-full ml-4 hover:bg-purple-700 transition-all duration-300">
+                <i class="fas fa-map mr-2"></i>ロードマップを見る
+            </a>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-lg mb-2">© 2025 生成AI×GAS短期講座 All rights reserved.</p>
+            <p class="text-gray-400">
+                <a href="index.html" class="hover:text-white transition">ホーム</a> |
+                <a href="roadmap.html" class="hover:text-white transition ml-4">ロードマップ</a> |
+                <a href="purchase.html" class="hover:text-white transition ml-4">お申し込み</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ページ読み込み時にアニメーション開始
+        window.addEventListener('load', function() {
+            // チェックマークアニメーションは自動で実行される
+        });
+    </script>
+</body>
+</html>
