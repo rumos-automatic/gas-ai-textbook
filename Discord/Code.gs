@@ -29,6 +29,8 @@ function createSpreadsheetAndSetup() {
     'Webhook URL',
     '送信者名',
     '送信者アイコンURL',
+    '送信先',
+    '送信者名',
     '送信済み',
     '送信日時',
     '備考'
@@ -48,9 +50,11 @@ function createSpreadsheetAndSetup() {
   sheet.setColumnWidth(4, 400); // Webhook URL
   sheet.setColumnWidth(5, 150); // 送信者名
   sheet.setColumnWidth(6, 300); // 送信者アイコンURL
-  sheet.setColumnWidth(7, 100); // 送信済み
-  sheet.setColumnWidth(8, 150); // 送信日時
-  sheet.setColumnWidth(9, 150); // 備考
+  sheet.setColumnWidth(7, 150); // 送信先
+  sheet.setColumnWidth(8, 150); // 送信者名
+  sheet.setColumnWidth(9, 100); // 送信済み
+  sheet.setColumnWidth(10, 150); // 送信日時
+  sheet.setColumnWidth(11, 150); // 備考
 
   // サンプルデータを追加（オプション）
   const tomorrow = new Date();
@@ -64,6 +68,8 @@ function createSpreadsheetAndSetup() {
       'これはサンプル投稿です。この行を編集または削除してください。',
       'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL_HERE',
       'お知らせボット',
+      '',
+      '',
       '',
       '',
       '',
@@ -172,7 +178,7 @@ function checkAndPostToDiscord() {
       const webhookUrl = row[3];     // D列：Webhook URL
       const username = row[4];       // E列：送信者名
       const avatarUrl = row[5];      // F列：送信者アイコンURL
-      const isSent = row[6];         // G列：送信済み
+      const isSent = row[8];         // I列：送信済み
 
       // 空行スキップ（日付、時刻、メッセージ、Webhook URLは必須）
       if (!scheduledDate || !scheduledTime || !message || !webhookUrl) {
@@ -226,8 +232,9 @@ function checkAndPostToDiscord() {
 
         // 送信成功時、送信済みフラグと送信日時を更新
         if (success) {
-          sheet.getRange(rowNumber, 7).setValue('送信済み'); // G列：送信済み
-          sheet.getRange(rowNumber, 8).setValue(new Date()); // H列：送信日時
+          sheet.getRange(rowNumber, 9).setValue('送信済み'); // I列：送信済み
+          const formattedDate = Utilities.formatDate(new Date(), 'Asia/Tokyo', 'yyyy/MM/dd');
+          sheet.getRange(rowNumber, 10).setValue(formattedDate); // J列：送信日時
           Logger.log(`[行${rowNumber}] 送信済みフラグ更新完了`);
         }
       } else {
