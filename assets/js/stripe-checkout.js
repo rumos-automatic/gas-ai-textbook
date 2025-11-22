@@ -34,23 +34,24 @@ async function redirectToCheckout() {
   showLoading(true);
 
   try {
-    // GAS APIでCheckout Sessionを作成
+    // GAS APIでCheckout Sessionを作成（JSONP使用）
     const gasApiUrl = 'https://script.google.com/macros/s/AKfycbwQn5hLvBGnDtOKIOhbItgti_IheCRETjpH--qu2B3WkBDAFmxwQkVFRFy-33LTajnH/exec';
 
     const params = new URLSearchParams({
       priceId: STRIPE_CONFIG.PRICE_ID,
       successUrl: STRIPE_CONFIG.SUCCESS_URL,
-      cancelUrl: STRIPE_CONFIG.CANCEL_URL
+      cancelUrl: STRIPE_CONFIG.CANCEL_URL,
+      callback: 'handleCheckoutSession'
     });
 
-    const response = await fetch(`${gasApiUrl}?${params.toString()}`);
-    const data = await response.json();
+    // JSONPでリクエスト
+    const data = await loadJSONP(`${gasApiUrl}?${params.toString()}`);
 
     if (data.error) {
       throw new Error(data.error);
     }
 
-    // Stripe CheckoutにリダイレクトSession IDを使用）
+    // Stripe Checkoutにリダイレクト（Session IDを使用）
     const { error } = await stripe.redirectToCheckout({
       sessionId: data.sessionId
     });
@@ -65,6 +66,33 @@ async function redirectToCheckout() {
   } finally {
     showLoading(false);
   }
+}
+
+/**
+ * JSONP形式でAPIを呼び出す
+ */
+function loadJSONP(url) {
+  return new Promise((resolve, reject) => {
+    const callbackName = 'handleCheckoutSession';
+    const script = document.createElement('script');
+
+    // グローバルコールバック関数を作成
+    window[callbackName] = function(data) {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      resolve(data);
+    };
+
+    // エラーハンドリング
+    script.onerror = function() {
+      delete window[callbackName];
+      document.body.removeChild(script);
+      reject(new Error('JSONP request failed'));
+    };
+
+    script.src = url;
+    document.body.appendChild(script);
+  });
 }
 
 /**
