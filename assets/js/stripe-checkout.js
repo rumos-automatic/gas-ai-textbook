@@ -34,40 +34,25 @@ async function redirectToCheckout() {
   showLoading(true);
 
   try {
-    // Checkout Sessionを作成
-    const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      // 注意：本来はサーバー側で作成すべきですが、
-      // 簡易実装のため、Stripe.jsのredirectToCheckoutを使用します
+    // GAS APIでCheckout Sessionを作成
+    const gasApiUrl = 'https://script.google.com/macros/s/AKfycbwQn5hLvBGnDtOKIOhbItgti_IheCRETjpH--qu2B3WkBDAFmxwQkVFRFy-33LTajnH/exec';
+
+    const params = new URLSearchParams({
+      priceId: STRIPE_CONFIG.PRICE_ID,
+      successUrl: STRIPE_CONFIG.SUCCESS_URL,
+      cancelUrl: STRIPE_CONFIG.CANCEL_URL
     });
 
-    // Stripe.jsを使った簡易リダイレクト
+    const response = await fetch(`${gasApiUrl}?${params.toString()}`);
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    // Stripe CheckoutにリダイレクトSession IDを使用）
     const { error } = await stripe.redirectToCheckout({
-      lineItems: [
-        {
-          price: STRIPE_CONFIG.PRICE_ID,
-          quantity: 1,
-        }
-      ],
-      mode: 'payment',
-      successUrl: STRIPE_CONFIG.SUCCESS_URL,
-      cancelUrl: STRIPE_CONFIG.CANCEL_URL,
-      // 🔑 分割払いを有効化
-      paymentMethodOptions: {
-        card: {
-          installments: {
-            enabled: true,
-          }
-        }
-      },
-      // 顧客情報の収集
-      customerEmail: null, // 自動でメールアドレス入力フォームが表示される
-      billingAddressCollection: 'auto',
-      // 日本の設定
-      locale: 'ja',
+      sessionId: data.sessionId
     });
 
     if (error) {
@@ -76,7 +61,7 @@ async function redirectToCheckout() {
     }
   } catch (error) {
     console.error('❌ 予期しないエラー:', error);
-    showError('決済ページへの遷移中にエラーが発生しました。');
+    showError('決済ページへの遷移中にエラーが発生しました。\n' + error.message);
   } finally {
     showLoading(false);
   }
