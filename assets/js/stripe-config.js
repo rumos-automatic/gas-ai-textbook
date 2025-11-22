@@ -18,10 +18,10 @@ const STRIPE_CONFIG = {
   PRICE_ID: 'price_1SWChuFajKUpA4nI2vMS3CVf',
 
   // 成功時のリダイレクトURL
-  SUCCESS_URL: window.location.origin + '/GAS-generative-ai-course/purchase-success.html',
+  SUCCESS_URL: window.location.origin + '/gas-ai-textbook/purchase-success.html',
 
   // キャンセル時のリダイレクトURL
-  CANCEL_URL: window.location.origin + '/GAS-generative-ai-course/purchase.html',
+  CANCEL_URL: window.location.origin + '/gas-ai-textbook/purchase.html',
 };
 
 /**
