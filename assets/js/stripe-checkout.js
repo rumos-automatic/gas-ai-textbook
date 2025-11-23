@@ -35,7 +35,7 @@ async function redirectToCheckout() {
 
   try {
     // GAS APIでCheckout Sessionを作成（JSONP使用）
-    const gasApiUrl = 'https://script.google.com/macros/s/AKfycbwP4npZK61XSXVGR8NeFMfm_e_-KS37bmYKZnQSrpAIuuvVRnJnYrsk-tV9m5UtC4_T/exec';
+    const gasApiUrl = 'https://script.google.com/macros/s/AKfycbwrDl5Uho56cm4R9Ekmwuo2G5y8Yapry2WvEi-jpVhqVIwZLxGSZ6yFbb_-Y0xESyk2/exec';
 
     const params = new URLSearchParams({
       priceId: STRIPE_CONFIG.PRICE_ID,
