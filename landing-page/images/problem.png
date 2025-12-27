@@ -1,0 +1,12 @@
+<svg width="350" height="350" xmlns="http://www.w3.org/2000/svg">
+  <rect width="350" height="350" fill="#F9FAFB"/>
+  <text x="175" y="175" font-family="Arial, sans-serif" font-size="20" fill="#6B7280" text-anchor="middle">
+    悩んでいる
+  </text>
+  <text x="175" y="200" font-family="Arial, sans-serif" font-size="20" fill="#6B7280" text-anchor="middle">
+    ビジネスパーソン
+  </text>
+  <text x="175" y="230" font-family="Arial, sans-serif" font-size="14" fill="#9CA3AF" text-anchor="middle">
+    problem.png (350x350)
+  </text>
+</svg>

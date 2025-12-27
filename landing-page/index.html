@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI×GAS実践講座 - ChatGPTと連携して業務を自動化</title>
+  <meta name="description" content="ChatGPTと連携して業務を自動化。プログラミング未経験でも1ヶ月で自動化ツールが作れるようになる実践講座。">
+
+  <!-- OGP設定 -->
+  <meta property="og:title" content="AI×GAS実践講座">
+  <meta property="og:description" content="ChatGPTと連携して業務を自動化。プログラミング未経験でも1ヶ月で自動化ツールが作れるようになる実践講座。">
+  <meta property="og:image" content="./images/ogp.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 固定ヘッダー -->
+  <header id="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">AI×GAS実践講座</div>
+        <a href="#pricing" class="cta-button-small">講座に申し込む</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- セクション1: ヒーロー -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <h1 class="hero-title">AI×GAS実践講座</h1>
+        <p class="hero-subtitle">〜ChatGPTと連携して業務を自動化〜</p>
+        <p class="hero-catchphrase">プログラミング未経験でも、1ヶ月で業務自動化ツールが作れるようになる</p>
+        <a href="#curriculum" class="cta-button">講座の詳細を見る</a>
+        <!-- ヒーロー画像プレースホルダー -->
+        <div class="hero-image-placeholder">
+          <!-- 画像: images/hero.png -->
+          <img src="./images/hero.png" alt="AI×GAS実践講座" class="hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション2: 実績バー -->
+  <section id="achievements" class="achievements-section">
+    <div class="container">
+      <div class="achievements-grid fade-in">
+        <div class="achievement-item">
+          <div class="achievement-number">90名以上</div>
+          <div class="achievement-label">累計受講者</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-number">95%</div>
+          <div class="achievement-label">受講満足度</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-number">80%</div>
+          <div class="achievement-label">未経験者率</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション3: 悩み提起 -->
+  <section id="problems" class="problems-section">
+    <div class="container">
+      <h2 class="section-title fade-in">こんなお悩みありませんか？</h2>
+      <div class="problems-content">
+        <div class="problems-image fade-in">
+          <!-- 画像: images/problem.png -->
+          <img src="./images/problem.png" alt="悩んでいるビジネスパーソン" class="problem-image">
+        </div>
+        <div class="problems-list fade-in">
+          <div class="problem-item">
+            <div class="problem-icon">😓</div>
+            <p class="problem-text">毎日の単純作業に時間を取られている</p>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">🤔</div>
+            <p class="problem-text">自動化したいけど何から始めればいいか分からない</p>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">😰</div>
+            <p class="problem-text">プログラミングは難しそうで手が出せない</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション4: 稼げる人と稼げない人の違い -->
+  <section id="comparison" class="comparison-section">
+    <div class="container">
+      <h2 class="section-title fade-in">稼げる人と稼げない人、その差は"仕組み化"にあります</h2>
+      <div class="comparison-grid fade-in">
+        <!-- 稼げない人 -->
+        <div class="comparison-card comparison-card-bad">
+          <div class="comparison-icon">❌</div>
+          <h3 class="comparison-title comparison-title-bad">稼げない人の特徴</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>全部手作業でやっている</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>「忙しい」が口癖</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>自分の時間を切り売り</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>新しいことを学ぶ余裕がない</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>同じ収入のまま</li>
+          </ul>
+        </div>
+        <!-- 稼げる人 -->
+        <div class="comparison-card comparison-card-good">
+          <div class="comparison-icon">✅</div>
+          <h3 class="comparison-title comparison-title-good">稼げる人の特徴</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>AIを活用して自動化している</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>仕組みに働かせている</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>自分の手数を増やしている</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>空いた時間で次の挑戦ができる</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>収入の柱を増やしている</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comparison-message fade-in">
+        <p class="comparison-message-text">
+          稼げる人は、AIを取り入れて"自分の分身"を作っています。あなたが寝ている間も、仕組みが働いてくれる。その差が、1年後、5年後の収入に大きく響きます。
+        </p>
+      </div>
+      <div class="text-center fade-in">
+        <a href="#curriculum" class="cta-button">仕組み化を学ぶ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション5: 解決策（ベネフィット） -->
+  <section id="benefits" class="benefits-section">
+    <div class="container">
+      <h2 class="section-title fade-in">この講座で、こう変わります</h2>
+      <div class="benefits-grid fade-in">
+        <div class="benefit-item">
+          <div class="benefit-before">毎日2時間の手作業</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">完全自動化で0時間に</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-before">コピペ地獄のデータ転記</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">ワンクリックで完了</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-before">プログラミング知識ゼロ</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">ChatGPTで自分でコードが書ける</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション6: 選ばれる3つの理由 -->
+  <section id="reasons" class="reasons-section">
+    <div class="container">
+      <h2 class="section-title fade-in">AI×GAS実践講座が選ばれる3つの理由</h2>
+      <div class="reasons-grid fade-in">
+        <div class="reason-card">
+          <div class="reason-icon">💡</div>
+          <h3 class="reason-title">ChatGPT活用で挫折しない</h3>
+          <p class="reason-description">難しいコードはChatGPTが書いてくれる。あなたは指示を出すだけ</p>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">🚀</div>
+          <h3 class="reason-title">実践重視のカリキュラム</h3>
+          <p class="reason-description">座学より手を動かす。メール転記、CSV取込など実務で使えるツールを作成</p>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">💬</div>
+          <h3 class="reason-title">質問し放題のサポート</h3>
+          <p class="reason-description">専用Discordで講師に質問し放題。一人で悩まない環境</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション7: カリキュラム -->
+  <section id="curriculum" class="curriculum-section">
+    <div class="container">
+      <h2 class="section-title fade-in">カリキュラム</h2>
+      <p class="section-subtitle fade-in">全74セクション・6ステップで実践スキルを習得</p>
+
+      <div class="curriculum-timeline fade-in">
+        <!-- STEP 1 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 1</div>
+          <div class="step-content">
+            <div class="step-icon">📚</div>
+            <h3 class="step-title">生成AI・GASの基礎を学ぶ</h3>
+            <ul class="step-list">
+              <li>生成AIとは？ChatGPTの基本的な使い方</li>
+              <li>AIにうまく指示する4つのコツ</li>
+              <li>GASとは？できること・得意なこと・制限</li>
+              <li>GASが動くまでの流れを理解</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 2</div>
+          <div class="step-content">
+            <div class="step-icon">🔧</div>
+            <h3 class="step-title">関数×ChatGPTで自動化を体験</h3>
+            <ul class="step-list">
+              <li>関数とGASの違いを理解する</li>
+              <li>ChatGPTでスプレッドシート関数を作成</li>
+              <li>条件付き集計・自動抽出</li>
+              <li>複数シート連携</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 3</div>
+          <div class="step-content">
+            <div class="step-icon">🚀</div>
+            <h3 class="step-title">実務で使える自動化ツールを作成</h3>
+            <ul class="step-list">
+              <li>実践①：Gmailからスプシに自動転記</li>
+              <li>実践②：CSVファイルをスプシに自動転記</li>
+              <li>実践③：Googleフォーム自動返信ボット</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 4</div>
+          <div class="step-content">
+            <div class="step-icon">🔍</div>
+            <h3 class="step-title">エラー対処法を身につける</h3>
+            <ul class="step-list">
+              <li>エラー時のChatGPTへの指示の出し方</li>
+              <li>同じエラーが続く時の3つの対処法</li>
+              <li>エラー修正の心構え</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 5</div>
+          <div class="step-content">
+            <div class="step-icon">💡</div>
+            <h3 class="step-title">オリジナルツールを製作</h3>
+            <ul class="step-list">
+              <li>自動化したい作業の棚卸し</li>
+              <li>参考にする実践編を選ぶ</li>
+              <li>ChatGPTにプロンプトを送る</li>
+              <li>トライ＆エラーで完成させる</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 6</div>
+          <div class="step-content">
+            <div class="step-icon">🔥</div>
+            <h3 class="step-title">API連携で可能性を広げる</h3>
+            <ul class="step-list">
+              <li>APIとは？連携のメリット</li>
+              <li>GAS×ChatWork API連携</li>
+              <li>GAS×Gemini API連携</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="curriculum-cta fade-in">
+        <a href="https://rumos-automatic.github.io/gas-ai-textbook/" target="_blank" class="cta-button-outline">カリキュラム詳細を見る</a>
+        <a href="#pricing" class="cta-button">講座に申し込む</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション8: 受講者の声 -->
+  <section id="testimonials" class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title fade-in">受講者の声</h2>
+      <div class="testimonials-grid fade-in">
+        <!-- 受講者1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            「毎日2時間かかっていたメール転記作業が、今では完全自動。本当に助かっています。プログラミング未経験でしたが、ChatGPTを使うので全く問題ありませんでした。」
+          </p>
+          <p class="testimonial-author">K.T さん（30代・事務職）</p>
+        </div>
+
+        <!-- 受講者2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            「GASって難しそうと思っていましたが、講師の方が丁寧に教えてくれて1ヶ月で自分でツールが作れるようになりました。」
+          </p>
+          <p class="testimonial-author">M.S さん（40代・営業）</p>
+        </div>
+
+        <!-- 受講者3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            「作業会形式で実際に手を動かしながら学べるのが良かった。質問もすぐに回答もらえて、挫折せずに続けられました。」
+          </p>
+          <p class="testimonial-author">Y.H さん（20代・マーケター）</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション9: 講師紹介 -->
+  <section id="instructor" class="instructor-section">
+    <div class="container">
+      <h2 class="section-title fade-in">講師紹介</h2>
+      <div class="instructor-content fade-in">
+        <div class="instructor-image-wrapper">
+          <!-- 画像: images/instructor.png -->
+          <img src="./images/instructor.png" alt="大岩 雄太" class="instructor-image">
+        </div>
+        <div class="instructor-info">
+          <h3 class="instructor-name">大岩 雄太</h3>
+          <p class="instructor-role">AI×GAS講師 / 業務自動化コンサルタント</p>
+          <ul class="instructor-achievements">
+            <li>✓ 累計90名以上にAI×GASを指導</li>
+            <li>✓ 自身も100以上の業務自動化ツールを開発</li>
+            <li>✓ 物販事業の業務を80%自動化した実績</li>
+          </ul>
+          <p class="instructor-message">
+            プログラミングは難しくありません。ChatGPTと組み合わせれば、誰でも業務を自動化できます。一緒に手を動かしながら学びましょう！
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション10: 料金プラン -->
+  <section id="pricing" class="pricing-section">
+    <div class="container">
+      <h2 class="section-title fade-in">料金プラン</h2>
+      <div class="pricing-grid fade-in">
+        <!-- 1ヶ月プラン -->
+        <div class="pricing-card">
+          <h3 class="pricing-plan-name">1ヶ月プラン</h3>
+          <div class="pricing-price">¥150,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 1ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+          </ul>
+          <a href="[STRIPE_LINK_1MONTH]" class="pricing-button">このプランで申し込む</a>
+        </div>
+
+        <!-- 3ヶ月プラン（おすすめ） -->
+        <div class="pricing-card pricing-card-recommended">
+          <div class="pricing-ribbon">おすすめ</div>
+          <h3 class="pricing-plan-name">3ヶ月プラン</h3>
+          <div class="pricing-price">¥298,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 3ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+            <li>✓ 月1回の個別相談</li>
+          </ul>
+          <a href="[STRIPE_LINK_3MONTH]" class="pricing-button pricing-button-recommended">このプランで申し込む</a>
+        </div>
+
+        <!-- 6ヶ月プラン -->
+        <div class="pricing-card">
+          <h3 class="pricing-plan-name">6ヶ月プラン</h3>
+          <div class="pricing-price">¥598,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 6ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+            <li>✓ 月2回の個別相談</li>
+            <li>✓ 特別特典付き</li>
+          </ul>
+          <a href="[STRIPE_LINK_6MONTH]" class="pricing-button">このプランで申し込む</a>
+        </div>
+      </div>
+      <p class="pricing-note fade-in">※分割払いにも対応しております</p>
+    </div>
+  </section>
+
+  <!-- セクション11: よくある質問 -->
+  <section id="faq" class="faq-section">
+    <div class="container">
+      <h2 class="section-title fade-in">よくある質問</h2>
+      <div class="faq-list fade-in">
+        <!-- Q1 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">プログラミング未経験でも大丈夫ですか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>はい、大丈夫です！受講者の80%がプログラミング未経験からスタートしています。ChatGPTを使ってコードを作成するので、難しいプログラミング知識は必要ありません。</p>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">1日どれくらいの学習時間が必要ですか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>1日30分〜1時間程度を目安にしています。お仕事や家事の合間に、ご自身のペースで進められます。</p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">サポートはどのように受けられますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>専用のDiscordサーバーで質問し放題です。講師が丁寧にサポートいたします。通常24時間以内に回答いたします。</p>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">どんなツールが作れるようになりますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>メール自動転記、CSV取込、フォーム自動返信、ChatWork連携、Gemini連携など、実務で使える自動化ツールが作れるようになります。</p>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">分割払いはできますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>はい、対応しております。お申込み時に分割払いをご選択いただけます。</p>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">受講期間内に終わらなかったらどうなりますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>教材へのアクセスはサポート期間終了後も可能です。ご自身のペースで学習を続けていただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション12: 最終CTA -->
+  <section id="cta" class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-content fade-in">
+        <h2 class="final-cta-title">業務自動化の第一歩を踏み出しましょう</h2>
+        <p class="final-cta-subtitle">面倒な作業から解放される未来が、ここから始まります</p>
+        <a href="#pricing" class="cta-button cta-button-large">講座に申し込む</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-copyright">© 2025 AI×GAS実践講座</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
