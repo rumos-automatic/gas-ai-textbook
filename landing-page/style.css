@@ -79,6 +79,14 @@ body::before {
   font-size: 1.5rem;
   font-weight: 900;
   color: #1E3A5F;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
 }
 
 .cta-button-small {
@@ -1220,4 +1228,54 @@ body::before {
   .final-cta-title {
     font-size: 2rem;
   }
+}
+
+/* ========================================
+   SVGアイコン共通スタイル
+========================================*/
+.icon {
+  width: 48px;
+  height: 48px;
+  stroke: #D4AF37;
+}
+
+.icon-bad {
+  stroke: #DC2626;
+}
+
+.icon-good {
+  stroke: #16A34A;
+}
+
+.problem-icon .icon {
+  width: 40px;
+  height: 40px;
+  stroke: #6B7280;
+}
+
+.reason-icon .icon {
+  width: 56px;
+  height: 56px;
+}
+
+.step-icon .icon {
+  width: 32px;
+  height: 32px;
+}
+
+.comparison-icon .icon {
+  width: 64px;
+  height: 64px;
+}
+
+.star-icon {
+  width: 20px;
+  height: 20px;
+  color: #D4AF37;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
 }
