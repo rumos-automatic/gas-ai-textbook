@@ -10,12 +10,13 @@
     /* カードホバーエフェクト */
     .section-card {
       transition: all 0.3s ease;
-      cursor: pointer;
     }
+
     .section-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     }
+
     /* 番号バッジ */
     .number-badge {
       width: 70px;
@@ -30,6 +31,7 @@
       text-align: center;
       line-height: 1;
     }
+
     @media (max-width: 768px) {
       .number-badge {
         width: 60px;
@@ -37,10 +39,12 @@
         font-size: 1.25rem;
       }
     }
+
     /* スムーススクロール */
     html {
       scroll-behavior: smooth;
     }
+
     /* カードグリッドレイアウト */
     .cards-grid {
       display: grid;
@@ -48,6 +52,16 @@
       gap: 1.5rem;
       padding: 1rem 0;
     }
+
+    /* カテゴリヘッダー */
+    .category-header h2 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      position: relative;
+    }
+
     /* セクション数表示 */
     .section-count {
       margin-left: 1rem;
@@ -55,6 +69,96 @@
       color: #9ca3af;
       font-weight: 400;
       flex-shrink: 0;
+    }
+
+    /* 折りたたみ可能なカード */
+    .collapsible-card {
+      display: none;
+    }
+
+    .category-section:not(.collapsed) .collapsible-card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* カテゴリ説明文は常に表示 */
+    .category-description {
+      /* 説明文は折りたたまない */
+    }
+
+    /* さらに表示ボタン */
+    .show-more-button {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 0.875rem 2rem;
+      background: white;
+      border: 2px solid #9ca3af;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.125rem;
+      color: #4b5563;
+      font-weight: 500;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .show-more-button:hover {
+      background: #f9fafb;
+      border-color: #6b7280;
+      color: #374151;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 展開時は「さらに表示」ボタンを非表示 */
+    .category-section:not(.collapsed) .show-more-button {
+      display: none;
+    }
+
+    /* 折りたたみボタン */
+    .hide-more-button {
+      display: none;
+      margin: 2rem auto 0;
+      padding: 0.875rem 2rem;
+      background: white;
+      border: 2px solid #9ca3af;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.125rem;
+      color: #4b5563;
+      font-weight: 500;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .hide-more-button:hover {
+      background: #f9fafb;
+      border-color: #6b7280;
+      color: #374151;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 展開時は「折りたたむ」ボタンを表示 */
+    .category-section:not(.collapsed) .hide-more-button {
+      display: block;
+    }
+
+    .show-more-icon {
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .show-more-count {
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-left: 0.25rem;
     }
     /* デモバナー */
     .demo-banner {
@@ -80,9 +184,7 @@
       justify-content: center;
       align-items: center;
     }
-    .modal-overlay.active {
-      display: flex;
-    }
+    .modal-overlay.active { display: flex; }
     .modal-content {
       background: white;
       padding: 2.5rem;
@@ -91,20 +193,9 @@
       text-align: center;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-    .modal-icon {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-    .modal-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      color: #1f2937;
-    }
-    .modal-text {
-      color: #6b7280;
-      margin-bottom: 1.5rem;
-    }
+    .modal-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .modal-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #1f2937; }
+    .modal-text { color: #6b7280; margin-bottom: 1.5rem; }
     .modal-button {
       background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%);
       color: white;
@@ -115,19 +206,9 @@
       display: inline-block;
       transition: all 0.3s ease;
     }
-    .modal-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
-    }
-    .modal-close {
-      margin-top: 1rem;
-      color: #9ca3af;
-      cursor: pointer;
-      font-size: 0.875rem;
-    }
-    .modal-close:hover {
-      color: #6b7280;
-    }
+    .modal-button:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3); }
+    .modal-close { margin-top: 1rem; color: #9ca3af; cursor: pointer; font-size: 0.875rem; }
+    .modal-close:hover { color: #6b7280; }
     /* CTA セクション */
     .cta-section {
       background: linear-gradient(135deg, #0B1120 0%, #1E3A5F 100%);
@@ -135,6 +216,7 @@
       padding: 3rem 2rem;
       border-radius: 1rem;
       text-align: center;
+      margin-bottom: 2rem;
     }
     .cta-button {
       background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%);
@@ -147,11 +229,11 @@
       display: inline-block;
       text-decoration: none;
     }
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
-    }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3); }
+    /* ロック済みカード */
+    .section-card.locked { cursor: pointer; }
   </style>
+
 </head>
 <body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
 
@@ -177,110 +259,262 @@
   <!-- メインコンテンツ -->
   <main class="max-w-6xl mx-auto px-6 py-12">
 
-    <!-- カテゴリ1: 生成AI紹介（閲覧可能） -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">🤖</span>
-        生成AI紹介
-        <span class="section-count">全7セクション</span>
-        <span class="ml-3 text-sm bg-green-500 text-white px-2 py-1 rounded-full">閲覧可能</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
+    <!-- カテゴリ1: 生成AI紹介 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🤖</span>
+          生成AI紹介
+          <span class="section-count">全7セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
         生成AIの基本概念から実践的な使い方まで、初心者でも分かりやすく学べます。
       </p>
 
       <div class="cards-grid">
+        <!-- セクション1 -->
         <a href="生成AI/section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">生成AIとは？</h3>
-            <p class="text-base text-gray-600">生成AIの基本概念、仕組み、得意なことを学びます</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              生成AIとは？
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              生成AIの基本概念、仕組み、得意なことを学びます
+            </p>
           </div>
         </a>
+
+        <!-- セクション2 -->
         <a href="生成AI/section-02.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTでできること</h3>
-            <p class="text-base text-gray-600">12種類の実用的な作業例を確認します</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTでできること
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              12種類の実用的な作業例を確認します
+            </p>
           </div>
         </a>
+
+        <!-- セクション3 -->
         <a href="生成AI/section-03.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">3</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTにやらせてはいけないこと</h3>
-            <p class="text-base text-gray-600">注意すべき使い方と回避方法を理解します</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTにやらせてはいけないこと
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              注意すべき使い方と回避方法を理解します
+            </p>
           </div>
         </a>
-        <a href="生成AI/section-04.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ4 -->
+        <a href="生成AI/section-04.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">4</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの始め方</h3>
-            <p class="text-base text-gray-600">アカウント作成から基本操作まで学びます</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTの始め方
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTのアカウント作成から基本的な操作方法まで、ステップバイステップで学びます
+            </p>
           </div>
         </a>
-        <a href="生成AI/section-05.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ5 -->
+        <a href="生成AI/section-05.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">5</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの基本的な使い方</h3>
-            <p class="text-base text-gray-600">メッセージの送り方から会話の続け方まで学びます</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTの基本的な使い方
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              メッセージの送り方から会話の続け方まで、基本的な操作方法を学びます
+            </p>
           </div>
         </a>
-        <a href="生成AI/section-06.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ6 -->
+        <a href="生成AI/section-06.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">6</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">AIにうまく指示する4つのコツ</h3>
-            <p class="text-base text-gray-600">プロンプトテクニックを学びます</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              AIにうまく指示する4つのコツ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              基本のプロンプトテクニックから上級テクニック（水平思考・悪魔の代弁者など）まで学びます
+            </p>
           </div>
         </a>
-        <a href="生成AI/section-07.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ7 -->
+        <a href="生成AI/section-07.html" class="section-card collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">7</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの便利機能</h3>
-            <p class="text-base text-gray-600">効率的に使うための便利機能を学びます</p>
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">
+              7
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTの便利機能
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTをさらに効率的に使うための便利機能を学びます
+            </p>
           </div>
         </a>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(4)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ2: GAS紹介 -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">⚙️</span>
-        GAS紹介
-        <span class="section-count">全6セクション</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">⚙️</span>
+          GAS紹介
+          <span class="section-count">全6セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
         Google Apps Scriptの基礎から実践まで、ツール開発に必要な知識を習得します。
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">GASとは？</h3>
-            <p class="text-base text-gray-600">Google Apps Script（GAS）とは何か、どんなことができるのかを学びます</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASとは？
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Google Apps Script（GAS）とは何か、どんなことができるのかを学びます
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">GASの始め方</h3>
-            <p class="text-base text-gray-600">GASを使うために必要な準備と、実際の始め方を学びます</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASの始め方
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASを使うために必要な準備と、実際の始め方を学びます
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">3</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">GASでできること</h3>
-            <p class="text-base text-gray-600">GASが得意な連携先と、実際にどんなことができるのかを学びます</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASでできること
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASが得意な連携先と、実際にどんなことができるのかを学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASの得意なこと／苦手なこと
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASが得意なことと苦手なことを理解し、効果的に活用しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASの知っておくべき制限
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASを使う上で知っておくべき制限事項を学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ6 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASが動くまでの流れ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASがどこにあり、どのように動作するのかをイメージできるようにしましょう
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(3)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
     <!-- カテゴリ3: 基本的な考え方 -->
     <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
         <span class="text-5xl mr-4">💡</span>
         基本的な考え方
         <span class="section-count">全3セクション</span>
@@ -290,230 +524,1226 @@
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- セクション1: 棚卸作業 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">棚卸作業</h3>
-            <p class="text-base text-gray-600">現状の作業を具体的に書き出す方法を学びます</p>
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              棚卸作業
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              現状の作業を具体的に書き出す方法を学びます
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- セクション2: ツールは1発で完成しない -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ツールは1発で完成しない</h3>
-            <p class="text-base text-gray-600">トライ&エラーを繰り返す開発フローを理解します</p>
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ツールは1発で完成しない
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              トライ&エラーを繰り返す開発フローを理解します
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- セクション3: 修正依頼は「1回に1個」 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">3</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">修正依頼は「1回に1個」</h3>
-            <p class="text-base text-gray-600">AIとの効果的なコミュニケーション方法を習得します</p>
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              修正依頼は「1回に1個」
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              AIとの効果的なコミュニケーション方法を習得します
+            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- カテゴリ4: 実践ウォーミングアップ -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">🔧</span>
-        実践ウォーミングアップ
-        <span class="section-count">全4セクション</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
-        GASに入る前に、スプレッドシート関数を使った自動化を体験します。
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🔧</span>
+          実践ウォーミングアップ
+          <span class="section-count">全4セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
+        GASに入る前に、スプレッドシート関数を使った自動化を体験します。ChatGPTを使えば、関数も簡単に作れることを実感しましょう。
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- セクション1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-500 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">関数とGASの違い</h3>
-            <p class="text-base text-gray-600">関数とGASの違い、それぞれの得意なことを学びます</p>
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-500 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              関数とGASの違いを理解する
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              関数とGASの違い、それぞれの得意なことを学びます
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- セクション2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTで関数を作る</h3>
-            <p class="text-base text-gray-600">ステータス自動付与、発送予定日の自動計算</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTで関数を作ってみよう
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              🟢 カンタンレベル：ステータス自動付与、発送予定日の自動計算
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- セクション3 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-yellow-400 to-orange-500 text-white mb-4">3</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">条件付き集計と自動抽出</h3>
-            <p class="text-base text-gray-600">「〇〇だけ」の合計を出す実務で役立つ集計</p>
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-orange-500 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              条件付き集計と自動抽出
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              🟡 普通レベル：「〇〇だけ」の合計を出すなど、実務で役立つ集計
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-pink-500 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              複数シート連携
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              🔴 応用レベル：別シートや別スプレッドシートとの自動連携
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(1)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
-    <!-- カテゴリ5: 実践編① メール自動転記 -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">🚀</span>
-        実践編① メール自動転記
-        <span class="section-count">全12セクション</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
+    <!-- カテゴリ5: 実践編① メール内容をスプシに自動転記 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編① メール内容をスプシに自動転記
+          <span class="section-count">全12セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
         Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- イントロダクション -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">📘</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">イントロダクション</h3>
-            <p class="text-base text-gray-600">ツールの概要と完成イメージを確認します</p>
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              📘
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Gmailから特定のメールを検索し、スプレッドシートに自動転記するツールを作成します。
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">作業の棚卸</h3>
-            <p class="text-base text-gray-600">現在の作業を具体的に書き出しましょう</p>
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              作業の棚卸
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              まず、現在の作業を具体的に書き出しましょう
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">自動化ワークシート</h3>
-            <p class="text-base text-gray-600">作業を整理するためのワークシートを活用</p>
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              自動化ワークシート
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              作業を整理するためのワークシートを活用しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              メールサンプル
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              転記するメールの具体的なサンプルを準備します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              転記項目の設計
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              どの情報をどのように転記するか設計します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              プロンプト例
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTに送る具体的なプロンプト例を確認します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ6 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTでコード生成
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              作業の棚卸ができたら、ChatGPTにツール作成を依頼しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ7 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              7
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASエディタに貼り付け
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTが生成したコードを、GASエディタに貼り付けましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ8 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              8
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              初回承認
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASを初めて実行する際は、Googleアカウントへの承認が必要です
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ9 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              9
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              動作確認
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              承認が完了したら、実際にツールが正しく動作するか確認しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ10 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              10
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              トリガー設定で自動実行
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ツールが正しく動作することを確認したら、最後にトリガー設定を行いましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- まとめ -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-indigo-400 to-indigo-600 text-white mb-4">
+              ✅
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              まとめ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              おめでとうございます！実践編①のすべてのステップを完了しました
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(8)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
-    <!-- カテゴリ6: 実践編② CSV自動転記 -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">🚀</span>
-        実践編② CSV自動転記
-        <span class="section-count">全11セクション</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
+    <!-- カテゴリ5: 実践編② CSVファイルをスプシに自動転記 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編② CSVファイルをスプシに自動転記
+          <span class="section-count">全11セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
         Googleドライブ内のCSVファイルをスプレッドシートに自動転記するツールを作成します。
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- イントロダクション -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">📘</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">イントロダクション</h3>
-            <p class="text-base text-gray-600">Googleドライブのファイルを自動取り込み</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              📘
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Googleドライブのファイルを自動的にスプレッドシートに取り込むツールを作成します
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">作業の棚卸</h3>
-            <p class="text-base text-gray-600">現在の作業を具体的に書き出しましょう</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              作業の棚卸
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              まず、現在の作業を具体的に書き出しましょう
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">自動化ワークシート</h3>
-            <p class="text-base text-gray-600">作業を整理するためのワークシートを活用</p>
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              自動化ワークシート
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              作業を整理するためのワークシートを活用しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              準備編
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              CSVファイルとスプレッドシートを準備します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              データ形式と転記項目
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              CSVのデータ形式と転記する項目を設計します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              プロンプト作成と送信
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              生成AIへの指示文を作成し、ChatGPTに送信します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ6 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              コードをGASエディタに貼り付け
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTが生成したコードを実装します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ7 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              7
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              動作確認
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ツールが正しく動作するかチェックしましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ8 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              8
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              カスタムメニュー設定
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              カスタムメニューからツールを実行できるようにします
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ9 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              9
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              このツールのメリット
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              自動化で得られる具体的な効果を確認しましょう
+            </p>
+          </div>
+        </div>
+
+        <!-- まとめ -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              ✅
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              お疲れ様でした！
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              実践編②: CSVファイル自動転記ツールが完成しました
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(8)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
-    <!-- カテゴリ7: 実践編③ フォーム自動返信 -->
-    <section class="mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-        <span class="text-5xl mr-4">🚀</span>
-        実践編③ フォーム自動返信
-        <span class="section-count">全4セクション</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-8">
+    <!-- カテゴリ6: 実践編③ Googleフォーム自動返信ボット -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編③ Googleフォーム自動返信ボット
+          <span class="section-count">全4セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
         Googleフォームに回答があったら、自動的にお礼メールを送信するボットを作成します。
       </p>
 
       <div class="cards-grid">
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">1</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">イントロダクション</h3>
-            <p class="text-base text-gray-600">自動返信ボットの概要を確認</p>
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Googleフォームに回答があったら、自動的にお礼メールを送信するボットを作成します
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">2</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">準備と設計</h3>
-            <p class="text-base text-gray-600">フォームを作成し、自動返信の仕組みを設計</p>
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              準備と設計
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              フォームを作成し、自動返信の仕組みを設計します
+            </p>
           </div>
         </div>
-        <div onclick="showLockedModal()" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
           <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
-            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">3</div>
-            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">実装と動作確認</h3>
-            <p class="text-base text-gray-600">コードを実装して、テスト送信で動作確認</p>
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              実装と動作確認
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              コードを実装して、テスト送信で動作を確認します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-red-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              応用と注意点
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              条件分岐による応用と、運用時の注意点を学びます
+            </p>
           </div>
         </div>
       </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(1)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
-    <!-- その他のカテゴリは省略表示 -->
+    <!-- カテゴリ7: トラブルシューティング -->
     <section class="mb-16">
-      <h2 class="text-2xl md:text-3xl font-bold text-gray-500 mb-4">
-        その他のコンテンツ
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 flex items-center">
+        <span class="text-5xl mr-4">🔧</span>
+        トラブルシューティング
+        <span class="section-count">全3セクション</span>
       </h2>
-      <p class="text-lg text-gray-500 mb-6">
-        トラブルシューティング、オリジナルツール製作、API連携（ChatWork・Gemini）など、全80セクションの教材が含まれます。
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        エラーが出たときの対処法を学び、問題を解決する力を身につけます。
       </p>
-      <div class="flex flex-wrap gap-3">
-        <span onclick="showLockedModal()" class="cursor-pointer bg-white px-4 py-2 rounded-full shadow-md text-gray-700 hover:shadow-lg transition">🔧 トラブルシューティング</span>
-        <span onclick="showLockedModal()" class="cursor-pointer bg-white px-4 py-2 rounded-full shadow-md text-gray-700 hover:shadow-lg transition">🚀 オリジナルツール製作</span>
-        <span onclick="showLockedModal()" class="cursor-pointer bg-white px-4 py-2 rounded-full shadow-md text-gray-700 hover:shadow-lg transition">🔥 上級編API連携</span>
-        <span onclick="showLockedModal()" class="cursor-pointer bg-white px-4 py-2 rounded-full shadow-md text-gray-700 hover:shadow-lg transition">💬 ChatWork API</span>
-        <span onclick="showLockedModal()" class="cursor-pointer bg-white px-4 py-2 rounded-full shadow-md text-gray-700 hover:shadow-lg transition">✨ Gemini API</span>
+
+      <div class="cards-grid">
+        <!-- セクション1: エラーやうまく動かない時の指示の出し方 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-orange-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              エラーやうまく動かない時の指示の出し方
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTに的確にエラーを伝える方法を学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション2: 同じエラーが3回以上出る時の対処法 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-orange-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              同じエラーが3回以上出る時の対処法
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              エラーが続く場合の3つの対処法を学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション3: エラー修正の心構え -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-red-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              エラー修正の心構え
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              エラーを前向きに捉え、諦めずに改善を続ける心構えを学びます
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- CTA セクション -->
-    <section class="cta-section mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">全80セクションの教材にアクセス</h2>
-      <p class="text-lg md:text-xl mb-8 opacity-90">
-        生成AI × GASで業務自動化スキルを身につけましょう
+    <!-- カテゴリ8: 実践編④ オリジナルツールを製作 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編④ オリジナルツールを製作
+          <span class="section-count">全8セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
+        これまでの知識を活かして、自分だけの自動化ツールを作ります。
       </p>
-      <a href="../index-v2.html#plans" class="cta-button">
-        料金プランを見る →
-      </a>
+
+      <div class="cards-grid">
+        <!-- イントロダクション -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              📘
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              これまでの学習を活かして、あなた自身のオリジナルツールを作成しましょう！
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              棚卸しから始めましょう！
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              自動化したい作業を具体的に書き出すことで、ツールの設計がスムーズに進みます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              参考にする実践編を選ぶ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              あなたが作りたいツールは、どの実践編に近いでしょうか？参考にする実践を選んで、コードの設計をスムーズに進めます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              トリガーとカスタムメニューの使い分け
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              あなたのツールは、トリガー設定とカスタムメニューのどちらが適しているでしょうか？実行方法を選んで最適な自動化を実現します。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              ChatGPTにプロンプトを送る
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              棚卸しが完了したら、ChatGPTにプロンプトを送ってコードを生成してもらいましょう。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              トライ&エラーを繰り返す
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPTがコードを生成したら、実際に実行してみましょう。エラーが出ても大丈夫です。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ6 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              完成したら動作確認
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ツールが完成したら、以下のチェックリストを使って動作確認を行いましょう。
+            </p>
+          </div>
+        </div>
+
+        <!-- まとめ -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-400 to-pink-600 text-white mb-4">
+              ✅
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              まとめ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              実践編④で学んだことを振り返りましょう。自分で考えてツールを設計する力が身につきました。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(5)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
+    </section>
+
+    <!-- カテゴリ9: 上級編 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🔥</span>
+          上級編
+          <span class="section-count">全5セクション</span>
+        </h2>
+      </div>
+
+      <!-- 上級者向け警告表示 -->
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-8 shadow-md category-description">
+        <p class="text-lg md:text-xl text-yellow-800 font-semibold flex items-center">
+          <span class="text-3xl mr-3">⚠️</span>
+          この章はロードマップ外の上級者向けコンテンツです。基礎編を修了してから取り組んでください。
+        </p>
+      </div>
+
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
+        API連携の基礎知識を学び、外部サービスとGASを連携させる方法を習得します。
+      </p>
+
+      <div class="cards-grid">
+        <!-- セクション1: APIとは？ -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-red-400 to-red-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              APIとは？
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              API（Application Programming Interface）の基本概念を理解します
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション2: API連携のメリット -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-orange-400 to-orange-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              API連携のメリット
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASでAPI連携を行うことで得られる3つの大きなメリットを学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション3: GASでAPI連携を行う方法 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-yellow-400 to-yellow-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASでAPI連携を行う方法
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASで外部APIを呼び出す基本的な手順を学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション4: 代表的なAPI連携の例 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-green-400 to-green-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              代表的なAPI連携の例
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              ChatGPT、Gemini、Slackなど、実際のAPI連携例を学びます
+            </p>
+          </div>
+        </div>
+
+        <!-- セクション5: API連携の注意点 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-red-500 to-red-700 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              API連携の注意点
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              API連携を安全に行うための重要な注意点を学びます
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(2)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
+    </section>
+
+    <!-- カテゴリ10: 実践編⑤ GAS×チャットワークAPI連携 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編⑤ GAS×チャットワークAPI連携
+          <span class="section-count">全6セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
+        GASとチャットワークAPIを連携させて、業務を効率化するツールを作ります。
+      </p>
+
+      <div class="cards-grid">
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASとチャットワークAPIを連携させて、業務を効率化するツールを作ります
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              チャットワークAPIとは？
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              チャットワークAPIの基本と、できることを学びましょう。メッセージ送信、タスク作成などが自動化できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              APIトークンの取得
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              チャットワークAPIを使うために必要なAPIトークンを取得しましょう。サービス連携から簡単に取得できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASからメッセージ送信
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              取得したAPIトークンを使って、実際にメッセージを送信してみましょう。3つのステップで実装できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              実用的な活用例
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              実際の業務で使える3つの活用例を紹介します。フォーム通知、在庫アラート、売上レポートなど。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ6 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-pink-500 to-red-600 text-white mb-4">
+              6
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              注意点とまとめ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              チャットワークAPI連携を使う際の重要なポイントを確認しましょう。セキュリティとAPI制限に注意が必要です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(3)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
+    </section>
+
+    <!-- カテゴリ11: 実践編⑥ GAS×Gemini API連携 -->
+    <section class="mb-16 category-section collapsed">
+      <div class="category-header">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <span class="text-5xl mr-4">🚀</span>
+          実践編⑥ GAS×Gemini API連携
+          <span class="section-count">全5セクション</span>
+        </h2>
+      </div>
+      <p class="text-lg md:text-xl text-gray-700 mb-8 category-description">
+        GASとGemini APIを連携させて、AI機能を組み込んだツールを作成します。
+      </p>
+
+      <div class="cards-grid">
+        <!-- ステップ1 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              1
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              イントロダクション
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              GASとGemini APIを連携させて、AI機能を組み込んだツールを作成します
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              2
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              Gemini APIキーの取得
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Gemini APIを使用するために必要なAPIキーを取得します。Google AI Studioから6つのステップで取得できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ3 -->
+        <div onclick="showLockedModal()" class="section-card locked bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              3
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              GASとの連携
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              取得したAPIキーを使って、実際にテキスト生成を試してみましょう。プロパティサービスで安全に管理します。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ4 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              4
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              実用的な活用例
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              実際のビジネスシーンで使える、Gemini API活用例を紹介します。商品説明文生成、問い合わせ分類、フィードバック要約など。
+            </p>
+          </div>
+        </div>
+
+        <!-- ステップ5 -->
+        <div onclick="showLockedModal()" class="section-card locked collapsible-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-purple-400 to-purple-600 text-white mb-4">
+              5
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              注意点とまとめ
+            </h3>
+            <p class="text-base text-gray-600 text-center w-full">
+              Gemini API連携を安全に、効率的に活用するための知識を学びます。ChatGPT APIとの違いも比較します。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- さらに表示ボタン -->
+      <button class="show-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">+</span>
+        さらに表示
+        <span class="show-more-count">(2)</span>
+      </button>
+
+      <!-- 折りたたむボタン -->
+      <button class="hide-more-button" onclick="toggleCategory(this.closest('.category-section').querySelector('.category-header'))">
+        <span class="show-more-icon">−</span>
+        折りたたむ
+      </button>
     </section>
 
   </main>
 
+  <!-- CTAセクション -->
+  <section class="max-w-6xl mx-auto px-6 mb-12">
+    <div class="cta-section">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">すべてのコンテンツを見る</h2>
+      <p class="text-lg md:text-xl mb-6 opacity-90">
+        全12カテゴリ、80セクションの充実した教材で<br>
+        生成AI×GASをマスターしましょう
+      </p>
+      <a href="../index-v2.html#plans" class="cta-button">
+        料金プランを見る
+      </a>
+    </div>
+  </section>
+
   <!-- フッター -->
-  <footer class="bg-white shadow-md py-6 px-6">
+  <footer class="bg-white shadow-md py-6 px-6 mt-12">
     <div class="max-w-6xl mx-auto text-center">
       <p class="text-base text-gray-600">
-        © 2025 AI×GAS 短期講座 | 無料デモ版
+        © 2025 AI×GAS 短期講座 | すべての資料は学習目的で提供されています
       </p>
     </div>
   </footer>
 
-  <!-- モーダル -->
+  <!-- ロックモーダル -->
   <div id="lockedModal" class="modal-overlay" onclick="hideLockedModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <div class="modal-icon">🔒</div>
       <h3 class="modal-title">受講者限定コンテンツ</h3>
-      <p class="modal-text">このコンテンツは有料プランに申し込むと<br>閲覧できるようになります</p>
+      <p class="modal-text">
+        このコンテンツは有料プランに申し込むと<br>閲覧できるようになります
+      </p>
       <a href="../index-v2.html#plans" class="modal-button">料金プランを見る</a>
       <div class="modal-close" onclick="hideLockedModal()">閉じる</div>
     </div>
   </div>
 
+  <!-- スクロール機能のJavaScript -->
   <script>
+    // モーダル表示・非表示
     function showLockedModal() {
       document.getElementById('lockedModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
     }
     function hideLockedModal() {
       document.getElementById('lockedModal').classList.remove('active');
+      document.body.style.overflow = '';
     }
     // Escキーでモーダルを閉じる
     document.addEventListener('keydown', function(e) {
@@ -521,6 +1751,22 @@
         hideLockedModal();
       }
     });
+
+    // カテゴリ折りたたみ機能
+    function toggleCategory(headerElement) {
+      const section = headerElement.closest('.category-section');
+      const isCurrentlyExpanded = !section.classList.contains('collapsed');
+
+      section.classList.toggle('collapsed');
+
+      // 折りたたむ時だけスムーススクロール
+      if (isCurrentlyExpanded) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+
   </script>
 
 </body>
