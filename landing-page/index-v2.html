@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI×GAS実践講座 | 業務自動化プログラミングスクール</title>
     <meta name="description" content="ChatGPTと連携してGoogle Apps Scriptで業務自動化。プログラミング未経験から始めるAI×GAS実践講座。">
-    <link rel="icon" href="./favicon.png" type="image/png">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
@@ -704,7 +704,7 @@
             width: 40%;
             min-height: 400px;
             background-color: #0B1120;
-            background-image: url('https://placehold.co/600x800/1E3A5F/FFF?text=Instructor');
+            background-image: url('./images/instructor.png');
             background-size: cover;
             background-position: center;
         }
@@ -999,29 +999,13 @@
                 ChatGPT×Google Apps Script実践マスター講座
             </p>
             <div class="hero-cta-wrapper">
-                <a href="#plans" class="btn btn-primary" style="padding: 1.2rem 4rem; font-size: 1.2rem;">無料相談に参加する</a>
-                <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 1rem;">※ 毎月5名限定募集</p>
+                <a href="#plans" class="btn btn-primary" style="padding: 1.2rem 4rem; font-size: 1.2rem;">講座に申し込む</a>
             </div>
         </div>
     </section>
 
     <!-- Achievements -->
-    <section class="achievements">
-        <div class="container achievements-grid">
-            <div class="achievement-item">
-                <h3 class="counter" data-target="90">0</h3>
-                <p>受講者数(名以上)</p>
-            </div>
-            <div class="achievement-item">
-                <h3 class="counter" data-target="95">0</h3>
-                <p>満足度(%)</p>
-            </div>
-            <div class="achievement-item">
-                <h3 class="counter" data-target="80">0</h3>
-                <p>未経験者率(%)</p>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Pain Points -->
     <section class="section troubles fade-in-section">
@@ -1229,55 +1213,78 @@
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 1</span>
-                        <h3 class="font-bold">環境構築とAIの基本</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-                            GASの基礎知識と、コーディングパートナーとしてのAIの設定方法を学びます。</p>
+                        <span class="step-num">STEP 1：基礎編</span>
+                        <h3 class="font-bold">生成AI・GASの基礎を学ぶ</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>生成AIとは？ChatGPTの使い方</li>
+                            <li>GASとは？できること・制限</li>
+                            <li>GASが動くまでの流れを理解</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 2</span>
-                        <h3 class="font-bold">スプレッドシート連携</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-                            データの読み書き、集計、自動フォーマットなど、日常業務の基礎を自動化します。</p>
+                        <span class="step-num">STEP 2：実践ウォーミングアップ</span>
+                        <h3 class="font-bold">関数×ChatGPTで自動化を体験</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>関数とGASの違いを理解する</li>
+                            <li>ChatGPTでスプレッドシート関数を作成</li>
+                            <li>条件付き集計・自動抽出</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 3</span>
-                        <h3 class="font-bold">Gmail/Slack連携</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-                            通知の自動化、日報の自動送信など、コミュニケーションコストを削減するツールを作成。</p>
+                        <span class="step-num">STEP 3：実践編</span>
+                        <h3 class="font-bold">実務で使える自動化ツールを作成</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>Gmail→スプレッドシート自動転記</li>
+                            <li>CSVファイル自動転記</li>
+                            <li>Googleフォーム自動返信ボット</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 4</span>
-                        <h3 class="font-bold">API連携と外部データ</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">天気予報、株価、OpenAI
-                            APIなど、外部サービスと連携した高度なアプリ開発。</p>
+                        <span class="step-num">STEP 4：トラブルシューティング</span>
+                        <h3 class="font-bold">エラー対処法を身につける</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>エラー時のChatGPTへの指示の出し方</li>
+                            <li>同じエラーが続く時の対処法</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 5</span>
-                        <h3 class="font-bold">実務課題開発</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-                            あなたの実際の業務課題を解決するツールを、講師と共に設計・実装します。</p>
+                        <span class="step-num">STEP 5：応用編</span>
+                        <h3 class="font-bold">オリジナルツールを製作</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>自動化したい作業の棚卸し</li>
+                            <li>ChatGPTにプロンプトを送る</li>
+                            <li>トライ＆エラーで完成させる</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-dot"></div>
                     <div class="step-content">
-                        <span class="step-num">STEP 6</span>
-                        <h3 class="font-bold">運用・保守・卒業制作</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-                            エラーハンドリングやコードの整理を行い、完全オリジナルの自動化システムを完成させます。</p>
+                        <span class="step-num">STEP 6：上級編</span>
+                        <h3 class="font-bold">API連携で可能性を広げる</h3>
+                        <ul
+                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>APIとは？連携のメリット</li>
+                            <li>ChatWork API連携</li>
+                            <li>Gemini API連携</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -1331,17 +1338,35 @@
                 <div class="profile-img"></div>
                 <div class="profile-content">
                     <h3 class="text-gold font-bold" style="font-size: 1.5rem; margin-bottom: 0.5rem;">大岩 涼太</h3>
-                    <p class="mb-2" style="font-size: 0.9rem; letter-spacing: 0.1em;">AI × 業務効率化コンサルタント</p>
-                    <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">
-                        大手IT企業にてシステム開発に従事した後、独立。
-                        「テクノロジーで人の時間を価値あるものに」をミッションに、非エンジニア向けのDX支援を行う。
-                        これまでに50社以上の業務改善を担当し、削減した総時間は10,000時間超。
-                        複雑なコードを書かずにAIを活用する現代的な開発手法の第一人者。
-                    </p>
-                    <ul style="font-size: 0.9rem; color: var(--color-text-light);">
-                        <li>・Google Cloud 認定資格 保有</li>
-                        <li>・Udemy講師 (受講生2,000名以上)</li>
-                    </ul>
+                    <p class="mb-2" style="font-size: 0.9rem; letter-spacing: 0.1em;">株式会社AveniRu 代表取締役 /
+                        AI×業務自動化コンサルタント</p>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="color: var(--color-text-light); font-weight: bold; margin-bottom: 0.5rem;">経歴：</p>
+                        <ul
+                            style="font-size: 0.9rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>木更津工業高等専門学校 → 豊橋技術科学大学大学院（工学修士）</li>
+                            <li>大手メーカーで設計開発に従事後、2022年に独立</li>
+                            <li>現在、年商1億円の欧米輸入物販事業を経営</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="color: var(--color-text-light); font-weight: bold; margin-bottom: 0.5rem;">実績：</p>
+                        <ul
+                            style="font-size: 0.9rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                            <li>累計90名以上にAI活用開発を指導</li>
+                            <li>AI関連の最高月売上500万円</li>
+                            <li>100以上の業務自動化ツールを開発</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p style="color: var(--color-text-light); font-weight: bold; margin-bottom: 0.5rem;">メッセージ：</p>
+                        <p style="color: var(--color-text-muted); font-size: 0.9rem; font-style: italic;">
+                            「実は私、プログラミングは書けません。すべてAIが生成したコードでツールを作っています。だからこそ、プログラミング未経験の方にも再現できる方法をお伝えできます。」
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1357,10 +1382,9 @@
                     <div class="price">15<span style="font-size: 1.5rem">万円</span></div>
                     <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">基本的な自動化を学びたい方へ</p>
                     <ul class="plan-features">
-                        <li>期間：1ヶ月</li>
-                        <li>チャットサポート(無制限)</li>
-                        <li>週1回オンラインMTG</li>
-                        <li>カリキュラム動画見放題</li>
+                        <li>全カリキュラム教材アクセス</li>
+                        <li>1ヶ月間サポート</li>
+                        <li>Discord質問し放題</li>
                     </ul>
                     <button class="btn btn-outline" style="width: 100%; margin-top: auto;">申し込む</button>
                 </div>
@@ -1371,11 +1395,9 @@
                     <div class="price">29.8<span style="font-size: 1.5rem">万円</span></div>
                     <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">実務で使えるツールを作りたい方へ</p>
                     <ul class="plan-features">
-                        <li>期間：3ヶ月</li>
-                        <li>チャットサポート(無制限)</li>
-                        <li>週1回オンラインMTG</li>
-                        <li>実務課題の成果物作成</li>
-                        <li>コードレビュー無制限</li>
+                        <li>全カリキュラム教材アクセス</li>
+                        <li>3ヶ月間サポート</li>
+                        <li>Discord質問し放題</li>
                     </ul>
                     <button class="btn btn-primary" style="width: 100%; margin-top: auto;">申し込む</button>
                 </div>
@@ -1385,11 +1407,9 @@
                     <div class="price">59.8<span style="font-size: 1.5rem">万円</span></div>
                     <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">社内DXを牽引するレベルへ</p>
                     <ul class="plan-features">
-                        <li>期間：6ヶ月</li>
-                        <li>全サポート内容込み</li>
-                        <li>副業案件獲得サポート</li>
-                        <li>社内研修用資料作成支援</li>
-                        <li>対面コンサルティング(月1)</li>
+                        <li>全カリキュラム教材アクセス</li>
+                        <li>6ヶ月間サポート</li>
+                        <li>Discord質問し放題</li>
                     </ul>
                     <button class="btn btn-outline" style="width: 100%; margin-top: auto;">申し込む</button>
                 </div>
@@ -1459,11 +1479,7 @@
         </div>
     </footer>
 
-    <!-- Sticky CTA -->
-    <div class="sticky-cta" id="stickyCta">
-        <span class="sticky-text">満席になる前に無料相談へ！</span>
-        <a href="#plans" class="btn btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">無料カウンセリングを予約</a>
-    </div>
+
 
     <!-- Scripts -->
     <script>
@@ -1477,21 +1493,7 @@
             }
         });
 
-        // Sticky CTA Visibility
-        const stickyCta = document.getElementById('stickyCta');
-        const heroSection = document.querySelector('.hero');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    stickyCta.classList.add('visible');
-                } else {
-                    stickyCta.classList.remove('visible');
-                }
-            });
-        }, { threshold: 0 });
-
-        observer.observe(heroSection);
 
         // Fade In Animation
         const fadeElements = document.querySelectorAll('.fade-in-section');
@@ -1517,35 +1519,7 @@
 
         timelineSteps.forEach(el => timelineObserver.observe(el));
 
-        // Number Counter Animation
-        const counters = document.querySelectorAll('.counter');
-        let hasCounted = false;
 
-        const counterObserver = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting && !hasCounted) {
-                hasCounted = true;
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const duration = 2000; // ms
-                    const increment = target / (duration / 16);
-
-                    let c = 0;
-                    const updateCounter = () => {
-                        c += increment;
-                        if (c < target) {
-                            counter.innerText = Math.ceil(c);
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    updateCounter();
-                });
-            }
-        });
-
-        const achievementsSection = document.querySelector('.achievements');
-        if (achievementsSection) counterObserver.observe(achievementsSection);
 
         // FAQ Toggle
         const faqQuestions = document.querySelectorAll('.faq-question');
