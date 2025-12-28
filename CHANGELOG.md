@@ -2,6 +2,38 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2025-12-28] - Stripe売上自動記録システムの新規作成
+
+### 🚀 新規追加
+
+- ✅ **Stripe売上自動記録GAS（TypeScript版）を新規作成**
+  - 毎朝9時（JST）に前日分のStripe支払いを自動でスプレッドシートに記録
+  - TypeScript + clasp による開発環境を構築
+  - 13列のデータを自動記録（支払日時、商品名、顧客名、メール、金額、手数料、純利益、支払ステータス、着金予定日、着金ステータス、着金金額、決済ID、Payout ID）
+  - 重複チェック機能で同じ決済IDは記録しない
+  - JPY（日本円）専用に最適化
+  - レート制限・サーバーエラー時の自動リトライ機能
+
+- ✅ **ファイル構成**
+  - `stripe/src/main.ts` - メイン処理・トリガー設定
+  - `stripe/src/stripe.ts` - Stripe API呼び出し
+  - `stripe/src/sheet.ts` - スプレッドシート操作
+  - `stripe/src/utils.ts` - ユーティリティ関数
+  - `stripe/package.json`, `stripe/tsconfig.json` - TypeScript環境設定
+
+- ✅ **主な関数**
+  - `dailyRecordSales()` - 前日分の売上を記録（トリガー用）
+  - `recordToday()` - 当日分の売上を記録
+  - `setupDailyTrigger()` - 毎朝9時のトリガーを設定
+  - `debugStripeConnection()` - API接続確認・デバッグ用
+
+**改善効果**:
+- Stripe決済の売上を自動でスプレッドシートに蓄積
+- 手動での売上記録作業が不要に
+- 手数料・純利益・着金予定日も自動取得
+
+---
+
 ## [2025-12-28] - LPデザイン全面リニューアル（v2）
 
 ### 🎨 デザイン全面刷新

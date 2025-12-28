@@ -8,6 +8,14 @@
 
 ## 🆕 最新の更新（2025-12-28）
 
+- ✅ **Stripe売上自動記録GAS（TypeScript版）を新規作成**
+  - 毎朝9時（JST）に前日分のStripe支払いを自動でスプレッドシートに記録
+  - TypeScript + clasp による開発環境を構築
+  - 13列のデータを自動記録（支払日時、商品名、顧客名、メール、金額、手数料、純利益、支払ステータス、着金予定日、着金ステータス、着金金額、決済ID、Payout ID）
+  - **ファイル構成**: `stripe/src/main.ts`, `stripe.ts`, `sheet.ts`, `utils.ts`
+  - **主な関数**: `dailyRecordSales()`, `recordToday()`, `setupDailyTrigger()`, `debugStripeConnection()`
+  - **改善効果**: Stripe決済の売上を自動でスプレッドシートに蓄積、手動記録作業が不要に
+
 - ✅ **新LP（index-v2.html）を追加 - デザイン全面リニューアル**
   - ダークテーマ（#0B1120）×ゴールド（#D4AF37）のプレミアムデザイン
   - グラスモーフィズム、CSS変数、モダンなアニメーション

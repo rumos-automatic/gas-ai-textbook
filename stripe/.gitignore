@@ -1,0 +1,20 @@
+# clasp
+.clasp.json
+
+# Google Apps Script
+appsscript.json
+
+# Node modules (if any)
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# API keys and secrets (backup)
+*_secret.txt
+*_api_key.txt
+
+# OS files
+.DS_Store
+Thumbs.db
