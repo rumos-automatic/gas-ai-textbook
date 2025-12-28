@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション5: ChatGPTの基本的な使い方 | 生成AI×GAS 短期講座</title>
+  <link rel="icon" type="image/png" href="../../../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #10b981 0%, #10b981 71.43%, #e5e7eb 71.43%, #e5e7eb 100%);
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../../../assets/css/search-global.css">
+  <script src="../../../assets/js/searchGlobal.js" defer></script>
+  <script src="../../../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <div class="demo-banner" style="background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%); color: white; padding: 0.75rem; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100;">無料デモ版 - 全コンテンツは有料プランで閲覧できます</div>
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-04.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="section-06.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="first-message">
+        <span class="dot-label">最初のメッセージ</span>
+      </div>
+      <div class="dot" data-section="response-handling">
+        <span class="dot-label">回答の扱い方</span>
+      </div>
+      <div class="dot" data-section="followup">
+        <span class="dot-label">会話を続ける</span>
+      </div>
+      <div class="dot" data-section="modify">
+        <span class="dot-label">回答の修正</span>
+      </div>
+      <div class="dot" data-section="patterns">
+        <span class="dot-label">実践パターン</span>
+      </div>
+      <div class="dot" data-section="work1">
+        <span class="dot-label">ワーク1</span>
+      </div>
+      <div class="dot" data-section="work2">
+        <span class="dot-label">ワーク2</span>
+      </div>
+      <div class="dot" data-section="work3">
+        <span class="dot-label">ワーク3</span>
+      </div>
+      <div class="dot" data-section="settings">
+        <span class="dot-label">設定とプラン</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💬 ChatGPTの基本的な使い方
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        メッセージの送り方から会話の続け方まで、基本的な操作方法を学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 最初のメッセージの送り方 -->
+    <section id="first-message" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 最初のメッセージの送り方
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTを初めて使う方にとって、最初のメッセージをどうやって送るのかは意外と分かりづらいかもしれません。
+          ここでは、基本的な操作方法を順を追って説明します。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            メッセージ送信の基本手順
+          </h3>
+
+          <div class="space-y-6">
+            <!-- ステップ1 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  メッセージ入力欄を見つける
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  ChatGPTのチャット画面を開くと、画面の中央に<strong class="text-indigo-600">「質問してみましょう」</strong>と書かれたメッセージ入力欄があります。
+                  ここに質問や指示を入力します。
+                </p>
+              </div>
+            </div>
+
+            <!-- ステップ2 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  質問や指示を入力する
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  メッセージ入力欄をクリックして、ChatGPTに聞きたいことや依頼したいことを入力します。
+                  日本語で自然に話しかけるように書いてください。
+                </p>
+                <div class="bg-gray-100 p-4 rounded-lg font-mono text-gray-800">
+                  例：今週の東京の天気を教えてください
+                </div>
+              </div>
+            </div>
+
+            <!-- ステップ3 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                3
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  送信する
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  メッセージを送信する方法は2つあります：
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                    <h5 class="font-semibold text-gray-900 mb-2">方法1: 送信ボタン</h5>
+                    <p class="text-sm text-gray-700">
+                      メッセージ入力欄の右側にある<strong>↑ボタン</strong>をクリックします。
+                    </p>
+                  </div>
+                  <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                    <h5 class="font-semibold text-gray-900 mb-2">方法2: Enterキー</h5>
+                    <p class="text-sm text-gray-700">
+                      キーボードの<strong>Enterキー</strong>を押すと、すぐに送信されます。
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ステップ4 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                4
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  回答を待つ
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  メッセージを送信すると、ChatGPTが考えている間、<strong>「...」</strong>と表示されます。
+                  数秒から数十秒待つと、回答が表示されます。
+                </p>
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+                  <p class="text-base text-yellow-800">
+                    <strong>💡 ポイント：</strong>回答が長い場合、リアルタイムで文章が生成されていく様子が見られます。
+                    全文が表示されるまで待ちましょう。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <img src="../../../assets/images/screenshots/screenshot-chatgpt-message-input.png"
+               alt="メッセージ入力欄と送信ボタン"
+               class="rounded-lg shadow-lg cursor-pointer w-full"
+               onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-message-input.png')">
+          <p class="text-sm text-center text-gray-600 mt-2">📸 メッセージ入力欄と送信ボタン（クリックで拡大）</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 回答の扱い方 -->
+    <section id="response-handling" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔧 回答の扱い方（基本操作）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTから回答が返ってきたら、その回答をどう活用するかが重要です。
+          コピー、再生成、編集など、便利な機能を使いこなしましょう。
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- コピーボタン -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">📋</span>
+              コピーボタン
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              回答の右上に表示される<strong>コピーアイコン</strong>をクリックすると、回答全体がクリップボードにコピーされます。
+            </p>
+            <div class="bg-blue-50 p-3 rounded text-sm text-blue-800">
+              メール、Word、スプレッドシートなど、他のアプリに貼り付けて活用できます。
+            </div>
+          </div>
+
+          <!-- 再生成ボタン -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">🔄</span>
+              再生成ボタン
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              回答の下に表示される<strong>「Regenerate」ボタン</strong>をクリックすると、同じ質問に対して別の回答を生成してくれます。
+            </p>
+            <div class="bg-green-50 p-3 rounded text-sm text-green-800">
+              回答が気に入らない場合や、別の視点からの回答が欲しい場合に便利です。
+            </div>
+          </div>
+
+          <!-- Editボタン -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4 flex items-center gap-2">
+              <span class="text-2xl">✏️</span>
+              Editボタン
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              自分が送ったメッセージの横に表示される<strong>「Edit」アイコン</strong>をクリックすると、質問を編集して再送信できます。
+            </p>
+            <div class="bg-purple-50 p-3 rounded text-sm text-purple-800">
+              質問をより具体的にしたり、条件を追加したりする時に便利です。
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-4 text-center">各ボタンの位置</h4>
+          <div class="grid md:grid-cols-3 gap-6">
+            <!-- コピーボタンのスクリーンショット -->
+            <div class="text-center">
+              <img src="../../../assets/images/screenshots/screenshot-chatgpt-copy-button.png"
+                   alt="コピーボタン"
+                   class="rounded-lg shadow-lg cursor-pointer w-full"
+                   onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-copy-button.png')">
+              <p class="text-sm text-gray-600 mt-2">📋 コピーボタン</p>
+            </div>
+            <!-- 再生成ボタンのスクリーンショット -->
+            <div class="text-center">
+              <img src="../../../assets/images/screenshots/screenshot-chatgpt-regenerate-button.png"
+                   alt="再生成ボタン"
+                   class="rounded-lg shadow-lg cursor-pointer w-full"
+                   onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-regenerate-button.png')">
+              <p class="text-sm text-gray-600 mt-2">🔄 再生成ボタン</p>
+            </div>
+            <!-- Editボタンのスクリーンショット -->
+            <div class="text-center">
+              <img src="../../../assets/images/screenshots/screenshot-chatgpt-edit-button.png"
+                   alt="Editボタン"
+                   class="rounded-lg shadow-lg cursor-pointer w-full"
+                   onclick="openModal('../assets/images/screenshots/screenshot-chatgpt-edit-button.png')">
+              <p class="text-sm text-gray-600 mt-2">✏️ Editボタン</p>
+            </div>
+          </div>
+          <p class="text-xs text-center text-gray-500 mt-3">（各画像をクリックすると拡大表示されます）</p>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 活用のコツ</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            コピーボタンは頻繁に使うことになります。回答を他のアプリで活用する際の基本操作として覚えておきましょう。
+            再生成ボタンは、複数の回答を比較したい時に便利です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 会話を続ける方法 -->
+    <section id="followup" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔄 会話を続ける方法（フォローアップ質問）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTとの対話は、1回で終わらせる必要はありません。
+          むしろ、<strong class="text-indigo-600">対話を重ねることで、より良い回答を引き出すことができます。</strong>
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          前の回答を踏まえて追加質問をすることで、情報を深掘りしたり、具体的な内容に絞り込んだりすることができます。
+          ChatGPTは同じチャット内の会話の文脈を記憶しているので、自然に会話を続けられます。
+        </p>
+
+        <div class="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-500 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-6 flex items-center gap-3">
+            <span class="text-3xl">❌</span>
+            悪い例（1回で終わる）vs
+            <span class="text-3xl">✅</span>
+            良い例（対話で深める）
+          </h3>
+
+          <!-- 悪い例 -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl">❌</span>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900">悪い例：1回で終わってしまう</h4>
+            </div>
+            <div class="bg-white p-4 rounded-lg mb-2">
+              <p class="text-sm font-semibold text-gray-700 mb-2">あなた:</p>
+              <div class="bg-gray-100 p-3 rounded text-gray-700">
+                売上を上げる方法を教えてください。
+              </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-sm font-semibold text-gray-700 mb-2">ChatGPT:</p>
+              <div class="bg-blue-50 p-3 rounded text-gray-800">
+                売上を上げる方法は、マーケティング強化、商品改善、顧客満足度向上などがあります...
+              </div>
+            </div>
+            <p class="text-sm text-red-700 mt-3 font-semibold">
+              → これで終わり。抽象的な回答のままで、具体的なアクションに落とし込めていません。
+            </p>
+          </div>
+
+          <!-- 良い例 -->
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl">✅</span>
+              <h4 class="text-lg md:text-xl font-bold text-gray-900">良い例：対話を重ねて深掘りする</h4>
+            </div>
+            <div class="space-y-3">
+              <!-- 1回目 -->
+              <div class="bg-white p-4 rounded-lg">
+                <p class="text-sm font-semibold text-gray-700 mb-2">あなた:</p>
+                <div class="bg-gray-100 p-3 rounded text-gray-700">
+                  売上を上げる方法を教えてください。
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <p class="text-sm font-semibold text-gray-700 mb-2">ChatGPT:</p>
+                <div class="bg-blue-50 p-3 rounded text-gray-800">
+                  売上を上げる方法は、マーケティング強化、商品改善、顧客満足度向上などがあります...
+                </div>
+              </div>
+
+              <!-- 2回目（追加質問） -->
+              <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                <p class="text-sm font-semibold text-green-700 mb-2">あなた（フォローアップ質問）:</p>
+                <div class="bg-green-50 p-3 rounded text-gray-800">
+                  マーケティング強化について、具体的な施策を3つ教えてください。
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <p class="text-sm font-semibold text-gray-700 mb-2">ChatGPT:</p>
+                <div class="bg-blue-50 p-3 rounded text-gray-800">
+                  1. SNS広告の活用 2. メールマーケティング 3. コンテンツマーケティング...
+                </div>
+              </div>
+
+              <!-- 3回目（さらに深掘り） -->
+              <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                <p class="text-sm font-semibold text-green-700 mb-2">あなた（さらに深掘り）:</p>
+                <div class="bg-green-50 p-3 rounded text-gray-800">
+                  SNS広告について、予算10万円で始める場合の具体的な手順を教えてください。
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded-lg">
+                <p class="text-sm font-semibold text-gray-700 mb-2">ChatGPT:</p>
+                <div class="bg-blue-50 p-3 rounded text-gray-800">
+                  予算10万円の場合、以下の手順で進めます：1. ターゲット設定...
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-green-700 mt-3 font-semibold">
+              → 対話を重ねることで、抽象的な回答から具体的なアクションプランに落とし込めました！
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            フォローアップ質問でよく使うフレーズ
+          </h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+              <h5 class="font-semibold text-gray-900 mb-2">深掘りする</h5>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>• もっと詳しく教えてください</li>
+                <li>• 具体的な例を3つ挙げてください</li>
+                <li>• それについて詳しく説明してください</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+              <h5 class="font-semibold text-gray-900 mb-2">別の視点で聞く</h5>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>• 別の方法はありますか？</li>
+                <li>• 初心者向けに説明してください</li>
+                <li>• 他にどんな選択肢がありますか？</li>
+              </ul>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+              <h5 class="font-semibold text-gray-900 mb-2">条件を追加する</h5>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>• 予算○○円の場合は？</li>
+                <li>• 期間が1週間の場合は？</li>
+                <li>• 初心者でもできる方法は？</li>
+              </ul>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+              <h5 class="font-semibold text-gray-900 mb-2">具体化する</h5>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>• 手順を詳しく教えてください</li>
+                <li>• 実際のコード例を見せてください</li>
+                <li>• 具体的な数値を教えてください</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mt-8">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-green-800">
+            ChatGPTは同じチャット内の会話の文脈を記憶しています。
+            「それについて」「その方法で」などの代名詞を使っても、前の会話を踏まえて回答してくれます。
+            対話を重ねることで、より実用的で具体的な情報が得られます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: 回答が期待と違った時の対処法 -->
+    <section id="modify" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔁 回答が期待と違った時の対処法
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTの回答が期待と違った場合でも、あきらめる必要はありません。
+          いくつかの方法で回答を改善することができます。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 方法1: 再生成 -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-600 mb-4">
+              方法1: 再生成ボタンを使う
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              同じ質問に対して、別のアプローチで回答を生成してもらえます。
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="text-sm font-semibold text-blue-900 mb-2">使い方:</p>
+              <ol class="text-sm text-blue-800 space-y-1">
+                <li>1. 回答の下にある「Regenerate」ボタンをクリック</li>
+                <li>2. 新しい回答が生成される</li>
+                <li>3. 気に入った回答を選ぶ</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- 方法2: 修正依頼 -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-green-500">
+            <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-4">
+              方法2: 修正依頼を送る
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              どこがどう違うかを具体的に伝えて、改善してもらいます。
+            </p>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <p class="text-sm font-semibold text-green-900 mb-2">例:</p>
+              <ul class="text-sm text-green-800 space-y-1">
+                <li>• もっと簡潔にしてください</li>
+                <li>• もっと詳しく説明してください</li>
+                <li>• 別の視点で考えてください</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 方法3: トーン変更 -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-purple-500">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4">
+              方法3: トーンを変更する
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              文章のトーンや雰囲気を変更してもらいます。
+            </p>
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <p class="text-sm font-semibold text-purple-900 mb-2">例:</p>
+              <ul class="text-sm text-purple-800 space-y-1">
+                <li>• もっとフレンドリーな感じで</li>
+                <li>• ビジネス調で書き直してください</li>
+                <li>• 初心者にも分かるように説明してください</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 方法4: Edit機能 -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 border-orange-500">
+            <h3 class="text-xl md:text-2xl font-bold text-orange-600 mb-4">
+              方法4: 質問を編集する
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              自分の質問を編集して、より具体的にします。
+            </p>
+            <div class="bg-orange-50 p-4 rounded-lg">
+              <p class="text-sm font-semibold text-orange-900 mb-2">使い方:</p>
+              <ol class="text-sm text-orange-800 space-y-1">
+                <li>1. 自分のメッセージ横の「Edit」アイコンをクリック</li>
+                <li>2. 質問を修正する</li>
+                <li>3. 再送信する</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            実践例：回答を段階的に改善する
+          </h3>
+          <div class="space-y-3">
+            <!-- 初回 -->
+            <div class="border-l-4 border-gray-400 pl-4">
+              <p class="text-sm font-semibold text-gray-700 mb-1">初回の質問:</p>
+              <div class="bg-gray-100 p-3 rounded text-gray-700 mb-2">
+                メール文章を作成してください。
+              </div>
+              <p class="text-sm font-semibold text-gray-700 mb-1">ChatGPTの回答:</p>
+              <div class="bg-blue-50 p-3 rounded text-gray-800 mb-2">
+                [一般的なメール文章が返ってくる]
+              </div>
+              <p class="text-sm text-gray-600">→ 抽象的すぎる...</p>
+            </div>
+
+            <!-- 修正依頼1 -->
+            <div class="border-l-4 border-yellow-400 pl-4">
+              <p class="text-sm font-semibold text-yellow-700 mb-1">修正依頼:</p>
+              <div class="bg-yellow-50 p-3 rounded text-gray-800 mb-2">
+                もっと具体的に、お客様への謝罪メールを書いてください。
+              </div>
+              <p class="text-sm font-semibold text-gray-700 mb-1">ChatGPTの回答:</p>
+              <div class="bg-blue-50 p-3 rounded text-gray-800 mb-2">
+                [謝罪メールが返ってくる]
+              </div>
+              <p class="text-sm text-gray-600">→ だいぶ良くなったけど、トーンが堅すぎる...</p>
+            </div>
+
+            <!-- 修正依頼2 -->
+            <div class="border-l-4 border-green-500 pl-4">
+              <p class="text-sm font-semibold text-green-700 mb-1">さらに修正依頼:</p>
+              <div class="bg-green-50 p-3 rounded text-gray-800 mb-2">
+                もっと親しみやすいトーンで書き直してください。
+              </div>
+              <p class="text-sm font-semibold text-gray-700 mb-1">ChatGPTの回答:</p>
+              <div class="bg-blue-50 p-3 rounded text-gray-800 mb-2">
+                [親しみやすいトーンの謝罪メールが返ってくる]
+              </div>
+              <p class="text-sm text-green-600 font-semibold">→ 完璧！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            1回で完璧な回答が出ることは稀です。修正依頼を重ねることで、期待通りの回答に近づけましょう。
+            遠慮せずに「もっと○○にしてください」と具体的に依頼することが大切です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション5: 実践的な会話パターン -->
+    <section id="patterns" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💡 実践的な会話パターン
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ここでは、実際にどのように対話を重ねて目的を達成するかの実践例を紹介します。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- パターン1: コード生成 -->
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+              パターン1: コード生成の反復改善
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">1回目: 基本機能を依頼</p>
+                <p class="text-sm text-gray-700">「Google Apps Scriptで、Gmailからメールを取得するコードを書いてください」</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">2回目: 条件を追加</p>
+                <p class="text-sm text-gray-700">「特定の件名のメールだけを取得するようにしてください」</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">3回目: データの処理を追加</p>
+                <p class="text-sm text-gray-700">「取得したメールをスプレッドシートに記録してください」</p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <p class="text-sm font-semibold text-green-900">完成！</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- パターン2: 文章ブラッシュアップ -->
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4">
+              パターン2: 文章ブラッシュアップ
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">1回目: 初稿を依頼</p>
+                <p class="text-sm text-gray-700">「新商品のプレスリリースを書いてください」</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">2回目: トーン変更</p>
+                <p class="text-sm text-gray-700">「もっと親しみやすいトーンにしてください」</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <p class="text-sm font-semibold mb-2">3回目: 長さ調整</p>
+                <p class="text-sm text-gray-700">「もっと簡潔にしてください」</p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                <p class="text-sm font-semibold text-green-900">完成！</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 共通のコツ</p>
+          <ul class="text-lg md:text-xl text-indigo-800 space-y-2">
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>最初は大まかに依頼し、段階的に具体化する</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>回答を見て、「ここをもっと○○にしたい」と追加依頼する</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span>✓</span>
+              <span>完璧を目指さず、反復改善で近づける</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク1 -->
+    <section id="work1" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク1
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに質問して、フォローアップ質問を3回してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          あなたの興味のあるテーマについて、ChatGPTに質問してみましょう。
+          最初の回答を見たら、「もっと詳しく」「具体例を教えて」などのフォローアップ質問を3回続けてください。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">例：</p>
+          <ol class="space-y-2 text-base md:text-lg text-gray-700">
+            <li>1回目：「プログラミングを学ぶメリットを教えてください」</li>
+            <li>2回目：「それぞれのメリットについて、もっと詳しく教えてください」</li>
+            <li>3回目：「初心者におすすめのプログラミング言語を3つ教えてください」</li>
+            <li>4回目：「Pythonの学習ロードマップを教えてください」</li>
+          </ol>
+        </div>
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>対話を重ねることで、抽象的な回答から具体的な回答へと深まっていくことを実感してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク2 -->
+    <section id="work2" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-6 flex items-center">
+          ✅ ワーク2
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          再生成ボタンを使って、複数の回答を比較してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          同じ質問に対して、再生成ボタンを使って2〜3回、別の回答を生成してもらいましょう。
+          回答の違いを比較してください。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">質問例：</p>
+          <div class="bg-gray-100 p-4 rounded-lg text-gray-800">
+            「朝の生産性を上げる方法を3つ教えてください」
+          </div>
+          <p class="text-sm text-gray-600 mt-3">
+            ※ この質問を送信した後、「Regenerate」ボタンを何度かクリックしてみましょう
+          </p>
+        </div>
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>同じ質問でも、回答のアプローチや具体例が異なることを確認してください。
+            気に入った回答を選びましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク3 -->
+    <section id="work3" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-6 flex items-center">
+          ✅ ワーク3
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          「もっと○○な感じで」と修正依頼して、回答を改善してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          ChatGPTに文章を書いてもらい、その後「もっと○○な感じで」と修正依頼をして、
+          回答を改善してみましょう。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">ステップ:</p>
+          <ol class="space-y-2 text-base md:text-lg text-gray-700">
+            <li>1. 「お客様への感謝メールを書いてください」と依頼</li>
+            <li>2. 回答を見て、「もっと簡潔にしてください」と修正依頼</li>
+            <li>3. さらに「もっとフレンドリーなトーンにしてください」と修正依頼</li>
+          </ol>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">修正依頼の例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700">
+            <li>• もっと簡潔にしてください</li>
+            <li>• もっと丁寧な表現にしてください</li>
+            <li>• もっとカジュアルなトーンにしてください</li>
+            <li>• ビジネス調で書き直してください</li>
+          </ul>
+        </div>
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>修正依頼を重ねることで、期待に近い文章に仕上がっていくことを実感してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション9: 設定ページとプラン管理 -->
+    <section id="settings" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚙️ 設定ページとプラン管理
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTを使い始める前に、設定ページの場所や現在のプラン確認方法を知っておくと便利です。
+          ここでは、基本的な設定の確認方法とプラン管理について説明します。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            設定ページへのアクセス方法
+          </h3>
+
+          <div class="space-y-6">
+            <!-- ステップ1 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  画面左下のプロフィールアイコンをクリック
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  ChatGPT画面の左下に、あなたのプロフィールアイコン（またはイニシャル）が表示されています。
+                  これをクリックすると、メニューが開きます。
+                </p>
+              </div>
+            </div>
+
+            <!-- ステップ2 -->
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
+              <div class="flex-1">
+                <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                  ⚙設定をクリック
+                </h4>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  メニューの中から<strong class="text-indigo-600">⚙設定</strong>を選択します。
+                  ここで、ChatGPTの各種設定を確認・変更できます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <video controls class="w-full rounded-lg shadow-lg">
+              <source src="../../../assets/videos/video-chatgpt-settings-access.mp4" type="video/mp4">
+              お使いのブラウザは動画タグをサポートしていません。
+            </video>
+            <p class="text-sm text-center text-gray-600 mt-2">🎥 設定ページへのアクセス手順（動画）</p>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-green-600 mb-6">
+            現在のプラン確認方法
+          </h3>
+
+          <div class="space-y-6">
+            <p class="text-base md:text-lg text-gray-700">
+              現在のプランを確認する方法は2つあります。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <!-- 方法1: 設定→アカウント -->
+              <div class="bg-blue-50 p-5 rounded-lg border-2 border-blue-500">
+                <h4 class="text-lg font-bold text-blue-900 mb-3">方法1: 設定から確認</h4>
+                <ol class="text-sm text-gray-800 space-y-2">
+                  <li>1. ⚙設定をクリック</li>
+                  <li>2. <strong>「アカウント」</strong>を選択</li>
+                  <li>3. プラン情報を確認</li>
+                </ol>
+              </div>
+
+              <!-- 方法2: 左下メニュー→プランをアップグレード -->
+              <div class="bg-green-50 p-5 rounded-lg border-2 border-green-500">
+                <h4 class="text-lg font-bold text-green-900 mb-3">方法2: メニューから直接確認</h4>
+                <ol class="text-sm text-gray-800 space-y-2">
+                  <li>1. 左下のプロフィールアイコンをクリック</li>
+                  <li>2. <strong>「プランをアップグレードする」</strong>をクリック</li>
+                  <li>3. プラン情報を確認</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg border border-gray-300">
+              <h5 class="font-semibold text-gray-900 mb-3">確認できる情報</h5>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="text-center">
+                  <p class="text-sm font-semibold text-blue-600 mb-1">現在のプラン</p>
+                  <p class="text-xs text-gray-600">Free、Plus、Proのいずれか</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-sm font-semibold text-green-600 mb-1">利用状況</p>
+                  <p class="text-xs text-gray-600">使用可能なモデルや機能</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <video controls class="w-full rounded-lg shadow-lg">
+              <source src="../../../assets/videos/video-chatgpt-my-plan.mp4" type="video/mp4">
+              お使いのブラウザは動画タグをサポートしていません。
+            </video>
+            <p class="text-sm text-center text-gray-600 mt-2">🎥 My Plan画面の確認方法（動画）</p>
+          </div>
+
+          <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg mt-6">
+            <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-3">💡 次回請求日の確認方法</p>
+            <p class="text-base md:text-lg text-indigo-800 mb-3">
+              次回請求日を確認したい場合は、以下の手順で確認できます：
+            </p>
+            <ol class="text-base md:text-lg text-indigo-800 space-y-2 pl-5">
+              <li>1. 左下のプロフィールアイコンをクリック</li>
+              <li>2. ⚙設定をクリック</li>
+              <li>3. 「アカウント」を選択</li>
+              <li>4. 「支払い」セクションの「管理する」をクリック</li>
+              <li>5. 次回請求日を確認</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-6">
+            プラン変更・アップグレード方法
+          </h3>
+
+          <div class="space-y-4">
+            <p class="text-base md:text-lg text-gray-700">
+              無料プランから有料プラン（Plusなど）にアップグレードする場合は、以下の手順で行います。
+            </p>
+
+            <div class="space-y-6">
+              <!-- アップグレード手順 -->
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                  1
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    アップグレードボタンをクリック
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700">
+                    プラン選択画面に表示される<strong class="text-purple-600">「Plusを始める」</strong>または<strong class="text-purple-600">「Proを始める」</strong>ボタンをクリックします。
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                  2
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    支払い情報を入力
+                  </h4>
+                  <p class="text-base md:text-lg text-gray-700">
+                    クレジットカード情報を入力して、アップグレードを完了します。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <video controls class="w-full rounded-lg shadow-lg">
+              <source src="../../../assets/videos/video-chatgpt-upgrade.mp4" type="video/mp4">
+              お使いのブラウザは動画タグをサポートしていません。
+            </video>
+            <p class="text-sm text-center text-gray-600 mt-2">🎥 アップグレード手順（動画）</p>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-3">💡 注意事項</p>
+          <ul class="space-y-2 text-base md:text-lg text-yellow-800">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>Plusプランは<strong>月額課金（自動更新）</strong>です。毎月自動的に請求されます。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>キャンセルは<strong>いつでも可能</strong>です。Settings → My Plan → Manage subscriptionから手続きできます。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-600">•</span>
+              <span>詳細な料金や返金ポリシーについては、OpenAIの公式サポートページをご確認ください。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            設定ページは何度でも確認できます。プランの変更や確認が必要になったら、
+            いつでも左下のプロフィールアイコンから「Settings」にアクセスしてくださいね。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、ChatGPTの基本的な使い方について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>メッセージは入力欄に入力して、送信ボタンまたはEnterキーで送信します</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>回答はコピー、再生成、Editボタンで活用・改善できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>フォローアップ質問を重ねることで、より具体的な回答が得られます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>回答が期待と違った場合は、修正依頼で改善できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>1回で完璧を目指さず、対話を重ねて目的を達成しましょう</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>設定ページから現在のプラン確認やアップグレードができます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、AIにうまく指示するための4つのコツを学んでいきましょう。
+          さらに効果的に ChatGPTを活用できるようになります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-06.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：AIにうまく指示する4つのコツ →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション2: ChatGPTでできること | 生成AI×GAS 短期講座</title>
+  <link rel="icon" type="image/png" href="../../../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../../assets/js/workManager.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #10b981 0%, #10b981 33.33%, #e5e7eb 33.33%, #e5e7eb 100%);
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../../../assets/css/search-global.css">
+  <script src="../../../assets/js/searchGlobal.js" defer></script>
+  <script src="../../../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <div class="demo-banner" style="background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%); color: white; padding: 0.75rem; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100;">無料デモ版 - 全コンテンツは有料プランで閲覧できます</div>
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-01.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="section-03.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="writing">
+        <span class="dot-label">文章作成</span>
+      </div>
+      <div class="dot" data-section="ideas">
+        <span class="dot-label">企画・アイデア出し</span>
+      </div>
+      <div class="dot" data-section="summarize">
+        <span class="dot-label">要約・翻訳・説明</span>
+      </div>
+      <div class="dot" data-section="analysis">
+        <span class="dot-label">文章の分析・分類</span>
+      </div>
+      <div class="dot" data-section="coding">
+        <span class="dot-label">コード生成</span>
+      </div>
+      <div class="dot" data-section="work">
+        <span class="dot-label">ワーク課題</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        💡 ChatGPTでできること
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        ChatGPTを使ってできる具体的な作業を、事例とともに学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 文章作成 -->
+    <section id="writing" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✍️ 文章作成（メール、説明文、商品紹介など）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTを使えば、メール文章の作成時間を大幅に短縮できます。
+          特に、相手に合わせたトーンの調整が簡単にできるため、ビジネスシーンでは非常に便利だと思います。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、取引先への提案メールを書く際、「丁寧で説得力のある文章にしてください」と指示すれば、
+          プロフェッショナルなメールを下書きしてくれます。
+          お客様への謝罪メールでは、「誠実で心のこもった文章」を、
+          社内向けの連絡では、「簡潔でわかりやすい文章」を作成できます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            📌 文章作成の活用例
+          </h3>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <p class="font-semibold text-gray-900 mb-2">お客様への謝罪メール</p>
+              <p class="text-sm text-gray-600">商品発送の遅延や、サービスの不備があった際の謝罪文を作成</p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <p class="font-semibold text-gray-900 mb-2">取引先への提案メール</p>
+              <p class="text-sm text-gray-600">新規案件の提案や、商談のアポイントメント依頼文を作成</p>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <p class="font-semibold text-gray-900 mb-2">商品紹介文の作成</p>
+              <p class="text-sm text-gray-600">ECサイト用の商品説明文や、SNS投稿用の紹介文を作成</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            トーン（文章の雰囲気）を指定することで、相手や目的に合わせた文章を作成できます。
+            「丁寧に」「カジュアルに」「説得力のある」などの指示を追加しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 企画・アイデア出し -->
+    <section id="ideas" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💡 企画・アイデア出し（商品企画、SNS投稿ネタなど）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          新しいアイデアが必要なとき、ChatGPTに相談すれば、いくつもの案を提示してくれます。
+          ブレインストーミングのパートナーとして活用できるでしょう。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「新商品のキャッチコピーを10個考えてください」と指示すれば、
+          複数の候補を一度に提案してくれます。
+          その中から良いものを選んで、さらに「もっと若者向けにアレンジして」と追加で指示することもできます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            📌 企画・アイデア出しの活用例
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <p class="font-semibold text-gray-900 mb-1">新商品のキャッチコピー案</p>
+                <p class="text-base text-gray-600">商品の特徴を伝えて、複数のキャッチコピー候補を作成してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 bg-gradient-to-r from-green-50 to-teal-50 p-4 rounded-lg">
+              <span class="text-2xl">📱</span>
+              <div>
+                <p class="font-semibold text-gray-900 mb-1">SNS投稿のネタ出し</p>
+                <p class="text-base text-gray-600">フォロワーが反応しやすい投稿内容のアイデアを提案してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
+              <span class="text-2xl">🎉</span>
+              <div>
+                <p class="font-semibold text-gray-900 mb-1">イベント企画のアイデア</p>
+                <p class="text-base text-gray-600">顧客向けイベントの企画案や、プロモーション施策のアイデアを生成</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">✨ 活用のコツ</p>
+          <p class="text-lg md:text-xl text-green-800">
+            「10個考えてください」のように、具体的な数を指定すると、より多くの選択肢が得られます。
+            最初のアイデアをベースに、「この方向でもっと」と追加指示を出すこともできます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 要約・翻訳・説明・リライト -->
+    <section id="summarize" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 要約・翻訳・説明・リライト
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          長い文章を短くまとめたり、日本語を英語に翻訳したり、難しい文章をわかりやすく説明したりすることができます。
+          これらの作業は、日常業務で頻繁に発生するため、非常に便利です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、会議の議事録が10ページある場合、「この議事録を3つのポイントにまとめてください」と指示すれば、
+          重要な内容だけを抽出してくれます。
+          また、英語のメールが届いた際、「この英文を日本語に翻訳してください」と指示すれば、
+          瞬時に翻訳してくれます。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 要約 -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 flex items-center gap-2">
+              📄 要約
+            </h3>
+            <p class="text-base md:text-lg mb-3">
+              長文を短くまとめる作業を効率化します。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">活用例：</p>
+              <ul class="text-sm space-y-1">
+                <li>• 会議の議事録を要約</li>
+                <li>• レポートのサマリーを作成</li>
+                <li>• ニュース記事を短くまとめる</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 翻訳 -->
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 flex items-center gap-2">
+              🌐 翻訳
+            </h3>
+            <p class="text-base md:text-lg mb-3">
+              多言語翻訳を瞬時に実行します。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">活用例：</p>
+              <ul class="text-sm space-y-1">
+                <li>• 英語のメールを日本語に翻訳</li>
+                <li>• 日本語の資料を英語化</li>
+                <li>• 中国語の商品説明を翻訳</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 説明 -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 flex items-center gap-2">
+              💬 説明
+            </h3>
+            <p class="text-base md:text-lg mb-3">
+              難しい内容をわかりやすく説明します。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">活用例：</p>
+              <ul class="text-sm space-y-1">
+                <li>• 専門用語を一般向けに説明</li>
+                <li>• 複雑な仕組みを簡単に解説</li>
+                <li>• 技術文書を非技術者向けに変換</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- リライト -->
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3 flex items-center gap-2">
+              ✏️ リライト
+            </h3>
+            <p class="text-base md:text-lg mb-3">
+              文章の表現を変えて、より良くします。
+            </p>
+            <div class="bg-white/20 p-4 rounded-lg">
+              <p class="text-sm font-semibold mb-2">活用例：</p>
+              <ul class="text-sm space-y-1">
+                <li>• カジュアルな文章を丁寧に変換</li>
+                <li>• 長い文章を短く簡潔に</li>
+                <li>• 説得力のある文章に書き換え</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: 文章の分析・分類 -->
+    <section id="analysis" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔍 文章の分析・分類（感情、カテゴリ分け）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          お客様からのフィードバックを感情別に分類したり、商品レビューをカテゴリ分けしたりすることができます。
+          大量のテキストデータを効率的に整理できるでしょう。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、お客様の声が100件ある場合、「これらのフィードバックをポジティブとネガティブに分類してください」と指示すれば、
+          自動的に分類してくれます。
+          また、問い合わせ内容を「質問」「クレーム」「要望」に分類することで、
+          対応の優先順位をつけやすくなります。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            📊 文章分析の活用シーン
+          </h3>
+          <div class="space-y-4">
+            <!-- 感情分析 -->
+            <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
+              <h4 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <span class="text-xl">😊</span>
+                評価分析
+              </h4>
+              <p class="text-base text-gray-700 mb-2">
+                お客様の声を「ポジティブ/ネガティブ/中立」に分類
+              </p>
+              <div class="bg-white p-3 rounded-lg text-sm text-gray-600">
+                <strong>活用例：</strong> 商品レビューの分析、SNSの反応調査、顧客満足度の把握
+              </div>
+            </div>
+
+            <!-- カテゴリ分類 -->
+            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+              <h4 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <span class="text-xl">📂</span>
+                カテゴリ分類
+              </h4>
+              <p class="text-base text-gray-700 mb-2">
+                問い合わせ内容を「質問/クレーム/要望」に分類
+              </p>
+              <div class="bg-white p-3 rounded-lg text-sm text-gray-600">
+                <strong>活用例：</strong> カスタマーサポートの効率化、問い合わせ対応の優先順位付け
+              </div>
+            </div>
+
+            <!-- トレンド分析 -->
+            <div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded-r-lg">
+              <h4 class="font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                <span class="text-xl">📈</span>
+                トレンド分析
+              </h4>
+              <p class="text-base text-gray-700 mb-2">
+                大量のフィードバックから、よく言及されるキーワードを抽出
+              </p>
+              <div class="bg-white p-3 rounded-lg text-sm text-gray-600">
+                <strong>活用例：</strong> 商品改善のヒント発見、マーケティング戦略の立案
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">⚡ 効率化のポイント</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            大量のデータを一度に分析する際は、Excelやスプレッドシートに貼り付けて、ChatGPTに分類させると効率的です。
+            次のセクションで学ぶGASと組み合わせれば、完全自動化も可能になります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション5: コード生成 -->
+    <section id="coding" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💻 コード生成（GAS、Pythonなど）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          プログラミング初心者でも、ChatGPTに指示を出すことで、Google Apps Script（GAS）やPythonのコードを生成できます。
+          今回の講座では、この機能を活用してツールを作っていきます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「Gmailからスプレッドシートにデータを転記するGASコードを書いてください」と指示すれば、
+          実際に動くコードを生成してくれます。
+          プログラミングの知識がなくても、「何をしたいか」を日本語で伝えるだけで、
+          ChatGPTがコードを書いてくれるのです。
+        </p>
+
+        <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 rounded-xl shadow-2xl text-white">
+          <h3 class="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3">
+            <span class="text-3xl">⚙️</span>
+            この講座で作成するツールの例
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+              <h4 class="font-bold text-xl mb-3">📧 メール自動転記ツール</h4>
+              <p class="text-base mb-2">
+                Gmailに届いた特定のメールを自動的にスプレッドシートに記録
+              </p>
+              <p class="text-sm opacity-90">
+                お問い合わせメールや注文メールを自動で一覧化できます
+              </p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+              <h4 class="font-bold text-xl mb-3">📝 Googleフォーム自動返信ボット</h4>
+              <p class="text-base mb-2">
+                Googleフォームの回答があった際に、自動で確認メールを送信します
+              </p>
+              <p class="text-sm opacity-90">
+                お問い合わせやアンケート回答者に、即座に確認メールを送れます
+              </p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+              <h4 class="font-bold text-xl mb-3">📄 CSVファイル自動転記ツール</h4>
+              <p class="text-base mb-2">
+                Googleドライブに保存されたCSVファイルを自動的にスプレッドシートに取り込みます
+              </p>
+              <p class="text-sm opacity-90">
+                手作業でのデータ入力を省略し、作業時間を大幅に短縮できます
+              </p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+              <h4 class="font-bold text-xl mb-3">💬 チャットワーク通知ツール</h4>
+              <p class="text-base mb-2">
+                特定の条件を満たした際に、自動でチャットワークに通知を送信します
+              </p>
+              <p class="text-sm opacity-90">
+                重要な情報をチームメンバーと即座に共有できます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">🎯 この講座の目標</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            プログラミング知識がなくても、ChatGPTを使ってGASコードを生成し、
+            実際に業務で使えるツールを作れるようになることが目標です。
+            次のセクションから、具体的な作り方を学んでいきましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション6: ワーク課題 -->
+    <section id="work" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク課題
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          「自分の業務」でChatGPTが使えそうな場面を3つ書き出してみましょう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          このセクションで学んだChatGPTの機能を参考に、あなたの日常業務の中で、
+          ChatGPTが活躍しそうな場面を具体的に3つ書き出してみましょう。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-600">
+            <li>• お客様への返信メール作成（文章作成機能を活用）</li>
+            <li>• 商品説明文のリライト（リライト機能を活用）</li>
+            <li>• 売上データの分析レポート作成（分析機能を活用）</li>
+          </ul>
+        </div>
+        <div class="mt-6 p-6 bg-white rounded-lg border-2 border-dashed border-gray-300">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">あなたの回答：</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">1.</span>
+              <input type="text" id="work-item-1" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：お客様への返信メール作成">
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">2.</span>
+              <input type="text" id="work-item-2" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：商品説明文のリライト">
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">3.</span>
+              <input type="text" id="work-item-3" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：売上データの分析レポート作成">
+            </div>
+          </div>
+        </div>
+
+        <!-- 保存/クリア/エクスポートボタン -->
+        <div class="mt-4 flex items-center gap-4">
+          <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            💾 保存
+          </button>
+          <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            🗑️ クリア
+          </button>
+          <button onclick="WorkManager.exportAllAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            📥 エクスポート
+          </button>
+          <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-32 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、ChatGPTでできることについて理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>文章作成では、相手や目的に合わせたトーンで文章を作成できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>企画・アイデア出しでは、複数の案を提示してもらい、ブレインストーミングができます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>要約・翻訳・説明・リライトで、テキスト変換作業を効率化できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>文章の分析・分類で、大量のテキストデータを整理できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>コード生成機能を使えば、プログラミング初心者でもツールを作成できます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、ChatGPTを使う際の注意点や、やらせてはいけないことを学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-03.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：ChatGPTにやらせてはいけないこと →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // スクリーンショットプレースホルダーのクリックイベント（実際の画像追加時に使用）
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        alert('ここに実際のスクリーンショットが表示されます');
+      });
+    });
+
+    // ===== ワーク課題管理 =====
+    const PAGE_ID = 'section-02.html';
+    const WORK_ID = 'work';
+
+    // ページ読み込み時に保存済みデータを復元
+    function loadWorkAnswers() {
+      const savedData = WorkManager.loadWorkAnswer(PAGE_ID, WORK_ID);
+      if (savedData && savedData.type === 'items' && savedData.answers) {
+        savedData.answers.forEach((answer, index) => {
+          const input = document.getElementById(`work-item-${index + 1}`);
+          if (input) {
+            input.value = answer;
+          }
+        });
+      }
+    }
+
+    // 保存ボタンのハンドラ
+    function saveWork() {
+      const answers = [
+        document.getElementById('work-item-1').value,
+        document.getElementById('work-item-2').value,
+        document.getElementById('work-item-3').value
+      ];
+
+      WorkManager.saveWorkAnswer(PAGE_ID, WORK_ID, {
+        type: 'items',
+        answers: answers
+      });
+
+      const feedback = document.getElementById('save-feedback');
+      WorkManager.showSaveFeedback(feedback);
+    }
+
+    // クリアボタンのハンドラ
+    function clearWork() {
+      if (confirm('回答をクリアしてもよろしいですか？')) {
+        document.getElementById('work-item-1').value = '';
+        document.getElementById('work-item-2').value = '';
+        document.getElementById('work-item-3').value = '';
+
+        WorkManager.clearWorkAnswer(PAGE_ID, WORK_ID);
+        alert('回答をクリアしました。');
+      }
+    }
+
+    // 自動保存（デバウンス）
+    const autoSave = WorkManager.debounce(() => {
+      saveWork();
+    }, WorkManager.SAVE_DELAY);
+
+    // 各入力フィールドに自動保存を設定
+    ['work-item-1', 'work-item-2', 'work-item-3'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) {
+        input.addEventListener('input', autoSave);
+      }
+    });
+
+    // ページ読み込み時にデータを復元
+    window.addEventListener('DOMContentLoaded', loadWorkAnswers);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション1: 生成AIとは？ | 生成AI×GAS 短期講座</title>
+  <link rel="icon" type="image/png" href="../../../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../../assets/js/workManager.js"></script>
+  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../../../assets/css/search-global.css">
+  <script src="../../../assets/js/searchGlobal.js" defer></script>
+  <script src="../../../assets/js/highlightManager.js" defer></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #10b981 0%, #10b981 16.67%, #e5e7eb 16.67%, #e5e7eb 100%);
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <div class="demo-banner" style="background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%); color: white; padding: 0.75rem; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100;">無料デモ版 - 全コンテンツは有料プランで閲覧できます</div>
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <span class="text-base md:text-lg text-gray-400">前へ</span>
+          <a href="section-02.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">AIの基本的な定義</span>
+      </div>
+      <div class="dot" data-section="learning">
+        <span class="dot-label">AIの学習の仕組み</span>
+      </div>
+      <div class="dot" data-section="strength">
+        <span class="dot-label">生成AIが得意なこと</span>
+      </div>
+      <div class="dot" data-section="weakness">
+        <span class="dot-label">生成AIが苦手なこと</span>
+      </div>
+      <div class="dot" data-section="tool">
+        <span class="dot-label">人間の思考を補うツール</span>
+      </div>
+      <div class="dot" data-section="usage">
+        <span class="dot-label">実際の活用分野</span>
+      </div>
+      <div class="dot" data-section="types">
+        <span class="dot-label">代表的な生成AI</span>
+      </div>
+      <div class="dot" data-section="work">
+        <span class="dot-label">ワーク課題</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🤖 生成AIとは？
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        生成AIの基本概念から、得意なこと・苦手なこと、活用分野まで学びます
+      </p>
+    </header>
+
+    <!-- 生成AIデモ動画 -->
+    <div class="mb-16">
+      <div class="max-w-4xl mx-auto">
+        <div class="rounded-lg overflow-hidden shadow-xl">
+          <video
+            id="demo-video"
+            class="w-full"
+            controls
+            autoplay
+            muted
+            playsinline
+            preload="auto"
+            poster="../../../assets/videos/generative-ai-demo-thumbnail.jpg"
+          >
+            <source src="../../../assets/videos/generative-ai-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 動画を2回再生したら停止
+      (function() {
+        const video = document.getElementById('demo-video');
+        let playCount = 0;
+
+        video.addEventListener('ended', function() {
+          playCount++;
+          if (playCount < 2) {
+            video.play();
+          }
+        });
+      })();
+    </script>
+
+    <!-- 小セクション1: AIの基本的な定義 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🤖 人工知能（AI）の基本的な定義
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          生成AIは、人間が書いた文章を理解して、文章・画像・コードを自動で作成してくれるAIです。
+          近年、ビジネスや教育の現場で急速に普及していると思います。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          従来のAIは、データを分析したり、分類したりする「判断型」のものが主流でした。
+          一方、生成AIは「創造型」のAIで、新しいコンテンツを生み出すことができます。
+          この違いが、ビジネスの現場で大きな変革をもたらしているのです。
+        </p>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-blue-800">
+            生成AIは「創造型」のAIで、文章・画像・コードなど、新しいコンテンツを自動生成できます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: AIの学習の仕組み -->
+    <section id="learning" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📚 AIの学習の仕組み（ざっくりと）
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          生成AIは、インターネット上の膨大なデータを学習することで、パターンを認識し、新しい内容を生成できるようになります。
+          人間の脳が学習するプロセスと似ていますが、AIは非常に大量のデータを短時間で処理できる点が特徴です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          具体的には、何十億、何兆という単位のテキストデータを読み込み、
+          「この文章の次にはどんな言葉が来るか」というパターンを学習しています。
+          これにより、自然な文章を生成したり、質問に答えたりすることができるようになるのです。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          ただし、AIは学習したデータの範囲内でしか回答できません。
+          学習データに含まれていない最新の情報や、専門的すぎる内容については、正確な回答ができないこともあります。
+        </p>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 生成AIが得意なこと -->
+    <section id="strength" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✅ 生成AIが得意なこと
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          生成AIは、以下のような作業が得意です。これらの作業を生成AIに任せることで、
+          あなたの業務時間を大幅に短縮できるでしょう。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 文章作成 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              ✍️ 文章作成
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              メール、報告書、商品説明文など、さまざまな形式の文章を作成できます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              特に、定型的な文章や、テンプレートがある文章の作成では高い精度を発揮します。
+            </p>
+          </div>
+
+          <!-- アイデア出し -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              💡 アイデア出し
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              企画案、キャッチコピー、SNS投稿ネタなど、創造的なアイデアを提案してくれます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              ブレインストーミングのパートナーとして、複数の視点からアイデアを出してくれるでしょう。
+            </p>
+          </div>
+
+          <!-- 要約・翻訳 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              📝 要約・翻訳
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              長文の要約、多言語翻訳など、テキスト変換作業を効率化できます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              会議の議事録を短くまとめたり、英語のメールを日本語に翻訳したりすることが簡単にできます。
+            </p>
+          </div>
+
+          <!-- コード生成 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              💻 コード生成
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              プログラミングコードの自動作成ができます。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              プログラミング初心者でも、指示を出すことでGoogle Apps Script（GAS）やPythonのコードを生成できます。
+            </p>
+          </div>
+
+          <!-- 画像生成 -->
+          <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-3">
+              🎨 画像生成
+            </h3>
+            <p class="text-lg md:text-xl text-gray-700 mb-3">
+              テキストから画像を作成できます（DALL-E、Midjourneyなど）。
+            </p>
+            <p class="text-base md:text-lg text-gray-600">
+              商品イメージや、プレゼンテーション用の図を簡単に作成できるでしょう。
+            </p>
+          </div>
+
+          <!-- リアルタイム検索（2カラム幅・強調スタイル） -->
+          <div class="md:col-span-2 bg-gradient-to-br from-emerald-50 to-cyan-50 border-4 border-emerald-400 p-8 rounded-xl shadow-lg hover:shadow-2xl transition relative">
+            <div class="absolute top-4 right-4 bg-emerald-500 text-white text-sm font-bold px-4 py-2 rounded-full shadow-md">
+              ✨ NEW!
+            </div>
+            <h3 class="text-2xl md:text-3xl font-bold text-emerald-800 mb-4 flex items-center gap-2">
+              🌐 リアルタイム検索
+            </h3>
+            <p class="text-lg md:text-xl text-gray-800 font-semibold mb-4">
+              最新のニュース、市場動向、リアルタイムの情報を検索・取得できます。
+            </p>
+            <p class="text-base md:text-lg text-gray-700 mb-3">
+              一年前までは、生成AIは学習データの範囲内でしか回答できず、「AIは古い情報しか知らない」「最新情報には使えない」と感じた方も多かったのではないでしょうか。
+            </p>
+            <p class="text-base md:text-lg text-gray-700">
+              しかし今では、ChatGPT、Claude、Geminiなどの主要な生成AIは、デフォルトでリアルタイムのウェブ検索機能を搭載しています。最新のニュースや統計データも、生成AIに質問するだけで取得できるようになりました。ただし、情報の正確性については、複数の情報源で確認することをお勧めします。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: 生成AIが苦手なこと -->
+    <section id="weakness" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ⚠️ 生成AIが苦手なこと
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          一方で、生成AIには苦手な領域もあります。これらの作業は、人間が担当する必要があります。
+        </p>
+
+        <div class="space-y-4">
+          <!-- 専門的な判断 -->
+          <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-2">
+              🏥 専門的な判断
+            </h3>
+            <p class="text-lg md:text-xl text-red-800">
+              医療診断、法律相談など、専門家の判断が必要な分野では使用できません。
+              これらの分野では、必ず専門家に相談してください。
+            </p>
+          </div>
+
+          <!-- 感情の理解 -->
+          <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-900 mb-2">
+              💭 感情の理解
+            </h3>
+            <p class="text-lg md:text-xl text-purple-800">
+              人間の繊細な感情やニュアンスの完全な理解は難しいです。
+              特に、複雑な人間関係や、微妙な感情の機微を扱う場合は注意が必要です。
+            </p>
+          </div>
+
+          <!-- 創造性の限界 -->
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-900 mb-2">
+              🎨 創造性の限界
+            </h3>
+            <p class="text-lg md:text-xl text-blue-800">
+              完全に新しい概念の創出は難しいです。
+              生成AIは、既存のデータから学習しているため、既存の枠を超えた革新的なアイデアは生み出しにくいでしょう。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション5: 人間の思考を補うツール -->
+    <section id="tool" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💡 「人間の思考を補うツール」であるという考え方
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          生成AIは、人間の代わりに全てをやってくれるわけではありません。
+          むしろ、<strong class="text-indigo-600">人間の思考や作業を補助し、効率を高めるためのツール</strong>として捉えることが大切です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、メール文章を作成する際、生成AIが下書きを作ってくれても、
+          最終的な確認や、相手に合わせた細かな調整は人間が行う必要があります。
+          また、コードを生成する際も、そのコードが本当に意図通りに動くか、セキュリティ上の問題がないかは、
+          人間がチェックしなければなりません。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          このように、生成AIと人間が協力することで、より効率的で質の高い成果を出すことができるのです。
+          生成AIを「完璧な自動化ツール」ではなく、「優秀なアシスタント」として活用しましょう。
+        </p>
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">✨ 重要なポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            最終的な判断や創造的な部分は、人間が担当する必要があります。
+            生成AIは「優秀なアシスタント」として活用しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション6: 実際の活用分野 -->
+    <section id="usage" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🌍 実際の活用分野の紹介
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          生成AIは、さまざまな分野で活用されています。
+          あなたの業務でも、きっと活用できる場面があるはずです。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- ビジネス -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              💼 ビジネス
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg">
+              <li>• メール作成の自動化</li>
+              <li>• 資料作成の効率化</li>
+              <li>• データ分析レポートの作成</li>
+              <li>• 顧客対応の補助</li>
+            </ul>
+          </div>
+
+          <!-- 教育 -->
+          <div class="bg-gradient-to-br from-green-500 to-green-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📚 教育
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg">
+              <li>• 学習支援と質問応答</li>
+              <li>• 課題の作成と添削</li>
+              <li>• 教材の作成補助</li>
+              <li>• 個別学習プランの提案</li>
+            </ul>
+          </div>
+
+          <!-- デザイン -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              🎨 デザイン
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg">
+              <li>• ロゴ作成とブランディング</li>
+              <li>• バナー制作の効率化</li>
+              <li>• アイデア出しと企画</li>
+              <li>• カラーパレットの提案</li>
+            </ul>
+          </div>
+
+          <!-- 物販 -->
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-3">
+              📦 物販
+            </h3>
+            <ul class="space-y-2 text-base md:text-lg">
+              <li>• 商品説明文の作成</li>
+              <li>• カスタマーサポートの自動化</li>
+              <li>• 在庫管理の効率化</li>
+              <li>• マーケティング施策の提案</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 企業導入状況 -->
+        <div class="mt-12 space-y-8">
+          <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+            📊 企業での導入状況（2025年最新データ）
+          </h3>
+          <p class="text-lg md:text-xl leading-relaxed text-gray-800 mb-6">
+            生成AIは、もはや一部の先進企業だけのものではありません。
+            2025年現在、日本企業での導入が急速に進んでおり、多くの企業が業務効率化や新しいサービス開発に活用しています。
+          </p>
+
+          <!-- 導入率の統計 -->
+          <div class="bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-500 p-8 rounded-xl shadow-lg">
+            <h4 class="text-xl md:text-2xl font-bold text-indigo-900 mb-4">
+              🔢 日本企業の生成AI導入率
+            </h4>
+            <p class="text-lg md:text-xl text-gray-800 mb-6">
+              複数の調査機関が発表した2025年の最新データによると、日本企業での生成AI導入は急速に進んでいます。
+            </p>
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-5xl font-bold text-indigo-600 mb-2">64.4%</p>
+                <p class="text-base md:text-lg text-gray-700 mb-2"><strong>日経BP調査</strong></p>
+                <p class="text-sm md:text-base text-gray-600">全社導入38.8% + 一部導入25.7%</p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-5xl font-bold text-purple-600 mb-2">56%</p>
+                <p class="text-base md:text-lg text-gray-700 mb-2"><strong>PwC調査</strong></p>
+                <p class="text-sm md:text-base text-gray-600">社内活用中または社外提供中</p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-5xl font-bold text-blue-600 mb-2">55.2%</p>
+                <p class="text-base md:text-lg text-gray-700 mb-2"><strong>総務省調査</strong></p>
+                <p class="text-sm md:text-base text-gray-600">何らかの業務で利用中</p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-5xl font-bold text-green-600 mb-2">41.2%</p>
+                <p class="text-base md:text-lg text-gray-700 mb-2"><strong>JUAS調査</strong></p>
+                <p class="text-sm md:text-base text-gray-600">2023年度の26.9%から14.3pt急増</p>
+              </div>
+            </div>
+            <div class="bg-indigo-100 border-l-4 border-indigo-600 p-4 rounded-r-lg">
+              <p class="text-base md:text-lg text-indigo-900">
+                <strong>📈 急成長中！</strong> 2024年から2025年にかけて、日本企業の生成AI導入率は大幅に増加しています。
+                もはや「使ってみようかな」ではなく、「使わないと遅れる」時代に突入しています。
+              </p>
+            </div>
+          </div>
+
+          <!-- 利用されているAIサービスランキング -->
+          <div class="bg-gradient-to-br from-green-50 to-teal-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+            <h4 class="text-xl md:text-2xl font-bold text-green-900 mb-4">
+              🏆 企業で利用されているAIサービスTOP3
+            </h4>
+            <p class="text-lg md:text-xl text-gray-800 mb-6">
+              企業が実際に導入しているAIサービスを見ると、ChatGPTが圧倒的な人気を誇っています。
+            </p>
+            <div class="space-y-4">
+              <div class="bg-white p-6 rounded-lg shadow-md flex items-center gap-4">
+                <div class="text-5xl font-bold text-yellow-500">🥇</div>
+                <div class="flex-1">
+                  <p class="text-2xl font-bold text-gray-900 mb-1">ChatGPT</p>
+                  <p class="text-lg text-gray-700 mb-2"><strong>52.1%</strong> の企業が利用</p>
+                  <p class="text-base text-gray-600">最も汎用性が高く、初心者にも使いやすいため、多くの企業で採用されています。</p>
+                </div>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md flex items-center gap-4">
+                <div class="text-5xl font-bold text-gray-400">🥈</div>
+                <div class="flex-1">
+                  <p class="text-2xl font-bold text-gray-900 mb-1">Microsoft Copilot</p>
+                  <p class="text-lg text-gray-700 mb-2"><strong>42.3%</strong> の企業が利用</p>
+                  <p class="text-base text-gray-600">Officeとの連携が強力で、既にMicrosoft製品を使っている企業で導入が進んでいます。</p>
+                </div>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md flex items-center gap-4">
+                <div class="text-5xl font-bold text-orange-400">🥉</div>
+                <div class="flex-1">
+                  <p class="text-2xl font-bold text-gray-900 mb-1">Google Gemini</p>
+                  <p class="text-lg text-gray-700 mb-2"><strong>28.5%</strong> の企業が利用</p>
+                  <p class="text-base text-gray-600">Google Workspaceとの連携が便利で、Gmail・ドキュメントを使う企業で採用されています。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 具体的な企業導入事例 -->
+          <div class="bg-gradient-to-br from-orange-50 to-red-50 border-2 border-orange-500 p-8 rounded-xl shadow-lg">
+            <h4 class="text-xl md:text-2xl font-bold text-orange-900 mb-4">
+              🏢 実際の企業導入事例
+            </h4>
+            <p class="text-lg md:text-xl text-gray-800 mb-6">
+              大手企業では、すでに生成AIを活用した業務改善や新サービス開発が進んでいます。
+            </p>
+            <div class="space-y-4">
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-xl md:text-2xl font-bold text-gray-900 mb-2">📱 サイバーエージェント</p>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  <strong>活用内容：</strong>ChatGPTを活用してデジタル広告のキャッチコピーを自動生成
+                </p>
+                <p class="text-base md:text-lg text-gray-600">
+                  独自の大規模言語モデルとChatGPTを組み合わせることで、広告の効果測定や改善のスピードを大幅に向上させました。
+                  これにより、クリエイティブ制作の効率が飛躍的に高まっています。
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-xl md:text-2xl font-bold text-gray-900 mb-2">📚 ベネッセ</p>
+                <p class="text-base md:text-lg text-gray-700 mb-3">
+                  <strong>活用内容：</strong>社内AIチャット「Benesse GPT」を開発
+                </p>
+                <p class="text-base md:text-lg text-gray-600">
+                  ChatGPTをベースにした社内専用のAIチャットツールを開発し、業務効率化や新商品開発に役立てています。
+                  教育業界ならではのノウハウを活かした活用が進んでいます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 将来予測 -->
+          <div class="bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+            <h4 class="text-xl md:text-2xl font-bold text-blue-900 mb-4">
+              🔮 今後の成長見込み
+            </h4>
+            <p class="text-lg md:text-xl text-gray-800 mb-6">
+              生成AIの企業導入は、今後さらに加速すると予測されています。
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+              <p class="text-base md:text-lg text-gray-700 mb-4">
+                ICT総研の調査によると、日本国内での生成AI導入企業数は以下のように増加する見込みです：
+              </p>
+              <div class="flex items-center justify-around mb-4">
+                <div class="text-center">
+                  <p class="text-4xl font-bold text-blue-600 mb-2">41.3万社</p>
+                  <p class="text-base text-gray-600">2025年末予測</p>
+                </div>
+                <div class="text-5xl text-gray-300">→</div>
+                <div class="text-center">
+                  <p class="text-4xl font-bold text-purple-600 mb-2">59.2万社</p>
+                  <p class="text-base text-gray-600">2027年末予測</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-blue-100 border-l-4 border-blue-600 p-4 rounded-r-lg">
+              <p class="text-base md:text-lg text-blue-900">
+                <strong>💡 今がチャンス！</strong> 生成AIを早期に導入し、使いこなすことで、競合他社に対して大きなアドバンテージを得ることができます。
+                まずは無料プランから試してみることをおすすめします。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション7: 代表的な生成AI -->
+    <section id="types" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🔥 代表的な生成AI
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          現在、主流となっている生成AIは以下の3つです。それぞれに特徴があり、用途に応じて使い分けることができます。
+        </p>
+
+        <!-- AIの比較表 -->
+        <div class="overflow-x-auto">
+          <table class="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+            <thead class="bg-indigo-600 text-white">
+              <tr>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">AI名</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">開発元</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">最新モデル</th>
+                <th class="px-6 py-4 text-left text-lg md:text-xl font-bold">主な強み</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-indigo-600">ChatGPT</td>
+                <td class="px-6 py-4 text-base md:text-lg">OpenAI社</td>
+                <td class="px-6 py-4 text-base md:text-lg">GPT-5<br><span class="text-sm text-gray-500">（2025年8月）</span></td>
+                <td class="px-6 py-4 text-base md:text-lg">汎用性が高く、会話形式の対話が自然</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-indigo-600">Claude</td>
+                <td class="px-6 py-4 text-base md:text-lg">Anthropic社</td>
+                <td class="px-6 py-4 text-base md:text-lg">Sonnet 4.5<br><span class="text-sm text-gray-500">（2025年9月）</span></td>
+                <td class="px-6 py-4 text-base md:text-lg">世界最高のコーディング性能、30時間自律動作</td>
+              </tr>
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-lg md:text-xl font-semibold text-indigo-600">Gemini</td>
+                <td class="px-6 py-4 text-base md:text-lg">Google社</td>
+                <td class="px-6 py-4 text-base md:text-lg">2.5 Pro<br><span class="text-sm text-gray-500">（2025年3月）</span></td>
+                <td class="px-6 py-4 text-base md:text-lg">マルチモーダル（画像・動画）、リアルタイム検索</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ChatGPT 詳細カード -->
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl md:text-3xl font-bold text-green-900 mb-4 flex items-center gap-2">
+            💬 ChatGPT（チャットGPT）
+          </h3>
+          <p class="text-lg md:text-xl text-gray-800 mb-4">
+            OpenAI社が開発した、世界で最も有名な生成AIです。2022年11月に公開されて以来、急速に普及し、現在では数億人が利用していると言われています。2025年8月7日に最新モデル「GPT-5」が正式リリースされ、さらに進化しました。
+          </p>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">✨ 主な特徴</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>汎用性が非常に高く、あらゆる分野の質問に対応できます</li>
+            <li>会話形式の対話が自然で、まるで人間と話しているような感覚です</li>
+            <li>最新モデル「GPT-5」は、博士号レベルの性能を誇り、誤情報（ハルシネーション）の発生率が45〜80%も減少しました</li>
+            <li>リアルタイムルーターが搭載され、質問の内容や複雑さを瞬時に判断し、最適なモデルを自動で選択します</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎯 得意な分野</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>ビジネス文章（メール、報告書、企画書）の作成</li>
+            <li>アイデア出しとブレインストーミング</li>
+            <li>カスタマーサポートの自動応答</li>
+            <li>コード生成（Python、JavaScript、GASなど）</li>
+            <li>画像生成（DALL-E 3統合）</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💰 料金プラン</h4>
+          <div class="space-y-3 mb-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-green-600">無料プラン：</strong>GPT-4o mini、GPT-5（制限あり）が利用可能。基本的な対話や文章作成には十分です。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-blue-600">Plus（月額$20 / 約3,000円）：</strong>GPT-5フル利用、DALL-E 3で画像生成可能、優先アクセス。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-purple-600">Pro（月額$200 / 約30,000円）：</strong>GPT-5 Pro（最高性能）、完全無制限。研究者・ヘビーユーザー向け。
+              </p>
+            </div>
+          </div>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">👤 こんな人におすすめ</h4>
+          <p class="text-base md:text-lg text-gray-700">
+            • ビジネスシーンで幅広く使いたい方<br>
+            • 初めて生成AIを使う方（最も情報が多く、サポートも充実）<br>
+            • 日常業務の効率化を図りたい方<br>
+            • 画像生成も同時に行いたい方
+          </p>
+        </div>
+
+        <!-- Claude 詳細カード -->
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl md:text-3xl font-bold text-purple-900 mb-4 flex items-center gap-2">
+            🧠 Claude（クロード）
+          </h3>
+          <p class="text-lg md:text-xl text-gray-800 mb-4">
+            Anthropic社が開発した、安全性と信頼性を重視した生成AIです。特に長文の処理能力と、コード生成の精度が高いことで知られています。2025年9月30日に最新モデル「Claude Sonnet 4.5」がリリースされ、世界最高のコーディング性能を誇ります。
+          </p>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">✨ 主な特徴</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>一度に処理できる文字数が非常に多い（約20万文字）</li>
+            <li>最新モデル「Claude Sonnet 4.5」は、SWE-bench Verifiedベンチマークで業界最高の性能を記録し、GPT-5を上回ります</li>
+            <li>30時間以上自律的に動作でき、複雑な複数ステップのタスクに集中を維持できます</li>
+            <li>コンピューター操作（Computer Use）機能により、画面操作の自動化も可能です</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎯 得意な分野</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>プログラミング（Python、JavaScript、GAS、React、Next.jsなど）</li>
+            <li>長文の分析・要約（契約書、論文、レポートなど）</li>
+            <li>データ分析と統計処理</li>
+            <li>技術文書の作成と説明</li>
+            <li>複雑なコードのデバッグとリファクタリング</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💰 料金プラン</h4>
+          <div class="space-y-3 mb-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-green-600">無料プラン：</strong>Sonnet 4.5、Haiku 4.5、Opus 4.1など全モデル利用可能（4〜5時間ごとに10回程度の制限あり）。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-blue-600">Pro（月額$20 / 約3,000円）：</strong>全モデル利用可能、プロジェクト機能、Computer Use機能。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-indigo-600">Max（月額$100 / 約14,000円）：</strong>Proの5倍の使用量、拡張思考機能、早期アクセス。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-purple-600">Max（月額$200 / 約29,000円）：</strong>Proの20倍の使用量、最高性能。ヘビーユーザー向け。
+              </p>
+            </div>
+          </div>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">👤 こんな人におすすめ</h4>
+          <p class="text-base md:text-lg text-gray-700">
+            • エンジニアやプログラマー<br>
+            • 長文のドキュメントを扱う方<br>
+            • コードの品質を重視する方<br>
+            • 論理的な思考プロセスを求める方<br>
+            • GASなどのコード生成を頻繁に行う方
+          </p>
+        </div>
+
+        <!-- Gemini 詳細カード -->
+        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl md:text-3xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+            🌟 Gemini（ジェミニ）
+          </h3>
+          <p class="text-lg md:text-xl text-gray-800 mb-4">
+            Google社が開発した、マルチモーダル（複数の形式のデータを扱える）に強みを持つ生成AIです。画像・動画・音声を統合的に処理できる点が特徴です。2025年3月26日に最新モデル「Gemini 2.5 Pro」がリリースされ、世界トップの性能を誇ります。
+          </p>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">✨ 主な特徴</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>最新モデル「Gemini 2.5 Pro」は、WebDev ArenaおよびLMArenaの両リーダーボードで現在世界トップのモデルです</li>
+            <li>内部で思考するAI（Deep Think機能）により、応答を生成する前に内部で推論プロセスを踏みます</li>
+            <li>画像や動画を含めた複合的な入力に対応できます</li>
+            <li>Google検索と連携しており、最新情報の取得が得意です</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎨 画像・動画生成機能</h4>
+          <div class="space-y-3 mb-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg font-semibold text-gray-900 mb-2">Nano Banana（Gemini 2.5 Flash Image）</p>
+              <p class="text-base md:text-lg text-gray-700">
+                画像生成・編集に特化したAI。キャラクターの一貫性を保持でき、自然言語で画像を編集可能。無料で1日100枚まで生成できます。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg font-semibold text-gray-900 mb-2">Imagen 4</p>
+              <p class="text-base md:text-lg text-gray-700">
+                テキストからフォトリアルな画像を生成する専門モデル。タイポグラフィ（文字入り画像）の生成に強みがあります。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg font-semibold text-gray-900 mb-2">Veo 3 / Veo 3.1（最新）</p>
+              <p class="text-base md:text-lg text-gray-700">
+                音声付き動画生成AI（2025年10月リリース）。最大1080p HDの高解像度動画を生成でき、商用利用も可能です。
+              </p>
+            </div>
+          </div>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">🎯 得意な分野</h4>
+          <ul class="space-y-2 text-base md:text-lg text-gray-700 mb-4 list-disc pl-6">
+            <li>画像の分析と説明（写真から情報を読み取る）</li>
+            <li>動画コンテンツの要約と分析</li>
+            <li>画像生成・編集（Nano Banana、Imagen 4）</li>
+            <li>音声付き動画生成（Veo 3 / Veo 3.1）</li>
+            <li>リアルタイム情報の検索（ニュース、天気、株価など）</li>
+            <li>Google Workspaceとの連携作業</li>
+          </ul>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">💰 料金プラン</h4>
+          <div class="space-y-3 mb-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-green-600">無料プラン：</strong>Gemini 2.0 Flash、Nano Banana（1日100枚）が利用可能。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-blue-600">Pro（月額2,900円）：</strong>Gemini 2.5 Pro、Veo 3、2TBストレージ、YouTube Premium。
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-base md:text-lg text-gray-700 mb-1">
+                <strong class="text-purple-600">Ultra（月額36,400円）：</strong>Deep Think 2.5 Pro、Veo 3早期アクセス、30TBストレージ。最初の3ヶ月は50%割引。
+              </p>
+            </div>
+          </div>
+
+          <h4 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">👤 こんな人におすすめ</h4>
+          <p class="text-base md:text-lg text-gray-700">
+            • Google Workspaceを日常的に使っている方<br>
+            • 画像や動画を扱う業務が多い方<br>
+            • 最新情報をリアルタイムで取得したい方<br>
+            • マルチメディアコンテンツを作成する方<br>
+            • 動画生成に興味がある方
+          </p>
+        </div>
+
+        <!-- 選び方ガイド -->
+        <div class="bg-gradient-to-br from-amber-50 to-yellow-50 border-2 border-amber-500 p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl md:text-3xl font-bold text-amber-900 mb-6 flex items-center gap-2">
+            🤔 どのAIを選ぶべき？
+          </h3>
+
+          <p class="text-lg md:text-xl text-gray-800 mb-6">
+            用途に応じて、最適な生成AIは変わります。以下を参考に選んでみてください。
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-xl md:text-2xl font-bold text-green-700 mb-3">
+                📌 初めて生成AIを使う方 → ChatGPT
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                最も情報が多く、使い方を解説する記事やYouTube動画も豊富です。
+                困ったときのサポート情報も充実しているため、初心者に最適です。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-xl md:text-2xl font-bold text-purple-700 mb-3">
+                📌 プログラミングやコード生成を重視する方 → Claude
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                コード生成の精度が世界最高で、バグが少ない傾向があります。
+                GASなどのコードを生成する際は、Claude Sonnet 4.5がおすすめです。
+              </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h4 class="text-xl md:text-2xl font-bold text-blue-700 mb-3">
+                📌 画像・動画を扱う方、Googleサービスを使う方 → Gemini
+              </h4>
+              <p class="text-base md:text-lg text-gray-700">
+                マルチモーダル対応が強力で、GoogleドキュメントやGmailとの連携も便利です。
+                特に、Veo 3を使った動画生成や、Nano Bananaを使った画像生成に興味がある方には最適です。
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-white p-6 rounded-lg border-2 border-dashed border-amber-400">
+            <p class="text-lg md:text-xl font-bold text-amber-900 mb-2">💡 ヒント</p>
+            <p class="text-base md:text-lg text-gray-700">
+              どのAIも無料プランが用意されているので、まずは複数試してみて、
+              自分に合ったものを見つけるのがおすすめです。
+              用途によって使い分けることもできますよ。
+            </p>
+          </div>
+        </div>
+
+        <!-- 更新された青いボックス -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-bold text-indigo-900 mb-3">
+            📌 今回の講座ではChatGPTを使ってツールを作っていきます！
+          </p>
+          <p class="text-lg md:text-xl text-indigo-800 mb-3">
+            理由は、一番汎用性があり、多くのユーザーに使われているためです。
+            また、初心者でも扱いやすく、情報も豊富なので、学習がスムーズに進められます。
+            最新のGPT-5モデルは、博士号レベルの性能を持ち、より高度な推論とコード生成ができるようになりました。
+          </p>
+          <p class="text-base md:text-lg text-indigo-700">
+            もちろん、慣れてきたらClaude Sonnet 4.5やGemini 2.5 Proも併用してみてください。
+            それぞれの強みを活かすことで、より効率的な業務が実現できます。
+            特に、コード生成ではClaude Sonnet 4.5が世界最高の性能を誇っているため、GAS開発でもClaudeを使うのは非常に良い選択です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション8: ワーク課題 -->
+    <section id="work" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク課題
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          あなたの仕事の中で「AIに任せられそう」な作業を3つ書き出してみましょう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          これまで学んだ生成AIの得意な作業を参考に、あなたの日常業務の中で、
+          生成AIに任せられそうな作業を3つ書き出してみましょう。
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-600">
+            <li>• メールの下書き作成</li>
+            <li>• 会議の議事録要約</li>
+            <li>• 商品説明文の作成</li>
+          </ul>
+        </div>
+        <div class="mt-6 p-6 bg-white rounded-lg border-2 border-dashed border-gray-300">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">あなたの回答：</p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">1.</span>
+              <input type="text" id="work-item-1" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：メールの下書き作成">
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">2.</span>
+              <input type="text" id="work-item-2" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：会議の議事録要約">
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-lg font-bold text-indigo-600">3.</span>
+              <input type="text" id="work-item-3" class="flex-1 border-b-2 border-gray-300 pb-1 px-2 focus:border-indigo-500 focus:outline-none transition text-base md:text-lg" placeholder="例：商品説明文の作成">
+            </div>
+          </div>
+        </div>
+
+        <!-- 保存/クリア/エクスポートボタン -->
+        <div class="mt-4 flex items-center gap-4">
+          <button onclick="saveWork()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            💾 保存
+          </button>
+          <button onclick="clearWork()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            🗑️ クリア
+          </button>
+          <button onclick="WorkManager.exportAllAnswers()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg transition transform hover:scale-105">
+            📥 エクスポート
+          </button>
+          <span id="save-feedback" class="text-sm font-semibold opacity-0 transition-opacity duration-300"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-32 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、生成AIの基本的な概念について理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>生成AIは「創造型」のAIで、文章・画像・コードなど新しいコンテンツを生成できます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>文章作成、アイデア出し、要約・翻訳、コード生成などが得意です</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>専門的な判断、最新情報、感情の理解などは苦手です</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>生成AIは「優秀なアシスタント」として、人間の思考を補うツールです</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>ChatGPT、Claude、Geminiなど、複数の生成AIが利用可能です</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、ChatGPTでできることをより詳しく学んでいきましょう。
+          わからないことがあれば、何度でも読み返してくださいね。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-02.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：ChatGPTでできること →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // スクリーンショットプレースホルダーのクリックイベント（実際の画像追加時に使用）
+    document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+      placeholder.addEventListener('click', () => {
+        alert('ここに実際のスクリーンショットが表示されます');
+      });
+    });
+
+    // ===== ワーク課題管理 =====
+    const PAGE_ID = 'section-01.html';
+    const WORK_ID = 'work';
+
+    // ページ読み込み時に保存済みデータを復元
+    function loadWorkAnswers() {
+      const savedData = WorkManager.loadWorkAnswer(PAGE_ID, WORK_ID);
+      if (savedData && savedData.type === 'items' && savedData.answers) {
+        savedData.answers.forEach((answer, index) => {
+          const input = document.getElementById(`work-item-${index + 1}`);
+          if (input) {
+            input.value = answer;
+          }
+        });
+      }
+    }
+
+    // 保存ボタンのハンドラ
+    function saveWork() {
+      const answers = [
+        document.getElementById('work-item-1').value,
+        document.getElementById('work-item-2').value,
+        document.getElementById('work-item-3').value
+      ];
+
+      WorkManager.saveWorkAnswer(PAGE_ID, WORK_ID, {
+        type: 'items',
+        answers: answers
+      });
+
+      const feedback = document.getElementById('save-feedback');
+      WorkManager.showSaveFeedback(feedback);
+    }
+
+    // クリアボタンのハンドラ
+    function clearWork() {
+      if (confirm('回答をクリアしてもよろしいですか？')) {
+        document.getElementById('work-item-1').value = '';
+        document.getElementById('work-item-2').value = '';
+        document.getElementById('work-item-3').value = '';
+
+        WorkManager.clearWorkAnswer(PAGE_ID, WORK_ID);
+        alert('回答をクリアしました。');
+      }
+    }
+
+    // 自動保存（デバウンス）
+    const autoSave = WorkManager.debounce(() => {
+      saveWork();
+    }, WorkManager.SAVE_DELAY);
+
+    // 各入力フィールドに自動保存を設定
+    ['work-item-1', 'work-item-2', 'work-item-3'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) {
+        input.addEventListener('input', autoSave);
+      }
+    });
+
+    // ページ読み込み時にデータを復元
+    window.addEventListener('DOMContentLoaded', loadWorkAnswers);
+  </script>
+
+</body>
+</html>

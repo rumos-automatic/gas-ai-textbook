@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI×GAS 短期講座 - 無料デモ版</title>
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* カードホバーエフェクト */
+    .section-card {
+      transition: all 0.3s ease;
+    }
+    .section-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    /* 無効化カード */
+    .section-card.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .section-card.disabled:hover {
+      transform: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* 番号バッジ */
+    .number-badge {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .number-badge {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+      }
+    }
+    /* スムーススクロール */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* カードグリッドレイアウト */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem 0;
+    }
+    /* デモバナー */
+    .demo-banner {
+      background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    /* ロックアイコン */
+    .lock-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      opacity: 0.7;
+    }
+    /* ロックオーバーレイ */
+    .locked-overlay {
+      position: relative;
+    }
+    .locked-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 0.5rem;
+    }
+    /* CTA セクション */
+    .cta-section {
+      background: linear-gradient(135deg, #0B1120 0%, #1E3A5F 100%);
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    .cta-button {
+      background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%);
+      color: #0B1120;
+      padding: 1rem 2.5rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      font-size: 1.125rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+    }
+    /* カテゴリロック表示 */
+    .category-locked {
+      position: relative;
+    }
+    .category-locked .cards-grid {
+      filter: blur(2px);
+    }
+    .locked-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(11, 17, 32, 0.9);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 1rem;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+
+  <!-- デモバナー -->
+  <div class="demo-banner">
+    無料デモ版 - 「生成AI紹介」のみ閲覧可能
+  </div>
+
+  <!-- ヘッダー -->
+  <header class="bg-white shadow-md py-8 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+        <img src="../images/favicon.png" alt="講座アイコン" class="w-10 h-10 md:w-12 md:h-12 mr-3">
+        AI×GAS 短期講座
+        <span class="ml-3 text-lg md:text-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-3 py-1 rounded-full">DEMO</span>
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        初心者から始める、生成AIとGoogle Apps Scriptの実践講座
+      </p>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-6xl mx-auto px-6 py-12">
+
+    <!-- カテゴリ1: 生成AI紹介（閲覧可能） -->
+    <section class="mb-16">
+      <div class="flex items-center mb-4">
+        <span class="bg-green-500 text-white text-sm font-bold px-3 py-1 rounded-full mr-3">閲覧可能</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <span class="text-5xl mr-4">🤖</span>
+        生成AI紹介
+        <span class="text-base text-gray-500 font-normal ml-4">全7セクション</span>
+      </h2>
+      <p class="text-lg md:text-xl text-gray-700 mb-8">
+        生成AIの基本概念から実践的な使い方まで、初心者でも分かりやすく学べます。
+      </p>
+
+      <div class="cards-grid">
+        <!-- セクション1 -->
+        <a href="生成AI/section-01.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">1</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">生成AIとは？</h3>
+            <p class="text-base text-gray-600">生成AIの基本概念、仕組み、得意なことを学びます</p>
+          </div>
+        </a>
+        <!-- セクション2 -->
+        <a href="生成AI/section-02.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">2</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTでできること</h3>
+            <p class="text-base text-gray-600">12種類の実用的な作業例を確認します</p>
+          </div>
+        </a>
+        <!-- セクション3 -->
+        <a href="生成AI/section-03.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">3</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTにやらせてはいけないこと</h3>
+            <p class="text-base text-gray-600">注意すべき使い方と回避方法を理解します</p>
+          </div>
+        </a>
+        <!-- セクション4 -->
+        <a href="生成AI/section-04.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">4</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの始め方</h3>
+            <p class="text-base text-gray-600">アカウント作成から基本操作まで学びます</p>
+          </div>
+        </a>
+        <!-- セクション5 -->
+        <a href="生成AI/section-05.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">5</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの基本的な使い方</h3>
+            <p class="text-base text-gray-600">メッセージの送り方から会話の続け方まで学びます</p>
+          </div>
+        </a>
+        <!-- セクション6 -->
+        <a href="生成AI/section-06.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">6</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">AIにうまく指示する4つのコツ</h3>
+            <p class="text-base text-gray-600">プロンプトテクニックを学びます</p>
+          </div>
+        </a>
+        <!-- セクション7 -->
+        <a href="生成AI/section-07.html" class="section-card bg-white rounded-lg shadow-md hover:shadow-xl">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gradient-to-br from-blue-400 to-blue-600 text-white mb-4">7</div>
+            <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">ChatGPTの便利機能</h3>
+            <p class="text-base text-gray-600">効率的に使うための便利機能を学びます</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- カテゴリ2: GAS紹介（ロック） -->
+    <section class="mb-16 category-locked">
+      <div class="flex items-center mb-4">
+        <span class="bg-gray-400 text-white text-sm font-bold px-3 py-1 rounded-full mr-3">🔒 受講者限定</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-400 mb-4">
+        <span class="text-5xl mr-4">⚙️</span>
+        GAS紹介
+        <span class="text-base text-gray-400 font-normal ml-4">全6セクション</span>
+      </h2>
+      <p class="text-lg md:text-xl text-gray-400 mb-8">
+        Google Apps Scriptの基礎から実践まで、ツール開発に必要な知識を習得します。
+      </p>
+      <div class="cards-grid relative">
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">1</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">GASとは？</h3>
+          </div>
+        </div>
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">2</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">GASの始め方</h3>
+          </div>
+        </div>
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">3</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">GASでできること</h3>
+          </div>
+        </div>
+        <div class="locked-message">
+          🔒 有料プランで全コンテンツにアクセス
+        </div>
+      </div>
+    </section>
+
+    <!-- カテゴリ3: 基本的な考え方（ロック） -->
+    <section class="mb-16 category-locked">
+      <div class="flex items-center mb-4">
+        <span class="bg-gray-400 text-white text-sm font-bold px-3 py-1 rounded-full mr-3">🔒 受講者限定</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-400 mb-4">
+        <span class="text-5xl mr-4">💡</span>
+        基本的な考え方
+        <span class="text-base text-gray-400 font-normal ml-4">全3セクション</span>
+      </h2>
+      <div class="cards-grid relative">
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">1</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">AI活用の心構え</h3>
+          </div>
+        </div>
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">2</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">効率的な学習法</h3>
+          </div>
+        </div>
+        <div class="locked-message">
+          🔒 有料プランで全コンテンツにアクセス
+        </div>
+      </div>
+    </section>
+
+    <!-- カテゴリ4: 実践編（ロック） -->
+    <section class="mb-16 category-locked">
+      <div class="flex items-center mb-4">
+        <span class="bg-gray-400 text-white text-sm font-bold px-3 py-1 rounded-full mr-3">🔒 受講者限定</span>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-400 mb-4">
+        <span class="text-5xl mr-4">🚀</span>
+        実践編（6つのプロジェクト）
+        <span class="text-base text-gray-400 font-normal ml-4">全48セクション</span>
+      </h2>
+      <p class="text-lg md:text-xl text-gray-400 mb-8">
+        メール自動転記、CSV処理、フォーム自動返信、API連携など実践的なプロジェクトに取り組みます。
+      </p>
+      <div class="cards-grid relative">
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">①</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">メール自動転記</h3>
+          </div>
+        </div>
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">②</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">CSV自動転記</h3>
+          </div>
+        </div>
+        <div class="section-card disabled bg-white rounded-lg shadow-md">
+          <div class="flex flex-col items-center text-center p-6 min-h-[240px]">
+            <div class="number-badge bg-gray-300 text-white mb-4">③</div>
+            <h3 class="text-xl font-bold text-gray-400 mb-3">フォーム自動返信</h3>
+          </div>
+        </div>
+        <div class="locked-message">
+          🔒 有料プランで全コンテンツにアクセス
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA セクション -->
+    <section class="cta-section mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">全80セクションの教材にアクセス</h2>
+      <p class="text-lg md:text-xl mb-8 opacity-90">
+        生成AI × GASで業務自動化スキルを身につけましょう
+      </p>
+      <a href="../index-v2.html#plans" class="cta-button">
+        料金プランを見る →
+      </a>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white shadow-md py-6 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="text-base text-gray-600">
+        © 2025 AI×GAS 短期講座 | 無料デモ版
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

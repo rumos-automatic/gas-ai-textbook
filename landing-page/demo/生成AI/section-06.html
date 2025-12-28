@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>セクション6: AIにうまく指示する4つのコツ | 生成AI×GAS 短期講座</title>
+  <link rel="icon" type="image/png" href="../../../favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    }
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    .dot-indicator {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+    }
+    @media (max-width: 768px) {
+      .dot-indicator {
+        display: none;
+      }
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .dot:hover {
+      background-color: #6366f1;
+      transform: scale(1.3);
+    }
+    .dot.active {
+      background-color: #4f46e5;
+      transform: scale(1.5);
+    }
+    .dot-label {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.875rem;
+    }
+    .dot:hover .dot-label {
+      opacity: 1;
+    }
+    .progress-bar {
+      height: 4px;
+      background: linear-gradient(to right, #10b981 0%, #10b981 85.71%, #e5e7eb 85.71%, #e5e7eb 100%);
+    }
+    .screenshot-placeholder {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0.5rem;
+      padding: 3rem;
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .screenshot-placeholder:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal.active {
+      display: flex;
+    }
+    #imageModal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+  </style>  <!-- グローバル検索機能 -->
+  <link rel="stylesheet" href="../../../assets/css/search-global.css">
+  <script src="../../../assets/js/searchGlobal.js" defer></script>
+  <script src="../../../assets/js/highlightManager.js" defer></script>
+
+</head>
+<body class="smooth-scroll bg-gray-50">
+
+  <!-- ナビゲーション -->
+  <div class="demo-banner" style="background: linear-gradient(135deg, #D4AF37 0%, #AA8828 100%); color: white; padding: 0.75rem; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100;">無料デモ版 - 全コンテンツは有料プランで閲覧できます</div>
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="../index.html" class="text-lg md:text-xl font-semibold text-indigo-600 hover:text-indigo-800 transition">
+          ← トップページへ
+        </a>
+        <div class="flex gap-4">
+          <a href="section-05.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            ← 前へ
+          </a>
+          <a href="section-07.html" class="text-base md:text-lg font-semibold text-indigo-600 hover:text-indigo-800 transition">
+            次へ →
+          </a>
+        </div>
+      </div>
+      <!-- 進捗バー -->
+      <div class="progress-bar mt-3 rounded-full"></div>
+    </div>
+  </nav>
+
+  <!-- ドットインジケーター -->
+  <div class="dot-indicator">
+    <div class="flex flex-col gap-4">
+      <div class="dot active" data-section="intro">
+        <span class="dot-label">指示力の重要性</span>
+      </div>
+      <div class="dot" data-section="role">
+        <span class="dot-label">役割を与える</span>
+      </div>
+      <div class="dot" data-section="context">
+        <span class="dot-label">事前情報を提供</span>
+      </div>
+      <div class="dot" data-section="screenshot">
+        <span class="dot-label">スクショを活用</span>
+      </div>
+      <div class="dot" data-section="work1">
+        <span class="dot-label">ワーク1</span>
+      </div>
+      <div class="dot" data-section="work2">
+        <span class="dot-label">ワーク2</span>
+      </div>
+      <div class="dot" data-section="work3">
+        <span class="dot-label">ワーク3</span>
+      </div>
+      <div class="dot" data-section="prompt-builder">
+        <span class="dot-label">プロンプトビルダー</span>
+      </div>
+      <div class="dot" data-section="advanced-techniques">
+        <span class="dot-label">上級者向けテクニック</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- セクションタイトル -->
+    <header class="mb-16 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        🎯 AIにうまく指示する4つのコツ
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600">
+        より良い回答を引き出すためのプロンプトテクニックを学びます
+      </p>
+    </header>
+
+    <!-- 小セクション1: 指示力の重要性 -->
+    <section id="intro" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        💬 AIは使う人の指示力で結果が変わる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTの回答の質は、あなたの指示がどれだけ具体的で明確かによって大きく変わります。
+          <strong class="text-indigo-600">AIはあなたの指示が全てです。</strong>
+          あなたの指示がどれだけ具体的かによって回答結果が変わります。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          同じ質問でも、指示の出し方によって、返ってくる回答の質が大きく異なります。
+          たとえば、「メールを書いてください」という曖昧な指示よりも、
+          「お客様への謝罪メールを、丁寧で誠実なトーンで書いてください」という具体的な指示の方が、
+          より良い回答が得られます。
+        </p>
+
+        <div class="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-500 p-6 rounded-xl shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-red-900 mb-6 flex items-center gap-3">
+            <span class="text-3xl">❌</span>
+            悪い例 vs
+            <span class="text-3xl">✅</span>
+            良い例
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 例1 -->
+            <div class="bg-white p-5 rounded-lg shadow-md">
+              <div class="mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">❌</span>
+                  <h4 class="font-bold text-gray-900">悪い例：</h4>
+                </div>
+                <div class="bg-gray-100 p-3 rounded text-gray-700">
+                  メールを書いてください。
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">✅</span>
+                  <h4 class="font-bold text-gray-900">良い例：</h4>
+                </div>
+                <div class="bg-green-50 p-3 rounded text-gray-800 border-l-4 border-green-500">
+                  お客様への謝罪メールを、丁寧で誠実なトーンで書いてください。
+                  商品の発送が遅れたことをお詫びし、今後の対応を明確に伝える内容にしてください。
+                </div>
+              </div>
+            </div>
+
+            <!-- 例2 -->
+            <div class="bg-white p-5 rounded-lg shadow-md">
+              <div class="mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">❌</span>
+                  <h4 class="font-bold text-gray-900">悪い例：</h4>
+                </div>
+                <div class="bg-gray-100 p-3 rounded text-gray-700">
+                  コードを生成してください。
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xl">✅</span>
+                  <h4 class="font-bold text-gray-900">良い例：</h4>
+                </div>
+                <div class="bg-green-50 p-3 rounded text-gray-800 border-l-4 border-green-500">
+                  Google Apps Scriptで、Gmailから特定の件名のメールを取得して、
+                  スプレッドシートに転記するコードを生成してください。
+                  メールの件名、送信者、本文、受信日時を記録するようにしてください。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-indigo-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-indigo-800">
+            指示は「5W1H」（誰が、何を、いつ、どこで、なぜ、どのように）を意識して具体的に伝えましょう。
+            目的、トーン、形式、制約条件などを明確に指定することで、より精度の高い回答が得られます。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション2: 役割を与える -->
+    <section id="role" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        🎓 専門的な内容を出したい時は「あなたは○○の専門家です。」
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTに専門的な内容を出力させたい場合は、<strong class="text-indigo-600">役割を与える</strong>ことが効果的です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「あなたはマーケティングの専門家です」と最初に伝えることで、
+          ChatGPTはマーケティングに関する専門的な知識を活用して回答してくれます。
+          役割を与えることで、回答の質と専門性が大幅に向上します。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            役割設定の例
+          </h3>
+
+          <div class="space-y-4">
+            <!-- マーケティング専門家 -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-lg border-l-4 border-blue-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">マーケティングの専門家</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはマーケティングの専門家です。新商品のプロモーション戦略を提案してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → マーケティング用語を使い、専門的な戦略を提案してくれます
+              </p>
+            </div>
+
+            <!-- プログラミング専門家 -->
+            <div class="bg-gradient-to-r from-green-50 to-teal-50 p-5 rounded-lg border-l-4 border-green-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">プログラミングの専門家</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはプログラミングの専門家です。このコードのエラーを修正してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → エラーの原因を詳しく説明し、修正方法を提示してくれます
+              </p>
+            </div>
+
+            <!-- ビジネスコンサルタント -->
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-5 rounded-lg border-l-4 border-purple-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">ビジネスコンサルタント</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはビジネスコンサルタントです。私の事業の課題を分析し、解決策を提案してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → ビジネス的な視点から、戦略的な提案をしてくれます
+              </p>
+            </div>
+
+            <!-- カスタマーサポート担当者 -->
+            <div class="bg-gradient-to-r from-orange-50 to-red-50 p-5 rounded-lg border-l-4 border-orange-500">
+              <h4 class="font-bold text-gray-900 mb-2 text-lg">カスタマーサポート担当者</h4>
+              <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono mb-2">
+                あなたはカスタマーサポート担当者です。お客様からのクレームに対する返信を作成してください。
+              </div>
+              <p class="text-sm text-gray-600">
+                → 顧客対応に適した丁寧で共感的な文章を作成してくれます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-yellow-900 mb-2">✨ 活用のコツ</p>
+          <p class="text-lg md:text-xl text-yellow-800">
+            役割設定は、プロンプトの最初に記載するのが効果的です。
+            また、「10年以上の経験を持つ」「実績豊富な」などの修飾語を加えると、
+            さらに専門性の高い回答が得られることがあります。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション3: 事前情報を提供 -->
+    <section id="context" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📚 事前情報を読み込んでおくともっと正確な情報を得れる
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          ChatGPTに事前情報を与えることで、より正確で具体的な回答を得ることができます。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、「売上を伸ばす方法を教えてください」という一般的な質問よりも、
+          「以下は私の会社の商品リストです。[商品リスト貼り付け] この中で売上を伸ばすべき商品を3つ選んでください」
+          と具体的な情報を提供した方が、より実用的な回答が得られます。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-6">
+            事前情報提供の例
+          </h3>
+
+          <div class="space-y-6">
+            <!-- 例1: 商品リスト -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">📦</span>
+                商品リストを提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下は私が扱っている商品リストです。<br>
+                  <br>
+                  1. 商品A：価格3,000円、月間販売数50個<br>
+                  2. 商品B：価格5,000円、月間販売数30個<br>
+                  3. 商品C：価格10,000円、月間販売数10個<br>
+                  <br>
+                  この中で売上を伸ばすべき商品を3つ選び、その理由を教えてください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → 具体的なデータをもとに、実用的な提案をしてくれます
+              </p>
+            </div>
+
+            <!-- 例2: お客様のフィードバック -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">💬</span>
+                お客様のフィードバックを提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下はお客様からのフィードバックです。<br>
+                  <br>
+                  「商品は良いが、発送が遅い」<br>
+                  「梱包が丁寧で良かった」<br>
+                  「商品説明がわかりにくい」<br>
+                  <br>
+                  これらのフィードバックから改善点をまとめてください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → 実際のフィードバックをもとに、具体的な改善策を提案してくれます
+              </p>
+            </div>
+
+            <!-- 例3: 会社情報 -->
+            <div class="border-2 border-gray-200 rounded-lg p-5">
+              <h4 class="font-bold text-gray-900 mb-3 text-lg flex items-center gap-2">
+                <span class="text-xl">🏢</span>
+                会社情報を提供
+              </h4>
+              <div class="bg-gray-50 p-4 rounded mb-3">
+                <p class="text-sm font-semibold text-gray-700 mb-2">プロンプト例：</p>
+                <div class="bg-white p-3 rounded text-sm text-gray-800 font-mono">
+                  以下は私の会社の情報です。<br>
+                  <br>
+                  業種：オンラインショップ<br>
+                  取扱商品：ハンドメイドアクセサリー<br>
+                  ターゲット：20-30代女性<br>
+                  課題：新規顧客の獲得<br>
+                  <br>
+                  売上を上げるための施策を3つ提案してください。
+                </div>
+              </div>
+              <p class="text-base text-gray-600">
+                → あなたの会社に特化した、実践的な施策を提案してくれます
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-green-900 mb-2">💡 ポイント</p>
+          <p class="text-lg md:text-xl text-green-800 mb-3">
+            事前情報は、できるだけ具体的に提供しましょう。数値データ、固有名詞、状況の詳細など、
+            具体的な情報が多いほど、より実用的な回答が得られます。
+          </p>
+          <p class="text-base md:text-lg text-green-700">
+            ただし、個人情報や機密情報は含めないように注意してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 小セクション4: スクショを活用 -->
+    <section id="screenshot" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📸 文章で説明しづらい時はスクショを使って状況を送る
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          複雑な状況や視覚的な情報は、スクリーンショットを使って伝えると効果的です。
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          たとえば、Webサイトのデザインについて質問したい場合、
+          「このサイトのヘッダーデザインを改善してください」と文章で伝えるよりも、
+          実際のサイトのスクリーンショットを添付した方が、より的確なアドバイスが得られます。
+          また、エラー画面やデータの表なども、スクリーンショットで共有することで、
+          問題を正確に把握してもらえます。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Windows -->
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
+              <span class="text-2xl">🪟</span>
+              Windowsでのスクショ方法
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法1: Snipping Tool</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Windowsキー + Shift + S</strong> を押す</li>
+                  <li>2. 画面の一部を選択してキャプチャ</li>
+                  <li>3. クリップボードにコピーされる</li>
+                  <li>4. ChatGPTに貼り付け</li>
+                </ol>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法2: Print Screen</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Print Screen</strong> キーを押す</li>
+                  <li>2. 全画面がクリップボードにコピー</li>
+                  <li>3. 画像編集ソフトで必要部分を切り取り</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mac -->
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-lg shadow-lg text-white">
+            <h3 class="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
+              <span class="text-2xl">🍎</span>
+              Macでのスクショ方法
+            </h3>
+            <div class="space-y-3">
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法1: 選択範囲</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Command + Shift + 4</strong> を押す</li>
+                  <li>2. 画面の一部を選択してキャプチャ</li>
+                  <li>3. デスクトップに保存される</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm p-4 rounded-lg">
+                <p class="font-bold mb-2">方法2: 全画面</p>
+                <ol class="text-sm space-y-1">
+                  <li>1. <strong>Command + Shift + 3</strong> を押す</li>
+                  <li>2. 全画面がデスクトップに保存</li>
+                  <li>3. 必要に応じて画像を編集</li>
+                  <li>4. ChatGPTにアップロード</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl md:text-2xl font-bold text-indigo-600 mb-4">
+            スクリーンショットの活用例
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+              <span class="text-2xl">🌐</span>
+              <div>
+                <p class="font-bold text-gray-900">Webサイトのデザイン改善</p>
+                <p class="text-sm text-gray-600">サイトのスクショを送り、デザインの改善点を提案してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+              <span class="text-2xl">🐛</span>
+              <div>
+                <p class="font-bold text-gray-900">エラー画面の分析</p>
+                <p class="text-sm text-gray-600">エラーメッセージのスクショを送り、原因と解決策を教えてもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+              <span class="text-2xl">📊</span>
+              <div>
+                <p class="font-bold text-gray-900">データ表の分析</p>
+                <p class="text-sm text-gray-600">スプレッドシートのデータをスクショで送り、分析してもらう</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-orange-50 rounded-lg">
+              <span class="text-2xl">🎨</span>
+              <div>
+                <p class="font-bold text-gray-900">レイアウトの相談</p>
+                <p class="text-sm text-gray-600">資料やチラシのレイアウトをスクショで送り、改善案をもらう</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <p class="text-lg font-semibold mb-4 text-center">📸 ChatGPTへの画像アップロード操作デモ</p>
+          <video controls class="w-full rounded-lg shadow-lg" style="max-width: 800px; margin: 0 auto; display: block;">
+            <source src="../../../assets/videos/chatgpt-image-upload.mp4" type="video/mp4">
+            お使いのブラウザは動画再生に対応していません。
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク1 -->
+    <section id="work1" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-6 flex items-center">
+          ✅ ワーク1
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに「あなたは○○の専門家です。」のプロンプトを入れてる時と入れなかった時の回答を比較してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          同じ質問を、プロンプトあり・なしで試してみましょう。回答の質の違いを実感してください。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- プロンプトなし -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">❌</span>
+              <h4 class="text-lg font-bold text-gray-900">プロンプトなし</h4>
+            </div>
+            <div class="bg-gray-100 p-4 rounded font-mono text-sm text-gray-800">
+              売上を上げるための施策を3つ教えてください。
+            </div>
+          </div>
+
+          <!-- プロンプトあり -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">✅</span>
+              <h4 class="text-lg font-bold text-gray-900">プロンプトあり</h4>
+            </div>
+            <div class="bg-green-50 p-4 rounded font-mono text-sm text-gray-800 border-l-4 border-green-500">
+              あなたはマーケティングの専門家です。<br>
+              売上を上げるための施策を3つ教えてください。
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>回答の専門性、具体性、実用性の違いに注目してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク2 -->
+    <section id="work2" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-6 flex items-center">
+          ✅ ワーク2
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTに事前情報を読み込ませてからの回答と読み込ませる前の回答を比較してみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          事前情報あり・なしで回答の質を比較してみましょう。
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- 事前情報なし -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">❌</span>
+              <h4 class="text-lg font-bold text-gray-900">事前情報なし</h4>
+            </div>
+            <div class="bg-gray-100 p-4 rounded font-mono text-sm text-gray-800">
+              おすすめの商品を教えてください。
+            </div>
+          </div>
+
+          <!-- 事前情報あり -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl">✅</span>
+              <h4 class="text-lg font-bold text-gray-900">事前情報あり</h4>
+            </div>
+            <div class="bg-green-50 p-4 rounded font-mono text-sm text-gray-800 border-l-4 border-green-500">
+              以下は私が扱っている商品リストです。<br>
+              <br>
+              1. 商品A：3,000円、月間50個販売<br>
+              2. 商品B：5,000円、月間30個販売<br>
+              3. 商品C：10,000円、月間10個販売<br>
+              <br>
+              この中でおすすめの商品を教えてください。
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-blue-800">
+            <strong>確認ポイント：</strong>回答の具体性、実用性、あなたの状況への適合性の違いに注目してください。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ワーク3 -->
+    <section id="work3" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-6 flex items-center">
+          ✅ ワーク3
+        </h2>
+        <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+          ChatGPTにスクショを使って状況を送ってみよう！
+        </h3>
+        <p class="text-lg md:text-xl text-gray-700 mb-6">
+          あなたの業務画面やエラー画面のスクリーンショットを撮影し、ChatGPTに送ってみましょう。
+          どのような回答が返ってくるか確認してください。
+        </p>
+
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+          <p class="text-base md:text-lg font-semibold text-gray-700 mb-3">試してみる内容の例：</p>
+          <ul class="space-y-2 text-base md:text-lg text-gray-600">
+            <li>• Webサイトのデザインをスクショして、改善点を聞く</li>
+            <li>• エラー画面をスクショして、原因と解決策を聞く</li>
+            <li>• スプレッドシートのデータをスクショして、分析してもらう</li>
+            <li>• 資料のレイアウトをスクショして、改善案をもらう</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg">
+          <p class="text-base md:text-lg text-yellow-800">
+            <strong>注意：</strong>個人情報や機密情報が写り込まないように注意してください。
+            スクリーンショットを送る前に、必ず内容を確認しましょう。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- プロンプトビルダー -->
+    <section id="prompt-builder" class="mb-20 scroll-mt-24">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        ✨ プロンプトテンプレートで効率化
+      </h2>
+      <div class="space-y-6">
+        <p class="text-lg md:text-xl leading-relaxed text-gray-800">
+          プロンプトの書き方に迷ったら、このテンプレートビルダーを使ってみましょう。
+          <strong class="text-indigo-600">ボタンをポチポチ選択するだけで、効果的なプロンプトが完成します。</strong>
+        </p>
+        <p class="text-lg md:text-xl leading-relaxed text-gray-700">
+          初心者の方はボタン選択だけで、上級者の方はフリーフォームでカスタマイズもできます。
+          生成されたプロンプトをコピーして、そのままChatGPTに貼り付けてみてください。
+        </p>
+
+        <!-- プロンプトビルダーUI -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden border-2 border-indigo-200">
+
+          <!-- カテゴリ選択 -->
+          <div class="bg-gradient-to-r from-indigo-500 to-purple-500 p-6">
+            <h3 class="text-xl md:text-2xl font-bold text-white mb-4">📝 カテゴリを選択</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="email">
+                📧 メール作成
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="proofread">
+                ✏️ 文章校正
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="idea">
+                💡 アイデア出し
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="code">
+                💻 コード生成
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="data">
+                📊 データ分析
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="translate">
+                🌐 翻訳
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="summary">
+                📄 要約
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="faq">
+                ❓ FAQ作成
+              </button>
+              <button class="category-btn bg-white hover:bg-indigo-50 text-gray-800 font-semibold py-3 px-4 rounded-lg shadow-md transition transform hover:scale-105 active:scale-95" data-category="presentation">
+                📊 プレゼン構成
+              </button>
+            </div>
+          </div>
+
+          <!-- 選択フォーム -->
+          <div id="form-container" class="p-6 space-y-6">
+            <div class="text-center text-gray-400 py-12">
+              <p class="text-lg">カテゴリを選択してください</p>
+            </div>
+          </div>
+
+          <!-- 生成されたプロンプト -->
+          <div class="bg-gray-50 border-t-2 border-gray-200 p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">💡 生成されたプロンプト</h3>
+            <div id="generated-prompt" class="bg-white border-2 border-gray-300 rounded-lg p-4 min-h-[150px] text-gray-800 whitespace-pre-wrap font-mono text-sm">
+カテゴリを選択すると、プロンプトがここに表示されます
+            </div>
+            <div class="flex gap-3 mt-4">
+              <button id="copy-btn" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                📋 プロンプトをコピー
+              </button>
+              <button id="reset-btn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg shadow-lg transition transform hover:scale-105 active:scale-95">
+                🔄 リセット
+              </button>
+            </div>
+            <div id="copy-feedback" class="mt-3 text-center font-semibold hidden"></div>
+          </div>
+
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-blue-900 mb-2">💡 使い方のコツ</p>
+          <ul class="text-base md:text-lg text-blue-800 space-y-2">
+            <li>• 初心者の方：ボタンを選択するだけでOK！</li>
+            <li>• 上級者の方：フリーフォームで細かくカスタマイズできます</li>
+            <li>• 生成されたプロンプトは、ChatGPTにそのまま貼り付けて使えます</li>
+            <li>• 何度でも試して、自分に合ったプロンプトを見つけましょう</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 上級者向けテクニック -->
+    <section id="advanced-techniques" class="mb-20 scroll-mt-24">
+      <div class="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-500 p-8 rounded-xl shadow-lg">
+        <h2 class="text-3xl md:text-4xl font-bold text-purple-900 mb-6 flex items-center gap-3">
+          <span class="text-4xl">🎓</span>
+          上級者向けテクニック：思考を広げる質問
+        </h2>
+        <p class="text-lg md:text-xl text-gray-800 mb-8">
+          より深い洞察や多角的な視点を得るための、上級者向けのフォローアップ質問テクニックを紹介します。
+          これらを使いこなすことで、ChatGPTから更に価値のある回答を引き出せるようになります。
+        </p>
+
+        <div class="space-y-6">
+          <!-- 1. 思考プロセスを誘導する -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+              <span class="text-2xl">🧠</span>
+              1. 思考プロセスを誘導する質問
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-4">
+              ChatGPTの思考の方向性を変えることで、新しい視点からの回答を得られます。
+            </p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 水平思考で考えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 別の視点から考えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 逆の立場で考えるとどうなりますか？</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• この前提が間違っているとしたら？</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 第一原理から考えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• クリティカルシンキングで分析してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 多角的な視点を引き出す -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+              <span class="text-2xl">🔄</span>
+              2. 多角的な視点を引き出す質問
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-4">
+              賛成だけでなく反対意見も聞くことで、バランスの取れた判断ができます。
+            </p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 悪魔の代弁者として反論してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 反対意見も教えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• メリットとデメリットを両方挙げてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• リスクと機会の両面から分析してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 賛成派と反対派の両方の意見を述べてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• SWOT分析してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 深い洞察を得る -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+              <span class="text-2xl">🔍</span>
+              3. 深い洞察を得る質問
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-4">
+              表面的な回答ではなく、根本原因や長期的な影響まで掘り下げます。
+            </p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• なぜそうなるのか、根本原因を考えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• この方法の前提条件は何ですか？</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 長期的な影響はどうなりますか？</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 二次的、三次的な影響は何ですか？</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• この問題の構造を分解してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 5回「なぜ？」を繰り返してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 多様性を求める -->
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl md:text-2xl font-bold text-green-700 mb-4 flex items-center gap-2">
+              <span class="text-2xl">🌈</span>
+              4. 多様性を求める質問
+            </h3>
+            <p class="text-base md:text-lg text-gray-700 mb-4">
+              様々な角度からの回答を得ることで、より包括的な理解が得られます。
+            </p>
+            <div class="grid md:grid-cols-2 gap-3">
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 具体例を3つ、異なる業界から挙げてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 初心者・中級者・上級者向けの3パターンで</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 過去・現在・未来の視点でそれぞれ説明してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 異なるステークホルダーの視点で考えてください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 文化的・地域的な違いも考慮してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+              <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <div class="flex justify-between items-center gap-2">
+                  <p class="text-sm font-mono text-gray-800 flex-1">• 異なる規模（小・中・大）で比較してください</p>
+                  <button onclick="copyPromptText(this)" class="text-gray-500 hover:text-gray-700 hover:bg-gray-200 px-2 py-1 rounded transition text-sm">📋</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 実践例 -->
+        <div class="mt-8 bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-orange-400 p-6 rounded-xl">
+          <h3 class="text-xl md:text-2xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+            <span class="text-2xl">💼</span>
+            実践例：上級テクニックを使った対話フロー
+          </h3>
+          <p class="text-base md:text-lg text-gray-700 mb-4">
+            テーマ：「新規事業のアイデアを考える」
+          </p>
+
+          <div class="space-y-3">
+            <!-- 1回目 -->
+            <div class="bg-white p-4 rounded-lg">
+              <p class="text-sm font-semibold text-gray-700 mb-2">1回目（基本的な質問）:</p>
+              <div class="bg-gray-100 p-3 rounded text-gray-700">
+                新規事業のアイデアを3つ提案してください。
+              </div>
+            </div>
+
+            <!-- 2回目 -->
+            <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+              <p class="text-sm font-semibold text-purple-700 mb-2">2回目（水平思考）:</p>
+              <div class="bg-purple-50 p-3 rounded text-gray-800">
+                水平思考で考えて、常識を疑った全く新しいアプローチはありますか？
+              </div>
+            </div>
+
+            <!-- 3回目 -->
+            <div class="bg-white p-4 rounded-lg border-l-4 border-indigo-500">
+              <p class="text-sm font-semibold text-indigo-700 mb-2">3回目（悪魔の代弁者）:</p>
+              <div class="bg-indigo-50 p-3 rounded text-gray-800">
+                悪魔の代弁者として、これらのアイデアの弱点や失敗する理由を挙げてください。
+              </div>
+            </div>
+
+            <!-- 4回目 -->
+            <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+              <p class="text-sm font-semibold text-blue-700 mb-2">4回目（長期的影響）:</p>
+              <div class="bg-blue-50 p-3 rounded text-gray-800">
+                最初のアイデアを実行した場合、5年後・10年後にどんな影響がありますか？
+              </div>
+            </div>
+
+            <!-- 5回目 -->
+            <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <p class="text-sm font-semibold text-green-700 mb-2">5回目（多様性）:</p>
+              <div class="bg-green-50 p-3 rounded text-gray-800">
+                異なるステークホルダー（顧客、従業員、投資家）の視点で、それぞれの評価を教えてください。
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-white p-4 rounded-lg">
+            <p class="text-sm font-semibold text-orange-900 mb-2">✅ 結果:</p>
+            <p class="text-base text-gray-700">
+              多角的で深い洞察が得られ、単純な「良いアイデア」ではなく、
+              リスクや長期的影響、様々な立場からの評価を含む包括的な分析が手に入りました。
+            </p>
+          </div>
+        </div>
+
+        <!-- 使い方のコツ -->
+        <div class="mt-6 bg-purple-100 border-l-4 border-purple-600 p-5 rounded-r-lg">
+          <p class="text-lg md:text-xl font-semibold text-purple-900 mb-2">💡 使い方のコツ</p>
+          <ul class="text-base md:text-lg text-purple-800 space-y-2">
+            <li>• 初心者の方は基本的なフォローアップから始めて、徐々に上級テクニックを試しましょう</li>
+            <li>• すべてのテクニックを一度に使う必要はありません。状況に応じて使い分けてください</li>
+            <li>• 「水平思考」や「悪魔の代弁者」などの用語は、ChatGPTがよく理解しているので積極的に使えます</li>
+            <li>• 複数のテクニックを組み合わせることで、より深い洞察が得られます</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- まとめセクション -->
+    <section class="mb-20 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl shadow-lg">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+        📝 このセクションのまとめ
+      </h2>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl text-gray-800">
+          皆さん、AIにうまく指示するコツについて理解できましたでしょうか？
+        </p>
+        <ul class="space-y-3 text-lg md:text-xl text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>ChatGPTの回答の質は、指示の具体性によって大きく変わります</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>「あなたは○○の専門家です」と役割を与えることで、専門性の高い回答が得られます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>事前情報を提供することで、より実用的で具体的な回答が得られます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>複雑な状況はスクリーンショットで伝えると効果的です</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>プロンプトテンプレートを使えば、初心者でも効果的な指示が簡単に作れます</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-indigo-600 font-bold">✓</span>
+            <span>上級者向けテクニック（水平思考、悪魔の代弁者など）で、より深い洞察が得られます</span>
+          </li>
+        </ul>
+        <p class="text-lg md:text-xl text-gray-800 mt-6">
+          次のセクションでは、ChatGPTの便利機能について学んでいきましょう。
+          プロジェクト管理、メモリ機能、カスタムGPTなど、さらに効率的な使い方を身につけましょう。
+        </p>
+      </div>
+    </section>
+
+    <!-- 次のセクションへ -->
+    <div class="text-center">
+      <a href="section-07.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg md:text-xl px-8 py-4 rounded-lg shadow-lg transition transform hover:scale-105">
+        次のセクションへ：ChatGPTの便利機能 →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- 画像拡大モーダル -->
+  <div id="imageModal">
+    <span class="absolute top-8 right-8 text-white text-4xl font-bold cursor-pointer hover:text-gray-300 transition" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="" alt="拡大画像">
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // ドットインジケーターのアクティブ状態を更新
+    const sections = document.querySelectorAll('section[id]');
+    const dots = document.querySelectorAll('.dot');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.getAttribute('id');
+          dots.forEach(dot => {
+            if (dot.getAttribute('data-section') === sectionId) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // ドットクリックでセクションへスクロール
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = dot.getAttribute('data-section');
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+
+    // 画像拡大モーダル
+    function openModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+
+    // モーダル背景クリックで閉じる
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+      if (e.target.id === 'imageModal') {
+        closeModal();
+      }
+    });
+
+    // Escキーでモーダルを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // ========================================
+    // プロンプトビルダー機能
+    // ========================================
+
+    const promptBuilder = {
+      currentCategory: null,
+      selections: {},
+
+      // カテゴリごとのフォーム定義
+      templates: {
+        email: {
+          title: '📧 メール作成',
+          fields: [
+            {
+              id: 'situation',
+              label: '📋 状況説明（必須）',
+              type: 'textarea',
+              placeholder: '例: 商品の発送が3日遅れることになりました',
+              required: true
+            },
+            {
+              id: 'background',
+              label: '📖 背景・経緯（任意）',
+              type: 'textarea',
+              placeholder: '例: 配送業者のトラブルにより、予定していた配送ができなくなりました'
+            },
+            {
+              id: 'purpose',
+              label: '🎯 目的',
+              type: 'button',
+              options: ['お礼', '依頼', '報告', '謝罪', '案内', 'フォローアップ'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '👥 対象者',
+              type: 'button',
+              options: ['上司', '同僚', '取引先', '顧客', '社外の方'],
+              freeform: true
+            },
+            {
+              id: 'tone',
+              label: '🎨 トーン',
+              type: 'button',
+              options: ['丁寧', 'カジュアル', 'ビジネスフォーマル'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 300文字以内で、明日までの期限を明記'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはビジネスメールの専門家です。\n\n';
+            if (selections.situation) prompt += `【状況】\n${selections.situation}\n\n`;
+            if (selections.background) prompt += `【背景・経緯】\n${selections.background}\n\n`;
+            if (selections.purpose) prompt += `【目的】${selections.purpose}のメールを作成してください。\n`;
+            if (selections.target) prompt += `【対象者】${selections.target}向けの内容にしてください。\n`;
+            if (selections.tone) prompt += `【トーン】${selections.tone}な文章にしてください。\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n件名と本文を含む完成したメールを作成してください。';
+            return prompt;
+          }
+        },
+        proofread: {
+          title: '✏️ 文章校正・添削',
+          fields: [
+            {
+              id: 'text',
+              label: '📝 校正したい文章（必須）',
+              type: 'textarea',
+              placeholder: 'ここに校正したい文章を貼り付けてください',
+              required: true
+            },
+            {
+              id: 'context',
+              label: '📖 校正の背景（任意）',
+              type: 'textarea',
+              placeholder: '例: 社外向けプレスリリースとして使用予定、フォーマルな印象を与えたい'
+            },
+            {
+              id: 'purpose',
+              label: '🎯 目的',
+              type: 'button',
+              options: ['誤字チェック', 'トーン調整', '簡潔化', '丁寧化', 'ビジネス向け'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '👥 対象',
+              type: 'button',
+              options: ['社内向け', '社外向け', '顧客向け'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 専門用語は残してください、文字数は変えずに'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたは文章校正の専門家です。\n\n';
+            if (selections.text) prompt += `以下の文章を校正してください。\n\n【文章】\n${selections.text}\n\n`;
+            if (selections.context) prompt += `【背景】\n${selections.context}\n\n`;
+            if (selections.purpose) prompt += `【目的】${selections.purpose}\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n修正後の文章と、主な変更点を説明してください。';
+            return prompt;
+          }
+        },
+        idea: {
+          title: '💡 アイデア出し・企画',
+          fields: [
+            {
+              id: 'challenge',
+              label: '📋 現状の課題（必須）',
+              type: 'textarea',
+              placeholder: '例: 新規顧客獲得率が前年比20%低下している、既存サービスの利用率が伸び悩んでいる',
+              required: true
+            },
+            {
+              id: 'theme',
+              label: '📌 テーマ',
+              type: 'button',
+              options: ['新商品', 'イベント', '業務改善', 'マーケティング', '社内企画'],
+              freeform: true
+            },
+            {
+              id: 'purpose',
+              label: '🎯 目的',
+              type: 'button',
+              options: ['ブレインストーミング', '企画書作成', '施策案'],
+              freeform: true
+            },
+            {
+              id: 'budget',
+              label: '💰 予算（任意）',
+              type: 'button',
+              options: ['10万円以内', '50万円以内', '100万円以内', '100万円以上'],
+              freeform: true
+            },
+            {
+              id: 'timeline',
+              label: '⏰ 期間（任意）',
+              type: 'button',
+              options: ['1ヶ月以内', '3ヶ月以内', '6ヶ月以内', '1年以内'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '👥 対象',
+              type: 'button',
+              options: ['社内向け', '顧客向け', '一般向け'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 実現可能性を重視、過去に失敗した○○は避けたい'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはクリエイティブな企画の専門家です。\n\n';
+            if (selections.challenge) prompt += `【現状の課題】\n${selections.challenge}\n\n`;
+            if (selections.theme) prompt += `【テーマ】${selections.theme}\n`;
+            if (selections.purpose) prompt += `【目的】${selections.purpose}\n`;
+            if (selections.budget) prompt += `【予算】${selections.budget}\n`;
+            if (selections.timeline) prompt += `【期間】${selections.timeline}\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.additional) prompt += `\n【追加条件】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n具体的なアイデアを3〜5個、それぞれの特徴とメリットを含めて提案してください。';
+            return prompt;
+          }
+        },
+        code: {
+          title: '💻 コード生成（GAS）',
+          fields: [
+            {
+              id: 'task',
+              label: '🎯 やりたいこと',
+              type: 'button',
+              options: ['メール送信', 'データ集計', '自動化', '通知', 'スプレッドシート操作'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '📱 対象',
+              type: 'button',
+              options: ['Gmail', 'スプレッドシート', 'Googleフォーム', 'カレンダー'],
+              freeform: true
+            },
+            {
+              id: 'dataStructure',
+              label: '📊 データ構造・形式（任意）',
+              type: 'textarea',
+              placeholder: '例: A列：日付、B列：商品名、C列：金額、ヘッダー行は1行目'
+            },
+            {
+              id: 'prerequisites',
+              label: '📋 前提条件（任意）',
+              type: 'textarea',
+              placeholder: '例: スプレッドシートID: xxxxx、シート名: 売上データ、メール送信先: example@example.com'
+            },
+            {
+              id: 'errorHandling',
+              label: '🛡️ エラーハンドリング',
+              type: 'button',
+              options: ['必要（エラー時の処理を含める）', '不要（シンプルに）'],
+              freeform: false
+            },
+            {
+              id: 'level',
+              label: '📚 レベル',
+              type: 'button',
+              options: ['初心者向け（コメント多め）', '中級者向け（標準）'],
+              freeform: false
+            },
+            {
+              id: 'additional',
+              label: '➕ 詳細な要件（任意）',
+              type: 'textarea',
+              placeholder: '例: 件名に「報告」を含むメールのみ取得、日付は yyyy/MM/dd 形式で記録'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはGoogle Apps Scriptの専門家です。\n\n';
+            if (selections.task) prompt += `【タスク】${selections.task}\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.dataStructure) prompt += `\n【データ構造】\n${selections.dataStructure}\n`;
+            if (selections.prerequisites) prompt += `\n【前提条件】\n${selections.prerequisites}\n`;
+            if (selections.errorHandling) prompt += `\n【エラーハンドリング】${selections.errorHandling}\n`;
+            if (selections.level) prompt += `【レベル】${selections.level}\n`;
+            if (selections.additional) prompt += `\n【詳細要件】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n実行可能なGoogle Apps Scriptのコードを、使い方の説明と一緒に提供してください。';
+            return prompt;
+          }
+        },
+        data: {
+          title: '📊 データ分析・集計',
+          fields: [
+            {
+              id: 'dataRange',
+              label: '📅 データの範囲・期間（必須）',
+              type: 'textarea',
+              placeholder: '例: 2024年1月〜12月の売上データ、行2〜500行目',
+              required: true
+            },
+            {
+              id: 'dataStructure',
+              label: '📊 データ構造（必須）',
+              type: 'textarea',
+              placeholder: '例: A列：日付、B列：商品名、C列：売上金額、D列：顧客ID、ヘッダーは1行目',
+              required: true
+            },
+            {
+              id: 'analysisPurpose',
+              label: '🎯 分析の目的（必須）',
+              type: 'textarea',
+              placeholder: '例: 売上トップ5の商品を特定したい、月別の売上推移を知りたい',
+              required: true
+            },
+            {
+              id: 'dataType',
+              label: '📁 データ種類',
+              type: 'button',
+              options: ['売上データ', 'アンケート', '顧客データ', '在庫データ'],
+              freeform: true
+            },
+            {
+              id: 'analysis',
+              label: '🔍 分析内容',
+              type: 'button',
+              options: ['集計', 'グラフ化', '傾向分析', '比較'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 月別に集計、前年比を表示、グラフは棒グラフで'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはデータ分析の専門家です。\n\n';
+            if (selections.dataRange) prompt += `【データ範囲】\n${selections.dataRange}\n\n`;
+            if (selections.dataStructure) prompt += `【データ構造】\n${selections.dataStructure}\n\n`;
+            if (selections.analysisPurpose) prompt += `【分析の目的】\n${selections.analysisPurpose}\n\n`;
+            if (selections.dataType) prompt += `【データ種類】${selections.dataType}\n`;
+            if (selections.analysis) prompt += `【分析内容】${selections.analysis}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\nGoogle Apps Scriptでデータを分析するコードと、結果の解釈方法を提供してください。';
+            return prompt;
+          }
+        },
+        translate: {
+          title: '🌐 翻訳',
+          fields: [
+            {
+              id: 'text',
+              label: '📝 翻訳したい文章（必須）',
+              type: 'textarea',
+              placeholder: 'ここに翻訳したい文章を貼り付けてください',
+              required: true
+            },
+            {
+              id: 'language',
+              label: '🌍 言語',
+              type: 'button',
+              options: ['日本語→英語', '英語→日本語'],
+              freeform: true
+            },
+            {
+              id: 'usage',
+              label: '🎯 用途',
+              type: 'button',
+              options: ['ビジネス', 'カジュアル', '技術文書'],
+              freeform: true
+            },
+            {
+              id: 'useCase',
+              label: '📖 使用場面（任意）',
+              type: 'textarea',
+              placeholder: '例: 海外取引先への提案書、社内での技術資料、カジュアルなメール'
+            },
+            {
+              id: 'terminology',
+              label: '📚 専門用語の扱い（任意）',
+              type: 'textarea',
+              placeholder: '例: 「SaaS」はそのまま、「AI」は「人工知能」と訳す、業界用語はカタカナで'
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 文化的な違いを考慮、直訳ではなく自然な表現で'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはプロの翻訳家です。\n\n';
+            if (selections.text) prompt += `以下の文章を翻訳してください。\n\n【文章】\n${selections.text}\n\n`;
+            if (selections.language) prompt += `【翻訳方向】${selections.language}\n`;
+            if (selections.usage) prompt += `【用途】${selections.usage}\n`;
+            if (selections.useCase) prompt += `\n【使用場面】\n${selections.useCase}\n`;
+            if (selections.terminology) prompt += `\n【専門用語の扱い】\n${selections.terminology}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n翻訳結果のみを出力してください。';
+            return prompt;
+          }
+        },
+        summary: {
+          title: '📄 要約',
+          fields: [
+            {
+              id: 'text',
+              label: '📝 要約したい文章（必須）',
+              type: 'textarea',
+              placeholder: 'ここに要約したい文章を貼り付けてください',
+              required: true
+            },
+            {
+              id: 'summaryPurpose',
+              label: '🎯 要約の目的（必須）',
+              type: 'textarea',
+              placeholder: '例: 社内共有用、上司への報告、要点だけを抽出したい',
+              required: true
+            },
+            {
+              id: 'target',
+              label: '📌 対象',
+              type: 'button',
+              options: ['議事録', '長文メール', '記事', 'レポート'],
+              freeform: true
+            },
+            {
+              id: 'format',
+              label: '📋 形式',
+              type: 'button',
+              options: ['箇条書き', '段落形式', 'Q&A形式'],
+              freeform: false
+            },
+            {
+              id: 'length',
+              label: '📏 文字数',
+              type: 'button',
+              options: ['100文字程度', '300文字程度', '500文字程度'],
+              freeform: true
+            },
+            {
+              id: 'keyPoints',
+              label: '💡 重要視すべきポイント（任意）',
+              type: 'textarea',
+              placeholder: '例: 数値データ、アクションアイテム、決定事項を必ず含める'
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 専門用語は残す、日時は必ず記載'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたは要約の専門家です。\n\n';
+            if (selections.text) prompt += `以下の文章を要約してください。\n\n【文章】\n${selections.text}\n\n`;
+            if (selections.summaryPurpose) prompt += `【要約の目的】\n${selections.summaryPurpose}\n\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.format) prompt += `【形式】${selections.format}\n`;
+            if (selections.length) prompt += `【文字数】${selections.length}\n`;
+            if (selections.keyPoints) prompt += `\n【重要ポイント】\n${selections.keyPoints}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\n指定された形式と文字数で要約してください。';
+            return prompt;
+          }
+        },
+        faq: {
+          title: '❓ FAQ作成',
+          fields: [
+            {
+              id: 'productOverview',
+              label: '📦 商品・サービスの概要（必須）',
+              type: 'textarea',
+              placeholder: '例: オンライン英会話サービス、月額9,800円、講師はフィリピン人、1日1レッスン25分',
+              required: true
+            },
+            {
+              id: 'theme',
+              label: '📌 テーマ',
+              type: 'button',
+              options: ['商品説明', 'サービス案内', '社内手続き', 'トラブル対応'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '👥 対象',
+              type: 'button',
+              options: ['顧客向け', '社内向け'],
+              freeform: false
+            },
+            {
+              id: 'questionTrend',
+              label: '💬 想定される質問の傾向（任意）',
+              type: 'textarea',
+              placeholder: '例: 料金プラン、解約方法、講師の質、無料体験に関する質問が多い'
+            },
+            {
+              id: 'existingFAQ',
+              label: '📋 既存FAQがあれば記載（任意）',
+              type: 'textarea',
+              placeholder: '例: Q: 無料体験はありますか？ A: はい、2回まで無料でご利用いただけます'
+            },
+            {
+              id: 'count',
+              label: '🔢 件数',
+              type: 'button',
+              options: ['5件', '10件', '15件'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: 初心者でもわかりやすい表現で、専門用語は使わない'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはFAQ作成の専門家です。\n\n';
+            if (selections.productOverview) prompt += `【商品・サービス概要】\n${selections.productOverview}\n\n`;
+            if (selections.theme) prompt += `【テーマ】${selections.theme}\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.questionTrend) prompt += `\n【質問の傾向】\n${selections.questionTrend}\n`;
+            if (selections.existingFAQ) prompt += `\n【既存FAQ】\n${selections.existingFAQ}\n`;
+            if (selections.count) prompt += `\n【件数】${selections.count}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\nQ&A形式で、よくある質問とその回答をセットで作成してください。';
+            return prompt;
+          }
+        },
+        presentation: {
+          title: '📊 プレゼン資料構成',
+          fields: [
+            {
+              id: 'background',
+              label: '📖 プレゼンの背景・目的（必須）',
+              type: 'textarea',
+              placeholder: '例: 新規事業の予算承認を得るため、経営層に向けてプレゼン',
+              required: true
+            },
+            {
+              id: 'currentChallenge',
+              label: '📋 現状の課題（任意）',
+              type: 'textarea',
+              placeholder: '例: 既存事業の成長が鈍化、新たな収益源が必要、顧客ニーズの変化'
+            },
+            {
+              id: 'proposalSummary',
+              label: '💡 提案内容の概要（任意）',
+              type: 'textarea',
+              placeholder: '例: AIチャットボット事業、初年度売上目標5000万円、開発期間6ヶ月'
+            },
+            {
+              id: 'theme',
+              label: '📌 テーマ',
+              type: 'button',
+              options: ['提案', '報告', '説明', '営業'],
+              freeform: true
+            },
+            {
+              id: 'time',
+              label: '⏱️ 時間',
+              type: 'button',
+              options: ['5分', '10分', '30分'],
+              freeform: true
+            },
+            {
+              id: 'target',
+              label: '👥 対象',
+              type: 'button',
+              options: ['社内向け', '顧客向け', '投資家向け'],
+              freeform: true
+            },
+            {
+              id: 'additional',
+              label: '➕ 追加の指示（任意）',
+              type: 'textarea',
+              placeholder: '例: データを重視した構成、ストーリー性を持たせる'
+            }
+          ],
+          generatePrompt: (selections) => {
+            let prompt = 'あなたはプレゼンテーション構成の専門家です。\n\n';
+            if (selections.background) prompt += `【背景・目的】\n${selections.background}\n\n`;
+            if (selections.currentChallenge) prompt += `【現状の課題】\n${selections.currentChallenge}\n\n`;
+            if (selections.proposalSummary) prompt += `【提案内容の概要】\n${selections.proposalSummary}\n\n`;
+            if (selections.theme) prompt += `【テーマ】${selections.theme}\n`;
+            if (selections.time) prompt += `【時間】${selections.time}\n`;
+            if (selections.target) prompt += `【対象】${selections.target}\n`;
+            if (selections.additional) prompt += `\n【追加指示】\n${selections.additional}\n`;
+            prompt += '\n【出力形式】\nスライドごとの構成案を、各スライドのタイトルと主な内容を含めて提案してください。';
+            return prompt;
+          }
+        }
+      },
+
+      // カテゴリ選択
+      selectCategory(category) {
+        this.currentCategory = category;
+        this.selections = {};
+        this.renderForm();
+        this.updatePrompt();
+
+        // カテゴリボタンのアクティブ状態を更新
+        document.querySelectorAll('.category-btn').forEach(btn => {
+          if (btn.dataset.category === category) {
+            btn.classList.add('ring-4', 'ring-indigo-400');
+          } else {
+            btn.classList.remove('ring-4', 'ring-indigo-400');
+          }
+        });
+      },
+
+      // フォームをレンダリング
+      renderForm() {
+        const container = document.getElementById('form-container');
+        const template = this.templates[this.currentCategory];
+
+        if (!template) {
+          container.innerHTML = '<div class="text-center text-gray-400 py-12"><p class="text-lg">カテゴリを選択してください</p></div>';
+          return;
+        }
+
+        let html = `<div class="space-y-6">`;
+
+        template.fields.forEach(field => {
+          html += `<div class="field-group">`;
+          html += `<label class="block text-lg font-bold text-gray-900 mb-3">${field.label}</label>`;
+
+          if (field.type === 'button') {
+            html += `<div class="flex flex-wrap gap-2 mb-3">`;
+            field.options.forEach(option => {
+              html += `<button class="option-btn bg-gray-100 hover:bg-indigo-100 text-gray-800 font-medium py-2 px-4 rounded-lg transition transform hover:scale-105 active:scale-95" data-field="${field.id}" data-value="${option}">${option}</button>`;
+            });
+            html += `</div>`;
+
+            if (field.freeform) {
+              html += `<div class="mt-2">`;
+              html += `<input type="text" class="freeform-input w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="または自由入力" data-field="${field.id}">`;
+              html += `</div>`;
+            }
+          } else if (field.type === 'textarea') {
+            html += `<textarea class="freeform-input w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" rows="4" placeholder="${field.placeholder || ''}" data-field="${field.id}"></textarea>`;
+          }
+
+          html += `</div>`;
+        });
+
+        html += `</div>`;
+        container.innerHTML = html;
+
+        // イベントリスナーを追加
+        this.attachEventListeners();
+      },
+
+      // イベントリスナーを追加
+      attachEventListeners() {
+        // ボタンクリック
+        document.querySelectorAll('.option-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const field = e.target.dataset.field;
+            const value = e.target.dataset.value;
+
+            // 同じフィールドの他のボタンの選択を解除
+            document.querySelectorAll(`.option-btn[data-field="${field}"]`).forEach(b => {
+              b.classList.remove('bg-indigo-500', 'text-white', 'ring-2', 'ring-indigo-600');
+              b.classList.add('bg-gray-100', 'text-gray-800');
+            });
+
+            // このボタンを選択状態に
+            e.target.classList.remove('bg-gray-100', 'text-gray-800');
+            e.target.classList.add('bg-indigo-500', 'text-white', 'ring-2', 'ring-indigo-600');
+
+            // 同じフィールドのフリーフォームをクリア
+            const freeformInput = document.querySelector(`input.freeform-input[data-field="${field}"]`);
+            if (freeformInput) {
+              freeformInput.value = '';
+            }
+
+            this.selections[field] = value;
+            this.updatePrompt();
+          });
+        });
+
+        // フリーフォーム入力
+        document.querySelectorAll('.freeform-input').forEach(input => {
+          input.addEventListener('input', (e) => {
+            const field = e.target.dataset.field;
+            const value = e.target.value.trim();
+
+            if (value) {
+              // 同じフィールドのボタン選択を解除
+              document.querySelectorAll(`.option-btn[data-field="${field}"]`).forEach(btn => {
+                btn.classList.remove('bg-indigo-500', 'text-white', 'ring-2', 'ring-indigo-600');
+                btn.classList.add('bg-gray-100', 'text-gray-800');
+              });
+
+              this.selections[field] = value;
+            } else {
+              delete this.selections[field];
+            }
+
+            this.updatePrompt();
+          });
+        });
+      },
+
+      // プロンプトを更新
+      updatePrompt() {
+        const promptDiv = document.getElementById('generated-prompt');
+        const copyBtn = document.getElementById('copy-btn');
+
+        if (!this.currentCategory) {
+          promptDiv.textContent = 'カテゴリを選択すると、プロンプトがここに表示されます';
+          copyBtn.disabled = true;
+          return;
+        }
+
+        const template = this.templates[this.currentCategory];
+        const prompt = template.generatePrompt(this.selections);
+
+        promptDiv.textContent = prompt;
+        copyBtn.disabled = false;
+      },
+
+      // リセット
+      reset() {
+        this.currentCategory = null;
+        this.selections = {};
+
+        document.querySelectorAll('.category-btn').forEach(btn => {
+          btn.classList.remove('ring-4', 'ring-indigo-400');
+        });
+
+        const container = document.getElementById('form-container');
+        container.innerHTML = '<div class="text-center text-gray-400 py-12"><p class="text-lg">カテゴリを選択してください</p></div>';
+
+        const promptDiv = document.getElementById('generated-prompt');
+        promptDiv.textContent = 'カテゴリを選択すると、プロンプトがここに表示されます';
+
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.disabled = true;
+
+        const feedback = document.getElementById('copy-feedback');
+        feedback.classList.add('hidden');
+      },
+
+      // コピー
+      async copy() {
+        const promptDiv = document.getElementById('generated-prompt');
+        const text = promptDiv.textContent;
+        const feedback = document.getElementById('copy-feedback');
+
+        try {
+          await navigator.clipboard.writeText(text);
+          feedback.textContent = '✅ コピーしました！ChatGPTに貼り付けてお使いください';
+          feedback.classList.remove('hidden', 'text-red-600');
+          feedback.classList.add('text-green-600');
+
+          setTimeout(() => {
+            feedback.classList.add('hidden');
+          }, 3000);
+        } catch (err) {
+          feedback.textContent = '❌ コピーに失敗しました。手動でコピーしてください';
+          feedback.classList.remove('hidden', 'text-green-600');
+          feedback.classList.add('text-red-600');
+        }
+      }
+    };
+
+    // カテゴリボタンのイベントリスナー
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const category = e.target.dataset.category;
+        promptBuilder.selectCategory(category);
+      });
+    });
+
+    // コピーボタン
+    document.getElementById('copy-btn').addEventListener('click', () => {
+      promptBuilder.copy();
+    });
+
+    // リセットボタン
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      promptBuilder.reset();
+    });
+
+    // プロンプトコピー関数（上級者向けテクニック用）
+    async function copyPromptText(button) {
+      const container = button.closest('div');
+      const text = container.querySelector('p').textContent.replace('• ', '');
+
+      try {
+        await navigator.clipboard.writeText(text);
+        // コピー成功のフィードバック（1.5秒間）
+        const originalText = button.textContent;
+        button.textContent = '✅';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1500);
+      } catch (err) {
+        // コピー失敗時
+        const originalText = button.textContent;
+        button.textContent = '❌';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 1500);
+      }
+    }
+  </script>
+
+</body>
+</html>
