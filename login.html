@@ -139,7 +139,7 @@
 
   <script>
     // GAS Web App URL
-    const AUTH_API_URL = 'https://script.google.com/macros/s/AKfycbzX4EGJgpsw5uCDJtpr48DCvyvrWF9vDvok9ijSGmdDefowzGzOfjeNn7JULtB0H93S/exec';
+    const AUTH_API_URL = 'https://script.google.com/macros/s/AKfycbw1ox1E6JKA6A_RSeUs6PMcKi3gw01Kv1KpF2T7wGNkOOL2EuuwKw5L6-Qjl_4mSneA/exec';
 
     const form = document.getElementById('loginForm');
     const emailInput = document.getElementById('email');
@@ -168,12 +168,11 @@
       hideError();
 
       try {
-        const response = await fetch(AUTH_API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: email }),
+        // GAS Web AppはCORS制限があるため、GETリクエストを使用
+        const url = `${AUTH_API_URL}?email=${encodeURIComponent(email)}`;
+        const response = await fetch(url, {
+          method: 'GET',
+          redirect: 'follow',
         });
 
         const data = await response.json();

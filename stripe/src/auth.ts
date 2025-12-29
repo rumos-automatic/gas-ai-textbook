@@ -60,13 +60,55 @@ function doPost(e: GoogleAppsScript.Events.DoPost): GoogleAppsScript.Content.Tex
 }
 
 /**
- * Web App GETエンドポイント（CORS preflight対応）
+ * Web App GETエンドポイント
+ * emailパラメータがある場合は認証処理を実行
  */
-function doGet(): GoogleAppsScript.Content.TextOutput {
-  return ContentService.createTextOutput(JSON.stringify({
-    status: 'ok',
-    message: 'Auth API is running'
-  })).setMimeType(ContentService.MimeType.JSON);
+function doGet(e: GoogleAppsScript.Events.DoGet): GoogleAppsScript.Content.TextOutput {
+  const output = ContentService.createTextOutput();
+  output.setMimeType(ContentService.MimeType.JSON);
+
+  try {
+    const email = e.parameter.email?.toLowerCase().trim();
+
+    // emailパラメータがない場合はステータスを返す
+    if (!email) {
+      return output.setContent(JSON.stringify({
+        status: 'ok',
+        message: 'Auth API is running'
+      }));
+    }
+
+    // メールアドレス認証処理
+    const isValid = checkEmailInSalesSheet(email);
+
+    if (isValid) {
+      const token = generateAuthToken(email);
+      const expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000); // 30日間有効
+
+      log('INFO', '認証成功', { email: email });
+
+      return output.setContent(JSON.stringify({
+        success: true,
+        token: token,
+        expiresAt: expiresAt
+      }));
+    }
+
+    log('WARN', '認証失敗: メールアドレスが見つかりません', { email: email });
+
+    return output.setContent(JSON.stringify({
+      success: false,
+      message: 'このメールアドレスでの購入記録が見つかりません。\n決済時に使用したメールアドレスをご確認ください。'
+    }));
+
+  } catch (error) {
+    log('ERROR', '認証処理でエラーが発生', { error: String(error) });
+
+    return output.setContent(JSON.stringify({
+      success: false,
+      message: 'エラーが発生しました。しばらく経ってから再度お試しください。'
+    }));
+  }
 }
 
 /**
