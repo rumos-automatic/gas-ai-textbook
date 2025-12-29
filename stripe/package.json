@@ -1,0 +1,22 @@
+{
+  "name": "stripe-daily-sales-recorder",
+  "version": "1.0.0",
+  "description": "Daily Stripe sales recording to Google Spreadsheet",
+  "scripts": {
+    "prebuild": "if not exist dist mkdir dist",
+    "build": "tsc && copy appsscript.json dist\\appsscript.json",
+    "push": "npm run build && clasp push",
+    "watch": "tsc --watch",
+    "open": "clasp open"
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.83",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "stripe",
+    "gas",
+    "google-apps-script"
+  ],
+  "license": "MIT"
+}

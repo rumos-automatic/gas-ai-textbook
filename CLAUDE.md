@@ -44,10 +44,30 @@
 - 全セクション間のナビゲーションリンクを整備し、シームレスな学習フロー実現
 - スクリーンショット・動画の追加完了（Chatwork API：6枚、Gemini API：3枚＋動画1本、フォーム自動返信：4枚、ウォーミングアップ：8枚）
 
-### 🌐 GitHub Pages公開状況
-- **リポジトリ**: https://github.com/rumos-automatic/GAS-generative-ai-course
-- **公開URL**: https://rumos-automatic.github.io/GAS-generative-ai-course/
-- **デプロイ状態**: GitHub Pagesで自動デプロイ設定済み
+### 🌐 デプロイ先一覧（重要）
+
+このプロジェクトは**教材**と**LP**で異なるリポジトリ・ホスティングを使用しています。
+
+| 種別 | リポジトリ | 公開URL | ホスティング |
+|------|-----------|---------|-------------|
+| **教材** | [gas-ai-textbook](https://github.com/rumos-automatic/gas-ai-textbook) | GitHub Pages | GitHub Pages |
+| **LP** | [gas-ai-lp](https://github.com/rumos-automatic/gas-ai-lp) | https://gas-ai-lp.pages.dev/ | Cloudflare Pages |
+
+#### 教材を修正した場合
+```bash
+# 通常通りoriginにプッシュ
+git push origin master
+```
+
+#### LP（landing-page/）を修正した場合
+```bash
+# ⚠️ 重要: subtreeでlanding-pageフォルダだけをプッシュする
+cd "C:\CLAUDE_CODE\01_RUMOS_Project\GAS短期講座 V2.0"
+git subtree split --prefix=landing-page -b lp-only
+git push gas-ai-lp lp-only:main --force
+```
+
+**注意**: `git push gas-ai-lp lp-deploy:main` のように通常プッシュすると、リポジトリ全体がプッシュされてCloudflare Pagesで教材ページが表示されてしまう。必ず `subtree split` を使用すること。
 
 ### 🔧 残りの作業（2%）
 - 全ページの最終チェック
@@ -496,3 +516,8 @@ GAS短期講座 V2.0/
 </body>
 </html>
 ```
+
+## 📎 メモ
+
+### 契約書の場所
+- **共同開催契約書（株式会社Flat Hill Japan様）**: `C:\CLAUDE_CODE\01_RUMOS_Project\GAS短期講座契約書\docs\共同開催契約書_株式会社Flat_Hill_Japan様_20251125.pdf`

@@ -11,7 +11,11 @@
       "Bash(gh api:*)",
       "Bash(gh run list:*)",
       "Bash(find:*)",
-      "Bash(git remote:*)"
+      "Bash(git remote:*)",
+      "Bash(test:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh browse:*)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []
