@@ -1,0 +1,9 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#F9FAFB"/>
+  <text x="400" y="250" font-family="Arial, sans-serif" font-size="24" fill="#6B7280" text-anchor="middle">
+    ヒーロー画像プレースホルダー
+  </text>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="16" fill="#9CA3AF" text-anchor="middle">
+    hero.png (800x500)
+  </text>
+</svg>
