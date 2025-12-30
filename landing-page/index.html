@@ -1383,20 +1383,6 @@
         <div class="container">
             <h2 class="section-title">料金プラン</h2>
 
-            <!-- 同意チェックボックス -->
-            <div class="agreement-section" style="max-width: 600px; margin: 0 auto 2rem; text-align: center;">
-                <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; justify-content: center; padding: 1rem; background: rgba(30, 58, 95, 0.4); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                    <input type="checkbox" id="agreementCheck" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
-                    <span style="font-size: 0.9rem; color: var(--color-text-light); text-align: left;">
-                        <a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold); text-decoration: underline;">個人情報同意書</a>
-                        および
-                        <a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold); text-decoration: underline;">利用規約</a>
-                        に同意してお申し込みください
-                    </span>
-                </label>
-                <p id="agreementError" style="color: var(--color-accent-error); font-size: 0.85rem; margin-top: 0.5rem; display: none;">お申し込みには上記への同意が必要です</p>
-            </div>
-
             <div class="plans-container">
                 <div class="plan-card">
                     <h3>ライトプラン</h3>
@@ -1407,7 +1393,13 @@
                         <li>1ヶ月間サポート</li>
                         <li>Discord質問し放題</li>
                     </ul>
-                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-outline plan-cta-btn" style="width: 100%; margin-top: auto; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
+                            <input type="checkbox" class="plan-agreement" data-plan="1" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        </label>
+                    </div>
+                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-outline plan-cta-btn" data-plan="1" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
 
                 <div class="plan-card recommended">
@@ -1420,7 +1412,13 @@
                         <li>3ヶ月間サポート</li>
                         <li>Discord質問し放題</li>
                     </ul>
-                    <a href="checkout-3month.html" class="btn btn-primary plan-cta-btn" style="width: 100%; margin-top: auto; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
+                            <input type="checkbox" class="plan-agreement" data-plan="2" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        </label>
+                    </div>
+                    <a href="checkout-3month.html" class="btn btn-primary plan-cta-btn" data-plan="2" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
 
                 <div class="plan-card">
@@ -1432,7 +1430,13 @@
                         <li>6ヶ月間サポート</li>
                         <li>Discord質問し放題</li>
                     </ul>
-                    <a href="checkout-6month.html" class="btn btn-outline plan-cta-btn" style="width: 100%; margin-top: auto; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
+                            <input type="checkbox" class="plan-agreement" data-plan="3" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        </label>
+                    </div>
+                    <a href="checkout-6month.html" class="btn btn-outline plan-cta-btn" data-plan="3" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
             </div>
         </div>
@@ -1551,15 +1555,15 @@
             });
         });
 
-        // 同意チェックボックス制御
-        const agreementCheck = document.getElementById('agreementCheck');
-        const agreementError = document.getElementById('agreementError');
+        // 同意チェックボックス制御（各プランカード個別）
+        const planAgreements = document.querySelectorAll('.plan-agreement');
         const planCtaBtns = document.querySelectorAll('.plan-cta-btn');
 
-        function updatePlanButtons() {
-            const isChecked = agreementCheck.checked;
-            planCtaBtns.forEach(btn => {
-                if (isChecked) {
+        planAgreements.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const planId = this.dataset.plan;
+                const btn = document.querySelector(`.plan-cta-btn[data-plan="${planId}"]`);
+                if (this.checked) {
                     btn.style.opacity = '1';
                     btn.style.pointerEvents = 'auto';
                 } else {
@@ -1567,20 +1571,17 @@
                     btn.style.pointerEvents = 'none';
                 }
             });
-            if (isChecked) {
-                agreementError.style.display = 'none';
-            }
-        }
+        });
 
-        agreementCheck.addEventListener('change', updatePlanButtons);
-
-        // 無効化されたボタンをクリックしようとした時のエラー表示
+        // 無効化されたボタンをクリックしようとした時
         planCtaBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                if (!agreementCheck.checked) {
+                const planId = btn.dataset.plan;
+                const checkbox = document.querySelector(`.plan-agreement[data-plan="${planId}"]`);
+                if (!checkbox.checked) {
                     e.preventDefault();
-                    agreementError.style.display = 'block';
-                    document.querySelector('.agreement-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    checkbox.parentElement.style.animation = 'shake 0.3s';
+                    setTimeout(() => checkbox.parentElement.style.animation = '', 300);
                 }
             });
         });
