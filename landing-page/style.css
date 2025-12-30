@@ -168,9 +168,12 @@ body::before {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.2);
   }
+
   50% {
     box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7), 0 0 60px rgba(212, 175, 55, 0.4);
   }
@@ -227,8 +230,13 @@ body::before {
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hero-content {
@@ -252,13 +260,20 @@ body::before {
 }
 
 @keyframes titleShine {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.1); }
+
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.1);
+  }
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
-  color: #6B7280;
+  color: #4B5563;
   margin-bottom: 32px;
 }
 
@@ -307,8 +322,15 @@ body::before {
 }
 
 @keyframes shimmer {
-  0%, 100% { transform: translateX(-100%); }
-  50% { transform: translateX(100%); }
+
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
 }
 
 .achievements-grid {
@@ -934,10 +956,13 @@ body::before {
 }
 
 @keyframes ribbonPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
   }
+
   50% {
     transform: scale(1.05);
     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7);
@@ -980,30 +1005,64 @@ body::before {
 
 .pricing-button {
   display: block;
-  background-color: #1E3A5F;
+  background: linear-gradient(135deg, #1E3A5F 0%, #2C5F8D 100%);
+  /* Rich Navy Gradient */
   color: #FFFFFF;
-  padding: 16px 32px;
-  border-radius: 30px;
+  padding: 20px 32px;
+  /* Larger padding */
+  border-radius: 50px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  margin-top: 16px;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 24px;
+  box-shadow: 0 4px 15px rgba(30, 58, 95, 0.3);
+  /* Soft shadow */
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .pricing-button:hover {
-  background-color: #152D47;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(30, 58, 95, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(30, 58, 95, 0.4);
+  filter: brightness(1.1);
+}
+
+.pricing-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(30, 58, 95, 0.4);
 }
 
 .pricing-button-recommended {
-  background-color: #D4AF37;
+  background: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #D4AF37 100%);
+  /* Premium Gold Gradient */
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  animation: shimmer 3s infinite linear;
+  background-size: 200% auto;
 }
 
 .pricing-button-recommended:hover {
-  background-color: #C19B2B;
-  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+  background-position: right center;
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+  transform: translateY(-4px) scale(1.02);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .pricing-note {
@@ -1131,6 +1190,7 @@ body::before {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1142,10 +1202,21 @@ body::before {
   animation: fadeIn 0.8s ease-out forwards;
 }
 
-.fade-in:nth-child(1) { animation-delay: 0.1s; }
-.fade-in:nth-child(2) { animation-delay: 0.2s; }
-.fade-in:nth-child(3) { animation-delay: 0.3s; }
-.fade-in:nth-child(4) { animation-delay: 0.4s; }
+.fade-in:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.fade-in:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.fade-in:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.fade-in:nth-child(4) {
+  animation-delay: 0.4s;
+}
 
 /* ========================================
    レスポンシブ対応

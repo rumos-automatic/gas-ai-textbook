@@ -17,19 +17,21 @@
          */
         :root {
             /* Colors */
-            --color-bg-dark: #0B1120;
-            --color-bg-navy: #1E3A5F;
-            --color-bg-navy-light: #2A4B75;
+            --color-bg-dark: #FFFFFF;
+            --color-bg-navy: #F9FAFB;
+            --color-bg-navy-light: #F3F4F6;
 
             --color-gold: #D4AF37;
             --color-gold-light: #F3D263;
             --color-gold-dark: #AA8828;
             --color-gold-gradient: linear-gradient(135deg, #DFBD69 0%, #9E7D30 100%);
-            --color-gold-text-gradient: linear-gradient(to right, #DEBA60, #F7E49A, #DEBA60);
+            /* Gold text gradient might need adjustment on white, but keeping for now or adjusting to be darker/richer */
+            --color-gold-text-gradient: linear-gradient(to right, #B49428, #D4AF37, #B49428);
 
             --color-text-white: #FFFFFF;
-            --color-text-light: #F1F5F9;
-            --color-text-muted: #94A3B8;
+            --color-text-light: #1E3A5F;
+            /* Navy text for light bg */
+            --color-text-muted: #64748B;
 
             --color-accent-error: #EF4444;
             --color-accent-success: #10B981;
@@ -42,11 +44,11 @@
             --spacing-xl: 8rem;
 
             /* Shadows & Effects */
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
-            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
-            --glass-bg: rgba(30, 58, 95, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            --shadow-gold: 0 4px 15px rgba(212, 175, 55, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(0, 0, 0, 0.05);
             --glass-backdrop: blur(12px);
 
             /* Transitions */
@@ -72,6 +74,22 @@
             color: var(--color-text-light);
             line-height: 1.7;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle background pattern for clean look */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30, 58, 95, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         a {
@@ -183,6 +201,69 @@
             transition: 0.5s;
         }
 
+        /* Rich Pricing Buttons */
+        .pricing-button {
+            display: block;
+            background: linear-gradient(135deg, #1E3A5F 0%, #2C5F8D 100%);
+            /* Rich Navy Gradient */
+            color: #FFFFFF;
+            padding: 20px 32px;
+            /* Larger padding */
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin-top: 24px;
+            box-shadow: 0 4px 15px rgba(30, 58, 95, 0.3);
+            /* Soft shadow */
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(30, 58, 95, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .pricing-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(30, 58, 95, 0.4);
+        }
+
+        .pricing-button-recommended {
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #D4AF37 100%);
+            /* Premium Gold Gradient */
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            animation: shimmer 3s infinite linear;
+            background-size: 200% auto;
+        }
+
+        .pricing-button-recommended:hover {
+            background-position: right center;
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
         .btn-primary:hover::after {
             left: 100%;
             transition: 0.5s;
@@ -209,13 +290,16 @@
             z-index: 1000;
             padding: 1rem 0;
             transition: var(--transition-normal);
+            border-bottom: 1px solid transparent;
+            /* default no border */
         }
 
         .header.scrolled {
-            background: rgba(11, 17, 32, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             padding: 0.75rem 0;
+            box-shadow: var(--shadow-sm);
         }
 
         .header-inner {
@@ -227,7 +311,8 @@
         .logo {
             font-weight: 900;
             font-size: 1.5rem;
-            color: #fff;
+            color: var(--color-text-light);
+            /* Navy */
             letter-spacing: -0.02em;
         }
 
@@ -250,7 +335,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, #1E3A5F 0%, #0B1120 70%);
+            background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F0F9FF 100%);
         }
 
         .hero::before {
@@ -398,7 +483,8 @@
         .trouble-card h3 {
             font-size: 1.25rem;
             margin-bottom: 1rem;
-            color: #fff;
+            color: var(--color-text-light);
+            /* Navy */
         }
 
         .trouble-card p {
@@ -406,88 +492,131 @@
         }
 
         /* 
-         * COMPARISON 
+         * COMPARISON (Systematization)
          */
         .comparison {
-            background: linear-gradient(to bottom, var(--color-bg-dark), var(--color-bg-navy));
+            background: var(--color-bg-navy);
         }
 
-        .comparison-wrapper {
+        .comparison-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
         }
 
         @media (max-width: 768px) {
-            .comparison-wrapper {
+            .comparison-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .comp-card {
-            padding: 3rem 2rem;
-            border-radius: 20px;
+        .comparison-card {
+            background-color: #FFFFFF;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
             text-align: center;
         }
 
-        .comp-bad {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            filter: grayscale(1);
-            opacity: 0.7;
+        .comparison-card-bad {
+            background-color: #FEF2F2;
+            border: 2px solid #FCA5A5;
         }
 
-        .comp-good {
-            background: rgba(30, 58, 95, 0.6);
-            border: 2px solid var(--color-gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-            position: relative;
-            transform: scale(1.05);
-            z-index: 10;
+        .comparison-card-good {
+            background-color: #F0FDF4;
+            border: 2px solid #86EFAC;
         }
 
-        @media (max-width: 768px) {
-            .comp-good {
-                transform: scale(1);
-                margin-top: -1rem;
-            }
-        }
-
-        .comp-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .comp-list li {
+        .comparison-icon {
+            display: flex;
+            justify-content: center;
             margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
         }
 
-        .check-icon {
-            color: var(--color-gold);
-            margin-right: 0.5rem;
+        .icon-bad {
+            color: #DC2626;
+            width: 48px;
+            height: 48px;
+        }
+
+        .icon-good {
+            color: #16A34A;
+            width: 48px;
+            height: 48px;
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-title-bad {
+            color: #DC2626;
+        }
+
+        .comparison-title-good {
+            color: #16A34A;
+        }
+
+        .comparison-list {
+            text-align: left;
+            padding-left: 0;
+        }
+
+        .comparison-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--color-text-light);
+            /* Navy Text */
+        }
+
+        .list-marker-bad {
+            color: #DC2626;
+            font-weight: 900;
+        }
+
+        .list-marker-good {
+            color: #16A34A;
+            font-weight: 900;
+        }
+
+        .comparison-message {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .comparison-message-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text-light);
+            line-height: 1.8;
         }
 
         /* 
          * BENEFITS 
          */
         .benefits {
-            background: var(--color-bg-navy);
+            background: var(--color-bg-dark);
+            /* White */
             position: relative;
         }
 
+        /* Removed patterns for cleaner look on white */
         .benefits::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            display: none;
         }
 
         .benefits-grid {
@@ -501,140 +630,102 @@
         .benefit-card {
             display: flex;
             gap: 1.5rem;
-            background: rgba(11, 17, 32, 0.6);
-            backdrop-filter: blur(10px);
+            background: #F9FAFB;
+            /* Light Gray to contrast with White section */
             padding: 2rem;
             border-radius: 12px;
             border-left: 4px solid var(--color-gold);
+            box-shadow: var(--shadow-sm);
         }
 
         .benefit-num {
             font-size: 3rem;
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.05);
+            color: rgba(212, 175, 55, 0.4);
+            /* Darker Gold for visibility */
             line-height: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         /* 
-         * CURRICULUM 
+         * CURRICULUM (Restored)
          */
-        .curriculum {
-            background: var(--color-bg-dark);
+        .curriculum-section {
+            padding: 100px 20px;
+            background-color: #FFFFFF;
         }
 
-        .timeline {
-            position: relative;
-            max-width: 800px;
+        .curriculum-timeline {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 0;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-        }
-
-        .timeline-step {
+        .curriculum-step {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 4rem;
-            position: relative;
-            padding: 0 2rem;
-            /* Add padding to prevent touching edges */
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 0.6s ease;
+            gap: 24px;
+            margin: 0 auto 32px auto;
+            /* Centered with bottom margin */
+            padding: 24px;
+            background-color: #F9FAFB;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            align-items: flex-start;
+            width: 500px;
+            /* Unified fixed width */
+            max-width: 100%;
+            /* Prevent overflow on small screens */
         }
 
-        .timeline-step.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ... */
 
-        .timeline-step:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        @media (max-width: 768px) {
-
-            .timeline-step,
-            .timeline-step:nth-child(odd) {
-                flex-direction: row;
-                justify-content: flex-start;
-                padding-left: 60px;
-            }
-        }
-
-        .step-content {
-            width: 45%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 2rem;
-            border-radius: 12px;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            .step-content {
-                width: 100%;
-            }
-        }
-
-        .step-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            background: var(--color-gold);
-            border-radius: 50%;
-            border: 4px solid var(--color-bg-dark);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
-            z-index: 5;
-        }
-
-        @media (max-width: 768px) {
-            .step-dot {
-                left: 20px;
-                top: 2rem;
-                transform: translateX(-50%);
-            }
-
-            .step-content {
-                width: calc(100% - 20px);
-                /* Adjust for padding/overflow safety */
-                flex: 1;
-            }
-        }
-
-        .step-num {
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            /* Reduced from 24px */
             color: var(--color-gold);
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-            display: block;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #1E3A5F;
+            margin-bottom: 12px;
+            /* Reduced from 20px */
+            line-height: 1.4;
+        }
+
+        .step-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .step-list li {
+            font-size: 1.05rem;
+            color: #6B7280;
+            margin-bottom: 8px;
+            /* Reverted to 8px */
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.6;
+            /* Slightly reduced */
+        }
+
+        .step-list li::before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #D4AF37;
+            font-weight: 900;
         }
 
         /* 
          * TESTIMONIALS 
          */
         .testimonials {
-            background: var(--color-bg-navy);
+            background: #F9FAFB;
+            /* Explicit light background */
+            padding: 100px 20px;
         }
 
         .review-grid {
@@ -645,21 +736,79 @@
 
         .review-card {
             background: #fff;
-            color: var(--color-bg-dark);
+            color: #4B5563;
+            /* Darker gray for text */
             padding: 2rem;
             border-radius: 16px;
             position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            /* Added shadow for visibility */
         }
 
-        .review-card::before {
-            content: '"';
-            position: absolute;
-            top: 1rem;
-            right: 2rem;
-            font-family: serif;
-            font-size: 5rem;
-            color: rgba(0, 0, 0, 0.05);
-            line-height: 1;
+        /* 
+         * REASONS (Restored)
+         */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1100px;
+            margin: 48px auto;
+        }
+
+        @media (max-width: 900px) {
+            .reasons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reason-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+            padding: 40px 32px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .reason-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 30px rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .reason-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: all 0.4s ease;
+        }
+
+        .reason-icon .icon {
+            width: 80px;
+            height: 80px;
+            stroke: var(--color-gold);
+            filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.2));
+        }
+
+        .reason-card:hover .reason-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .reason-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--color-text-light);
+            margin-bottom: 16px;
+        }
+
+        .reason-description {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            line-height: 1.8;
         }
 
         .client-info {
@@ -680,7 +829,8 @@
          * INSTRUCTOR 
          */
         .instructor {
-            background: linear-gradient(to top, var(--color-bg-dark), var(--color-bg-navy));
+            background: var(--color-bg-dark);
+            /* White */
         }
 
         .profile-card {
@@ -726,7 +876,8 @@
          * PRICING 
          */
         .pricing {
-            background: var(--color-bg-dark);
+            background: var(--color-bg-navy);
+            /* Gray */
         }
 
         .plans-container {
@@ -759,10 +910,10 @@
         }
 
         .plan-card.recommended {
-            border: 2px solid var(--color-gold);
+            border: 3px solid var(--color-gold);
             transform: scale(1.05);
-            background: linear-gradient(to bottom, rgba(30, 58, 95, 0.8), rgba(11, 17, 32, 0.9));
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFFFFF 100%);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3), 0 0 60px rgba(212, 175, 55, 0.1);
             z-index: 10;
         }
 
@@ -771,19 +922,23 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--color-gold);
-            color: #000;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: #FFFFFF;
             padding: 0.5rem 1.5rem;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            white-space: nowrap;
         }
 
         .price {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--color-gold);
+            /* Gold */
             margin: 1.5rem 0;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .price span {
@@ -839,7 +994,8 @@
             text-align: left;
             background: none;
             border: none;
-            color: #fff;
+            color: var(--color-text-light);
+            /* Navy */
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -877,7 +1033,7 @@
          * FOOTER 
          */
         .footer {
-            background: black;
+            background: #F8FAFC;
             padding: 4rem 0 8rem;
             /* Extra padding bottom for sticky CTA */
             text-align: center;
@@ -1054,73 +1210,51 @@
     </section>
 
     <!-- Comparison -->
-    <section class="section comparison fade-in-section">
+    <section class="section comparison fade-in-section" id="comparison">
         <div class="container">
-            <h2 class="section-title">AI×GASスキルがある人、ない人</h2>
-            <div class="comparison-wrapper">
-                <div class="comp-card comp-bad">
-                    <h3 class="comp-title">従来の手作業</h3>
-                    <ul class="comp-list" style="list-style: none; text-align: left;">
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="var(--color-accent-error)" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg> 毎日のルーチンワークで残業</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="var(--color-accent-error)" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg> ヒューマンエラーによるミス</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="var(--color-accent-error)" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg> 自身の市場価値が停滞</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="var(--color-accent-error)" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" style="margin-right:8px; vertical-align:middle;">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg> 業務改善のアイデアが形にならない</li>
+            <h2 class="section-title">稼げる人と稼げない人、その差は"仕組み化"にあります</h2>
+            <div class="comparison-grid">
+                <!-- 稼げない人 -->
+                <div class="comparison-card comparison-card-bad">
+                    <div class="comparison-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon icon-bad" width="48" height="48">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <h3 class="comparison-title comparison-title-bad">稼げない人の特徴</h3>
+                    <ul class="comparison-list">
+                        <li class="comparison-list-item"><span class="list-marker-bad">×</span>全部手作業でやっている</li>
+                        <li class="comparison-list-item"><span class="list-marker-bad">×</span>「忙しい」が口癖</li>
+                        <li class="comparison-list-item"><span class="list-marker-bad">×</span>自分の時間を切り売り</li>
+                        <li class="comparison-list-item"><span class="list-marker-bad">×</span>新しいことを学ぶ余裕がない</li>
+                        <li class="comparison-list-item"><span class="list-marker-bad">×</span>同じ収入のまま</li>
                     </ul>
                 </div>
-                <div class="comp-card comp-good">
-                    <div class="rec-badge" style="top: -20px;">After This Course</div>
-                    <h3 class="comp-title text-gold">AI × GAS Master</h3>
-                    <ul class="comp-list" style="list-style: none; text-align: left;">
-                        <li>
-                            <div class="check-icon" style="display:inline-block; vertical-align:middle;"><svg width="18"
-                                    height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg></div> ワンクリックで業務が完了
-                        </li>
-                        <li>
-                            <div class="check-icon" style="display:inline-block; vertical-align:middle;"><svg width="18"
-                                    height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg></div> AIがコードを書くので挫折知らず
-                        </li>
-                        <li>
-                            <div class="check-icon" style="display:inline-block; vertical-align:middle;"><svg width="18"
-                                    height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg></div> 社内DX推進のリーダーとして活躍
-                        </li>
-                        <li>
-                            <div class="check-icon" style="display:inline-block; vertical-align:middle;"><svg width="18"
-                                    height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg></div> 副業・フリーランス案件の獲得
-                        </li>
+                <!-- 稼げる人 -->
+                <div class="comparison-card comparison-card-good">
+                    <div class="comparison-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon icon-good" width="48" height="48">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <h3 class="comparison-title comparison-title-good">稼げる人の特徴</h3>
+                    <ul class="comparison-list">
+                        <li class="comparison-list-item"><span class="list-marker-good">✓</span>AIを活用して自動化している</li>
+                        <li class="comparison-list-item"><span class="list-marker-good">✓</span>仕組みに働かせている</li>
+                        <li class="comparison-list-item"><span class="list-marker-good">✓</span>自分の手数を増やしている</li>
+                        <li class="comparison-list-item"><span class="list-marker-good">✓</span>空いた時間で次の挑戦ができる</li>
+                        <li class="comparison-list-item"><span class="list-marker-good">✓</span>収入の柱を増やしている</li>
                     </ul>
                 </div>
+            </div>
+            <div class="comparison-message">
+                <p class="comparison-message-text">
+                    稼げる人は、AIを取り入れて"自分の分身"を作っています。あなたが寝ている間も、仕組みが働いてくれる。その差が、1年後、5年後の収入に大きく響きます。
+                </p>
             </div>
         </div>
     </section>
@@ -1156,143 +1290,185 @@
     </section>
 
     <!-- Reasons -->
-    <section class="section reasons fade-in-section" style="background: var(--color-bg-dark);">
+    <section class="section reasons fade-in-section" style="background: var(--color-bg-navy);">
         <div class="container">
-            <h2 class="section-title">選ばれる3つの理由</h2>
-            <div class="benefits-grid">
-                <div class="text-center" style="padding: 2rem;">
-                    <div
-                        style="width: 80px; height: 80px; background: var(--color-bg-navy-light); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: var(--color-gold);">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
-                            <circle cx="12" cy="5" r="2"></circle>
-                            <path d="M12 7v4"></path>
-                            <line x1="8" y1="16" x2="8" y2="16"></line>
-                            <line x1="16" y1="16" x2="16" y2="16"></line>
+            <h2 class="section-title">AI×GAS実践講座が選ばれる3つの理由</h2>
+            <div class="reasons-grid">
+                <!-- Reason 1 -->
+                <div class="reason-card">
+                    <div class="reason-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                         </svg>
                     </div>
-                    <h3 class="font-bold mb-2">AI完全連携カリキュラム</h3>
-                    <p class="text-muted" style="font-size: 0.9rem;">ChatGPT/Claudeを前提としたコーディング手法。暗記は不要、AIへの「指示出し」を極めます。
-                    </p>
+                    <h3 class="reason-title">ChatGPT活用で挫折しない</h3>
+                    <p class="reason-description">難しいコードはChatGPTが書いてくれる。あなたは指示を出すだけ</p>
                 </div>
-                <div class="text-center" style="padding: 2rem;">
-                    <div
-                        style="width: 80px; height: 80px; background: var(--color-bg-navy-light); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: var(--color-gold);">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                <!-- Reason 2 -->
+                <div class="reason-card">
+                    <div class="reason-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
                         </svg>
                     </div>
-                    <h3 class="font-bold mb-2">徹底したマンツーマン</h3>
-                    <p class="text-muted" style="font-size: 0.9rem;">集団講義ではありません。あなたの業務課題を直接解決するためのオーダーメイド指導。</p>
+                    <h3 class="reason-title">実践重視のカリキュラム</h3>
+                    <p class="reason-description">座学より手を動かす。メール転記、CSV取込など実務で使えるツールを作成</p>
                 </div>
-                <div class="text-center" style="padding: 2rem;">
-                    <div
-                        style="width: 80px; height: 80px; background: var(--color-bg-navy-light); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; color: var(--color-gold);">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                <!-- Reason 3 -->
+                <div class="reason-card">
+                    <div class="reason-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
                         </svg>
                     </div>
-                    <h3 class="font-bold mb-2">実務直結の成果物</h3>
-                    <p class="text-muted" style="font-size: 0.9rem;">練習問題で終わりません。受講期間中に実際の業務ツールを開発し、運用までサポートします。</p>
+                    <h3 class="reason-title">質問し放題のサポート</h3>
+                    <p class="reason-description">専用Discordで講師に質問し放題。一人で悩まない環境</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Curriculum -->
-    <section class="section curriculum fade-in-section">
+    <section class="curriculum-section fade-in-section" id="curriculum">
         <div class="container">
             <h2 class="section-title">学習ロードマップ</h2>
-            <div class="timeline">
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+            <div class="curriculum-timeline">
+                <!-- STEP 1 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 1</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 1：基礎編</span>
-                        <h3 class="font-bold">生成AI・GASの基礎を学ぶ</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
-                            <li>生成AIとは？ChatGPTの使い方</li>
-                            <li>GASとは？できること・制限</li>
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">生成AI・GASの基礎を学ぶ</h3>
+                        <ul class="step-list">
+                            <li>生成AIとは？ChatGPTの基本的な使い方</li>
+                            <li>AIにうまく指示する4つのコツ</li>
+                            <li>GASとは？できること・得意なこと・制限</li>
                             <li>GASが動くまでの流れを理解</li>
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+
+                <!-- STEP 2 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 2</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 2：実践ウォーミングアップ</span>
-                        <h3 class="font-bold">関数×ChatGPTで自動化を体験</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">関数×ChatGPTで自動化を体験</h3>
+                        <ul class="step-list">
                             <li>関数とGASの違いを理解する</li>
                             <li>ChatGPTでスプレッドシート関数を作成</li>
                             <li>条件付き集計・自動抽出</li>
+                            <li>複数シート連携</li>
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+
+                <!-- STEP 3 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 3</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 3：実践編</span>
-                        <h3 class="font-bold">実務で使える自動化ツールを作成</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
-                            <li>Gmail→スプレッドシート自動転記</li>
-                            <li>CSVファイル自動転記</li>
-                            <li>Googleフォーム自動返信ボット</li>
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">実務で使える自動化ツールを作成</h3>
+                        <ul class="step-list">
+                            <li>実践①：Gmailからスプシに自動転記</li>
+                            <li>実践②：CSVファイルをスプシに自動転記</li>
+                            <li>実践③：Googleフォーム自動返信ボット</li>
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+
+                <!-- STEP 4 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 4</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 4：トラブルシューティング</span>
-                        <h3 class="font-bold">エラー対処法を身につける</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">エラー対処法を身につける</h3>
+                        <ul class="step-list">
                             <li>エラー時のChatGPTへの指示の出し方</li>
-                            <li>同じエラーが続く時の対処法</li>
+                            <li>同じエラーが続く時の3つの対処法</li>
+                            <li>エラー修正の心構え</li>
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+
+                <!-- STEP 5 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 5</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 5：応用編</span>
-                        <h3 class="font-bold">オリジナルツールを製作</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">オリジナルツールを製作</h3>
+                        <ul class="step-list">
                             <li>自動化したい作業の棚卸し</li>
+                            <li>参考にする実践編を選ぶ</li>
                             <li>ChatGPTにプロンプトを送る</li>
                             <li>トライ＆エラーで完成させる</li>
                         </ul>
                     </div>
                 </div>
-                <div class="timeline-step">
-                    <div class="step-dot"></div>
+
+                <!-- STEP 6 -->
+                <div class="curriculum-step">
+                    <div class="step-number">STEP 6</div>
                     <div class="step-content">
-                        <span class="step-num">STEP 6：上級編</span>
-                        <h3 class="font-bold">API連携で可能性を広げる</h3>
-                        <ul
-                            style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--color-text-muted); list-style: disc; padding-left: 1.2rem;">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="icon" style="width: 40px; height: 40px;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+                            </svg>
+                        </div>
+                        <h3 class="step-title">API連携で可能性を広げる</h3>
+                        <ul class="step-list">
                             <li>APIとは？連携のメリット</li>
-                            <li>ChatWork API連携</li>
-                            <li>Gemini API連携</li>
+                            <li>GAS×ChatWork API連携</li>
+                            <li>GAS×Gemini API連携</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- デモリンク -->
-            <div style="text-align: center; margin-top: 3rem;">
-                <a href="./demo/index.html" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.1rem;">
-                    📚 教材を無料でチラ見する →
-                </a>
+
+            <div class="curriculum-cta" style="text-align: center; margin-top: 3rem;">
+                <a href="./demo/index.html" class="btn btn-outline"
+                    style="padding: 1rem 2rem; font-size: 1.1rem; margin-right: 0; border: 1px solid #1E3A5F; color: #1E3A5F;">📚
+                    教材を無料でチラ見する →</a>
             </div>
         </div>
     </section>
@@ -1394,12 +1570,18 @@
                         <li>Discord質問し放題</li>
                     </ul>
                     <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
-                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
-                            <input type="checkbox" class="plan-agreement" data-plan="1" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
-                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        <label
+                            style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: #4B5563;">
+                            <input type="checkbox" class="plan-agreement" data-plan="1"
+                                style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank"
+                                    style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf"
+                                    target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
                         </label>
                     </div>
-                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-outline plan-cta-btn" data-plan="1" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank"
+                        class="pricing-button plan-cta-btn" data-plan="1"
+                        style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
 
                 <div class="plan-card recommended">
@@ -1413,12 +1595,18 @@
                         <li>Discord質問し放題</li>
                     </ul>
                     <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
-                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
-                            <input type="checkbox" class="plan-agreement" data-plan="2" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
-                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        <label
+                            style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: #4B5563;">
+                            <input type="checkbox" class="plan-agreement" data-plan="2"
+                                style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank"
+                                    style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf"
+                                    target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
                         </label>
                     </div>
-                    <a href="checkout-3month.html" class="btn btn-primary plan-cta-btn" data-plan="2" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <a href="checkout-3month.html" class="pricing-button pricing-button-recommended plan-cta-btn"
+                        data-plan="2"
+                        style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
 
                 <div class="plan-card">
@@ -1431,12 +1619,18 @@
                         <li>Discord質問し放題</li>
                     </ul>
                     <div class="agreement-box" style="margin-top: auto; margin-bottom: 1rem;">
-                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: var(--color-text-muted);">
-                            <input type="checkbox" class="plan-agreement" data-plan="3" style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
-                            <span><a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
+                        <label
+                            style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.8rem; color: #4B5563;">
+                            <!-- Darkened text -->
+                            <input type="checkbox" class="plan-agreement" data-plan="3"
+                                style="width: 16px; height: 16px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                            <span><a href="docs/privacy-policy.pdf" target="_blank"
+                                    style="color: var(--color-gold);">個人情報同意書</a>・<a href="docs/terms-of-service.pdf"
+                                    target="_blank" style="color: var(--color-gold);">利用規約</a>に同意</span>
                         </label>
                     </div>
-                    <a href="checkout-6month.html" class="btn btn-outline plan-cta-btn" data-plan="3" style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
+                    <a href="checkout-6month.html" class="pricing-button plan-cta-btn" data-plan="3"
+                        style="width: 100%; text-align: center; opacity: 0.5; pointer-events: none;">申し込む</a>
                 </div>
             </div>
         </div>
@@ -1447,9 +1641,10 @@
         <div class="container">
             <h2 class="section-title">よくあるご質問</h2>
             <div class="faq-container">
+                <!-- Q1 -->
                 <div class="faq-item">
                     <button class="faq-question">
-                        プログラミング完全未経験でも大丈夫ですか？
+                        プログラミング未経験でも大丈夫ですか？
                         <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1457,13 +1652,14 @@
                             </svg></span>
                     </button>
                     <div class="faq-answer">
-                        <p>はい、問題ありません。本講座の受講生の8割が未経験からスタートしています。AIを活用することで、構文を暗記する必要がなくなり、論理的思考さえあれば誰でもコードが書けるようになるプログラムです。
-                        </p>
+                        <p>はい、大丈夫です！受講者の80%がプログラミング未経験からスタートしています。ChatGPTを使ってコードを作成するので、難しいプログラミング知識は必要ありません。</p>
                     </div>
                 </div>
+
+                <!-- Q2 -->
                 <div class="faq-item">
                     <button class="faq-question">
-                        仕事が忙しく、学習時間が取れるか不安です。
+                        1日どれくらいの学習時間が必要ですか？
                         <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1471,13 +1667,14 @@
                             </svg></span>
                     </button>
                     <div class="faq-answer">
-                        <p>マンツーマンですので、あなたのペースに合わせてスケジュールを調整可能です。1日30分〜1時間程度の学習時間を確保いただければ、着実にスキルアップできるようカリキュラムを設計しています。
-                        </p>
+                        <p>1日30分〜1時間程度を目安にしています。お仕事や家事の合間に、ご自身のペースで進められます。</p>
                     </div>
                 </div>
+
+                <!-- Q3 -->
                 <div class="faq-item">
                     <button class="faq-question">
-                        MacとWindowsどちらでも受講できますか？
+                        サポートはどのように受けられますか？
                         <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1485,11 +1682,54 @@
                             </svg></span>
                     </button>
                     <div class="faq-answer">
-                        <p>はい、どちらでも可能です。Google Apps Scriptはブラウザ上で動作するため、パソコンのOSに依存しません。Google
-                            ChromeがインストールされているPCがあれば受講可能です。</p>
+                        <p>専用のDiscordサーバーで質問し放題です。講師が丁寧にサポートいたします。通常24時間以内に回答いたします。</p>
                     </div>
                 </div>
-                <!-- Add more FAQs as needed -->
+
+                <!-- Q4 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        どんなツールが作れるようになりますか？
+                        <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>メール自動転記、CSV取込、フォーム自動返信、ChatWork連携、Gemini連携など、実務で使える自動化ツールが作れるようになります。</p>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        分割払いはできますか？
+                        <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>はい、対応しております。お申込み時に分割払いをご選択いただけます。</p>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="faq-item">
+                    <button class="faq-question">
+                        受講期間内に終わらなかったらどうなりますか？
+                        <span class="plus-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>教材へのアクセスはサポート期間終了後も可能です。ご自身のペースで学習を続けていただけます。</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1497,7 +1737,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div style="font-weight: 900; font-size: 1.5rem; color: #fff; margin-bottom: 1rem;">AI×<span>GAS</span>
+            <div style="font-weight: 900; font-size: 1.5rem; color: #1E3A5F; margin-bottom: 1rem;">AI×<span>GAS</span>
             </div>
             <p style="margin-bottom: 2rem;">業務自動化のその先へ。</p>
             <p>&copy; 2025 AI x GAS Practical Course. All Rights Reserved.</p>
@@ -1560,7 +1800,7 @@
         const planCtaBtns = document.querySelectorAll('.plan-cta-btn');
 
         planAgreements.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
+            checkbox.addEventListener('change', function () {
                 const planId = this.dataset.plan;
                 const btn = document.querySelector(`.plan-cta-btn[data-plan="${planId}"]`);
                 if (this.checked) {
