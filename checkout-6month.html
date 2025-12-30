@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレミアムプラン お申し込み | AI×GAS実践講座</title>
+    <meta name="description" content="AI×GAS実践講座 プレミアムプラン（6ヶ月）のお申し込みページ">
+    <link rel="icon" href="./images/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg-dark: #0B1120;
+            --color-bg-navy: #1E3A5F;
+            --color-bg-navy-light: #2A4B75;
+            --color-gold: #D4AF37;
+            --color-gold-light: #F3D263;
+            --color-gold-gradient: linear-gradient(135deg, #DFBD69 0%, #9E7D30 100%);
+            --color-gold-text-gradient: linear-gradient(to right, #DEBA60, #F7E49A, #DEBA60);
+            --color-text-white: #FFFFFF;
+            --color-text-light: #F1F5F9;
+            --color-text-muted: #94A3B8;
+            --color-accent-warning: #F59E0B;
+            --glass-bg: rgba(30, 58, 95, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-navy) 100%);
+            color: var(--color-text-light);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .back-link {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--color-gold);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 3rem 0;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--color-gold-text-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            color: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .total-price {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .total-price .label {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-price .amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .total-price .tax {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step-card.step-1 {
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .step-card.step-2 {
+            border-left: 4px solid var(--color-gold-light);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--color-gold-gradient);
+            color: #000;
+            border-radius: 50%;
+            font-weight: 900;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-price .tax {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--color-gold-gradient);
+            color: #000;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            filter: brightness(1.1);
+        }
+
+        /* Arrow between steps */
+        .step-arrow {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+        }
+
+        .step-arrow svg {
+            color: var(--color-gold);
+            opacity: 0.6;
+        }
+
+        /* Notice Section */
+        .notice-section {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .notice-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            color: var(--color-accent-warning);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .notice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notice-list li {
+            color: var(--color-text-light);
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .notice-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent-warning);
+            border-radius: 50%;
+        }
+
+        .notice-note {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-link {
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        .footer-copyright {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .page-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .total-price .amount {
+                font-size: 2rem;
+            }
+
+            .step-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">AI×<span>GAS</span></a>
+            <a href="index-v2.html#plans" class="back-link">← 料金プランに戻る</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Page Title -->
+            <div class="page-title">
+                <span class="plan-badge">最上位プラン</span>
+                <h1>プレミアムプラン お申し込み</h1>
+            </div>
+
+            <!-- Total Price -->
+            <div class="total-price">
+                <p class="label">合計金額</p>
+                <p class="amount">59.8万円<span class="tax">（税込）</span></p>
+            </div>
+
+            <!-- Steps -->
+            <div class="steps-container">
+                <!-- Step 1 -->
+                <div class="step-card step-1">
+                    <div class="step-number">1</div>
+                    <h2 class="step-title">教材を購入する</h2>
+                    <p class="step-description">全カリキュラム教材へのアクセス権（1ヶ月間のサポート付き）</p>
+                    <p class="step-price">¥119,800<span class="tax">（税込）</span></p>
+                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-primary">STEP1 教材を購入する</a>
+                </div>
+
+                <!-- Arrow -->
+                <div class="step-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card step-2">
+                    <div class="step-number">2</div>
+                    <h2 class="step-title">サポートを追加する</h2>
+                    <p class="step-description">5ヶ月分のサポート延長（計6ヶ月間のサポート）</p>
+                    <p class="step-price">¥330,000<span class="tax">（税込）</span></p>
+                    <a href="https://buy.stripe.com/4gMdR94Fr5iR3cm4AB48009" target="_blank" class="btn btn-primary">STEP2 サポートを追加する</a>
+                </div>
+            </div>
+
+            <!-- Notice Section -->
+            <div class="notice-section">
+                <h3 class="notice-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    お申し込みの流れ
+                </h3>
+                <ol class="notice-list">
+                    <li>まずSTEP1の「教材を購入する」ボタンから決済を完了してください</li>
+                    <li>STEP1の決済完了後、このページに戻りSTEP2の決済に進んでください</li>
+                    <li>両方の決済が完了するとお申し込み完了です</li>
+                </ol>
+                <p class="notice-note">
+                    ※ STEP1のみの決済では1ヶ月プランとなります<br>
+                    ※ 分割払いをご希望の方は、各決済画面で分割払いを選択できます<br>
+                    ※ ご不明な点がございましたら、お気軽にお問い合わせください
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="index-v2.html#plans" class="footer-link">← 料金プランに戻る</a>
+            <p class="footer-copyright">&copy; 2025 AI x GAS Practical Course. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

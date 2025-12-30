@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI×GAS実践講座 - ChatGPTと連携して業務を自動化</title>
+  <meta name="description" content="ChatGPTと連携して業務を自動化。プログラミング未経験でも1ヶ月で自動化ツールが作れるようになる実践講座。">
+
+  <!-- OGP設定 -->
+  <meta property="og:title" content="AI×GAS実践講座">
+  <meta property="og:description" content="ChatGPTと連携して業務を自動化。プログラミング未経験でも1ヶ月で自動化ツールが作れるようになる実践講座。">
+  <meta property="og:image" content="./images/ogp.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 固定ヘッダー -->
+  <header id="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="./images/favicon.png" alt="" class="logo-icon">
+          AI×GAS実践講座
+        </div>
+        <a href="#pricing" class="cta-button-small">講座に申し込む</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- セクション1: ヒーロー -->
+  <section id="hero" class="hero-section">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <h1 class="hero-title">AI×GAS実践講座</h1>
+        <p class="hero-subtitle">〜ChatGPTと連携して業務を自動化〜</p>
+        <p class="hero-catchphrase">プログラミング未経験でも、1ヶ月で業務自動化ツールが作れるようになる</p>
+        <a href="#curriculum" class="cta-button">講座の詳細を見る</a>
+        <!-- ヒーロー画像プレースホルダー -->
+        <div class="hero-image-placeholder">
+          <!-- 画像: images/hero.png -->
+          <img src="./images/hero.png" alt="AI×GAS実践講座" class="hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション2: 実績バー -->
+  <section id="achievements" class="achievements-section">
+    <div class="container">
+      <div class="achievements-grid fade-in">
+        <div class="achievement-item">
+          <div class="achievement-number">90名以上</div>
+          <div class="achievement-label">累計受講者</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-number">95%</div>
+          <div class="achievement-label">受講満足度</div>
+        </div>
+        <div class="achievement-item">
+          <div class="achievement-number">80%</div>
+          <div class="achievement-label">未経験者率</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション3: 悩み提起 -->
+  <section id="problems" class="problems-section">
+    <div class="container">
+      <h2 class="section-title fade-in">こんなお悩みありませんか？</h2>
+      <div class="problems-content">
+        <div class="problems-image fade-in">
+          <!-- 画像: images/problem.png -->
+          <img src="./images/problem.png" alt="悩んでいるビジネスパーソン" class="problem-image">
+        </div>
+        <div class="problems-list fade-in">
+          <div class="problem-item">
+            <div class="problem-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+            </div>
+            <p class="problem-text">毎日の単純作業に時間を取られている</p>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+              </svg>
+            </div>
+            <p class="problem-text">自動化したいけど何から始めればいいか分からない</p>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+              </svg>
+            </div>
+            <p class="problem-text">プログラミングは難しそうで手が出せない</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション4: 稼げる人と稼げない人の違い -->
+  <section id="comparison" class="comparison-section">
+    <div class="container">
+      <h2 class="section-title fade-in">稼げる人と稼げない人、その差は"仕組み化"にあります</h2>
+      <div class="comparison-grid fade-in">
+        <!-- 稼げない人 -->
+        <div class="comparison-card comparison-card-bad">
+          <div class="comparison-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-bad">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <h3 class="comparison-title comparison-title-bad">稼げない人の特徴</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>全部手作業でやっている</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>「忙しい」が口癖</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>自分の時間を切り売り</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>新しいことを学ぶ余裕がない</li>
+            <li class="comparison-list-item"><span class="list-marker-bad">×</span>同じ収入のまま</li>
+          </ul>
+        </div>
+        <!-- 稼げる人 -->
+        <div class="comparison-card comparison-card-good">
+          <div class="comparison-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon icon-good">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </div>
+          <h3 class="comparison-title comparison-title-good">稼げる人の特徴</h3>
+          <ul class="comparison-list">
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>AIを活用して自動化している</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>仕組みに働かせている</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>自分の手数を増やしている</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>空いた時間で次の挑戦ができる</li>
+            <li class="comparison-list-item"><span class="list-marker-good">✓</span>収入の柱を増やしている</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comparison-message fade-in">
+        <p class="comparison-message-text">
+          稼げる人は、AIを取り入れて"自分の分身"を作っています。あなたが寝ている間も、仕組みが働いてくれる。その差が、1年後、5年後の収入に大きく響きます。
+        </p>
+      </div>
+      <div class="text-center fade-in">
+        <a href="#curriculum" class="cta-button">仕組み化を学ぶ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション5: 解決策（ベネフィット） -->
+  <section id="benefits" class="benefits-section">
+    <div class="container">
+      <h2 class="section-title fade-in">この講座で、こう変わります</h2>
+      <div class="benefits-grid fade-in">
+        <div class="benefit-item">
+          <div class="benefit-before">毎日2時間の手作業</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">完全自動化で0時間に</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-before">コピペ地獄のデータ転記</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">ワンクリックで完了</div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-before">プログラミング知識ゼロ</div>
+          <div class="benefit-arrow">→</div>
+          <div class="benefit-after">ChatGPTで自分でコードが書ける</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション6: 選ばれる3つの理由 -->
+  <section id="reasons" class="reasons-section">
+    <div class="container">
+      <h2 class="section-title fade-in">AI×GAS実践講座が選ばれる3つの理由</h2>
+      <div class="reasons-grid fade-in">
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            </svg>
+          </div>
+          <h3 class="reason-title">ChatGPT活用で挫折しない</h3>
+          <p class="reason-description">難しいコードはChatGPTが書いてくれる。あなたは指示を出すだけ</p>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+            </svg>
+          </div>
+          <h3 class="reason-title">実践重視のカリキュラム</h3>
+          <p class="reason-description">座学より手を動かす。メール転記、CSV取込など実務で使えるツールを作成</p>
+        </div>
+        <div class="reason-card">
+          <div class="reason-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+            </svg>
+          </div>
+          <h3 class="reason-title">質問し放題のサポート</h3>
+          <p class="reason-description">専用Discordで講師に質問し放題。一人で悩まない環境</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション7: カリキュラム -->
+  <section id="curriculum" class="curriculum-section">
+    <div class="container">
+      <h2 class="section-title fade-in">カリキュラム</h2>
+      <p class="section-subtitle fade-in">全74セクション・6ステップで実践スキルを習得</p>
+
+      <div class="curriculum-timeline fade-in">
+        <!-- STEP 1 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 1</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+              </svg>
+            </div>
+            <h3 class="step-title">生成AI・GASの基礎を学ぶ</h3>
+            <ul class="step-list">
+              <li>生成AIとは？ChatGPTの基本的な使い方</li>
+              <li>AIにうまく指示する4つのコツ</li>
+              <li>GASとは？できること・得意なこと・制限</li>
+              <li>GASが動くまでの流れを理解</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 2</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+              </svg>
+            </div>
+            <h3 class="step-title">関数×ChatGPTで自動化を体験</h3>
+            <ul class="step-list">
+              <li>関数とGASの違いを理解する</li>
+              <li>ChatGPTでスプレッドシート関数を作成</li>
+              <li>条件付き集計・自動抽出</li>
+              <li>複数シート連携</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 3</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+              </svg>
+            </div>
+            <h3 class="step-title">実務で使える自動化ツールを作成</h3>
+            <ul class="step-list">
+              <li>実践①：Gmailからスプシに自動転記</li>
+              <li>実践②：CSVファイルをスプシに自動転記</li>
+              <li>実践③：Googleフォーム自動返信ボット</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 4</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </div>
+            <h3 class="step-title">エラー対処法を身につける</h3>
+            <ul class="step-list">
+              <li>エラー時のChatGPTへの指示の出し方</li>
+              <li>同じエラーが続く時の3つの対処法</li>
+              <li>エラー修正の心構え</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 5</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+              </svg>
+            </div>
+            <h3 class="step-title">オリジナルツールを製作</h3>
+            <ul class="step-list">
+              <li>自動化したい作業の棚卸し</li>
+              <li>参考にする実践編を選ぶ</li>
+              <li>ChatGPTにプロンプトを送る</li>
+              <li>トライ＆エラーで完成させる</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="curriculum-step">
+          <div class="step-number">STEP 6</div>
+          <div class="step-content">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
+              </svg>
+            </div>
+            <h3 class="step-title">API連携で可能性を広げる</h3>
+            <ul class="step-list">
+              <li>APIとは？連携のメリット</li>
+              <li>GAS×ChatWork API連携</li>
+              <li>GAS×Gemini API連携</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="curriculum-cta fade-in">
+        <a href="https://rumos-automatic.github.io/gas-ai-textbook/" target="_blank" class="cta-button-outline">カリキュラム詳細を見る</a>
+        <a href="#pricing" class="cta-button">講座に申し込む</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション8: 受講者の声 -->
+  <section id="testimonials" class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title fade-in">受講者の声</h2>
+      <div class="testimonials-grid fade-in">
+        <!-- 受講者1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+          </div>
+          <p class="testimonial-text">
+            「毎日2時間かかっていたメール転記作業が、今では完全自動。本当に助かっています。プログラミング未経験でしたが、ChatGPTを使うので全く問題ありませんでした。」
+          </p>
+          <p class="testimonial-author">K.T さん（30代・事務職）</p>
+        </div>
+
+        <!-- 受講者2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+          </div>
+          <p class="testimonial-text">
+            「GASって難しそうと思っていましたが、講師の方が丁寧に教えてくれて1ヶ月で自分でツールが作れるようになりました。」
+          </p>
+          <p class="testimonial-author">M.S さん（40代・営業）</p>
+        </div>
+
+        <!-- 受講者3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="star-icon"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" /></svg>
+          </div>
+          <p class="testimonial-text">
+            「作業会形式で実際に手を動かしながら学べるのが良かった。質問もすぐに回答もらえて、挫折せずに続けられました。」
+          </p>
+          <p class="testimonial-author">Y.H さん（20代・マーケター）</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション9: 講師紹介 -->
+  <section id="instructor" class="instructor-section">
+    <div class="container">
+      <h2 class="section-title fade-in">講師紹介</h2>
+      <div class="instructor-content fade-in">
+        <div class="instructor-image-wrapper">
+          <!-- 画像: images/instructor.png -->
+          <img src="./images/instructor.png" alt="大岩 雄太" class="instructor-image">
+        </div>
+        <div class="instructor-info">
+          <h3 class="instructor-name">大岩 雄太</h3>
+          <p class="instructor-role">AI×GAS講師 / 業務自動化コンサルタント</p>
+          <ul class="instructor-achievements">
+            <li>✓ 累計90名以上にAI×GASを指導</li>
+            <li>✓ 自身も100以上の業務自動化ツールを開発</li>
+            <li>✓ 物販事業の業務を80%自動化した実績</li>
+          </ul>
+          <p class="instructor-message">
+            プログラミングは難しくありません。ChatGPTと組み合わせれば、誰でも業務を自動化できます。一緒に手を動かしながら学びましょう！
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション10: 料金プラン -->
+  <section id="pricing" class="pricing-section">
+    <div class="container">
+      <h2 class="section-title fade-in">料金プラン</h2>
+      <div class="pricing-grid fade-in">
+        <!-- 1ヶ月プラン -->
+        <div class="pricing-card">
+          <h3 class="pricing-plan-name">1ヶ月プラン</h3>
+          <div class="pricing-price">¥150,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 1ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+          </ul>
+          <a href="[STRIPE_LINK_1MONTH]" class="pricing-button">このプランで申し込む</a>
+        </div>
+
+        <!-- 3ヶ月プラン（おすすめ） -->
+        <div class="pricing-card pricing-card-recommended">
+          <div class="pricing-ribbon">おすすめ</div>
+          <h3 class="pricing-plan-name">3ヶ月プラン</h3>
+          <div class="pricing-price">¥298,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 3ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+            <li>✓ 月1回の個別相談</li>
+          </ul>
+          <a href="[STRIPE_LINK_3MONTH]" class="pricing-button pricing-button-recommended">このプランで申し込む</a>
+        </div>
+
+        <!-- 6ヶ月プラン -->
+        <div class="pricing-card">
+          <h3 class="pricing-plan-name">6ヶ月プラン</h3>
+          <div class="pricing-price">¥598,000<span class="pricing-tax">（税込）</span></div>
+          <ul class="pricing-features">
+            <li>✓ 全カリキュラム教材アクセス</li>
+            <li>✓ 6ヶ月間サポート</li>
+            <li>✓ Discord質問し放題</li>
+            <li>✓ 月2回の個別相談</li>
+            <li>✓ 特別特典付き</li>
+          </ul>
+          <a href="[STRIPE_LINK_6MONTH]" class="pricing-button">このプランで申し込む</a>
+        </div>
+      </div>
+      <p class="pricing-note fade-in">※分割払いにも対応しております</p>
+    </div>
+  </section>
+
+  <!-- セクション11: よくある質問 -->
+  <section id="faq" class="faq-section">
+    <div class="container">
+      <h2 class="section-title fade-in">よくある質問</h2>
+      <div class="faq-list fade-in">
+        <!-- Q1 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">プログラミング未経験でも大丈夫ですか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>はい、大丈夫です！受講者の80%がプログラミング未経験からスタートしています。ChatGPTを使ってコードを作成するので、難しいプログラミング知識は必要ありません。</p>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">1日どれくらいの学習時間が必要ですか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>1日30分〜1時間程度を目安にしています。お仕事や家事の合間に、ご自身のペースで進められます。</p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">サポートはどのように受けられますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>専用のDiscordサーバーで質問し放題です。講師が丁寧にサポートいたします。通常24時間以内に回答いたします。</p>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">どんなツールが作れるようになりますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>メール自動転記、CSV取込、フォーム自動返信、ChatWork連携、Gemini連携など、実務で使える自動化ツールが作れるようになります。</p>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">分割払いはできますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>はい、対応しております。お申込み時に分割払いをご選択いただけます。</p>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-q-text">受講期間内に終わらなかったらどうなりますか？</span>
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>教材へのアクセスはサポート期間終了後も可能です。ご自身のペースで学習を続けていただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- セクション12: 最終CTA -->
+  <section id="cta" class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-content fade-in">
+        <h2 class="final-cta-title">業務自動化の第一歩を踏み出しましょう</h2>
+        <p class="final-cta-subtitle">面倒な作業から解放される未来が、ここから始まります</p>
+        <a href="#pricing" class="cta-button cta-button-large">講座に申し込む</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-copyright">© 2025 AI×GAS実践講座</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
