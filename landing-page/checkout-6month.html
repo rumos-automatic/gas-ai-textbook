@@ -337,7 +337,7 @@
     <header class="header">
         <div class="container header-inner">
             <a href="index.html" class="logo">AI×<span>GAS</span></a>
-            <a href="index-v2.html#plans" class="back-link">← 料金プランに戻る</a>
+            <a href="index.html#plans" class="back-link">← 料金プランに戻る</a>
         </div>
     </header>
 
@@ -356,6 +356,20 @@
                 <p class="amount">59.8万円<span class="tax">（税込）</span></p>
             </div>
 
+            <!-- 同意チェックボックス -->
+            <div class="agreement-section" style="max-width: 500px; margin: 0 auto 2rem; text-align: center;">
+                <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; justify-content: center; padding: 1rem; background: var(--glass-bg); border-radius: 12px; border: 1px solid var(--glass-border);">
+                    <input type="checkbox" id="agreementCheck" style="width: 20px; height: 20px; margin-top: 2px; accent-color: var(--color-gold); cursor: pointer;">
+                    <span style="font-size: 0.9rem; color: var(--color-text-light); text-align: left;">
+                        <a href="docs/privacy-policy.pdf" target="_blank" style="color: var(--color-gold); text-decoration: underline;">個人情報同意書</a>
+                        および
+                        <a href="docs/terms-of-service.pdf" target="_blank" style="color: var(--color-gold); text-decoration: underline;">利用規約</a>
+                        に同意してお申し込みください
+                    </span>
+                </label>
+                <p id="agreementError" style="color: #EF4444; font-size: 0.85rem; margin-top: 0.5rem; display: none;">お申し込みには上記への同意が必要です</p>
+            </div>
+
             <!-- Steps -->
             <div class="steps-container">
                 <!-- Step 1 -->
@@ -364,7 +378,7 @@
                     <h2 class="step-title">教材を購入する</h2>
                     <p class="step-description">全カリキュラム教材へのアクセス権（1ヶ月間のサポート付き）</p>
                     <p class="step-price">¥119,800<span class="tax">（税込）</span></p>
-                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-primary">STEP1 教材を購入する</a>
+                    <a href="https://buy.stripe.com/aFaaEXdbXfXvaEOebb48007" target="_blank" class="btn btn-primary checkout-btn" style="opacity: 0.5; pointer-events: none;">STEP1 教材を購入する</a>
                 </div>
 
                 <!-- Arrow -->
@@ -381,7 +395,7 @@
                     <h2 class="step-title">サポートを追加する</h2>
                     <p class="step-description">5ヶ月分のサポート延長（計6ヶ月間のサポート）</p>
                     <p class="step-price">¥330,000<span class="tax">（税込）</span></p>
-                    <a href="https://buy.stripe.com/4gMdR94Fr5iR3cm4AB48009" target="_blank" class="btn btn-primary">STEP2 サポートを追加する</a>
+                    <a href="https://buy.stripe.com/4gMdR94Fr5iR3cm4AB48009" target="_blank" class="btn btn-primary checkout-btn" style="opacity: 0.5; pointer-events: none;">STEP2 サポートを追加する</a>
                 </div>
             </div>
 
@@ -412,10 +426,46 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <a href="index-v2.html#plans" class="footer-link">← 料金プランに戻る</a>
+            <a href="index.html#plans" class="footer-link">← 料金プランに戻る</a>
             <p class="footer-copyright">&copy; 2025 AI x GAS Practical Course. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // 同意チェックボックス制御
+        const agreementCheck = document.getElementById('agreementCheck');
+        const agreementError = document.getElementById('agreementError');
+        const checkoutBtns = document.querySelectorAll('.checkout-btn');
+
+        function updateCheckoutButtons() {
+            const isChecked = agreementCheck.checked;
+            checkoutBtns.forEach(btn => {
+                if (isChecked) {
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                } else {
+                    btn.style.opacity = '0.5';
+                    btn.style.pointerEvents = 'none';
+                }
+            });
+            if (isChecked) {
+                agreementError.style.display = 'none';
+            }
+        }
+
+        agreementCheck.addEventListener('change', updateCheckoutButtons);
+
+        // 無効化されたボタンをクリックしようとした時のエラー表示
+        checkoutBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (!agreementCheck.checked) {
+                    e.preventDefault();
+                    agreementError.style.display = 'block';
+                    document.querySelector('.agreement-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
