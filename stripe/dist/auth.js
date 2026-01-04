@@ -8,45 +8,90 @@ const SALES_SHEET_NAME = '売上記録';
 const EMAIL_COLUMN = 4; // D列
 /**
  * Web App POSTエンドポイント
- * メールアドレスを受け取り、認証結果を返す
+ * Stripe Webhookまたはメール認証を処理
  */
 function doPost(e) {
-    // CORS対応
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
     try {
-        const requestData = JSON.parse(e.postData.contents);
-        const email = requestData.email?.toLowerCase().trim();
-        if (!email) {
+        // Stripe Webhookかどうかを判定
+        // GAS Web AppではHTTPヘッダーに直接アクセスできないため、
+        // ペイロードの内容でStripe Webhookかどうかを判定
+        const payload = e.postData.contents;
+        if (isStripeWebhookPayload(payload)) {
+            // Stripe Webhook処理
+            const signatureHeader = getStripeSignatureFromRequest(e);
+            const result = processStripeWebhook(payload, signatureHeader);
             return output.setContent(JSON.stringify({
-                success: false,
-                message: 'メールアドレスを入力してください'
+                received: true,
+                success: result.success,
+                message: result.message
             }));
         }
-        const isValid = checkEmailInSalesSheet(email);
-        if (isValid) {
-            const token = generateAuthToken(email);
-            const expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000); // 30日間有効
-            log('INFO', '認証成功', { email: email });
-            return output.setContent(JSON.stringify({
-                success: true,
-                token: token,
-                expiresAt: expiresAt
-            }));
-        }
-        log('WARN', '認証失敗: メールアドレスが見つかりません', { email: email });
-        return output.setContent(JSON.stringify({
-            success: false,
-            message: 'このメールアドレスでの購入記録が見つかりません。\n決済時に使用したメールアドレスをご確認ください。'
-        }));
+        // 認証リクエスト処理
+        return handleAuthPostRequest(e, output);
     }
     catch (error) {
-        log('ERROR', '認証処理でエラーが発生', { error: String(error) });
+        log('ERROR', 'POSTリクエスト処理でエラーが発生', { error: String(error) });
         return output.setContent(JSON.stringify({
             success: false,
             message: 'エラーが発生しました。しばらく経ってから再度お試しください。'
         }));
     }
+}
+/**
+ * Stripe Webhookペイロードかどうかを判定
+ */
+function isStripeWebhookPayload(payload) {
+    try {
+        const data = JSON.parse(payload);
+        // Stripe Webhookは "type" と "data.object" を持つ
+        return !!(data.type && data.data && data.data.object && data.id?.startsWith('evt_'));
+    }
+    catch {
+        return false;
+    }
+}
+/**
+ * Stripe-Signatureヘッダーを取得（可能な場合）
+ * GAS Web Appの制限により、直接ヘッダーにアクセスできない場合がある
+ */
+function getStripeSignatureFromRequest(e) {
+    // GAS Web Appでは通常、HTTPヘッダーに直接アクセスできない
+    // クエリパラメータ経由での代替手段を試みる
+    if (e.parameter && e.parameter['stripe_signature']) {
+        return e.parameter['stripe_signature'];
+    }
+    return null;
+}
+/**
+ * 認証POSTリクエストを処理
+ */
+function handleAuthPostRequest(e, output) {
+    const requestData = JSON.parse(e.postData.contents);
+    const email = requestData.email?.toLowerCase().trim();
+    if (!email) {
+        return output.setContent(JSON.stringify({
+            success: false,
+            message: 'メールアドレスを入力してください'
+        }));
+    }
+    const isValid = checkEmailInSalesSheet(email);
+    if (isValid) {
+        const token = generateAuthToken(email);
+        const expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000); // 30日間有効
+        log('INFO', '認証成功', { email: email });
+        return output.setContent(JSON.stringify({
+            success: true,
+            token: token,
+            expiresAt: expiresAt
+        }));
+    }
+    log('WARN', '認証失敗: メールアドレスが見つかりません', { email: email });
+    return output.setContent(JSON.stringify({
+        success: false,
+        message: 'このメールアドレスでの購入記録が見つかりません。\n決済時に使用したメールアドレスをご確認ください。'
+    }));
 }
 /**
  * Web App GETエンドポイント

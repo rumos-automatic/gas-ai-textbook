@@ -2,6 +2,40 @@
 
 このファイルは、GAS短期講座プロジェクトの変更履歴を記録します。
 
+## [2026-01-04] - Stripe Webhook連携でDiscord招待メール自動送信機能を実装
+
+### 🎉 新規追加
+
+- ✅ **Stripe決済完了時にDiscord招待メールを自動送信**
+  - Stripe Webhook（`checkout.session.completed`）を受信してメール送信
+  - 対象商品をPrice IDで指定可能（講座本体のみ送信、サポート延長は除外）
+  - 重複送信防止機能（「Discord招待メール送信ログ」シートで管理）
+
+- ✅ **新規ファイル追加**
+  - `stripe/src/email.ts`: Discord招待メール送信モジュール（HTMLメールテンプレート付き）
+  - `stripe/src/webhook.ts`: Stripe Webhook処理モジュール（署名検証対応）
+
+- ✅ **既存ファイル修正**
+  - `stripe/src/auth.ts`: Webhookと認証リクエストのルーティング分岐を追加
+  - `stripe/src/sheet.ts`: メール送信ログシート管理機能を追加
+  - `stripe/appsscript.json`: Gmail送信スコープ（`gmail.send`）を追加
+
+### 🔧 技術詳細
+
+- **Webhook処理フロー**: Stripe → GAS Web App → Price ID判定 → メール送信 → ログ記録
+- **メールテンプレート**: HTMLメール（Discordカラー #5865F2）、プレーンテキスト両対応
+- **設定項目（Script Properties）**:
+  - `STRIPE_WEBHOOK_SECRET`: Webhook署名検証用シークレット
+  - `DISCORD_ELIGIBLE_PRICE_IDS`: メール送信対象のPrice ID（カンマ区切り）
+  - `DISCORD_INVITE_LINK`: Discord招待リンク
+
+**改善効果**:
+- 決済完了後、即座にDiscord招待メールが自動送信される
+- 手動でのメール送信作業が不要に
+- 対象商品の指定で、講座本体購入者のみにDiscord招待を送信
+
+---
+
 ## [2025-12-30] - LPデザイン全面リニューアル（ホワイトテーマ化）
 
 ### 🎨 デザイン変更

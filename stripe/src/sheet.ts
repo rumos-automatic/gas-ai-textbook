@@ -182,3 +182,124 @@ function appendSalesRecords(records: SalesRecord[]): void {
   sheet.getRange(lastRow + 1, 1, rowsData.length, HEADERS.length).setValues(rowsData);
   log('INFO', `${records.length}件のレコードを追記しました`);
 }
+
+// ============================================
+// Discord招待メール送信ログ機能
+// ============================================
+
+const EMAIL_LOG_SHEET_NAME = 'Discord招待メール送信ログ';
+const EMAIL_LOG_HEADERS = ['Session ID', 'Email', '商品名', '送信日時'];
+
+/**
+ * メール送信ログシートを取得（存在しない場合は作成）
+ */
+function getEmailLogSheet(): GoogleAppsScript.Spreadsheet.Sheet {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(EMAIL_LOG_SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(EMAIL_LOG_SHEET_NAME);
+    setupEmailLogSheet(sheet);
+    log('INFO', `シート「${EMAIL_LOG_SHEET_NAME}」を作成しました`);
+  }
+
+  return sheet;
+}
+
+/**
+ * メール送信ログシートの初期設定
+ */
+function setupEmailLogSheet(sheet: GoogleAppsScript.Spreadsheet.Sheet): void {
+  // ヘッダー行を設定
+  const headerRange = sheet.getRange(1, 1, 1, EMAIL_LOG_HEADERS.length);
+  headerRange.setValues([EMAIL_LOG_HEADERS]);
+
+  // ヘッダーのスタイル設定
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#5865F2');  // Discordカラー
+  headerRange.setFontColor('#ffffff');
+  headerRange.setHorizontalAlignment('center');
+
+  // 列幅を設定
+  sheet.setColumnWidth(1, 300);  // Session ID
+  sheet.setColumnWidth(2, 250);  // Email
+  sheet.setColumnWidth(3, 200);  // 商品名
+  sheet.setColumnWidth(4, 180);  // 送信日時
+
+  // 1行目を固定
+  sheet.setFrozenRows(1);
+}
+
+/**
+ * メールが既に送信済みかチェック
+ * @param sessionId Checkout Session ID
+ */
+function isEmailAlreadySent(sessionId: string): boolean {
+  const sheet = getEmailLogSheet();
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow <= 1) {
+    return false;
+  }
+
+  // A列（Session ID）のデータを取得
+  const data = sheet.getRange(2, 1, lastRow - 1, 1).getValues();
+
+  for (const row of data) {
+    if (String(row[0]) === sessionId) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * メール送信記録を保存
+ * @param sessionId Checkout Session ID
+ * @param email 送信先メールアドレス
+ * @param productName 商品名
+ */
+function markEmailSentForSession(sessionId: string, email: string, productName: string): void {
+  const sheet = getEmailLogSheet();
+  const timestamp = Utilities.formatDate(
+    new Date(),
+    'Asia/Tokyo',
+    'yyyy-MM-dd HH:mm:ss'
+  );
+
+  sheet.appendRow([sessionId, email, productName, timestamp]);
+  log('INFO', 'メール送信記録を保存しました', { sessionId, email, productName });
+}
+
+/**
+ * メール送信ログを取得（直近N件）
+ * @param limit 取得件数（デフォルト: 10）
+ */
+function getRecentEmailLogs(limit: number = 10): Array<{sessionId: string; email: string; productName: string; sentAt: string}> {
+  const sheet = getEmailLogSheet();
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow <= 1) {
+    return [];
+  }
+
+  const startRow = Math.max(2, lastRow - limit + 1);
+  const numRows = lastRow - startRow + 1;
+  const data = sheet.getRange(startRow, 1, numRows, EMAIL_LOG_HEADERS.length).getValues();
+
+  return data.reverse().map(row => ({
+    sessionId: String(row[0]),
+    email: String(row[1]),
+    productName: String(row[2]),
+    sentAt: String(row[3])
+  }));
+}
+
+/**
+ * メール送信ログの件数を取得
+ */
+function getEmailLogCount(): number {
+  const sheet = getEmailLogSheet();
+  return Math.max(0, sheet.getLastRow() - 1);
+}
